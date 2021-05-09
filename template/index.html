@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
-    <link href="/template/resource/app.css" rel="stylesheet">
     <script src="/template/resource/jquery.min.js"></script>
     <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
     <script src="/template/resource/bootstrap.bundle.min.js"></script>
@@ -22,6 +21,8 @@
     <meta name="msapplication-TileImage" content="logo/logo-144.png">
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <link rel="manifest" href="/manifest.json">
+    <!-- pwa -->
+    <link href="/template/resource/app.css" rel="stylesheet">
     <?php if(empty($category_name)) {?>
     <title>Mcqschools - Practice mcq questions, Conduct online exams</title>
     <meta name="description"
@@ -115,7 +116,11 @@
                         </div>
 
                         <!-- Question -->
-                        <div class="h6 mb-4" id="questionDisplay">Question</div>
+                        <div class="h6 mb-4">
+                            <pre id="questionDisplay">
+                                Question
+                            </pre>
+                        </div>
 
                         <!-- Ans -->
                         <form id="quizOptionForm">
