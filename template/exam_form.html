@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title>Exam Edit</title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+    <!-- BODY -->
+    <div class="container mt-4">
+
+        <!--  Exam Form -->
+        <div class="p-3 mt-4 mb-4 pb-3 ">
+            <form action="/exam/save" method="post">
+                <input name="id" type="hidden" value="<?php echo $exam->id ?>">
+                <input name="category_id" type="hidden" id="categoryId" value="<?php echo $exam->category_id ?>">
+
+                <div class="row">
+                    <div class="col-12 col-md-6 m-auto shadow-sm p-4 rounded">
+                        <div class="col-12 h5 pb-2">Exam</div>
+
+                        <!-- title input -->
+                        <div class="form-group">
+                            <label class="small">Title</label>
+                            <input name="title" type="text" class="form-control form-control" placeholder="Title"
+                                minlength="3" maxlength="100" autocomplete="off" required
+                                value="<?php echo $exam->title ?>">
+                        </div>
+                        <!-- category input -->
+                        <div class="form-group mt-2" style="position: relative">
+                            <label class="small">Category</label>
+                            <ul class="list-group list-group-flush bg-white border border-primary shadow-sm rounded"
+                                id="autocompleteResult"
+                                style="position: absolute; top: 65px; bottom:auto; left: auto; right: auto; z-index: 100; width: 100%; display: none;">
+                            </ul>
+                            <input name="categoryName" id="categorySearchQuery" type="text" class="form-control"
+                                placeholder="Category" autocomplete="off" value="<?php echo $category->title ?>"
+                                required>
+
+                        </div>
+                        <!-- descp input -->
+                        <div class="form-group mt-2">
+                            <label class="small">Description</label>
+                            <textarea name="descp" type="text" class="form-control" placeholder="Description"
+                                maxlength="250"><?php echo $exam->descp ?></textarea>
+                        </div>
+                        <!-- point input -->
+                        <div class="form-group mt-2 mb-2">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="small">Point</label>
+                                    <input name="point" type="text" class="form-control"
+                                        value="<?php echo $exam->point ?>" autocomplete="off" required>
+                                </div>
+                                <div class="col">
+                                    <label class="small">Negative Point</label>
+                                    <input name="negative_point" type="text" class="form-control"
+                                        value="<?php echo $exam->negative_point ?>" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- duration input -->
+                        <div class="form-group">
+                            <label class="small">Duration</label>
+                            <div class="input-group mb-3">
+                                <input name="duration_mins" type="number" max="240" min="10" class="form-control"
+                                    value="<?php echo $exam->duration_mins ?>" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Min</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- time input -->
+                        <!--
+                        <div class="form-group mt-2">
+                            <label class="small">Start Time</label>
+                            <input name="start_time" type="datetime-local" class="form-control" value="<?php echo $exam->start_time ?>" autocomplete="off" required>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label class="small">End Time</label>
+                            <input name="end_time" type="datetime-local" class="form-control" value="<?php echo $exam->end_time ?>" autocomplete="off" required>
+                        </div>
+                        -->
+
+                        <!-- close or save changes -->
+                        <div class="mt-4 pt-3 border-top">
+                            <div class="row">
+                                <div class="col">
+                                    <?php if(!empty($exam->id)) { ?>
+                                    <a id="delete" href="/exam/delete/<?php echo $exam->id ?>"
+                                        class="btn btn-sm btn-light">Delete</a>
+                                    <?php } ?>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-sm btn-primary float-end">Save</button>
+                                    <a th:href="@{ '/creator' }"
+                                        class="btn btn-sm btn-secondary float-end me-1">Close</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+
+
+
+
+    <script>
+
+        var autocompleteList = [];
+        var timer = 0;
+        $("#categorySearchQuery").keyup(function () {
+            if (timer) { clearTimeout(timer); }
+            timer = setTimeout(categoryQuerySuggest, 400);
+        });
+
+        function categoryQuerySuggest() {
+            searchStr = $("#categorySearchQuery").val();
+            if (searchStr.length > 0) {
+                $("#categoryId").val(0);
+                $.ajax({
+                    type: 'GET',
+                    //dataType: 'JSON',
+                    url: "/category/autocomplete/" + searchStr,
+                    success: function (result) {
+                        result = JSON.parse(result);
+                        $("#autocompleteResult").show();
+                        $("#autocompleteResult").empty();
+                        autocompleteList = result;
+                        $.each(result, function (key, obj) {
+                            $("#autocompleteResult").append('<li class="list-group-item grayHover p-2"><a href="#" class="text-decoration-none d-block text-dark">' + obj.title + '</a></li>');
+                        });
+                        if (result.length == 0)
+                            $("#autocompleteResult").hide();
+                    }
+                });
+            } else {
+                $("#autocompleteResult").hide();
+            }
+
+        }
+
+
+        $("body").on("click", "ul#autocompleteResult li", function () {
+            catStr = $(this).text().trim();
+            $.each(autocompleteList, function (key, value) {
+                if (catStr == value.title) {
+                    $("#categorySearchQuery").val(catStr);
+                    $("#categoryId").val(value.id);
+                }
+            });
+            $("#autocompleteResult").hide();
+        });
+        $("body").on("click", function () {
+            $("#autocompleteResult").hide();
+        });
+
+
+        // delete exam
+        $('#delete').click(function () {
+            return confirm('Are you sure you want to delete');
+        });
+
+    </script>
+</body>
+
+</html>

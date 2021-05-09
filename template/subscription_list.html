@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title th:text="${user.displayName}">Title</title>
+</head>
+
+<body class="bg-light">
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+
+    <!-- BODY -->
+    <div class="container mt-2 p-4">
+
+        <!-- Profile -->
+
+        <!-- Exam List -->
+        <div class="row p-2">
+            <div class="col justify-content-center align-self-center">
+                <h5 class="text-secondary"><?php echo $creator_name ?></h5>
+            </div>
+            <div class="col text-end">
+                <?php if($isSubscribed){ ?>
+                    <a href="/subscription/unsubscribe/<?php echo $creator_id ?>" class="btn btn-sm btn-secondary">Unsubscribe</a>
+                <?php }else{ ?>
+                    <a href="/subscription/subscribe/<?php echo $creator_id ?>" class="btn btn-sm btn-danger">Subscribe</a>
+                <?php } ?>
+            </div>
+        </div>
+
+        <div class="p-3 mt-5 mb-5 <?php echo sizeof($examlist)==0 ? ' ' : 'd-none' ?>">
+            You have not added any exam yet
+        </div>
+
+
+        <div class="<?php echo sizeof($examlist)==0 ? 'd-none' : ' ' ?> list-group list-group-striped bg-white rounded shadow-sm">
+
+            <?php foreach ($examlist as $exam) { ?>
+            <div class="list-group-item list-group-item-action">
+                <div class="row">
+
+                    <div class="col-12 col-md-7">
+                        <a href="/examcenter/start/<?php echo $exam->id ?>" class="d-block text-decoration-none">
+                            <div class="h6">
+                                <?php echo $exam->title ?>
+                            </div>
+                            <div class="small text-secondary">
+                                <span>
+                                    <?php echo date_format(date_create($exam->created_date),"d F Y") ?>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-12 col-md-5 text-secondary">
+                        <div class="d-flex small pt-2">
+                            <div class="flex-fill justify-content-center align-self-center">
+                                <span class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-clipboard-data" viewBox="0 0 16 16">
+                                        <path
+                                            d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z" />
+                                        <path
+                                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                        <path
+                                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                                    </svg>
+                                </span>
+                                <span class="font-weight-bold">
+                                    <?php echo $exam->number_of_question ?>
+                                </span>
+                            </div>
+                            <div class="flex-fill justify-content-center align-self-center">
+                                <span class="text-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+                                      </svg>
+                                </span>
+                                <span class="font-weight-bold">
+                                    <?php echo $exam->attemped ?>
+                                </span>
+                            </div>
+                            <div class="flex-fill justify-content-center align-self-center">
+                                <span class="text-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-clock" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                        <path
+                                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                                    </svg>
+                                </span>
+                                <span class="font-weight-bold">
+                                    <?php echo $exam->duration_mins ?>
+                                </span> mins
+                            </div>
+                            <div class="flex-fill justify-content-center align-self-center text-end">
+                                <input type="hidden" value="/examcenter/start/<?php echo $exam->id ?>">
+                                <button id="copyUrlBtn" class="btn btn-sm btn-outline-secondary p-1 ps-2 pe-2" data-bs-toggle="tooltip"
+                                    data-placement="top" title="Copy Exam Link">
+                                    <span class="small">Copy Link</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <?php } ?>
+
+        </div>
+
+        <!-- pagination -->
+        <div class="mb-5 mt-3">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item <?php echo $currentPage==1? 'disabled':'' ?>">
+                        <a class="page-link"
+                            href="/exam/list/<?php echo $currentPage-1 ?>/<?php echo $pages ?>">Prev</a>
+                    </li>
+
+                    <?php for($i = 1; $i <= $pages; $i++) {?>
+                    <?php if($i!=$currentPage) { ?>
+                    <li class="page-item"><a class="page-link" href="/exam/list/<?php echo $i ?>/<?php echo $pages ?>">
+                            <?php echo $i ?>
+                        </a></li>
+                    <?php } else { ?>
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            <?php echo $i ?>
+                        </span>
+                    </li>
+                    <?php } ?>
+                    <?php } ?>
+
+                    <li class="page-item <?php echo $currentPage==$pages? 'disabled':'' ?>">
+                        <a class="page-link"
+                            href="/exam/list/<?php echo $currentPage+1 ?>/<?php echo $pages ?>">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+    </div>
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+
+
+
+    <script>
+        var currentToolTip = undefined;
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+        $("button").click(function () {
+            console.log(1111);
+            //$(this).parent().find('input').select();
+            var $temp = $("<textarea>");
+            $("body").append($temp);
+            host = "http://" + $(location).attr('hostname');
+            $temp.val(host + $(this).parent().find('input').val()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            $(this).tooltip('hide')
+                .attr('data-bs-original-title', 'Copied!')
+                .tooltip('show');
+            currentToolTip = $(this);
+        });
+        $("button").mouseleave(function () {
+            $(currentToolTip).attr('data-bs-original-title', 'Copy Exam Link');
+            currentToolTip = undefined;
+        });
+
+    </script>
+</body>
+
+</html>

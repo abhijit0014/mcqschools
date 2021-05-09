@@ -1,0 +1,188 @@
+<div class="bg-top shadow-sm">
+    <div class="border-0">
+        <div class="container">
+
+            <div class="row">
+                <!-- Logo -->
+                <div class="col-9 col-sm-4 col-md-3 h4 mb-0 pt-2 pb-2">
+                    <a href="/" class="text-decoration-none">
+                        <div class="text-white">
+                            <span class="fw-bold h2">mcQ</span>
+                            <span class="fs-6">Schools</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-3 d-block d-sm-none pt-2 pb-2 pe-3 text-end">
+                        <a href="/user/profile" class="text-decoration-none text-white">
+                            <span style=" vertical-align: 0.125em;" class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                  </svg>
+                            </span>
+                        </a>
+                </div>
+
+                <!-- category search -->
+                <div class="col-12 col-sm-8 col-md-9 pt-2 pb-2">
+                    <form id="searchForm">
+                        <div class="input-group bg-light rounded" style="position: relative">
+                            <input id="searchQuery" type="text" class="form-control border-0" placeholder="Search"
+                                autocomplete="off">
+                            <button type="submit" class="btn border-0">
+                                <span style="vertical-align: 0.125em;">
+                                    <img src="/template/icon/search.svg" alt="search" width="20px">
+                                </span>
+                            </button>
+                            <div class="bg-white border shadow-sm rounded" id="querySuggationResultDisplay"
+                                style="position: absolute; width: 100%; top: 100%; z-index: 100; left: 0px; right: auto; display: none;">
+                                <div id="searchQueryList"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="border-bottom bg-white">
+    <div class="container ">
+        <div class="d-flex bd-highlight small  pt-2 pb-2">
+
+            <div class="flex-fill bd-highlight border-end">
+                <a href="/exam/list" class="text-decoration-none text-secondary">
+                    <span style="vertical-align: 0.125em;" class="pe-2">
+                        <img src="/template/icon/conduct-exam.svg" alt="conduct exam">
+                    </span>
+                    <span class="d-inline-block">Exam Creator</span>
+                </a>
+            </div>
+
+
+            <?php if (!isset($_SESSION['authenticated']) ){ ?>
+
+            <div class="flex-fill bd-highlight text-end">
+                <a href="/user/login" class="text-decoration-none text-secondary">
+                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                        <img src="/template/icon/login.svg" alt="login">
+                    </span>
+                    Login
+                </a>
+            </div>
+            <div class="flex-fill bd-highlight text-end">
+                <a href="/user/register" class="text-decoration-none text-secondary">
+                    <span style="vertical-align: 0.125em;" class="ps-2 pe-2">
+                        <img src="/template/icon/register.svg" alt="register">
+                    </span>
+                    Register
+                </a>
+            </div>
+
+            <?php } else { ?>
+
+            <div class="flex-fill bd-highlight text-center">
+                <a href="/examcenter/myresults" class="text-decoration-none text-secondary">
+                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                        <img src="/template/icon/result.svg" alt="result">
+                    </span>
+                    <span class="d-inline-block">My Results</span>
+                </a>
+            </div>
+
+            <div class="flex-fill bd-highlight text-center">
+                <a href="/exam/subscription" class="text-decoration-none text-secondary">
+                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                        <img src="/template/icon/subscribe.svg" alt="result">
+                    </span>
+                    Subscriptions
+                </a>
+            </div>
+
+            <div class="flex-fill bd-highlight text-center d-none d-sm-block">
+                <a href="/user/profile" class="text-decoration-none text-secondary">
+                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                        <img src="/template/icon/setting.svg" alt="setting">
+                    </span>
+                    Settings
+                </a>
+            </div>
+
+            <?php } ?>
+
+            <?php if (isset($_SESSION['authenticated']) ){
+                if ($_SESSION['user_role']=='admin') { ?>
+            <div class="flex-fill bd-highlight text-center">
+                <a href="/category/list" class="text-decoration-none text-secondary">
+                    <span style="vertical-align: 0.125em;" class="ps-2 pe-2">
+                        <img src="/template/icon/category.svg" alt="category">
+                    </span>
+                    Category
+                </a>
+            </div>
+            <?php }} ?>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    // search script -----------------------------------------------------------
+    var timer = 0;
+
+    $("#searchQuery").keyup(function () {
+        if (timer) { clearTimeout(timer); }
+        timer = setTimeout(searchQuerySuggest, 400);
+    });
+
+    $("body").click(function () {
+        $("#querySuggationResultDisplay").hide();
+    })
+
+    // form submit
+    $("#searchForm").submit(function (e) {
+        e.preventDefault();
+        search_query = $("#searchQuery").val();
+        window.location.href = "/search/query/" + search_query.replace(' ', '-');
+    });
+
+    // suggation click
+    $("#searchQueryList").on("click", "span", function () {
+        search_query = $(this).text();
+        window.location.href = "/search/query/" + search_query.replace(' ', '-');
+    });
+
+    function searchQuerySuggest() {
+        searchStr = $("#searchQuery").val();
+        if (searchStr.length > 0) {
+            $.ajax({
+                type: 'GET',
+                url: "/search/autocomplete/" + searchStr,
+                success: function (result) {
+                    result = JSON.parse(result);
+
+                    // topic list
+                    $("#searchQueryList").empty();
+                    $("#querySuggationResultDisplay").show();
+
+                    if (result.length) {
+                        $.each(result, function (key, obj) {
+                            $("#searchQueryList").append('<span class="btn pe-2 ps-2 pt-1 pb-1 grayHover text-start text-dark d-block border-bottom">' + obj.query_str + '</span>');
+                        });
+                    }
+
+                    if (!result.length) $("#querySuggationResultDisplay").hide();
+                }
+            });
+        } else {
+            $("#querySuggationResultDisplay").hide();
+        }
+    }
+</script>

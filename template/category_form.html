@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title>Category</title>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+    <!-- BODY -->
+    <div class="container">
+        <div class="row">
+            <div class="col-10 col-sm-8 col-md-6 col-lg-4 m-auto">
+                <div class="mt-5 mb-3">
+                    <span class="h4">Category</span>
+                </div>
+                <form action="/category/save_process" method="post">
+                    <div>
+                        <input name="id" type="hidden" value="<?php echo $category->id ?>">
+                    </div>
+                    <div class="row form-group">
+                        <div class="col">
+                            <label>Name</label>
+                            <input name="title" value="<?php echo $category->title ?>" type="text" class="form-control" placeholder="Category name"  required>
+                        </div>
+                    </div>
+                    <div class="row form-group mt-2">
+                        <div class="col">
+                            <label>Status</label>
+                            <select name="enabled" class="form-control" required>
+                                <option value="true" <?php echo $category->enabled == true ? 'selected' : '' ?>>Enabled</option>
+                                <option value="false" <?php echo $category->enabled == false ? 'selected' : '' ?>>Disabled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-sm btn-primary float-end">Save Category</button>
+                        <a href="/category/list" class="btn btn-sm btn-secondary me-2 float-end">Close</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

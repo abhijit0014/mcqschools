@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link href="/template/resource/highlight.css" rel="stylesheet">
+    <script src="/template/resource/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title>
+        <?php echo $exam->title ?>
+    </title>
+    <style>
+        .dot {
+            height: 15px;
+            width: 15px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .vertical-center {
+            min-height: 100%;
+            /* Fallback for browsers do NOT support vh unit */
+            min-height: 100vh;
+            /* These two lines are counted as one :-)       */
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hoverBorder:hover {
+            border-color: lightslategray !important;
+            cursor: pointer;
+        }
+
+        .text-limit {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            /* number of lines to show */
+            -webkit-box-orient: vertical;
+        }
+
+        .unselectable {
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+    <!-- headers -->
+    <div class="bg-top shadow-sm">
+        <div class="border-0">
+            <div class="container">
+                <div class="row">
+                    <!-- Logo -->
+                    <div class="col-4 col-md-2 h4 mb-0 pt-2 pb-2">
+                        <div class="text-white">
+                            <span class="fw-bold h2">mcQ</span>
+                            <span class="fs-6">Schools</span>
+                        </div>
+                    </div>
+                    <!-- pause -->
+                    <div class="col-8 col-md-10 pt-2 pb-2">
+                        <div class="btn-group float-end">
+                            <span class="btn btn-light btn-sm " style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pause-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
+                                </svg>
+                            </span>
+                            <button id="pause" type="button" class="btn btn-light btn-sm float-end">Pause</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- exam center -->
+    <div id="examcenter" class="unselectable mt-4">
+        <div class="">
+            <div class="container">
+                <div class="row mb-3">
+                    <div class="col-9 font-weight-bold text-limit">
+                        <span class="h5 text-secondary">
+                            <?php echo $exam->title ?>
+                        </span>
+                    </div>
+                    <div class="col-3">
+                        <div class="btn-group float-end">
+                            <span class="btn btn-secondary btn-sm " style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-clock" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                                </svg>
+                            </span>
+                            <span id="timer" class="btn btn-secondary btn-sm">00:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row g-2">
+                <div class="col-12 col-md-9">
+                    <div class="bg-white shadow-sm rounded p-4">
+
+                        <div class="">
+                            <strong class="badge bg-info h6">Question: <span id="activeQuestion">0</span></strong>
+                        </div>
+
+                        <div id="question" class="h6">Question</div>
+                        <div id="optionTable">
+                            <div id="option1" class="border hoverBorder rounded p-2 pl-3  mt-5">option 1</div>
+                            <div id="option2" class="border hoverBorder rounded p-2 pl-3  mt-2">option 2</div>
+                            <div id="option3" class="border hoverBorder rounded p-2 pl-3  mt-2">option 3</div>
+                            <div id="option4" class="border hoverBorder rounded p-2 pl-3  mt-2">option 4</div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-4">
+                                <button id="prev" type="button" class="btn btn-success h1 btn-sm">Previous</button>
+                            </div>
+                            <div class="col-4 text-center">
+                                <button id="clear" type="button" class="btn btn-secondary float-center btn-sm">Clear
+                                    Answare</button>
+                            </div>
+                            <div class="col-4">
+                                <button id="next" type="button" class="btn btn-success float-end btn-sm">Next &
+                                    Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <div class="bg-white p-4 rounded shadow-sm">
+
+                        <div class="mb-2">
+                            <strong class="text-secondary h6">Question Overview</strong>
+                        </div>
+                        <div style="height: 185px;">
+                            <div class="overflow-auto h-100" id="questionOverviewList"></div>
+                        </div>
+
+                        <div class="mt-5 small text-secondary">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="badge bg-info"> </span> Attemped
+                                </div>
+                                <div class="col">
+                                    <span class="badge bg-light"> </span> Not answared
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-3 clearfix d-grid">
+                            <button id="submit" class="btn btn-danger btn-sm float-end">Submit Exam</button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="mt-5"> </div>
+        </div>
+
+    </div>
+
+
+
+
+    <script>
+        var goToQ;
+        $(document).ready(function () {
+
+            var startTime = new Date();
+            var examId = parseInt('<?php echo $exam->id ?>');
+            var examUserId = parseInt('<?php echo $examUser->id ?>');
+            var pauseDuration = parseInt('<?php echo $examUser->duration ?>');
+            var duration = parseInt('<?php echo $exam->duration_mins ?>');
+            var questionList = JSON.parse('<?php echo $questionlist ?>');
+            var examResult = JSON.parse('<?php echo $examResult ?>');
+
+            var totalQuestion = 0;
+            var activeQuestion = 0;
+            var activeQuestionId = 0;
+            var activeQuestionAns = 0;
+
+            if (pauseDuration || pauseDuration === 0)
+                duration = pauseDuration;
+
+
+            // --------------------------------------------------------------------------------------------
+
+
+            // next
+            $("#next").click(function () {
+                activeQuestion++;
+                if (activeQuestion < totalQuestion) {
+                    updateQuestion(questionList[activeQuestion]);
+                    updateQuestionCss();
+                }
+                else
+                    activeQuestion--;
+            });
+
+            // prev
+            $("#prev").click(function () {
+                activeQuestion--;
+                if (activeQuestion >= 0) {
+                    updateQuestion(questionList[activeQuestion]);
+                    updateQuestionCss();
+                }
+                else
+                    activeQuestion++;
+            });
+
+            // go to question
+            goToQ = function (id) {
+                activeQuestion = id;
+                updateQuestion(questionList[activeQuestion]);
+                updateQuestionCss();
+            }
+
+            // clear option
+            $("#clear").click(function () {
+                $("#optionTable div").removeClass("border-primary bg-light");
+                examResult = $.grep(examResult, function (qust) {
+                    return qust.question_id != activeQuestionId;
+                });
+
+                url = "/examcenter/deleteResult/" + examUserId + "/" + activeQuestionId;
+                ajaxCall(url, "POST", 3, '')
+
+                updateQuestionOverviewList();
+            });
+
+            // set question
+            var updateQuestion = function (questionObj) {
+                $("#question").text(questionObj.question);
+                $("#option1").text(questionObj.option_one);
+                $("#option2").text(questionObj.option_two);
+                $("#option3").text(questionObj.option_three);
+                $("#option4").text(questionObj.option_four);
+                activeQuestionId = questionObj.id;
+                activeQuestionAns = questionObj.ans;
+            };
+
+            // update question css
+            var updateQuestionCss = function () {
+                $("#activeQuestion").text(activeQuestion + 1);
+                $("#optionTable div").removeClass("border-primary bg-light");
+                $.each(examResult, function (key, value) {
+                    if (value.question_id == activeQuestionId) {
+                        $("#option" + value.ans_option).addClass("border-primary bg-light");
+                    }
+                });
+            }
+
+            // track option click
+            $("#option1").click(function () {
+                saveAnswer(1);
+                $("#optionTable div").removeClass("border-primary bg-light");
+                $("#option1").addClass("border-primary bg-light");
+                updateExamResult(1);
+            });
+            $("#option2").click(function () {
+                saveAnswer(2);
+                $("#optionTable div").removeClass("border-primary bg-light");
+                $("#option2").addClass("border-primary bg-light");
+                updateExamResult(2);
+            });
+            $("#option3").click(function () {
+                saveAnswer(3);
+                $("#optionTable div").removeClass("border-primary bg-light");
+                $("#option3").addClass("border-primary bg-light");
+                updateExamResult(3);
+            });
+            $("#option4").click(function () {
+                $("#optionTable div").removeClass("border-primary bg-light");
+                $("#option4").addClass("border-primary bg-light");
+                updateExamResult(4);
+            });
+
+            // update exam result
+            var updateExamResult = function (ansOption) {
+                flag = false;
+                $.each(examResult, function (key, value) {          // update old result
+                    if (value.question_id == activeQuestionId) {
+                        examResult[key].ans_option = ansOption;
+                        flag = true;
+                    }
+                });
+                if (!flag) {                                        // add new result
+                    resultObj = {};
+                    resultObj.question_id = activeQuestionId;
+                    resultObj.ans_option = ansOption;
+                    examResult.push(resultObj);
+                }
+                updateQuestionOverviewList();
+            }
+
+            // update question number list
+            var updateQuestionOverviewList = function () {
+                $("#questionOverviewList").empty();
+                $.each(questionList, function (key, value) {
+                    flag = false;
+                    // checked question
+                    $.each(examResult, function (i, qs) {
+                        if (qs.question_id == value.id) {
+                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-1 me-1 pl-2 pr-2 btn btn-info btn-sm">' + (++key) + '</button>');
+                            flag = true;
+                        }
+                    });
+                    // unchecked question
+                    if (!flag) {
+                        $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-1 me-1 pl-2 pr-2 btn btn-light btn-sm">' + (++key) + '</button>');
+                    }
+                });
+            }
+
+            // duration clock
+            $("#timer").text(Math.floor(duration / 60) + " : " + duration % 60);
+            var x = setInterval(function () {
+                duration--;
+                hr = Math.floor(duration / 60);
+                mins = duration % 60;
+                if (duration == 5)
+                    $("#timer").addClass("border-danger");
+                if (duration <= 0) {
+                    clearInterval(x);
+                    submitExam(); //submit exam on duration end
+                } else {
+                    saveDuration();
+                }
+                $("#timer").text(hr + " : " + mins);
+            }, 60000);
+
+
+            // submit exam
+            $("#submit").click(function () { submitExam(); });
+            var submitExam = function () {
+                url = "/examcenter/submit/" + examUserId + "/" + duration;
+                redirectUrl = "/examcenter/result/" + examId;
+                clearInterval(x);
+                ajaxCall(url, "POST", 3, redirectUrl);
+            }
+
+            // save option
+            var saveAnswer = function (ansOption) {
+                ans = activeQuestionAns == ansOption ? true : false;
+                url = "/examcenter/saveResult/" + examUserId + "/" + activeQuestionId + "/" + ansOption;
+                ajaxCall(url, "POST", 3, '');
+            }
+
+            // save duration
+            var saveDuration = function () {
+                url = "/examcenter/updateDuration/" + examUserId + "/" + duration;
+                ajaxCall(url, "POST", 1, '');
+            }
+
+            // pause exam
+            $("#pause").click(function () {
+                url = "/examcenter/updateDuration/" + examUserId + "/" + duration + "/pause";
+                redirectUrl = '/examcenter/start/' + examId;
+                ajaxCall(url, "POST", 3, redirectUrl);
+            });
+
+            // ajax call ------------------------------
+            var ajaxCall = function (url, httpMethod, tryLimit, redirectUrl) {
+                //var tryCount = 0;
+                $.ajax({
+                    url: url,
+                    type: httpMethod,
+                    tryCount: 0,
+                    timeout: 20000,
+                    success: function (result) {
+                        if (redirectUrl.trim().length > 1)
+                            $(location).attr('href', redirectUrl);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        if (textStatus == 'timeout') {
+                            this.tryCount++;
+                            if (this.tryCount <= tryLimit) {
+                                $.ajax(this);
+                                return;
+                            }
+                            return;
+                        }
+                        if (xhr.status == 500) {
+                            console.log(500);
+                        }
+                    }
+                });
+            }
+
+            // run on load ---------------------------------------------- //
+            totalQuestion = questionList.length;
+            updateQuestion(questionList[activeQuestion]);
+            updateQuestionOverviewList();
+            updateQuestionCss();
+            // run on load ---------------------------------------------- //
+
+        });
+        // disable copy past
+        $('html').bind('copy paste cut', function (e) {
+            e.preventDefault(); return false;
+        });
+        // disable right click
+        $("html").on("contextmenu", function (e) {
+            return false;
+        });
+
+        /*]]>*/
+    </script>
+</body>
+
+</html>

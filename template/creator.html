@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32">
+    <title><?php echo $creator->display_name ?></title>
+</head>
+
+<body class="bg-light">
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+
+    <!-- BODY -->
+    <div class="container mt-2 p-4">
+
+        <!-- creator details -->
+        <div class="row p-2">
+            <div class="col justify-content-center align-self-center">
+                <div class="text-secondary h5"><?php echo $creator->display_name ?></div>
+                <div class="text-secondary small">
+                    <?php echo $creator->subscribe_count ?> subscribes .  
+                    <?php echo $creator->exam_count ?> exams
+                </div>
+            </div>
+            <div class="col text-end">
+                <?php if($isSubscribed){ ?>
+                    <a href="/subscription/unsubscribe/<?php echo $creator->user_id ?>" class="btn btn-sm btn-secondary">Unsubscribe</a>
+                <?php }else{ ?>
+                    <a href="/subscription/subscribe/<?php echo $creator->user_id ?>" class="btn btn-sm btn-danger">Subscribe</a>
+                <?php } ?>
+            </div>
+        </div>
+
+        <!-- Exam List -->
+        <div class="list-group list-group-striped bg-white rounded shadow-sm d-none" id="examList">
+
+            <!-- 
+            <div class="list-group-item list-group-item-action" >
+                <div class="row">
+
+                    <div class="col-12 col-md-7">
+                        <a href="/examcenter/start/#examId" class="d-block text-decoration-none">
+                            <div class="h6">
+                                #examTitle
+                            </div>
+                            <div class="small text-secondary">
+                                <span>
+                                    #time
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-12 col-md-5 text-secondary">
+                        <div class="d-flex small pt-2">
+                            <div class="flex-fill justify-content-center align-self-center">
+                                <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                                    <img src="/template/icon/count.svg" alt="count">
+                                </span>
+                                <span class="font-weight-bold">
+                                    #number_of_question
+                                </span>
+                            </div>
+                            <div class="flex-fill justify-content-center align-self-center">
+                                <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                                    <img src="/template/icon/users.svg" alt="users">
+                                </span>
+                                <span class="font-weight-bold">
+                                    #attemped
+                                </span>
+                            </div>
+                            <div class="flex-fill justify-content-center align-self-center">
+                                <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                                    <img src="/template/icon/clock.svg" alt="clock">
+                                </span>
+                                <span class="font-weight-bold">
+                                    #duration
+                                </span> mins
+                            </div>
+                            <div class="flex-fill justify-content-center align-self-center text-end">
+                                <input type="hidden" value="/examcenter/start/#examId">
+                                <button id="copyUrlBtn" class="btn btn-sm btn-outline-secondary p-1 ps-2 pe-2" 
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Copy Exam Link">
+                                    <span class="small">Copy Link</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            -->
+
+        </div>
+
+        <!-- pagination -->
+        <div id="moreResults" class="btn d-block text-center text-secondary p-2 border rounded mt-3 d-none">
+            More results 
+        </div>
+
+
+
+    </div>
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+
+
+    <script>
+
+        var creator_id = '<?php echo $creator->user_id ?>';
+        var noMoreComments = false;
+        var commentPageNumber = 1;
+        //jquery load more comment on scroll
+        /*
+        var delayTimer = null;
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                if (delayTimer) { clearTimeout(delayTimer); }
+                delayTimer = setTimeout(loadExam, 400);
+            }
+        });
+        */
+
+        $("#moreResults").click(function(){
+            loadExam();
+        });
+    
+        // load comment ajax
+        function loadExam() {
+            if (!noMoreComments)
+                $.ajax({
+                    type: 'GET',
+                    url: "/creator/exam_list_api/" + creator_id + "/" + commentPageNumber,
+                    success: function (resultList) {
+                        resultList = JSON.parse(resultList);
+                        
+                        if(resultList.length) {
+                            $("#examList").removeClass("d-none");
+                            $("#moreResults").removeClass("d-none");
+                        }
+                        else
+                            $("#moreResults").addClass("d-none");
+    
+                        $.each(resultList, function (i, result) {
+                            $template = getExamTemplate();
+                            $template = $template.replace("#examTitle", result.title);
+                            $template = $template.replace("#time", timeToString(result.created_date));
+                            $template = $template.replace("#number_of_question", result.number_of_question);
+                            $template = $template.replace("#attemped", result.attemped);
+                            $template = $template.replace("#duration", result.duration_mins);
+                            $template = $template.replace("#examId", result.id);
+                            $template = $template.replace("#examId", result.id);
+                            $("#examList").append($template);
+                        });
+                        if (resultList.length > 0)
+                            commentPageNumber++;
+                        else
+                            noMoreComments = true;
+                    }
+                });
+        }
+    
+        var today = new Date();
+        function timeToString(d) {
+            date = new Date(d);
+            Difference_In_Time = today.getTime() - date.getTime();
+            Difference_In_Days = parseInt(Difference_In_Time / (1000 * 3600 * 24));
+            // return string
+            if (parseInt(Difference_In_Days / 365) > 0)
+                return parseInt(Difference_In_Days / 365) + ' years ago';
+            if (parseInt(Difference_In_Days / 30) > 0)
+                return parseInt(Difference_In_Days / 30) + ' months ago';
+            if (Difference_In_Days > 1)
+                return Difference_In_Days + ' days ago';
+            if (Difference_In_Days == 1)
+                return Difference_In_Days + ' day ago';
+            return 'today';
+        }
+    
+        function getExamTemplate() {
+            return '<div class="list-group-item list-group-item-action" ><div class="row"><div class="col-12 col-md-7"> <a href="/examcenter/start/#examId" class="d-block text-decoration-none"><div class="h6"> #examTitle</div><div class="small text-secondary"> <span> #time </span></div> </a></div><div class="col-12 col-md-5 text-secondary"><div class="d-flex small pt-2"><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/count.svg" alt="count"> </span> <span class="font-weight-bold"> #number_of_question </span></div><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/users.svg" alt="users"> </span> <span class="font-weight-bold"> #attemped </span></div><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/clock.svg" alt="clock"> </span> <span class="font-weight-bold"> #duration </span> mins</div><div class="flex-fill justify-content-center align-self-center text-end"> <input type="hidden" value="/examcenter/start/#examId"> <button id="copyUrlBtn" class="btn btn-sm btn-outline-secondary p-1 ps-2 pe-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy Exam Link"> <span class="small">Copy Link</span> </button></div></div></div></div></div>';
+        }
+    
+        // initial load
+        loadExam();
+    </script>
+
+
+
+
+
+
+    <script>
+        var currentToolTip = undefined;
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+        $("body").on("click", "#copyUrlBtn", function(){
+            var $temp = $("<textarea>");
+            $("body").append($temp);
+            host = "http://" + $(location).attr('hostname');
+            $temp.val(host + $(this).parent().find('input').val()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            $(this).tooltip('hide')
+                .attr('data-bs-original-title', 'Copied!')
+                .tooltip('show');
+            currentToolTip = $(this);
+        });
+        $("body").on("mouseleave", "#copyUrlBtn", function(){
+            $(currentToolTip).attr('data-bs-original-title', 'Copy Exam Link');
+            currentToolTip = undefined;
+        });
+
+
+    </script>
+</body>
+
+</html>

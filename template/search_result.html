@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title><?php echo ucfirst($query) ?> - Search</title>
+    <meta name="description" content="<?php echo ucfirst($query) ?> mock test for online competitive examination, entrance examination and campus interview. 
+    Practice and Learn <?php echo $query ?> MCQ questions">
+</head>
+
+<body class="bg-light">
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header_search.html';?>
+
+    <!-- BODY -->
+    <div class="container mt-4">
+
+        <!-- Topic List -->
+        <div id="topicListWindow" class="mt-3 p-3 bg-white border shadow-sm rounded d-none">
+
+            <!--
+                <div class="d-inline-block bg-light rounded mt-1 me-1">
+                    <a href="/category/search/#query" class="text-decoration-none text-secondary d-inline-block p-1 ps-2 pe-2 small">
+                        <span style=" vertical-align: 0.125em;" class="pe-3">
+                            <img src="/template/icon/search.svg" alt="search">
+                        </span>
+                        #title
+                    </a>
+                </div>
+                    -->
+
+        </div>
+
+        <!-- Exam List -->
+        <div class="list-group list-group-flush mt-3 p-2 bg-white border shadow-sm rounded d-none" id="examListWindow">
+
+            <!--
+                <div class="list-group-item">
+                    <a href="/examcenter/start/#examId" class="text-decoration-none">
+                        <div class="h5 text-dark">#title</div>
+                        <div class="small text-secondary">
+                            <span>#number_of_question questions</span> . 
+                            <span>#duration mins</span> . 
+                            <span>#time</span>
+                        </div>
+                    </a>
+                </div>
+                    -->
+
+        </div>
+        <div id="moreResults" class="mt-3 mb-2 p-2 border text-center small text-secondary d-none" style="cursor:pointer">More results</div>
+
+        <div class="p-3 m-auto text-center text-secondary mb-5 d-none" id="notFoundWindow">
+            <div class="h4 mb-3">
+                Sorry we couldn't find any matches for <br>
+                <span class="text-success" id="notFoundWindowQuery"></span>
+            </div>
+            Try searching for another term or go back to the <a href="/">home</a>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+</body>
+
+</html>
+<script>
+
+    var search_query = '<?php echo $query ?>';
+    var noMoreResults = false;
+    var pageNumber = 1;
+    $("#searchQuery").val(search_query);
+
+    // form submit
+    $("#searchForm").submit(function (e) {
+        e.preventDefault();
+        search_query = $("#searchQuery").val();
+        noMoreResults = false;
+        pageNumber = 1;
+        $("#topicListWindow").addClass("d-none");
+        $("#topicListWindow").empty();
+        $("#examListWindow").addClass("d-none");
+        $("#examListWindow").empty();
+        loadResult();
+        return false;
+    });
+
+    // suggation click
+    $("#searchQueryList").on("click", "span", function () {
+        search_query = $(this).text();
+        $("#searchQuery").val(search_query);
+        noMoreResults = false;
+        pageNumber = 1;
+        $("#topicListWindow").addClass("d-none");
+        $("#topicListWindow").empty();
+        $("#examListWindow").addClass("d-none");
+        $("#examListWindow").empty();
+        loadResult();
+    });
+
+    // more result
+    $(document).on('click', '#moreResults', function () {
+        loadResult();
+    });
+
+
+    // load result ajax
+    function loadResult() {
+        if (search_query.length > 0 && !noMoreResults) {
+            $.ajax({
+                type: 'GET',
+                url: "/search/query_result_api/" + search_query + "/" + pageNumber,
+                success: function (result) {
+                    result = JSON.parse(result);
+
+                    //not found
+                    if (!result['categorylist'].length && !result['examList'].length){
+                        $("#notFoundWindowQuery").text(search_query);
+                        $("#notFoundWindow").removeClass("d-none");
+                    }else{
+                        $("#notFoundWindow").addClass("d-none");
+                    }
+
+                    // topic list
+                    if(pageNumber==1)
+                    if (result['categorylist'].length) {
+                        $("#topicListWindow").removeClass("d-none");
+                        $("#topicListWindow").append('<div class="h6">Topics</div>');
+                        $.each(result['categorylist'], function (key, cat) {
+                            $template = getTopicTemplate();
+                            $template = $template.replace("#title", cat.title);
+                            $template = $template.replace("#query", cat.title.replaceAll(" ","-"));
+                            $("#topicListWindow").append($template);
+                        });
+                    }
+
+                    // exam list
+                    //$("#examListWindow").empty();
+                    if (result['examList'].length) {
+                        $("#examListWindow").removeClass("d-none");
+                        $.each(result['examList'], function (key, exam) {
+                            $template = getExamTemplate();
+                            $template = $template.replace("#title", exam.title);
+                            $template = $template.replace("#number_of_question", exam.number_of_question);
+                            $template = $template.replace("#duration", exam.duration_mins);
+                            $template = $template.replace("#time", timeToString(exam.created_date));
+                            $template = $template.replace("#attempted", exam.attemped);
+                            $template = $template.replace("#examId", exam.id);
+                            $("#examListWindow").append($template);
+                        });
+                        
+                        if(result['examList'].length<10)
+                            $('#moreResults').addClass("d-none");
+                        else
+                            $('#moreResults').removeClass("d-none");
+                    }
+
+                    if (result['examList'].length > 0)
+                        pageNumber++;
+                    else
+                        noMoreResults = true;
+                }
+            });
+        }
+    }
+
+    var today = new Date();
+    function timeToString(d) {
+        date = new Date(d);
+        Difference_In_Time = today.getTime() - date.getTime();
+        Difference_In_Days = parseInt(Difference_In_Time / (1000 * 3600 * 24));
+        // return string
+        if (parseInt(Difference_In_Days / 365) > 0)
+            return parseInt(Difference_In_Days / 365) + ' years ago';
+        if (parseInt(Difference_In_Days / 30) > 0)
+            return parseInt(Difference_In_Days / 30) + ' months ago';
+        if (Difference_In_Days > 1)
+            return Difference_In_Days + ' days ago';
+        if (Difference_In_Days == 1)
+            return Difference_In_Days + ' day ago';
+        return 'today';
+    }
+
+    function moreResultsTemplate() {
+        return '<div class="list-group-item text-center small btn" id="moreResults">More results</div>';
+    }
+
+    function getExamTemplate() {
+        return '<div class="list-group-item"> <a href="/examcenter/start/#examId" class="text-decoration-none"><div class="h6 text-dark">#title</div><div class="small text-secondary"> <span>#number_of_question questions</span> . <span>#duration mins</span> . <span>#time</span></div> </a></div>';
+    }
+
+    function getTopicTemplate() {
+        return '<div class="d-inline-block bg-light rounded mt-1 me-1"><a href="/category/search/#query" class="text-decoration-none text-secondary d-inline-block p-1 ps-2 pe-2 small"><span style=" vertical-align: 0.125em;" class="pe-3"><img src="/template/icon/search.svg" alt="search"></span>#title</a></div>';
+    }
+
+    // initial load
+    loadResult();
+</script>
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KPXYFG7WZV');
+</script>

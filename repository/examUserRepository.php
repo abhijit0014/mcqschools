@@ -1,0 +1,113 @@
+<?php
+
+    class ExamUserRepository
+    {
+        function __construct()
+        {
+
+        }
+
+        public function create($examId, $userId)
+        {
+            $examUser = R::xdispense('exam_user');
+            $examUser->exam_id = $examId;
+            $examUser->user_id = $userId;
+            $examUser->love = false;
+            $examUser->submitted = false;
+            $examUser->start_time = date('Y-m-d H:i:s');
+            $id =  R::store( $examUser);
+            return R::load('exam_user', $id);
+        }
+
+        /*
+        public function save($obj)
+        {
+            $examUser;
+
+            if(empty($obj['id'])){
+                $examUser = R::xdispense( 'exam_user' );
+            }else{
+                $examUser= R::load( 'exam_user', $obj['id'] );
+            }
+
+            $examUser->exam_id = $obj['exam_id'];
+            $examUser->user_id = $obj['user_id'];
+            $examUser->duration = $obj['duration'];
+            $examUser->love = $obj['love'];
+
+            $examUser->end_time = $obj['end_time'];
+            $examUser->start_time = $obj['start_time'];
+
+            $id = R::store( $examUser);
+            return $id;
+        }
+*/
+        public function getOne($id)
+        {
+            return R::load( 'exam_user', $id );
+        }
+
+        public function getByExamIdAndUserId($examId, $userId)
+        {
+            return R::findOne('exam_user','exam_id = ? AND user_id = ?', [$examId, $userId]);
+        }
+
+        public function delete($id)
+        {
+            R::trash( 'exam_user', $id );
+        }
+
+        public function submit($exam_user_id, $duration)
+        {
+            $examUser = R::load( 'exam_user', $exam_user_id );
+            $examUser->duration = $duration;
+            $examUser->submitted = true;
+            $examUser->pause = false;
+            $examUser->end_time = date('Y-m-d H:i:s');
+            return R::store( $examUser);
+        }
+
+        public function updateDuration($exam_user_id, $duration, $pause)
+        {
+            $examUser = R::load( 'exam_user', $exam_user_id );
+            $examUser->duration = $duration;
+            $examUser->pause = $pause;
+            return R::store( $examUser);
+        }
+
+        // result list by user_id ------------------------------------------------------
+        public function pageCount($limit, $user_id)
+        {
+            $exam=R::count('exam_user', 'user_id = ?', [$user_id]);
+            $totalPages=ceil($exam/$limit);
+            return $totalPages;
+        }
+        
+        public function list($page, $limit, $user_id)
+        {
+            $list = R::getAll("SELECT exam_user.exam_id, exam_user.obtained_marks, exam_user.total_marks, exam_user.start_time, exam_user.submitted, title 
+            FROM exam_user left join exam on exam_user.exam_id = exam.id
+            WHERE exam_user.user_id = ".$user_id." ORDER BY exam_user.id DESC LIMIT ".(($page-1)*$limit).', '.$limit  );
+            return $list;
+        }
+
+        // exam result list by exam_id-----------------------------------------------------
+        public function pageCountByExamId($limit, $exam_id)
+        {
+            $exam=R::count('exam_user', 'exam_id = ?', [$exam_id]);
+            $totalPages=ceil($exam/$limit);
+            return $totalPages;
+        }
+        
+        public function listByExamId($page, $limit, $exam_id)
+        {
+            $list = R::getAll("SELECT users.username, exam_user.start_time,
+            exam_user.obtained_marks, exam_user.duration, exam_user.submitted, exam_user.pause
+            FROM exam_user left join users on exam_user.user_id = users.id
+            WHERE exam_user.exam_id = ".$exam_id." ORDER BY exam_user.obtained_marks DESC LIMIT ".(($page-1)*$limit).', '.$limit  );
+            return $list;
+        }
+
+    }
+
+?>

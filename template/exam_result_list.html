@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title>Results</title>
+</head>
+
+<body class="bg-light">
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+
+    <!-- BODY -->
+    <div class="container mt-4">
+
+        <div class="h5 text-secondary <?php echo sizeof($resultlist)>0 ? '' : 'd-none' ?>">
+            Results
+        </div>
+
+        <!-- exam List -->
+        <div class="mt-3 p-2 bg-white border shadow-sm rounded <?php echo sizeof($resultlist)>0 ? '' : 'd-none' ?>">
+
+            <div class="list-group list-group-flush">
+                <?php foreach ($resultlist as $result) { ?>
+
+                <div class="list-group-item">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="h6">
+                                <?php echo $result['username'] ?>
+                            </div>
+                            <div class="text-secondary small">
+                                <?php echo date_format(date_create($result['start_time']),"d F Y") ?>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <span class="h6 text-success">
+                                <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
+                            </span>
+                            <div class="text-muted small">Obtained marks</div>
+                        </div>
+                        <div class="col-3">
+                            <span class="h6 text-secondary">
+                                <?php echo $result['duration'] ?> mins
+                            </span>
+                            
+                            <?php if($result['submitted']){ ?>
+                            <div class="text-muted small">Duration taken</div>
+                            <?php } else { ?>
+                            <div class="text-danger small">Duration</div>
+                            <?php } ?>
+                        </div>
+                        <div class="col-3 pt-2 text-end">
+
+                            <?php if($result['submitted']){ ?>
+                            <span class="text-danger p-1 ps-3 pe-3"> Completed </a>
+                            <?php } else { ?>
+                            <span class="text-success p-1 ps-3 pe-3"> 
+                                <?php if($result['pause']){ ?>
+                                    <span  style="vertical-align: 0.125em;">
+                                        <img src="/template/icon/pause.svg" alt="pause">
+                                    </span>
+                                <?php } ?>
+                                Progressing 
+                            </a>
+                            <?php } ?>
+                        </div>
+                    </div>
+
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+
+
+
+        <div class="mt-3 mb-5 <?php echo sizeof($resultlist)>0 ? '' : 'd-none' ?>">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item <?php echo $currentPage==1? 'disabled':'' ?>">
+                        <a class="page-link"
+                            href="/exam/results/<?php echo $exam_id ?>/<?php echo $currentPage-1 ?>/<?php echo $pages ?>">Prev</a>
+                    </li>
+
+                    <?php for($i = 1; $i <= $pages; $i++) {?>
+                    <?php if($i!=$currentPage) { ?>
+                    <li class="page-item"><a class="page-link" href="/exam/results/<?php echo $exam_id ?>/<?php echo $i ?>/<?php echo $pages ?>">
+                            <?php echo $i ?>
+                        </a></li>
+                    <?php } else { ?>
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            <?php echo $i ?>
+                        </span>
+                    </li>
+                    <?php } ?>
+                    <?php } ?>
+
+                    <li class="page-item <?php echo $currentPage==$pages? 'disabled':'' ?>">
+                        <a class="page-link"
+                            href="/exam/results/<?php echo $exam_id ?>/<?php echo $currentPage+1 ?>/<?php echo $pages ?>">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+    </div>
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+</body>
+
+</html>

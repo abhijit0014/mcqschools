@@ -1,0 +1,138 @@
+<?php
+
+    class ExamRepository
+    {
+        function __construct()
+        {
+
+        }
+
+        public function save($obj)
+        {
+            $exam;
+            $category;
+
+            // save new category
+            if(empty($obj['category_id'])){
+                $category= R::findOne( 'category', ' title = ? ', [ $obj['categoryName'] ] );;
+                if(empty($category)){
+                    $category = R::dispense( 'category' );
+                    $category->title = $obj['categoryName'];
+                    $category->enabled = true;
+                    $category->created_date = date('Y-m-d H:i:s');
+                    $category->created_by = SessionManager::get("user_id");
+    
+                    $obj['category_id'] = R::store( $category );
+                }else{
+                    $obj['category_id'] = $category->id;
+                }
+            }
+
+            // save exam
+            if(empty($obj['id'])){
+                $exam = R::dispense( 'exam' );
+                $exam->id = $obj['id'];
+                $exam->attemped = 0;
+                $exam->enabled = true;
+                $exam->love = 0;
+                $exam->number_of_question = 0;
+                $exam->published = false;
+                $exam->created_by = SessionManager::get("user_id");
+                $exam->created_date = date('Y-m-d H:i:s');
+            }else{
+
+                $exam = R::load( 'exam', $obj['id'] );
+                if(SessionManager::get("user_id") != $exam->created_by) 
+                    return;
+                $exam->updated_by = SessionManager::get("user_id");
+                $exam->updated_date = date('Y-m-d H:i:s');  
+            }
+
+            $exam->title = $obj['title'];
+            $exam->category_id = $obj['category_id'];
+            $exam->descp = $obj['descp'];
+            $exam->point = $obj['point'];
+            $exam->negative_point = $obj['negative_point'];
+            $exam->duration_mins = $obj['duration_mins'];
+            //$exam->start_time = $obj['start_time'];
+            //$exam->end_time = $obj['end_time'];
+
+            $id = R::store( $exam );
+            return $id;
+        }
+
+        public function getOne($id)
+        {
+            return R::load( 'exam', $id );
+        }
+
+        public function countExamByCreatorId($creator_id)
+        {
+            return R::count( 'exam', 'created_by = ? and published = ?', [$creator_id, true] );
+        }
+
+        // for search bar ------------------------------------------------------------
+        public function searchByTitle($str_search, $page, $limit)
+        {
+            $list = R::getAll( "Select * from exam WHERE published = true AND TITLE LIKE '%".$str_search."%' ORDER BY id DESC LIMIT ".(($page-1)*$limit).', '.$limit);
+            return $list;
+        }
+
+
+        // exam list by created_by ------------------------------------------------------
+        public function pageCount($limit, $created_by)
+        {
+            $exam=R::count('exam', 'created_by = ?', [$created_by]);
+            $totalPages=ceil($exam/$limit);
+            return $totalPages;
+        }
+
+        public function list($page, $limit, $created_by)
+        {
+            $list=R::getAll('select * from exam WHERE created_by = '.$created_by.' ORDER BY id DESC LIMIT '.(($page-1)*$limit).', '.$limit);
+            return $list;
+        }
+
+        public function publishedExamList($page, $limit, $created_by)
+        {
+            $list=R::getAll('select * from exam WHERE created_by = '.$created_by.' AND published = true ORDER BY id DESC LIMIT '.(($page-1)*$limit).', '.$limit);
+            return $list;
+        }
+
+
+        // list By Subscription --------------------------------------------------
+        public function listBySubscription($user_id, $page, $limit )
+        {
+            $list = R::getAll("SELECT exam.id as exam_id, exam.title, exam.attemped, exam.created_date, 
+            exam.duration_mins, exam.number_of_question, exam_user.id as exam_user_id
+            FROM exam 
+            left join subscription on exam.created_by = subscription.creator_id
+            left join exam_user on exam.id = exam_user.exam_id
+            where exam.published = true and subscription.user_id = ".$user_id." order by exam.created_date desc LIMIT ".(($page-1)*$limit).', '.$limit  );
+            return $list;
+        }
+
+        // list of suggested exams --------------------------------------------------
+        public function listOfSuggestedExams()
+        {
+            $user_id = SessionManager::get("user_id");
+            $list = R::getAll("SELECT * FROM projectdb.exam where category_id in 
+                                (select exam.category_id from exam_user
+                                left join exam on exam_user.exam_id = exam.id
+                                where exam_user.user_id = "+ $user_id +")
+                                order by id desc limit 15");
+            return $list;
+        }
+
+
+        // delete exam ------------------------------------------------------------
+        public function delete($exam_id)
+        {
+            R::exec('DELETE FROM exam_result WHERE exam_user_id IN (SELECT id FROM exam_user WHERE exam_id = ?)', array($exam_id));
+            R::exec('DELETE FROM exam_user WHERE exam_id = ? ',array($exam_id));
+            R::trash( 'exam', $exam_id );
+        }
+
+    }
+
+?>

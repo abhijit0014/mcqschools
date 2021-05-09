@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title>Question correction</title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+    <!-- BODY -->
+    <div class="container mt-4">
+
+        <!-- question form -->
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-6 m-auto">
+                <form action="/question/correction_save" method="post">
+                    <input name="id" type="hidden" value="<?php echo $question->id ?>">
+                    <input name="exam_id" type="hidden" value="<?php echo $question->exam_id ?>">
+                    <input name="categoryId" type="hidden" id="categoryId" value="<?php echo $question->category_id ?>">
+
+                    <div class="form-group">
+                        <label class="h5 text-secondary mb-3">Question</label>
+                        <textarea name="question" type="text" class="form-control" placeholder="Question"
+                            rows="6" autocomplete="off" minlength="6" maxlength="300"
+                            required><?php echo $question->question ?></textarea>
+                    </div>
+
+                    <div class="form-group mt-2" id="qstOptions">
+                        <label class="small">Options</label>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">1</span>
+                            </div>
+                            <input name="optionOne" type="text" class="form-control" placeholder="Option 1"
+                                autocomplete="off" id="option1" minlength="1" maxlength="250"
+                                value="<?php echo $question->option_one ?>" required>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">2</span>
+                            </div>
+                            <input name="optionTwo" type="text" class="form-control" placeholder="Option 2"
+                                autocomplete="off" id="option2" minlength="1" maxlength="250"
+                                value="<?php echo $question->option_two ?>" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">3</span>
+                            </div>
+                            <input name="optionThree" type="text" class="form-control" placeholder="Option 3"
+                                autocomplete="off" id="option3" minlength="1" maxlength="250"
+                                value="<?php echo $question->option_three ?>" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">4</span>
+                            </div>
+                            <input name="optionFour" type="text" class="form-control" placeholder="Option 4"
+                                autocomplete="off" id="option4" minlength="1" maxlength="250"
+                                value="<?php echo $question->option_four ?>" required>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="form-group" style="position: relative">
+                                <label class="small">Category</label>
+                                <input name="categoryName" id="categorySearchQuery" type="text" class="form-control"
+                                    placeholder="Category" autocomplete="off" value="<?php echo $category->title ?>"
+                                    required>
+                                <ul class="list-group list-group-flush bg-white border border-primary shadow-sm rounded"
+                                    id="autocompleteResult"
+                                    style="position: absolute; bottom:50px; z-index: 100; width: 100%; display: none;">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="small">Ans</label>
+                                <select name="ans" class="form-control" id="ansOption" required>
+                                    <option disabled hidden style='display: none' value='0'></option>
+                                    <option value="1" <?php echo $question->ans == 1 ? 'selected' : '' ?> >Option 1
+                                    </option>
+                                    <option value="2" <?php echo $question->ans == 2 ? 'selected' : '' ?>>Option 2
+                                    </option>
+                                    <option value="3" <?php echo $question->ans == 3 ? 'selected' : '' ?>>Option 3
+                                    </option>
+                                    <option value="4" <?php echo $question->ans == 4 ? 'selected' : '' ?>>Option 4
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 mb-5 pt-3 border-top">
+                        <div class="row">
+                            <div class="col">
+                                <?php if(!empty($question->id)) { ?>
+                                <a id="delete" href="/question/delete/<?php echo $question->exam_id ?>/<?php echo $question->id ?>" class="btn btn-sm btn-light">Delete</a>
+                                <?php } ?>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-sm btn-primary float-end">Save Question</button>
+                                <a href="/question/list/1" class="btn btn-sm btn-secondary me-2 float-end">Close</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+
+
+    <script>
+        var firstCategoryFocus = false;
+        var autocompleteList = [];
+        var timer = 0;
+        $(document).ready(function () {
+
+            // ctegory -------------------------------------------------------------------------
+
+            // auto complete
+            $("#categorySearchQuery").keyup(function () {
+                if (timer) { clearTimeout(timer); }
+                timer = setTimeout(categoryQuerySuggest, 400);
+            });
+
+            // first category input focus
+            $("#categorySearchQuery").focus(function () {
+                categoryQuerySuggest();
+            });
+
+            // on select set category id input
+            $("body").on("click", "ul#autocompleteResult li", function () {
+                catStr = $(this).text().trim();
+                $.each(autocompleteList, function (key, value) {
+                    if (catStr == value.title) {
+                        $("#categorySearchQuery").val(catStr);
+                        $("#categoryId").val(value.id);
+                        setCookie("questionCategorySuggest", catStr, 365);
+                    }
+                });
+                $("#autocompleteResult").hide();
+            });
+
+            function categoryQuerySuggest() {
+                var searchStr = $("#categorySearchQuery").val().trim();
+                if (searchStr.length == 0)
+                    searchStr = getCookie("questionCategorySuggest");
+
+                if (searchStr.length > 0) {
+                    $.ajax({
+                        type: 'GET',
+                        //dataType: 'JSON',
+                        url: "/category/autocomplete/" + searchStr,
+                        success: function (result) {
+                            $("#autocompleteResult").empty();
+                            $("#autocompleteResult").show();
+                            result = JSON.parse(result);
+                            autocompleteList = result;
+                            $.each(result, function (key, obj) {
+                                $("#autocompleteResult").append('<li class="list-group-item grayHover p-2"><a href="#" class="text-decoration-none d-block text-dark">' + obj.title + '</a></li>');
+                            });
+                            if (result.length == 0)
+                                $("#autocompleteResult").hide();
+                        }
+                    });
+                } else {
+                    $("#autocompleteResult").hide();
+                }
+            }
+
+
+            // set cookie
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires=" + d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            // get cookie
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+
+
+
+            //option -----------------------------------------------------------------------------
+
+            // on ans select change option background color
+            $('#ansOption').on("change", function () {
+                $("#qstOptions input").removeClass("bg-option");
+                $("#option" + this.value).addClass("bg-option");
+            });
+
+            // on load check ans
+            ansVal = $('#ansOption').find(":selected").val();
+            inputValue = $("#option" + ansVal).val().trim();
+            if (ansVal != undefined && inputValue) {
+                $("#option" + ansVal).addClass("bg-option");
+            }
+
+            // delete question
+            $('#delete').click(function () {
+                return confirm('Are you sure you want to delete');
+            });
+
+        });
+
+
+    </script>
+</body>
+
+</html>

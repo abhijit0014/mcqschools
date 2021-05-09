@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title>Comments</title>
+</head>
+
+<body class="bg-light">
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+
+    <!-- BODY -->
+    <div class="container mt-4">
+
+        <div class="h5 text-secondary">
+            Comments
+        </div>
+        <!-- exam List -->
+        
+        <div class="mt-3 p-2 bg-white border shadow-sm rounded d-none" id="commentWindow">
+            <div class="list-group list-group-flush" id="commentList">
+
+                <!-- 
+                <div class="list-group-item">
+                    <div class="d-flex bd-highlight">
+                        <div class="flex-fill bd-highlight">
+                            <div class="small mb-1">
+                                <a class="text-secondary text-decoration-none" href="/question/correction/#q_id">#question</a></li>
+                            </div>
+                            <div>
+                                <span class="badge bg-secondary">#username</span> . 
+                                <span class="small text-muted">#time</span>
+                            </div>
+                            <div>#comment</div>
+                        </div>
+                        <div class="flex-fill bd-highlight text-end">
+                            <div class="dropdown dropstart float-end d-inline">
+                                <div class="btn btn-white p-0 m-0" data-bs-toggle="dropdown">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                          </svg>
+                                    </span>
+                                </div>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item"><a class="d-block text-decoration-none" href="/comment/deletebycreator/#comment_id/#creator_id">Delete Comment</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+               
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+</body>
+
+</html>
+<script>
+
+    var creator_id = '<?php echo $creator_id ?>';
+    var noMoreComments = false;
+    var commentPageNumber = 1;
+    //jquery load more comment on scroll
+    var delayTimer = null;
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+            if (delayTimer) { clearTimeout(delayTimer); }
+            delayTimer = setTimeout(loadComment, 400);
+        }
+    });
+
+    // load comment ajax
+    function loadComment() {
+        if (!noMoreComments)
+            $.ajax({
+                type: 'GET',
+                url: "/comment/listByExamCreatorId/" + creator_id + "/" + commentPageNumber,
+                success: function (resultList) {
+                    resultList = JSON.parse(resultList);
+                    
+                    if(resultList.length) 
+                        $("#commentWindow").removeClass("d-none");
+
+                    $.each(resultList, function (i, result) {
+                        $template = getCommentTemplate();
+
+                        $template = $template.replace("#question", result.question);
+                        $template = $template.replace("#username", result.username);
+                        $template = $template.replace("#time", timeToString(result.created_date));
+                        $template = $template.replace("#comment", result.comment);
+                        $template = $template.replace("#comment_id", result.id);
+                        $template = $template.replace("#q_id", result.question_id);
+                        $template = $template.replace("#exam_id", result.exam_id);
+                        $template = $template.replace("#creator_id", creator_id);
+                        $("#commentList").append($template);
+                    });
+                    if (resultList.length > 0)
+                        commentPageNumber++;
+                    else
+                        noMoreComments = true;
+                }
+            });
+    }
+
+    var today = new Date();
+    function timeToString(d) {
+        date = new Date(d);
+        Difference_In_Time = today.getTime() - date.getTime();
+        Difference_In_Days = parseInt(Difference_In_Time / (1000 * 3600 * 24));
+        // return string
+        if (parseInt(Difference_In_Days / 365) > 0)
+            return parseInt(Difference_In_Days / 365) + ' years ago';
+        if (parseInt(Difference_In_Days / 30) > 0)
+            return parseInt(Difference_In_Days / 30) + ' months ago';
+        if (Difference_In_Days > 1)
+            return Difference_In_Days + ' days ago';
+        if (Difference_In_Days == 1)
+            return Difference_In_Days + ' day ago';
+        return 'today';
+    }
+
+    function getCommentTemplate() {
+        return '<div class="list-group-item"><div class="d-flex bd-highlight"><div class="flex-fill bd-highlight"><div class="small mb-1"> <a class="text-secondary text-decoration-none" href="/question/correction/#q_id">#question</a></li></div><div> <span class="badge bg-secondary">#username</span> . <span class="small text-muted">#time</span></div><div>#comment</div></div><div class="flex-fill bd-highlight text-end"><div class="dropdown dropstart float-end d-inline"><div class="btn btn-white p-0 m-0" data-bs-toggle="dropdown"> <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16"> <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/> </svg> </span></div><ul class="dropdown-menu"><li class="dropdown-item"><a class="d-block text-decoration-none" href="/comment/deletebycreator/#comment_id/#creator_id">Delete</a></li></ul></div></div></div></div>';
+    }
+
+    // initial load
+    loadComment();
+</script>

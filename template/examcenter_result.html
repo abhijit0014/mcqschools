@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <script src="/template/resource/chart.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title><?php echo $exam->title ?> - Result</title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+    <!-- BODY -->
+    <div class="container mt-4">
+
+        <!--  Exam Info -->
+        <div class="d-flex bd-highlight">
+            <div class="flex-fill bd-highlight">
+                <div class="h5 text-secondary" id="examTitle">
+                    <?php echo $exam['title'] ?>
+                </div>
+                <div class="text-secondary small">
+                    Created by <a href="/creator/info/<?php echo $creator_username ?>"
+                        class="text-decoration-none"><?php echo $creator_username ?></a>
+                </div>
+            </div>
+            <div class="flex-fill bd-highlight text-end small">
+                <div class="">
+                    <a href="/examcenter/updatelove/<?php echo $exam->id ?>"
+                        class=" <?php echo $examUser->love?'text-danger':'text-secondary'; ?> text-decoration-none">
+                        <strong>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-heart" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                            </svg>
+                        </strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mt-4">
+            <div class="row g-2">
+
+                <div class="col-12 col-md-8 col-lg-9 shadow rounded bg-correct ">
+                    <!-- score card -->
+                    <div class=" p-3 text-white">
+                        <!--header-->
+                        <div class="d-flex bd-highlight">
+                            <div class="flex-fill bd-highlight">
+                                <div class="h6">Score Card</div>
+                            </div>
+                            <div class="flex-fill bd-highlight small">
+                                <div class="form-check form-switch float-end">
+                                    <input class="form-check-input" type="checkbox" id="pointSwitch" checked>
+                                    <label class="form-check-label">
+                                        Negative Point
+                                        <div class="text-end h6">
+                                            <span class="pe-4">+ <?php echo $exam->point ?></span> 
+                                            <span>- <?php echo $exam->negative_point ?></span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--score-->
+                        <div class="text-center mt-5 mb-5">
+                            <span class="h1" id="score">
+                                <?php echo $examUser->obtained_marks ?> /
+                                <?php echo $examUser->total_marks ?>
+                            </span>
+                        </div>
+                        <!--footer-->
+                        <div class="row text-center">
+
+                            <div class="col text-white text-start">
+                                <span class="h4">
+                                    <?php echo $exam->number_of_question ?>
+                                </span>
+                                <div class="small">Question</div>
+                            </div>
+                            <div class="col text-white">
+                                <span class="h4">
+                                    <?php echo $examUser->correct_answered ?>
+                                </span>
+                                <div class="small">Correct</div>
+                            </div>
+                            <div class="col text-white">
+                                <span class="h4">
+                                    <?php echo $examUser->wrong_answered ?>
+                                </span>
+                                <div class="small">Wrong</div>
+                            </div>
+                            <div class="col text-white">
+                                <span class="h4">
+                                    <?php echo $examUser->not_answered ?>
+                                </span>
+                                <div class="small">Not Answered</div>
+                            </div>
+                            <div class="col text-white text-end">
+                                <span class="h4">
+                                    <?php echo $examUser->duration ?> /
+                                    <?php echo $exam->duration_mins ?>
+                                </span>
+                                <div class="small">Duration (mins)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="d-none d-sm-none d-md-block col-md-4 col-lg-3 p-3 small shadow rounded bg-white">
+                    <div><canvas id="myChart"></canvas> </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!--  Question List -->
+        <div class="mt-5 mb-3">
+            <span class="h6 text-secondary">Question & Answer</span>
+        </div>
+        <div class="accordion shadow-sm ccordion-flush" id="accordionExample">
+            <?php foreach ($questionlist as $i=>$question) {?>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading<?php echo $i; ?>">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse<?php echo $i?>" aria-expanded="true"
+                        aria-controls="collapse<?php echo $i; ?>">
+                        <span class="<?php echo $question['user_result'] ?'text-success' : 'text-danger' ?> me-4">
+                            <?php echo $question['user_result'] ?'&#10003;' : '&#x2715;' ?>
+                        </span>
+                        <?php echo $question['question'] ?>
+                    </button>
+                </h2>
+
+
+                <div id="collapse<?php echo $i?>" class="accordion-collapse collapse"
+                    aria-labelledby="heading<?php echo $i?>" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="row pl-4 pr-2">
+                            <div class="col-12 col-md-6">
+                                <span class="text-secondary">a. </span>
+                                <span class="<?php echo $question['ans']==1 ?'text-success' : 'text-danger' ?>">
+                                    <?php echo $question['option_one'] ?>
+                                </span>
+                            </div>
+                            <div class="col-12 col-md-6  mt-1">
+                                <span class="text-secondary">b. </span>
+                                <span class="<?php echo $question['ans']==2 ?'text-success' : 'text-danger' ?>">
+                                    <?php echo $question['option_two'] ?>
+                                </span>
+                            </div>
+                            <div class="col-12 col-md-6 mt-1">
+                                <span class="text-secondary">c. </span>
+                                <span class="<?php echo $question['ans']==3 ?'text-success' : 'text-danger' ?>">
+                                    <?php echo $question['option_three'] ?>
+                                </span>
+                            </div>
+                            <div class="col-12 col-md-6  mt-1">
+                                <span class="text-secondary">d. </span>
+                                <span class="<?php echo $question['ans']==4 ?'text-success' : 'text-danger' ?>">
+                                    <?php echo $question['option_four'] ?>
+                                </span>
+                            </div>
+                            <div class="col-12 mt-3 small">
+                                <span class="text-secondary">Correct answer : </span>
+                                <span>
+                                    <?php echo $question['ans'] == 1 ? 'A' : '' ?>
+                                    <?php echo $question['ans'] == 2 ? 'B' : '' ?>
+                                    <?php echo $question['ans'] == 3 ? 'C' : '' ?>
+                                    <?php echo $question['ans'] == 4 ? 'D' : '' ?>
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+</body>
+<script>
+    $('#pointSwitch').on('change', function () {
+        var obtained_marks = '<?php echo $examUser->obtained_marks ?>';
+        var total_marks = '<?php echo $examUser->total_marks ?>';
+        var correct_answered = '<?php echo $examUser->total_marks ?>';
+        var true_obtained_marks = '<?php echo $examUser->correct_answered * $exam->point ?>';
+
+        var checked = $(this).is(':checked'); 
+        if (checked) {
+            $("#score").text(obtained_marks+" / "+total_marks);
+        }else{
+            $("#score").text(true_obtained_marks+" / "+total_marks);
+        }
+    });
+</script>
+<script>
+
+    const data = {
+        labels: [
+            'Correct ans',
+            'Wrong ans',
+            'Not answared'
+        ],
+        datasets: [{
+            label: 'Exam Result',
+            data: [<?php echo $examUser -> correct_answered ?>, <?php echo $examUser -> wrong_answered ?>, <?php echo $examUser -> not_answered ?>],
+            backgroundColor: [
+                'rgb(178, 229, 152)',
+                'rgb(255, 178, 178)',
+                'rgb(191, 191, 191)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    const config = {
+        type: 'doughnut',
+        data: data,
+    };
+    var myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
+
+</html>

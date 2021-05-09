@@ -1,0 +1,58 @@
+[
+    { "url": "/exam/list",  "role": ["student", "admin"], "csrf": false },
+    { "url": "/exam/add", "role": ["student", "admin"], "csrf": true },
+    { "url": "/exam/edit", "role": ["student", "admin"], "csrf": true },
+    { "url": "/exam/save", "role": ["student", "admin"], "csrf": true },
+    { "url": "/exam/results", "role": ["student", "admin"], "csrf": false },
+    { "url": "/exam/subscription", "role": ["student", "admin"], "csrf": false },
+
+    { "url": "/question/list", "role": ["student", "admin"], "csrf": false },
+    { "url": "/question/add", "role": ["student", "admin"], "csrf": true },
+    { "url": "/question/edit", "role": ["student", "admin"], "csrf": true },
+    { "url": "/question/save", "role": ["student", "admin"], "csrf": true},
+
+    { "url": "/category/list",  "role": ["admin"], "csrf": false },
+    { "url": "/category/add", "role": ["admin"], "csrf": true },
+    { "url": "/category/edit", "role": ["admin"], "csrf": true },
+    { "url": "/category/save", "role": ["admin"], "csrf": true },
+    { "url": "/category/save_process", "role": [ "admin"], "csrf": true },
+
+    { "url": "/user/profile", "role": ["student", "admin"], "csrf": true },
+    { "url": "/user/update_profile", "role": ["student", "admin"], "csrf": true },
+    { "url": "/user/username", "role": ["student", "admin"], "csrf": true },
+    { "url": "/user/update_username", "role": ["student", "admin"], "csrf": true },
+    { "url": "/user/email", "role": ["student", "admin"], "csrf": true },
+    { "url": "/user/update_email", "role": ["student", "admin"], "csrf": true },
+    { "url": "/user/password", "role": ["student", "admin"], "csrf": true },
+    { "url": "/user/update_password", "role": ["student", "admin"], "csrf": true },
+
+    { "url": "/examcenter/exam", "role": ["student", "admin"], "csrf": false },
+    { "url": "/examcenter/saveResult", "role": ["student", "admin"], "csrf": true },
+    { "url": "/examcenter/deleteResult", "role": ["student", "admin"], "csrf": true },
+    { "url": "/examcenter/updateDuration", "role": ["student", "admin"], "csrf": true },
+    { "url": "/examcenter/submit", "role": ["student", "admin"], "csrf": true },
+    { "url": "/examcenter/result", "role": ["student", "admin"], "csrf": false },
+    { "url": "/examcenter/myresults", "role": ["student", "admin"], "csrf": false },
+
+    { "url": "/comment/save",  "role": ["student", "admin"], "csrf": true },
+    { "url": "/comment/delete/",  "role": ["student", "admin"], "csrf": true },
+    { "url": "/comment/list",  "role": ["student", "admin"], "csrf": true },
+
+    { "url": "/subscription/subscribe",  "role": ["student", "admin"], "csrf": true },
+    { "url": "/subscription/unsubscribe",  "role": ["student", "admin"], "csrf": true },
+    { "url": "/subscription/subscription_list",  "role": ["student", "admin"], "csrf": true }     
+
+]
+
+
+ 
+
+
+
+
+
+
+
+
+
+
