@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <script src="/template/resource/js.cookie.min.js"></script>
+    <link href="/template/resource/highlight.css" rel="stylesheet">
+    <script src="/template/resource/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <!-- pwa -->
+    <link rel="apple-touch-icon" href="logo/logo-152.png">
+    <meta name="theme-color" content="#0072ff" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Hello World">
+    <meta name="msapplication-TileImage" content="logo/logo-144.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <link rel="manifest" href="/manifest.json">
+    <!-- pwa -->
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <title>Mcqschools - Practice mcq questions, Conduct online exams</title>
+    <meta name="description"
+        content="Learn and practice mcq questions for competitive exams and interviews. Conduct online exams and mock tests for students.">
+    <meta name="keywords" content="MCQ questions, MCQs with answers, MCQs test, Mcq questions on computer, General Knowledge, 
+    Online Exam Maker, Online Examination System, Mock test, online exam" />
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Logo -->
+            <div class="col-6 col-sm-4 col-md-6 mb-0 pt-2 pb-2">
+                <a href="/" class="text-decoration-none">
+                    <div class="text-dark">
+                        <span class="fw-bold h2">mcQ</span>
+                        <span class="fs-6">Schools</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- NEV -->
+            <div class="col-6 col-sm-8 col-md-6 h6 mb-0 pt-3 pb-2">
+                <div class="d-flex bd-highlight flex-row-reverse small">
+
+                    <?php if (!isset($_SESSION['authenticated']) ){ ?>
+
+                    <div class="text-end">
+                        <a href="/user/login" class="btn btn-sm btn-primary">
+                            Log in
+                        </a>
+                    </div>
+
+                    <?php } else { ?>
+
+                    <div class="ms-3">
+                        <a href="/user/profile" class="text-decoration-none <?php echo isset($_SESSION['authenticated']) ? '' : 'text-secondary'?>">
+                            <span style=" vertical-align: 0.125em;" class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                    class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                    <path fill-rule="evenodd"
+                                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+
+                    <div class="dropdown">
+                        <span class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <span style="vertical-align: 0.125em;" class="ps-2 pe-2">
+                                <img src="/template/icon/menu.svg" alt="menu" width="25px">
+                            </span>
+                        </span>
+
+                        <div class="dropdown-menu dropdown-menu-light small p-2" aria-labelledby="dropdownMenuButton2">
+
+                            <a href="/examcenter/myresults" class="text-decoration-none text-secondary">
+                                <div class="btn-group bg-hover rounded" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn">
+                                        <span style="vertical-align: 0.125em;" class="pe-2">
+                                            <img src="/template/icon/result.svg" alt="result">
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn">My Results</button>
+                                </div>
+                            </a>
+
+                            <a href="/exam/subscription" class="text-decoration-none text-secondary">
+                                <div class="btn-group bg-hover rounded" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn">
+                                        <span style="vertical-align: 0.125em;" class="pe-2">
+                                            <img src="/template/icon/subscribe.svg" alt="Subscriptions">
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn">Subscriptions</button>
+                                </div>
+                            </a>
+
+                            <a href="/exam/list" class="text-decoration-none text-secondary">
+                                <div class="btn-group bg-hover rounded" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn">
+                                        <span style="vertical-align: 0.125em;" class="pe-2">
+                                            <img src="/template/icon/conduct-exam.svg" alt="conduct exam">
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn">Exam Creator</button>
+                                </div>
+                            </a>
+
+                            <?php if ($_SESSION['user_role']=='admin') { ?>
+                            <!-- ADMIN -->
+                            <a href="/category/list" class="text-decoration-none text-secondary">
+                                <div class="btn-group bg-hover rounded" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn">
+                                        <span style="vertical-align: 0.125em;" class="pe-2">
+                                            <img src="/template/icon/category.svg" alt="category">
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn">Category</button>
+                                </div>
+                            </a>
+
+                            <?php } ?>
+
+
+                        </div>
+                    </div>
+
+                    <?php } ?>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- search and explore -->
+        <div class="row mt-5">
+            <div class="col-10 col-sm-10 col-md-8 m-auto mt-5 mb-5">
+
+                <form id="searchForm" class="border rounded-pill shadow p-1">
+                    <div class="input-group" style="position: relative">
+                        <button class="btn">
+                            <span style="vertical-align: 0.125em;">
+                                <img src="/template/icon/search.svg" alt="search" width="20px">
+                            </span>
+                        </button>
+                        <input id="searchQuery" type="text" class="form-control border-0" placeholder="Search & Explore"
+                            autocomplete="off">
+                        <div class="bg-white border shadow-sm rounded" id="querySuggationResultDisplay"
+                            style="position: absolute; width: 100%; top: 100%; z-index: 100; left: 0px; right: auto; display: none;">
+                            <div id="searchQueryList"></div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="text-center mt-5">
+                    Topics : 
+                    <a href="" class="text-decoration-none me-3 ms-3">Quiz</a>
+                    <a href="" class="text-decoration-none me-3">computer</a>
+                    <a href="" class="text-decoration-none me-3">Geography</a>
+                    <a href="" class="text-decoration-none me-3">Histroy</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    <!-- FOOTER -->
+    <div class="fixed-bottom">
+        <?php include __DIR__.'/static/footer.html';?>
+    </div>
+    
+
+    <!-- <script src="/app.js"></script> -->
+    <script>
+
+        // delete comment
+        function deleteComment(comment_id, element) {
+            $.ajax({
+                type: 'POST',
+                url: "/comment/delete/" + comment_id,
+                success: function (result) {
+                }
+            });
+            $(element).parent().parent().remove();
+        }
+
+
+        // topic template
+        function getTopicHtml(item) {
+            if (current_category === item)
+                return '<a href="#" class="btn btn-primary btn-sm rounded-pill mt-1 mb-1 me-1 d-md-block d-lg-inline-block">' + item + '</a>';
+            else
+                return '<a href="/category/search/' + item.replaceAll(" ", "-") + '" class="btn btn-sm border rounded-pill mt-1 mb-1 me-1 d-md-block d-lg-inline-block">' + item + '</a>';
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

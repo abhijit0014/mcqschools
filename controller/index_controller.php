@@ -25,6 +25,12 @@
             return;
         }
 
+        public function test()
+        {
+            $view = new view('test_index');
+            return;
+        }
+
     }
 
 ?>

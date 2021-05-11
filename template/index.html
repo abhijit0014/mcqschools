@@ -51,6 +51,12 @@
 
             <div class="col-12 col-md-9">
 
+                <div class="d-flex justify-content-center mt-5" id="loadingWindow">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
                 <div class="d-none" id="quizWindow">
                     <!-- progressbar -->
                     <div class="">
@@ -405,6 +411,7 @@
                 data: JSON.stringify(questionRequestObj),
                 url: "/question/question_list_api",
                 success: function (result) {
+                    $("#loadingWindow").addClass("d-none");
                     if (!result.question_list.length) {
                         $("#notFoundWindow").removeClass("d-none");
                     }
