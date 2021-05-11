@@ -94,8 +94,8 @@
     });
 
     // suggation click
-    $("#searchQueryList").on("click", "span", function () {
-        search_query = $(this).text();
+    $("#searchQueryList").on("click", "div", function () {
+        search_query = $(this).find('span').text();
         $("#searchQuery").val(search_query);
         noMoreResults = false;
         pageNumber = 1;

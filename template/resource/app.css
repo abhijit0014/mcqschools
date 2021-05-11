@@ -37,3 +37,8 @@ code{
     background-color: #f5f5f5;
     cursor:pointer;
 }
+#searchQuery:focus{
+    border-color: #fff;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

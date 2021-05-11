@@ -3,6 +3,7 @@
         <div class="container">
 
             <div class="row">
+
                 <!-- Logo -->
                 <div class="col-9 col-sm-4 col-md-3 h4 mb-0 pt-2 pb-2">
                     <a href="/" class="text-decoration-none">
@@ -13,6 +14,7 @@
                     </a>
                 </div>
 
+                <!-- User -->
                 <div class="col-3 d-block d-sm-none pt-2 pb-2 pe-3 text-end">
                         <a href="/user/profile" class="text-decoration-none text-white">
                             <span style=" vertical-align: 0.125em;" class="">
@@ -24,17 +26,17 @@
                         </a>
                 </div>
 
-                <!-- category search -->
+                <!-- search -->
                 <div class="col-12 col-sm-8 col-md-9 pt-2 pb-2">
                     <form id="searchForm">
-                        <div class="input-group bg-light rounded" style="position: relative">
-                            <input id="searchQuery" type="text" class="form-control border-0" placeholder="Search"
-                                autocomplete="off">
-                            <button type="submit" class="btn border-0">
+                        <div class="input-group bg-white rounded pe-1" style="position: relative">
+                            <button type="submit" class="btn btn-white me-1">
                                 <span style="vertical-align: 0.125em;">
-                                    <img src="/template/icon/search.svg" alt="search" width="20px">
+                                    <img src="/template/icon/search.svg" alt="search" width="18px">
                                 </span>
                             </button>
+                            <input id="searchQuery" type="text" class="form-control border-0" placeholder="Search"
+                                autocomplete="off">
                             <div class="bg-white border shadow-sm rounded" id="querySuggationResultDisplay"
                                 style="position: absolute; width: 100%; top: 100%; z-index: 100; left: 0px; right: auto; display: none;">
                                 <div id="searchQueryList"></div>
@@ -154,8 +156,8 @@
     });
 
     // suggation click
-    $("#searchQueryList").on("click", "span", function () {
-        search_query = $(this).text();
+    $("#searchQueryList").on("click", "div", function () {
+        search_query = $(this).find('span').text();
         window.location.href = "/search/query/" + search_query.replace(' ', '-');
     });
 
@@ -174,7 +176,9 @@
 
                     if (result.length) {
                         $.each(result, function (key, obj) {
-                            $("#searchQueryList").append('<span class="btn pe-2 ps-2 pt-1 pb-1 grayHover text-start text-dark d-block">' + obj.query_str + '</span>');
+                            str = getSearchResultElementHtml();
+                            str = str.replace("#searchQuery", obj.query_str);
+                            $("#searchQueryList").append(str);
                         });
                     }
 
@@ -185,4 +189,19 @@
             $("#querySuggationResultDisplay").hide();
         }
     }
+
+    function getSearchResultElementHtml(){
+        return '<div class="btn-group d-block bg-hover"> <button type="button" class="btn btn-white"> <img src="/template/icon/search.svg" alt="search" width="18px"> </button> <button type="button" class="btn btn-white"> <span>#searchQuery</span> </button></div>';
+    }
 </script>
+
+<!--
+<div class="btn-group d-block bg-hover">
+    <button type="button" class="btn btn-white">
+        <img src="/template/icon/search.svg" alt="search" width="18px"> 
+    </button>
+    <button type="button" class="btn btn-white">
+        <span>#searchQuery</span>
+    </button>
+</div>
+-->
