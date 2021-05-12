@@ -139,6 +139,8 @@
             $json_str = file_get_contents('php://input');
             $post_data = json_decode($json_str);
 
+            if(empty($post_data)) return;
+
             $limit = 20;
             $pages = 0;
             $currentPage = 0;
