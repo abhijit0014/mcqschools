@@ -80,13 +80,13 @@
                         R::store( $exam );
                     }else{
                         R::store( $exam ); 
-                        header("Location: /exam/list?error=true&msg=Minimum 10 questions required to publish");
+                        header("Location: ".$_SERVER['HTTP_REFERER']."?error=true&msg=Minimum 10 questions required to publish");
                         exit;
                     }
                 }
             }
 
-            header("Location: /exam/list");
+            header("Location: ".$_SERVER['HTTP_REFERER']);
             exit;
         }
 
