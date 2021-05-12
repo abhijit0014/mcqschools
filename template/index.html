@@ -47,15 +47,15 @@
     <!-- BODY -->
     <div class="container mt-5 mb-5">
 
+        <div class="d-flex justify-content-center mt-5 mb-5" id="loadingWindow">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+
         <div class="row m-auto">
-
             <div class="col-12 col-md-9">
-
-                <div class="d-flex justify-content-center mt-5" id="loadingWindow">
-                    <div class="spinner-border text-primary" role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
 
                 <div class="d-none" id="quizWindow">
                     <!-- progressbar -->
@@ -486,7 +486,7 @@
 
             // set category
             if (!Cookies.get('config_categories') || Cookies.get('config_categories') == '')
-                config_categories = new Array('Quiz', 'Geography', 'History', 'Current affairs', 'Computer');
+                config_categories = new Array('Quiz', 'Geography', 'History', 'Inventions', 'Computer');
             else
                 config_categories = Cookies.get('config_categories').split(",");
 
