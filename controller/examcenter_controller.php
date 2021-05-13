@@ -158,6 +158,9 @@
                 $examUser->duration = $exam->duration_mins - $examUser->duration;
                 $examUser->rank_score = ($correctAns/sizeof($questionlist)) * 100;
                 R::store( $examUser);
+
+                // refresh eaxm result list
+                $examResultList = $this->examResultRepository->getResult($examUser->id);
             }
 
             // prepare result list
