@@ -15,7 +15,7 @@
         public function subscribe($param)
         {
             $this->repository->subscribe($param[0]);
-            if( strpos( $_SERVER['HTTP_REFERER'], 'localhost' ) == true ){
+            if( strpos( $_SERVER['HTTP_REFERER'], 'mcqschools.com' ) == true ){
                 header("Location: ".$_SERVER['HTTP_REFERER']);
                 exit;
             }
@@ -26,7 +26,7 @@
         public function unsubscribe($param)
         {
             $this->repository->unsubscribe($param[0]);
-            if( strpos( $_SERVER['HTTP_REFERER'], 'localhost' ) == true ){
+            if( strpos( $_SERVER['HTTP_REFERER'], 'mcqschools.com' ) == true ){
                 header("Location: ".$_SERVER['HTTP_REFERER']);
                 exit;
             }
