@@ -363,7 +363,7 @@
                 url = "/examcenter/submit/" + examUserId + "/" + duration;
                 redirectUrl = "/examcenter/result/" + examId;
                 clearInterval(x);
-                $("#submit").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="visually-hidden">Submitting exam</span>');
+                $("#submit").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting exam');
                 $("#submit").attr('disabled','disabled');
                 // submit will call after 4sec
                 setTimeout(function() {
