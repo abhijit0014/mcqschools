@@ -285,24 +285,21 @@
                 saveAnswer(1);
                 $("#optionTable div").removeClass("border-primary bg-light");
                 $("#option1").addClass("border-primary bg-light");
-                updateExamResult(1);
             });
             $("#option2").click(function () {
                 saveAnswer(2);
                 $("#optionTable div").removeClass("border-primary bg-light");
                 $("#option2").addClass("border-primary bg-light");
-                updateExamResult(2);
             });
             $("#option3").click(function () {
                 saveAnswer(3);
                 $("#optionTable div").removeClass("border-primary bg-light");
                 $("#option3").addClass("border-primary bg-light");
-                updateExamResult(3);
             });
             $("#option4").click(function () {
+                saveAnswer(4);
                 $("#optionTable div").removeClass("border-primary bg-light");
                 $("#option4").addClass("border-primary bg-light");
-                updateExamResult(4);
             });
 
             // update exam result
@@ -374,6 +371,7 @@
                 ans = activeQuestionAns == ansOption ? true : false;
                 url = "/examcenter/saveResult/" + examUserId + "/" + activeQuestionId + "/" + ansOption;
                 ajaxCall(url, "POST", 3, '');
+                updateExamResult(ansOption);
             }
 
             // save duration
