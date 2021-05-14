@@ -387,6 +387,7 @@
             // save duration
             var saveDuration = function () {
                 url = "/examcenter/updateDuration/" + examUserId + "/" + duration;
+                if(duration>0)
                 ajaxCall(url, "POST", 1, '');
             }
 
@@ -394,6 +395,7 @@
             $("#pause").click(function () {
                 url = "/examcenter/updateDuration/" + examUserId + "/" + duration + "/pause";
                 redirectUrl = '/examcenter/start/' + examId;
+                if(duration>0)
                 ajaxCall(url, "POST", 3, redirectUrl);
             });
 
