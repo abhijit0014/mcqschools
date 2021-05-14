@@ -1,2 +1,3 @@
 User-agent: *
 Disallow: /exam/list
+Disallow: /search/query_result_api/

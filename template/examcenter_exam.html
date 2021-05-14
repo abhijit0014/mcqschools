@@ -209,7 +209,7 @@
             var activeQuestionId = 0;
             var activeQuestionAns = 0;
 
-            if (pauseDuration || pauseDuration === 0)
+            if (pauseDuration)
                 duration = pauseDuration;
 
 
@@ -345,8 +345,10 @@
                 duration--;
                 hr = Math.floor(duration / 60);
                 mins = duration % 60;
-                if (duration == 5)
-                    $("#timer").addClass("border-danger");
+                if (duration == 5){
+                    $("#timer").removeClass("btn-secondary");
+                    $("#timer").addClass("btn-danger");
+                }
                 if (duration <= 0) {
                     clearInterval(x);
                     submitExam(); //submit exam on duration end
@@ -360,6 +362,7 @@
             // submit exam
             $("#submit").click(function () { submitExam(); });
             var submitExam = function () {
+                if(duration<0) duration = 0;
                 url = "/examcenter/submit/" + examUserId + "/" + duration;
                 redirectUrl = "/examcenter/result/" + examId;
                 clearInterval(x);
