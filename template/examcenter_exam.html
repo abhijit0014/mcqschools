@@ -368,11 +368,19 @@
                 clearInterval(x);
                 $("#submit").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting exam');
                 $("#submit").attr('disabled','disabled');
-                // submit will call after 4sec
-                setTimeout(function() {
-                    $("#submit").html('Submit Exam');
-                    $("#submit").removeAttr('disabled');
-                    ajaxCall(url, "POST", 3, redirectUrl); 
+                // submit will call after 3sec
+                setTimeout(function() 
+                {
+                    //ajaxCall(url, "POST", 3, redirectUrl); 
+                    $.ajax({
+                        url: url, type: "POST",
+                        success: function (result) {
+                            $(location).attr('href', redirectUrl);
+                        },error: function (xhr, textStatus, errorThrown) {
+                            $("#submit").html('Submit Exam');
+                            $("#submit").removeAttr('disabled');
+                        }
+                    });
                 }, 3000);
             }
 
