@@ -52,6 +52,8 @@
             $examUser = $this->examUserRepository->getByExamIdAndUserId($examId,$userId);
             if(!$examUser){
                 $examUser = $this->examUserRepository->create($examId,$userId);
+                $exam->attemped++;
+                R::store($exam);
             }else if($examUser->submitted){
                 header("Location: /examcenter/result/".$examId); exit;
             }
