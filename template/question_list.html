@@ -54,23 +54,23 @@
                     <?php foreach ($questionlist as $question) { ?>
                     <tr>
                         <td> 
-                            <div class="mb-2 h6"><pre><?php echo $question['question'] ?></pre></div>
+                            <div class="mb-2 h6"><pre><xmp><?php echo $question['question'] ?></xmp></pre></div>
                             <div class="">
                                 <div class="p-1 ">
                                     <span class="badge <?php echo $question['ans'] == 1 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">1</span>
-                                    <?php echo $question['option_one'] ?>
+                                    <xmp><?php echo $question['option_one'] ?></xmp>
                                 </div>
                                 <div class="p-1 ">
                                     <span class="badge <?php echo $question['ans'] == 2 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">2</span>
-                                    <?php echo $question['option_two'] ?>
+                                    <xmp><?php echo $question['option_two'] ?></xmp>
                                 </div>
                                 <div class="p-1 ">
                                     <span class="badge <?php echo $question['ans'] == 3 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">3</span>
-                                    <?php echo $question['option_three'] ?>
+                                    <xmp><?php echo $question['option_three'] ?></xmp>
                                 </div>
                                 <div class="p-1 ">
                                     <span class="badge <?php echo $question['ans'] == 4 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">4</span>
-                                    <?php echo $question['option_four'] ?>
+                                    <xmp><?php echo $question['option_four'] ?></xmp>
                                 </div>
                             </div>
                         </td>
