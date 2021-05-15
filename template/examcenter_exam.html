@@ -201,7 +201,8 @@
             var examUserId = parseInt('<?php echo $examUser->id ?>');
             var pauseDuration = parseInt('<?php echo $examUser->duration ?>');
             var duration = parseInt('<?php echo $exam->duration_mins ?>');
-            var questionList = JSON.parse('<?php echo $questionlist ?>');
+            //var questionList = JSON.parse('');
+            var questionList = <?php echo $questionlist ?>;
             var examResult = JSON.parse('<?php echo $examResult ?>');
 
             var totalQuestion = 0;
