@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label class="h5 text-secondary mb-3">Question</label>
                         <textarea name="question" type="text" class="form-control" placeholder="Question"
-                            rows="6" autocomplete="off" minlength="6" maxlength="590"
+                            rows="6" autocomplete="off" minlength="6" maxlength="590" id="questionStr"
                             required><?php echo $question->question ?></textarea>
                     </div>
 
@@ -243,6 +243,32 @@
                 $("#option" + ansVal).addClass("bg-option");
                 option_bg_flag = false;
             }
+
+            // validaton --------------------------------------------------------------------------------
+            $("#questionStr").change(function(){
+                $("#questionStr").val( validateString($("#questionStr").val()) );
+            });
+            $("#option1").change(function(){
+                $("#option1").val( validateString($("#option1").val()) );
+            });
+            $("#option2").change(function(){
+                $("#option2").val( validateString($("#option2").val()) );
+            });
+            $("#option3").change(function(){
+                $("#option3").val( validateString($("#option3").val()) );
+            });
+            $("#option4").change(function(){
+                $("#option4").val( validateString($("#option4").val()) );
+            });
+
+            function validateString(str){
+                str = str.replaceAll("'","`");
+                str = str.replaceAll('"','');
+                return str;
+            }
+
+
+
 
             // delete question
             $('#delete').click(function () {
