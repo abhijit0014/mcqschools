@@ -14,8 +14,8 @@
     <script>
     $( document ).ready(function() {
         $("code").each(function(){
-            $(this).text($(this).html().trim());
-        })
+            $(this).html($(this).html().trim());
+        });
         hljs.highlightAll();
     });
     </script>
@@ -58,12 +58,23 @@
                     </tr>
                 </thead>
                 <tbody>
+
+                    <?php 
+                        function convert($str){
+                            $str = str_replace("<code>","codeStart",$str);
+                            $str = str_replace("</code>","codeEnd",$str);
+                            $str = htmlentities($str);
+                            $str = str_replace("codeStart","<code>",$str);
+                            $str = str_replace("codeEnd","</code>",$str);
+                            return $str;
+                        }
+                    ?>
                     <?php foreach ($questionlist as $i => $question) { ?>
                     <tr>
                         <td> 
                             <div class="mb-2 h6">
                                 <span class="bg-primary badge"> Q <?php echo (($i+1)+($currentPage*10)-10 ) ?></span>
-                                <pre><?php echo $question['question'] ?></pre>
+                                <pre><?php echo convert($question['question']) ?></pre>
                             </div>
                             <div class="">
                                 <div class="p-1 ">

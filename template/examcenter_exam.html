@@ -4,16 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/template/resource/app.css" rel="stylesheet">
     <script src="/template/resource/jquery.min.js"></script>
     <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
     <script src="/template/resource/bootstrap.bundle.min.js"></script>
     <link href="/template/resource/highlight.css" rel="stylesheet">
     <script src="/template/resource/highlight.min.js"></script>
+    <link href="/template/resource/app.css" rel="stylesheet">
     <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
-    <title>
-        <?php echo $exam->title ?>
-    </title>
+    <title><?php echo $exam->title ?></title>
     <style>
         .dot {
             height: 15px;
@@ -132,21 +130,21 @@
 
                         <div class="h6"><pre id="question">Question</pre></div>
                         <div id="optionTable">
-                            <div id="option1" class="border hoverBorder rounded p-2 pl-3  mt-5">option 1</div>
-                            <div id="option2" class="border hoverBorder rounded p-2 pl-3  mt-2">option 2</div>
-                            <div id="option3" class="border hoverBorder rounded p-2 pl-3  mt-2">option 3</div>
-                            <div id="option4" class="border hoverBorder rounded p-2 pl-3  mt-2">option 4</div>
+                            <div id="option1" class="border hoverBorder rounded p-2 ps-3  mt-5">option 1</div>
+                            <div id="option2" class="border hoverBorder rounded p-2 ps-3  mt-2">option 2</div>
+                            <div id="option3" class="border hoverBorder rounded p-2 ps-3  mt-2">option 3</div>
+                            <div id="option4" class="border hoverBorder rounded p-2 ps-3  mt-2">option 4</div>
                         </div>
 
                         <div class="row mt-4">
                             <div class="col-4">
-                                <button id="prev" type="button" class="btn btn-light h1 btn-sm border">Previous</button>
+                                <button id="prev" type="button" class="btn btn-light h1  border">Previous</button>
                             </div>
                             <div class="col-4 text-center">
-                                <button id="clear" type="button" class="btn btn-light float-center btn-sm border">Clear</button>
+                                <button id="clear" type="button" class="btn btn-light float-center  border">Clear</button>
                             </div>
                             <div class="col-4">
-                                <button id="next" type="button" class="btn btn-light float-end btn-sm border">Next</button>
+                                <button id="next" type="button" class="btn btn-light float-end  border">Next</button>
                             </div>
                         </div>
                     </div>
@@ -174,7 +172,7 @@
                         </div>
 
                         <div class="pt-3 clearfix d-grid">
-                            <button id="submit" class="btn btn-danger btn-sm float-end">Submit Exam</button>
+                            <button id="submit" class="btn btn-danger float-end">Submit Exam</button>
                         </div>
 
                     </div>
@@ -260,7 +258,7 @@
 
             // set question
             var updateQuestion = function (questionObj) {
-                $("#question").text(questionObj.question);
+                $("#question").html(convert_special_html_characters(questionObj.question));
                 $("#option1").text(questionObj.option_one);
                 $("#option2").text(questionObj.option_two);
                 $("#option3").text(questionObj.option_three);
@@ -268,9 +266,20 @@
                 activeQuestionId = questionObj.id;
                 activeQuestionAns = questionObj.ans;
 
-                $("#quizWindow code").each(function(){ $(this).text($(this).html().trim()); });
-                $('#quizWindow pre code').each(function (i, block) { hljs.highlightElement(block); });
+                $("pre code").each(function(){ $(this).text($(this).text().trim()); });
+                $("pre code").each(function (i, block) { hljs.highlightElement(block); });
             };
+
+            // convert special html characters
+            var convert_special_html_characters = function (str){
+                str = str.replace("<code>","codeStart");
+                str = str.replace("</code>","codeEnd");
+                str = $("<div/>").text(str.trim()).html();
+                str = str.replace("codeStart","<code>");
+                str = str.replace("codeEnd","</code>");
+                //console.log(str);
+                return str;
+            }
 
             // update question css
             var updateQuestionCss = function () {

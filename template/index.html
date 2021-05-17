@@ -376,13 +376,14 @@
                     $("#option1,#option2,#option3,#option4").removeClass("bg-wrong text-white");
                     $("#option1,#option2,#option3,#option4").addClass("bg-light");
 
-                    $("#questionDisplay").html(question_list[current_question].question);
+
+                    $("#questionDisplay").html(convert_special_html_characters(question_list[current_question].question));
                     $("#optionOneDisplay").text(question_list[current_question].option_one);
                     $("#optionTwoDisplay").text(question_list[current_question].option_two);
                     $("#optionThreeDisplay").text(question_list[current_question].option_three);
                     $("#optionFourDisplay").text(question_list[current_question].option_four);
 
-                    $("#quizWindow code").each(function(){ $(this).text($(this).html().trim()); });
+                    $("#quizWindow code").each(function(){ $(this).text($(this).text().trim()); });
                     $('#quizWindow pre code').each(function (i, block) { hljs.highlightElement(block); });
 
                     countdownTimer();
@@ -395,6 +396,17 @@
                     setQuestion("next")
                 }
             }
+        }
+
+        // convert special html characters
+        function  convert_special_html_characters(str){
+            str = str.replace("<code>","codeStart");
+            str = str.replace("</code>","codeEnd");
+            str = $("<div/>").text(str.trim()).html();
+            str = str.replace("codeStart","<code>");
+            str = str.replace("codeEnd","</code>");
+            //console.log(str);
+            return str;
         }
 
         // load question set
