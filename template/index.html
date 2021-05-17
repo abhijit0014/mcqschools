@@ -11,7 +11,6 @@
     <script src="/template/resource/js.cookie.min.js"></script>
     <link href="/template/resource/highlight.css" rel="stylesheet">
     <script src="/template/resource/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
     <!-- pwa -->
     <link rel="apple-touch-icon" href="logo/logo-152.png">
     <meta name="theme-color" content="#0072ff" />
@@ -382,7 +381,9 @@
                     $("#optionTwoDisplay").text(question_list[current_question].option_two);
                     $("#optionThreeDisplay").text(question_list[current_question].option_three);
                     $("#optionFourDisplay").text(question_list[current_question].option_four);
-                    $('pre code').each(function (i, block) { hljs.highlightBlock(block); });
+
+                    $("#quizWindow code").each(function(){ $(this).text($(this).html().trim()); });
+                    $('#quizWindow pre code').each(function (i, block) { hljs.highlightElement(block); });
 
                     countdownTimer();
 

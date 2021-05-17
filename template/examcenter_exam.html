@@ -10,7 +10,6 @@
     <script src="/template/resource/bootstrap.bundle.min.js"></script>
     <link href="/template/resource/highlight.css" rel="stylesheet">
     <script src="/template/resource/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
     <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
     <title>
         <?php echo $exam->title ?>
@@ -268,6 +267,9 @@
                 $("#option4").text(questionObj.option_four);
                 activeQuestionId = questionObj.id;
                 activeQuestionAns = questionObj.ans;
+
+                $("#quizWindow code").each(function(){ $(this).text($(this).html().trim()); });
+                $('#quizWindow pre code').each(function (i, block) { hljs.highlightElement(block); });
             };
 
             // update question css

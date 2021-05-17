@@ -11,7 +11,14 @@
     <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
     <link  href="/template/resource/highlight.css" rel="stylesheet">
     <script src="/template/resource/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
+    <script>
+    $( document ).ready(function() {
+        $("code").each(function(){
+            $(this).text($(this).html().trim());
+        })
+        hljs.highlightAll();
+    });
+    </script>
     <link href="/template/resource/app.css" rel="stylesheet">
     <title>Question List</title>
 </head>
@@ -51,26 +58,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($questionlist as $question) { ?>
+                    <?php foreach ($questionlist as $i => $question) { ?>
                     <tr>
                         <td> 
-                            <div class="mb-2 h6"><pre><xmp><?php echo $question['question'] ?></xmp></pre></div>
+                            <div class="mb-2 h6">
+                                <span class="bg-primary badge"> Q <?php echo (($i+1)+($currentPage*10)-10 ) ?></span>
+                                <pre><?php echo $question['question'] ?></pre>
+                            </div>
                             <div class="">
                                 <div class="p-1 ">
                                     <span class="badge <?php echo $question['ans'] == 1 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">1</span>
-                                    <xmp><?php echo $question['option_one'] ?></xmp>
+                                    <?php echo htmlentities( $question['option_one'] ) ?>
                                 </div>
                                 <div class="p-1 ">
                                     <span class="badge <?php echo $question['ans'] == 2 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">2</span>
-                                    <xmp><?php echo $question['option_two'] ?></xmp>
+                                    <?php echo htmlentities( $question['option_two'] ) ?>
                                 </div>
                                 <div class="p-1 ">
                                     <span class="badge <?php echo $question['ans'] == 3 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">3</span>
-                                    <xmp><?php echo $question['option_three'] ?></xmp>
+                                    <?php echo htmlentities( $question['option_three'] )?>
                                 </div>
                                 <div class="p-1 ">
                                     <span class="badge <?php echo $question['ans'] == 4 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">4</span>
-                                    <xmp><?php echo $question['option_four'] ?></xmp>
+                                    <?php echo htmlentities( $question['option_four'] ) ?>
                                 </div>
                             </div>
                         </td>
