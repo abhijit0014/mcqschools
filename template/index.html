@@ -2,15 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
-    <script src="/template/resource/jquery.min.js"></script>
-    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
-    <script src="/template/resource/bootstrap.bundle.min.js"></script>
-    <script src="/template/resource/js.cookie.min.js"></script>
-    <link href="/template/resource/highlight.css" rel="stylesheet">
-    <script src="/template/resource/highlight.min.js"></script>
+    <!-- resource -->
+    <?php include __DIR__.'/resource/resource.php';?>
     <!-- pwa -->
     <link rel="apple-touch-icon" href="logo/logo-152.png">
     <meta name="theme-color" content="#0072ff" />
@@ -21,7 +14,6 @@
     <meta name="msapplication-TileColor" content="#FFFFFF">
     <link rel="manifest" href="/manifest.json">
     <!-- pwa -->
-    <link href="/template/resource/app.css" rel="stylesheet">
     <?php if(empty($category_name)) {?>
     <title>Mcqschools - Practice mcq questions, Conduct online exams</title>
     <meta name="description"
@@ -248,7 +240,7 @@
     <!-- FOOTER -->
     <?php include __DIR__.'/static/footer.html';?>
 
-    <script src="/app.js"></script>
+    <script src="/app.js?v=1.1"></script>
     <script>
 
         var user_id = "<?php echo isset($_SESSION['user_id'])? $_SESSION['user_id']: 0; ?>";
@@ -302,12 +294,9 @@
 
 
 
-            // quiz ------------------------------------------------------------------
-            // next
+            // quiz - next - prev - skip ------------------------------------------------------------------
             $("#next").click(function () { setQuestion("next"); });
-            // skip
             $("#skip").click(function () { setQuestion("next"); });
-            // prev
             $("#prev").click(function () { setQuestion("prev"); });
 
             // option click - user ans
@@ -332,7 +321,6 @@
                 question_list[current_question].attempt = true;
 
                 // stop question timer
-
                 clearInterval(countDownInterval);
                 $("#timerDisplay").text("Done");
                 $("#progressbartime").css("width", "0%");

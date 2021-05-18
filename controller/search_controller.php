@@ -37,6 +37,7 @@
             $limit = 10;
             $search_query = $param[0];
             $page_number = isset($param[1]) ? $param[1] : 1;
+            $categorylist = [];
             
             if($page_number==1)
             $categorylist = $this->categoryRepository->autocompleteList($search_query);
