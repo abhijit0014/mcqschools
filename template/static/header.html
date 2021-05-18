@@ -55,13 +55,18 @@
     <div class="container ">
         <div class="d-flex bd-highlight small  pt-2 pb-2">
 
-            <div class="flex-fill bd-highlight border-end">
+            <div class="flex-fill bd-highlight border-end d-none d-sm-block">
                 <a href="/exam/list" class="text-decoration-none text-secondary">
                     <span style="vertical-align: 0.125em;" class="pe-2">
                         <img src="/template/icon/conduct-exam.svg" alt="conduct exam">
                     </span>
                     <span class="d-inline-block">Exam Creator</span>
                 </a>
+            </div>
+
+            <div class="flex-fill bd-highlight  text-center">
+                <!-- DROPDOWN MENU -->
+                <?php include __DIR__.'/dropdownMenu.html';?>
             </div>
 
 
