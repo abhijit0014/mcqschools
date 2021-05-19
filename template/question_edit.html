@@ -120,19 +120,42 @@
                     </div>
 
 
+
+                    
+
                     <!-- auto detect -->
+                    <?php if ($_SESSION['email']=='quiz@admin.com') { ?>
+                    <div class="h6"> Auto Detect </div>
                     <div>
-                        <a class="btn btn-sm p-0 mb-3 text-secondary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                          Auto Detect
-                        </a>
-                    </div>
-                    <div class="collapse" id="collapseExample">
                         <div class="mb-3">
                             <label class="small mb-2">Your Question</label>
-                            <textarea class="form-control" id="autoDetectQuestion" rows="3"></textarea>
+                            <textarea class="form-control" id="autoDetectQuestion" rows="10"></textarea>
                         </div>
                     </div>
+
+                    <script>
+                        // autoDetectQuestion
+                        $("#autoDetectQuestion").change(function(){
+                            text = $("#autoDetectQuestion").val().split("\n");
+                            $("#questionStr").val(text[0]);
+                            $("#option1").val(text[1].replace("(A)","").replace("(a)","").trim());
+                            $("#option2").val(text[2].replace("(B)","").replace("(b)","").trim());
+                            $("#option3").val(text[3].replace("(C)","").replace("(c)","").trim());
+                            $("#option4").val(text[4].replace("(D)","").replace("(d)","").trim());
+
+                            ans  = text[5].replace("ANS:","").replace("Ans:","").replace(/[^a-zA-Z0-9]/g, '').trim();
+                            if(ans==1 || ans=='a') $('#ansOption option[value="1"]').prop('selected', true);
+                            if(ans==2 || ans=='b') $('#ansOption option[value="2"]').prop('selected', true);
+                            if(ans==3 || ans=='c') $('#ansOption option[value="3"]').prop('selected', true);
+                            if(ans==4 || ans=='d') $('#ansOption option[value="4"]').prop('selected', true);
+                        });
+                    </script>
                     <!-- auto detect -->
+                    <?php } ?>
+
+
+
+
 
                 </form>
             </div>
@@ -283,23 +306,6 @@
                 return str;
             }
             */
-
-            // autoDetectQuestion
-            $("#autoDetectQuestion").change(function(){
-                text = $("#autoDetectQuestion").val().split("\n");
-                $("#questionStr").val(text[0]);
-                $("#option1").val(text[1].replace("(A)","").trim());
-                $("#option2").val(text[2].replace("(B)","").trim());
-                $("#option3").val(text[3].replace("(C)","").trim());
-                $("#option4").val(text[4].replace("(D)","").trim());
-
-                ans  = text[5].replace("ANS","").trim();
-                if(ans==1) $('#ansOption option[value="1"]').prop('selected', true);
-                if(ans==2) $('#ansOption option[value="2"]').prop('selected', true);
-                if(ans==3) $('#ansOption option[value="3"]').prop('selected', true);
-                if(ans==4) $('#ansOption option[value="4"]').prop('selected', true);
-            });
-
 
             // delete question
             $('#delete').click(function () {
