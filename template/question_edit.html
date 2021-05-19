@@ -119,6 +119,21 @@
                         </div>
                     </div>
 
+
+                    <!-- auto detect -->
+                    <div>
+                        <a class="btn btn-sm p-0 mb-3 text-secondary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                          Auto Detect
+                        </a>
+                    </div>
+                    <div class="collapse" id="collapseExample">
+                        <div class="mb-3">
+                            <label class="small mb-2">Your Question</label>
+                            <textarea class="form-control" id="autoDetectQuestion" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <!-- auto detect -->
+
                 </form>
             </div>
         </div>
@@ -269,6 +284,21 @@
             }
             */
 
+            // autoDetectQuestion
+            $("#autoDetectQuestion").change(function(){
+                text = $("#autoDetectQuestion").val().split("\n");
+                $("#questionStr").val(text[0]);
+                $("#option1").val(text[1].replace("(A)","").trim());
+                $("#option2").val(text[2].replace("(B)","").trim());
+                $("#option3").val(text[3].replace("(C)","").trim());
+                $("#option4").val(text[4].replace("(D)","").trim());
+
+                ans  = text[5].replace("ANS","").trim();
+                if(ans==1) $('#ansOption option[value="1"]').prop('selected', true);
+                if(ans==2) $('#ansOption option[value="2"]').prop('selected', true);
+                if(ans==3) $('#ansOption option[value="3"]').prop('selected', true);
+                if(ans==4) $('#ansOption option[value="4"]').prop('selected', true);
+            });
 
 
             // delete question
