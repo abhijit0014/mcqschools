@@ -128,12 +128,9 @@
             <!-- auto detect -->
             <?php if ($_SESSION['email']=='quiz@admin.com') { ?>
             <div class="col-12 col-md-4 col-lg-6">
-                <div class="h5 mb-3"> Auto Detect </div>
+                <div class="h5 mb-3"> Auto Detect</div>
                 <div class="mb-3">
-                    <textarea class="form-control" id="autoDetectQuestion" rows="10"></textarea>
-                </div>
-                <div class="mt-3" id="scheduledQstList">
-
+                    <textarea class="form-control" id="autoDetectQuestion" rows="12"></textarea>
                 </div>
 
                 <script>
@@ -156,12 +153,22 @@
                         $("#option2").val(text[++i].replace("(B)", "").replace("(b)", "").trim());
                         $("#option3").val(text[++i].replace("(C)", "").replace("(c)", "").trim());
                         $("#option4").val(text[++i].replace("(D)", "").replace("(d)", "").trim());
-
+                        
+                        ans_flag = false;
                         ans = text[++i].replace("ANS:", "").replace("Ans:", "").replace(/[^a-zA-Z0-9]/g, '').trim();
-                        if (ans == 1 || ans == 'a') $('#ansOption option[value="1"]').prop('selected', true);
-                        if (ans == 2 || ans == 'b') $('#ansOption option[value="2"]').prop('selected', true);
-                        if (ans == 3 || ans == 'c') $('#ansOption option[value="3"]').prop('selected', true);
-                        if (ans == 4 || ans == 'd') $('#ansOption option[value="4"]').prop('selected', true);
+                        if (ans == 1 || ans == 'a'){ $('#ansOption option[value="1"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 2 || ans == 'b'){ $('#ansOption option[value="2"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 3 || ans == 'c'){ $('#ansOption option[value="3"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 4 || ans == 'd'){ $('#ansOption option[value="4"]').prop('selected', true); ans_flag = true; }
+
+                        if(ans_flag){
+                            $("#autoDetectQuestion").removeClass("border-danger");
+                            $("#autoDetectQuestion").addClass("border-success");
+                        }else{
+                            $("#autoDetectQuestion").removeClass("border-success");
+                            $("#autoDetectQuestion").addClass("border-danger");
+                        }
+
                     });
                 </script>
             </div>
