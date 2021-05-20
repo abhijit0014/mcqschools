@@ -10,23 +10,6 @@
         public function save($obj)
         {
             $exam;
-            $category;
-
-            // save new category
-            if(empty($obj['category_id'])){
-                $category= R::findOne( 'category', ' title = ? ', [ $obj['categoryName'] ] );;
-                if(empty($category)){
-                    $category = R::dispense( 'category' );
-                    $category->title = $obj['categoryName'];
-                    $category->enabled = true;
-                    $category->created_date = date('Y-m-d H:i:s');
-                    $category->created_by = SessionManager::get("user_id");
-    
-                    $obj['category_id'] = R::store( $category );
-                }else{
-                    $obj['category_id'] = $category->id;
-                }
-            }
 
             // save exam
             if(empty($obj['id'])){
@@ -49,7 +32,7 @@
             }
 
             $exam->title = $obj['title'];
-            $exam->category_id = $obj['category_id'];
+            $exam->category_id = empty($obj['category_id']) ? 145 : $obj['category_id'];
             $exam->descp = $obj['descp'];
             $exam->point = $obj['point'];
             $exam->negative_point = $obj['negative_point'];

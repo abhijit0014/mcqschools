@@ -163,10 +163,10 @@
                         
                         ans_flag = false;
                         ans = text[++i].replace("ANS:", "").replace("Ans:", "").replace(/[^a-zA-Z0-9]/g, '').trim();
-                        if (ans == 1 || ans == 'a'){ $('#ansOption option[value="1"]').prop('selected', true); ans_flag = true; }
-                        if (ans == 2 || ans == 'b'){ $('#ansOption option[value="2"]').prop('selected', true); ans_flag = true; }
-                        if (ans == 3 || ans == 'c'){ $('#ansOption option[value="3"]').prop('selected', true); ans_flag = true; }
-                        if (ans == 4 || ans == 'd'){ $('#ansOption option[value="4"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 1 || ans == 'A' || ans == 'a'){ $('#ansOption option[value="1"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 2 || ans == 'B' || ans == 'b'){ $('#ansOption option[value="2"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 3 || ans == 'C' || ans == 'c'){ $('#ansOption option[value="3"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 4 || ans == 'D' || ans == 'd'){ $('#ansOption option[value="4"]').prop('selected', true); ans_flag = true; }
 
                         if(ans_flag){
                             $("#autoDetectQuestion").removeClass("border-danger");
