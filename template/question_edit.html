@@ -126,7 +126,7 @@
 
 
             <!-- auto detect -->
-            <?php if ($_SESSION['email']=='quiz@admin.com') { ?>
+            <?php if ($_SESSION['email']=='quiz@admin.com' || $_SESSION['email']=='computer@mcqschools.com') { ?>
             <div class="col-12 col-md-4 col-lg-6">
                 <div class="h5 mb-3"> Auto Detect</div>
                 <div class="mb-3">
@@ -139,7 +139,7 @@
                     option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2."];
                     option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3."];
                     option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4."];
-                    optionAnsMatch = ["Ans:", "ANS:", "Ans -", "ANS -"];
+                    optionAnsMatch = ["Ans:", "ANS:", "Ans -", "ANS -", "Answer"];
 
                     $("#autoDetectQuestion").change(function () {
                         var text = $("#autoDetectQuestion").val().split("\n");
