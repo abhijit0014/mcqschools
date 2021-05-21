@@ -135,34 +135,30 @@
 
                 <script>
                     // autoDetectQuestion
+                    option1Match = ["(A)", "(a)", "A)", "a)", "A.", "a.", "A -", "a -", "1."];
+                    option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2."];
+                    option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3."];
+                    option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4."];
+                    optionAnsMatch = ["Ans:", "ANS:", "Ans -", "ANS -"];
+
                     $("#autoDetectQuestion").change(function () {
                         var text = $("#autoDetectQuestion").val().split("\n");
                         var questionText = '';
                         var i = 0;
                         for (i = 0; i < text.length; i++) {
-                            temp = text[i].trim();
-                            if(temp.indexOf('(A)')==0 || temp.indexOf('(a)')==0 || temp.indexOf('A. ')==0 || temp.indexOf('a. ')==0 || temp.indexOf('1. ')==0){
-                                temp2 = text[i+1].trim();
-                                if(temp2.indexOf('(B)')==0 || temp2.indexOf('(b)')==0 || temp2.indexOf('B. ')==0 || temp2.indexOf('b. ')==0 || temp.indexOf('2. ')==0){
-                                    break;
-                                }
-                            }
+                            if(isOption(text[i], text[i+1]))
+                                break;
                             questionText += '\n'+text[i];
                         };
 
                         $("#questionStr").val(questionText.trim());
+                        $("#option1").val(validateString(text[i], "option1"));
+                        $("#option2").val(validateString(text[++i], "option2"));
+                        $("#option3").val(validateString(text[++i], "option3"));
+                        $("#option4").val(validateString(text[++i], "option4"));
 
-                        $("#option1").val(text[i].replace("(A)", "").replace("(a)", "").replace("A)", "").replace("a)", "")
-                                                .replace("A.", "").replace("a.", "").replace("1.", "").trim());
-                        $("#option2").val(text[++i].replace("(B)", "").replace("(b)", "").replace("B)", "").replace("b)", "")
-                                                .replace("B.", "").replace("b.", "").replace("2.", "").trim());
-                        $("#option3").val(text[++i].replace("(C)", "").replace("(c)", "").replace("C)", "").replace("c)", "")
-                                                .replace("C.", "").replace("c.", "").replace("3.", "").trim());
-                        $("#option4").val(text[++i].replace("(D)", "").replace("(d)", "").replace("D)", "").replace("d)", "")
-                                                .replace("D.", "").replace("d.", "").replace("4.", "").trim());
-                        
                         ans_flag = false;
-                        ans = text[++i].replace("ANS:", "").replace("Ans:", "").replace(/[^a-zA-Z0-9]/g, '').trim();
+                        ans = validateString(text[++i], "ans").replace(/[^a-zA-Z0-9]/g, '').trim();
                         if (ans == 1 || ans == 'A' || ans == 'a'){ $('#ansOption option[value="1"]').prop('selected', true); ans_flag = true; }
                         if (ans == 2 || ans == 'B' || ans == 'b'){ $('#ansOption option[value="2"]').prop('selected', true); ans_flag = true; }
                         if (ans == 3 || ans == 'C' || ans == 'c'){ $('#ansOption option[value="3"]').prop('selected', true); ans_flag = true; }
@@ -177,6 +173,48 @@
                         }
 
                     });
+
+                    // validate text
+                    function validateString(str, selector){
+                        result = undefined;
+                        badTextArray = [];
+                        str = str.trim();
+                        if(selector == 'option1') badTextArray = option1Match;
+                        else if(selector == 'option2') badTextArray = option2Match;
+                        else if(selector == 'option3') badTextArray = option3Match;
+                        else if(selector == 'option4') badTextArray = option4Match;
+                        else if(selector == 'ans') badTextArray = optionAnsMatch;
+
+                        if(str);
+                        badTextArray.forEach(element => {
+                            if(str.indexOf(element)==0){
+                                if(!result)
+                                result = str.replace(element, "").trim();
+                            }
+                        });
+                        return result;
+                    }
+
+                    // check for option
+                    function isOption(line1, line2){
+                        line1_flag = false;
+                        line2_flag = false;
+                        line1 = line1.trim();
+                        line2 = line2.trim();
+                        option1Match.forEach(element => {
+                            if(line1.indexOf(element)==0)
+                                line1_flag = true;
+                        });
+                        
+                        if(line1_flag)
+                        option2Match.forEach(element => {
+                            if(line2.indexOf(element)==0)
+                                line2_flag = true;
+                        });
+
+                        if(line1_flag && line2_flag) return true;
+                        else return false;
+                    }
                 </script>
             </div>
             <?php } ?>
