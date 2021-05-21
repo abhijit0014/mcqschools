@@ -31,6 +31,11 @@
             overflow: hidden;
         }
 
+        .bg-pink{
+            background-color: #e6007a;
+            color: white;
+        }
+
         .hoverBorder:hover {
             border-color: lightslategray !important;
             cursor: pointer;
@@ -137,14 +142,15 @@
                         </div>
 
                         <div class="row mt-4">
-                            <div class="col-4">
-                                <button id="prev" type="button" class="btn btn-info">Previous</button>
+                            <div class="col-3">
+                                <button id="prev" type="button" class="btn btn-sm btn-info">Previous</button>
                             </div>
-                            <div class="col-4 text-center">
-                                <button id="clear" type="button" class="btn btn-info float-center">Clear</button>
+                            <div class="col-6 text-center">
+                                <button id="review" type="button" class="btn btn-sm btn-info float-center">Mark Review</button>
+                                <button id="clear" type="button" class="btn btn-sm btn-info float-center">Clear</button>
                             </div>
-                            <div class="col-4">
-                                <button id="next" type="button" class="btn btn-info float-end">Next</button>
+                            <div class="col-3">
+                                <button id="next" type="button" class="btn btn-sm btn-info float-end">Next</button>
                             </div>
                         </div>
                     </div>
@@ -162,17 +168,20 @@
 
                         <div class="mt-5 small text-secondary">
                             <div class="row">
-                                <div class="col">
-                                    <span class="badge bg-info"> </span> Attemped
+                                <div class="col-md-6">
+                                    <span class="badge bg-success"> </span> Attemped
                                 </div>
-                                <div class="col">
+                                <div class="col-md-6">
+                                    <span class="badge bg-pink"> </span> Review
+                                </div>
+                                <div class="col-md-12">
                                     <span class="badge bg-light"> </span> Not answared
                                 </div>
                             </div>
                         </div>
 
                         <div class="pt-3 clearfix d-grid">
-                            <button id="submit" class="btn btn-light float-end">Submit Exam</button>
+                            <button id="submit" class="btn btn-sm btn-light float-end border">Submit Exam</button>
                         </div>
 
                     </div>
@@ -201,6 +210,7 @@
             //var questionList = JSON.parse('');
             var questionList = <?php echo $questionlist ?>;
             var examResult = JSON.parse('<?php echo $examResult ?>');
+            var reviewList = [];
 
             var totalQuestion = 0;
             var activeQuestion = 0;
@@ -236,12 +246,11 @@
                     activeQuestion++;
             });
 
-            // go to question
-            goToQ = function (id) {
-                activeQuestion = id;
-                updateQuestion(questionList[activeQuestion]);
-                updateQuestionCss();
-            }
+            // review
+            $("#review").click(function () {
+                reviewList.push(activeQuestionId);
+                updateQuestionOverviewList();
+            });
 
             // clear option
             $("#clear").click(function () {
@@ -256,6 +265,13 @@
                 updateQuestionOverviewList();
                 updateQuestionCss();
             });
+
+            // go to question
+            goToQ = function (id) {
+                activeQuestion = id;
+                updateQuestion(questionList[activeQuestion]);
+                updateQuestionCss();
+            }
 
             // set question
             var updateQuestion = function (questionObj) {
@@ -337,16 +353,24 @@
             var updateQuestionOverviewList = function () {
                 $("#questionOverviewList").empty();
                 $.each(questionList, function (key, value) {
-                    flag = false;
+                    flag = true;
+                    // review question
+                    $.each(reviewList, function (i, q_id) {
+                        if (q_id == value.id) {
+                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-1 me-1 pl-2 pr-2 btn bg-pink btn-sm">' + (++key) + '</button>');
+                            flag = false;
+                        }
+                    });
                     // checked question
+                    if (flag)
                     $.each(examResult, function (i, qs) {
                         if (qs.question_id == value.id) {
                             $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-1 me-1 pl-2 pr-2 btn btn-success btn-sm">' + (++key) + '</button>');
-                            flag = true;
+                            flag = false;
                         }
                     });
                     // unchecked question
-                    if (!flag) {
+                    if (flag) {
                         $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-1 me-1 pl-2 pr-2 btn btn-light btn-sm">' + (++key) + '</button>');
                     }
                 });
@@ -383,7 +407,7 @@
 
                 countDownSec--;
             },1000);
-            
+
             /*
             var x = setInterval(function () {
                 duration--;
