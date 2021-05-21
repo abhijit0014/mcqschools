@@ -111,7 +111,7 @@
                                     <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
                                 </svg>
                             </span>
-                            <span id="timer" class="btn btn-secondary btn-sm">00:00</span>
+                            <span id="timer" class="btn btn-secondary btn-sm">0 : 0 : 0</span>
                         </div>
                     </div>
 
@@ -130,21 +130,21 @@
 
                         <div class="h6"><pre id="question">Question</pre></div>
                         <div id="optionTable">
-                            <div id="option1" class="border hoverBorder rounded p-2 ps-3  mt-5">option 1</div>
-                            <div id="option2" class="border hoverBorder rounded p-2 ps-3  mt-2">option 2</div>
-                            <div id="option3" class="border hoverBorder rounded p-2 ps-3  mt-2">option 3</div>
-                            <div id="option4" class="border hoverBorder rounded p-2 ps-3  mt-2">option 4</div>
+                            <div id="option1" class="border bg-hover rounded p-2 ps-3  mt-5">option 1</div>
+                            <div id="option2" class="border bg-hover rounded p-2 ps-3  mt-2">option 2</div>
+                            <div id="option3" class="border bg-hover rounded p-2 ps-3  mt-2">option 3</div>
+                            <div id="option4" class="border bg-hover rounded p-2 ps-3  mt-2">option 4</div>
                         </div>
 
                         <div class="row mt-4">
                             <div class="col-4">
-                                <button id="prev" type="button" class="btn btn-light h1  border">Previous</button>
+                                <button id="prev" type="button" class="btn btn-info">Previous</button>
                             </div>
                             <div class="col-4 text-center">
-                                <button id="clear" type="button" class="btn btn-light float-center  border">Clear</button>
+                                <button id="clear" type="button" class="btn btn-info float-center">Clear</button>
                             </div>
                             <div class="col-4">
-                                <button id="next" type="button" class="btn btn-light float-end  border">Next</button>
+                                <button id="next" type="button" class="btn btn-info float-end">Next</button>
                             </div>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
                         </div>
 
                         <div class="pt-3 clearfix d-grid">
-                            <button id="submit" class="btn btn-danger float-end">Submit Exam</button>
+                            <button id="submit" class="btn btn-light float-end">Submit Exam</button>
                         </div>
 
                     </div>
@@ -254,6 +254,7 @@
                 ajaxCall(url, "POST", 3, '')
 
                 updateQuestionOverviewList();
+                updateQuestionCss();
             });
 
             // set question
@@ -284,34 +285,34 @@
             // update question css
             var updateQuestionCss = function () {
                 $("#activeQuestion").text(activeQuestion + 1);
-                $("#optionTable div").removeClass("border-primary bg-light");
+                $("#optionTable div").removeClass("border-success bg-success text-white");
                 $.each(examResult, function (key, value) {
                     if (value.question_id == activeQuestionId) {
-                        $("#option" + value.ans_option).addClass("border-primary bg-light");
+                        $("#option" + value.ans_option).addClass("border-success bg-success text-white");
                     }
                 });
             }
 
-            // track option click
+            // track option click - update option css on click
             $("#option1").click(function () {
                 saveAnswer(1);
-                $("#optionTable div").removeClass("border-primary bg-light");
-                $("#option1").addClass("border-primary bg-light");
+                $("#optionTable div").removeClass("border-success bg-success text-white");
+                $("#option1").addClass("border-success bg-success text-white");
             });
             $("#option2").click(function () {
                 saveAnswer(2);
-                $("#optionTable div").removeClass("border-primary bg-light");
-                $("#option2").addClass("border-primary bg-light");
+                $("#optionTable div").removeClass("border-success bg-success text-white");
+                $("#option2").addClass("border-success bg-success text-white");
             });
             $("#option3").click(function () {
                 saveAnswer(3);
-                $("#optionTable div").removeClass("border-primary bg-light");
-                $("#option3").addClass("border-primary bg-light");
+                $("#optionTable div").removeClass("border-success bg-success text-white");
+                $("#option3").addClass("border-success bg-success text-white");
             });
             $("#option4").click(function () {
                 saveAnswer(4);
-                $("#optionTable div").removeClass("border-primary bg-light");
-                $("#option4").addClass("border-primary bg-light");
+                $("#optionTable div").removeClass("border-success bg-success text-white");
+                $("#option4").addClass("border-success bg-success text-white");
             });
 
             // update exam result
@@ -340,7 +341,7 @@
                     // checked question
                     $.each(examResult, function (i, qs) {
                         if (qs.question_id == value.id) {
-                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-1 me-1 pl-2 pr-2 btn btn-info btn-sm">' + (++key) + '</button>');
+                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-1 me-1 pl-2 pr-2 btn btn-success btn-sm">' + (++key) + '</button>');
                             flag = true;
                         }
                     });
@@ -352,7 +353,38 @@
             }
 
             // duration clock
-            $("#timer").text(Math.floor(duration / 60) + " : " + duration % 60);
+            $("#timer").text(Math.floor(duration / 60) + " : " + duration % 60 + " : "+ 0);
+            countDownSec = duration*60;
+            var x = setInterval(function () {
+                d = Number(countDownSec);
+                h = Math.floor(d / 3600);
+                m = Math.floor(d % 3600 / 60);
+                s = Math.floor(d % 3600 % 60);
+
+                $("#timer").text(h + " : " + m + " : " + s);
+
+                // time up warning
+                if (m == 5 && h==0){
+                    $("#timer").removeClass("btn-secondary");
+                    $("#timer").addClass("btn-danger");
+                }
+
+                // update duration
+                if(duration!= Math.floor(countDownSec / 60)){
+                    duration--;
+                    saveDuration();
+                }
+
+                // submit exam
+                if (countDownSec <= 0) {
+                    clearInterval(x);
+                    submitExam(); //submit exam on duration end
+                }
+
+                countDownSec--;
+            },1000);
+            
+            /*
             var x = setInterval(function () {
                 duration--;
                 hr = Math.floor(duration / 60);
@@ -365,14 +397,18 @@
                     clearInterval(x);
                     submitExam(); //submit exam on duration end
                 } else {
-                    saveDuration();
+                    //saveDuration();
                 }
                 $("#timer").text(hr + " : " + mins);
             }, 60000);
-
+            */
 
             // submit exam
-            $("#submit").click(function () { submitExam(); });
+            $("#submit").click(function () { 
+                if(confirm("Do you want to submit ?")){
+                    submitExam(); 
+                }
+            });
             var submitExam = function () {
                 if(duration<0) duration = 0;
                 url = "/examcenter/submit/" + examUserId + "/" + duration;
