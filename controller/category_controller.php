@@ -1,6 +1,7 @@
 <?php
 
     include 'repository/categoryRepository.php';
+    include 'repository/examRepository.php';
 
 
     class CategoryController
@@ -10,8 +11,8 @@
         function __construct()
         {
             $this->repository = new CategoryRepository();
+            $this->examRepository = new ExamRepository();
         }
-
 
         public function add()
         {
@@ -69,6 +70,27 @@
             $search_query = $param[0];
             $list = $this->repository->autocompleteList($search_query);
             return  json_encode($list);
+        }
+
+        // exam & test list by category
+        public function exam($param)
+        {
+            $category_name = str_replace("-"," ",$param[0]);
+            $category =  $this->repository->getByCategoryName($category_name);
+            if(empty($category)) header("Location: /");
+            $view = new view('category_exam_list');
+            $view->assign('category_name', ucfirst($category_name));
+            $view->assign('category_id', $category->id);
+            return;
+        }
+
+        public function examByCategoryApi($param)
+        {
+            $limit = 10;
+            $category_id = isset($param[0]) ? $param[0] : 1;
+            $currentPage = isset($param[1]) ? $param[1] : 1;
+            $list = $this->examRepository->listByCategoryId($currentPage, $limit, $category_id);
+            return json_encode($list);
         }
 
     }

@@ -107,6 +107,13 @@
             return $list;
         }
 
+        // list by category id -------------------------------------------------------
+        public function listByCategoryId($page, $limit, $categoryId)
+        {
+            $list=R::getAll('select * from exam WHERE category_id = '.$categoryId.' AND published = true ORDER BY id DESC LIMIT '.(($page-1)*$limit).', '.$limit);
+            return $list;
+        }
+
 
         // delete exam ------------------------------------------------------------
         public function delete($exam_id)
