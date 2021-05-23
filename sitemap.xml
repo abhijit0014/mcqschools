@@ -1,50 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-
 <url>
   <loc>https://mcqschools.com/</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
-</url>
-<url>
-  <loc>https://mcqschools.com/category/search/Quiz</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
-</url>
-<url>
-  <loc>https://mcqschools.com/category/search/Inventions</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
-</url>
-<url>
-  <loc>https://mcqschools.com/category/search/Geography</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
-</url>
-<url>
-  <loc>https://mcqschools.com/category/search/History</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
-</url>
-<url>
-  <loc>https://mcqschools.com/category/search/Computer</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
-</url>
-<url>
-  <loc>https://mcqschools.com/category/search/Java</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
-</url>
-<url>
-  <loc>https://mcqschools.com/category/search/General-Knowledge</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
 </url>
 <url>
   <loc>https://mcqschools.com/user/login</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/aptitude-and-reasoning</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/indian-geography</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/indian-history</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/indian-economy</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/indian-politics</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/west-bengal-geography</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/West-Bengal-Police-(WBP)-Examination</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/Computer-Fundamental</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/Java</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/Database-Management-System-(DBMS)</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/exam/javascript</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
 </url>
 <url>
   <loc>https://mcqschools.com/user/register</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
 </url>
 <url>
   <loc>https://mcqschools.com/index/privacy_policy</loc>
-  <lastmod>2021-05-12T11:03:32+00:00</lastmod>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/user/reset_password</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/Aptitude-and-reasoning</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/Indian-geography</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/Indian-history</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/Indian-economy</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/Indian-politics</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/West-bengal-geography</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/West-Bengal-Police-(WBP)-Examination</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/Computer-Fundamental</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/Java</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/Database-Management-System-(DBMS)</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
+</url>
+<url>
+  <loc>https://mcqschools.com/category/quiz/Javascript</loc>
+  <lastmod>2021-05-23T08:48:11+00:00</lastmod>
 </url>
 
 
