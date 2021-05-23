@@ -31,18 +31,23 @@
 
     
 
-                <!-- 
+               <!--
                 <div class="list-group-item">
-                    <div class="h6 mb-1">
-                        <div>#badge</div>
-                        <a class="text-decoration-none" href="#correctionUrl">#title</a></li>
+                    <div class="d-flex bd-highlight">
+                        <div class="flex-fill bd-highlight">
+                            <div>#badge</div>
+                            <a class="text-decoration-none h6" href="#correctionUrl">#title</a></li>
+                        </div>
+                        <div class="flex-fill bd-highlight text-end">
+                            <button class="btn btn-sm border" value="#btnValue">Solved</button>
+                        </div>
                     </div>
                     <div class="small text-muted">
                         <span class="text-danger">#type</span> - #reporter_name . #time
                     </div>
                     <div class="mt-2">#report</div>
                 </div>
-      -->
+                -->
 
 
 
@@ -64,6 +69,22 @@
 <script>
     var noMoreReport = false;
     var pageNumber = 1;
+
+    $("body").on("click", "button", function(event){
+        report_id = $(this).val();
+        $.ajax({
+            type: 'GET',
+            url: "/report/solved/" + report_id,
+            success: function (result) { 
+            }
+        });
+
+        $(this).parent().parent().parent().fadeOut(700, function() { 
+            $(this).remove();
+        });
+        
+    });
+
     //jquery load more comment on scroll
     var delayTimer = null;
     $(window).scroll(function () {
@@ -91,6 +112,7 @@
                         $template = $template.replace("#reporter_name", result.reporter_name);
                         $template = $template.replace("#time", timeToString(result.created_date));
                         $template = $template.replace("#report", result.report);
+                        $template = $template.replace("#btnValue", result.id);
 
                         correctionUrl = '';
                         if(result.exam_id){
@@ -145,7 +167,7 @@
     }
 
     function getTemplate() {
-        return '<div class="list-group-item"><div class="h6 mb-1"><div>#badge</div> <a class="text-decoration-none" href="#correctionUrl">#title</a></li></div><div class="small text-muted"> <span class="text-danger">#type</span> - #reporter_name . #time</div><div class="mt-2">#report</div></div>';
+        return '<div class="list-group-item"><div class="d-flex bd-highlight"><div class="flex-fill bd-highlight"><div>#badge</div> <a class="text-decoration-none h6" href="#correctionUrl">#title</a></li></div><div class="flex-fill bd-highlight text-end"> <button class="btn btn-sm border" value="#btnValue">Solved</button></div></div><div class="small text-muted"> <span class="text-danger">#type</span> - #reporter_name . #time</div><div class="mt-2">#report</div></div>';
     }
 
     // initial load

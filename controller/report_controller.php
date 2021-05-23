@@ -35,6 +35,13 @@
             return json_encode($list);
         }
 
+        public function solved($param) 
+        {
+            $id = $param[0];
+            $this->repository->solved($id);
+            return;
+        }
+
     }
 
 ?>

@@ -87,7 +87,17 @@
             
             return $list;
         }
-  
+
+        //solved -----------------------------------------------------------------------------------
+        public function solved($id)
+        {
+            $report =  R::load( 'report', $id );
+            if(!empty($report)){
+                $report->solved = true;
+                return R::store( $report );
+            }
+            return;
+        }
 
     }
 
