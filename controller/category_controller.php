@@ -56,7 +56,7 @@
         }
 
         // quiz by topic or category
-        public function search($param)
+        public function quiz($param)
         {
             $this->repository->updateHitCount($param[0]);
             $view = new view('index');
