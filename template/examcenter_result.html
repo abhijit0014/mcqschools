@@ -178,13 +178,20 @@
                                 </span>
                             </div>
                             <div class="col-12 mt-3 small">
-                                <span class="text-secondary">Correct answer : </span>
-                                <span>
-                                    <?php echo $question['ans'] == 1 ? 'A' : '' ?>
-                                    <?php echo $question['ans'] == 2 ? 'B' : '' ?>
-                                    <?php echo $question['ans'] == 3 ? 'C' : '' ?>
-                                    <?php echo $question['ans'] == 4 ? 'D' : '' ?>
-                                </span>
+                                <div class="d-flex bd-highlight">
+                                    <div class="flex-fill bd-highlight">
+                                        <span class="text-secondary">Correct answer : </span>
+                                        <span>
+                                            <?php echo $question['ans'] == 1 ? 'A' : '' ?>
+                                            <?php echo $question['ans'] == 2 ? 'B' : '' ?>
+                                            <?php echo $question['ans'] == 3 ? 'C' : '' ?>
+                                            <?php echo $question['ans'] == 4 ? 'D' : '' ?>
+                                        </span>
+                                    </div>
+                                    <div class="flex-fill bd-highlight text-end">
+                                        <button onclick="setReportQuestionId(<?php echo $question['id'] ?>)" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">Report</button>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -199,6 +206,11 @@
 
     <!-- FOOTER -->
     <?php include __DIR__.'/static/footer.html';?>
+
+    <!-- Report Start -->
+    <?php include __DIR__.'/static/reportCode.html';?>
+    <!-- Report End -->
+
 </body>
 <script>
     $('#pointSwitch').on('change', function () {

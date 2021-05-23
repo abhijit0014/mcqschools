@@ -72,7 +72,7 @@
                 $exam =  $this->examRepository->getOne($_POST['exam_id']);
                 if(SessionManager::get("user_id")==$exam->created_by){
                     $id = $this->repository->save($_POST);
-                    header("Location: /comment/list/".$exam->created_by);
+                    header("Location: /report/list/");
                     exit;
                 }
             }

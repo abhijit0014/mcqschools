@@ -40,7 +40,10 @@
 
     { "url": "/subscription/subscribe",  "role": ["student", "admin"], "csrf": true },
     { "url": "/subscription/unsubscribe",  "role": ["student", "admin"], "csrf": true },
-    { "url": "/subscription/subscription_list",  "role": ["student", "admin"], "csrf": true }     
+    { "url": "/subscription/subscription_list",  "role": ["student", "admin"], "csrf": true },
+        
+    { "url": "/report/save",  "role": ["student", "admin"], "csrf": true },
+    { "url": "/report/list",  "role": ["student", "admin"], "csrf": true }
 
 ]
 

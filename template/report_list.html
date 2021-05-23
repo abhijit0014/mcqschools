@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title>Reports</title>
+</head>
+
+<body class="bg-light">
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+
+    <!-- BODY -->
+    <div class="container mt-4">
+
+        <div class="h5 text-secondary">
+            Reports
+        </div>
+        <!-- exam List -->
+        
+        <div class="mt-3 p-2 bg-white border shadow-sm rounded d-none" id="reportWindow">
+            <div class="list-group list-group-flush" id="reportList">
+
+    
+
+                <!-- 
+                <div class="list-group-item">
+                    <div class="h6 mb-1">
+                        <div>#badge</div>
+                        <a class="text-decoration-none" href="#correctionUrl">#title</a></li>
+                    </div>
+                    <div class="small text-muted">
+                        <span class="text-danger">#type</span> - #reporter_name . #time
+                    </div>
+                    <div class="mt-2">#report</div>
+                </div>
+      -->
+
+
+
+
+               
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+</body>
+
+</html>
+<script>
+    var noMoreReport = false;
+    var pageNumber = 1;
+    //jquery load more comment on scroll
+    var delayTimer = null;
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+            if (delayTimer) { clearTimeout(delayTimer); }
+            delayTimer = setTimeout(loadReport, 400);
+        }
+    });
+
+    // load comment ajax
+    function loadReport() {
+        if (!noMoreReport)
+            $.ajax({
+                type: 'GET',
+                url: "/report/listByCreatorId/" + pageNumber,
+                success: function (resultList) {
+                    resultList = JSON.parse(resultList);
+                    
+                    if(resultList.length) 
+                        $("#reportWindow").removeClass("d-none");
+
+                    $.each(resultList, function (i, result) {
+                        $template = getTemplate();
+
+                        $template = $template.replace("#reporter_name", result.reporter_name);
+                        $template = $template.replace("#time", timeToString(result.created_date));
+                        $template = $template.replace("#report", result.report);
+
+                        correctionUrl = '';
+                        if(result.exam_id){
+                            correctionUrl = '/exam/edit/'+result.exam_id;
+                            $template = $template.replace("#correctionUrl", correctionUrl);
+                            $template = $template.replace("#title", result.exam);
+                            $template = $template.replace("#badge", '<span class="badge bg-secondary">Exam</span>');
+                        }
+                        else{
+                            correctionUrl = '/question/correction/'+result.question_id;
+                            $template = $template.replace("#correctionUrl", correctionUrl);
+                            $template = $template.replace("#title", result.question);
+                            $template = $template.replace("#badge", '<span class="badge bg-primary">Question</span>');
+                        }
+
+                        type = '';
+                        if(result.type = 1) type = "Wrong category";
+                        if(result.type = 2) type = "Wrong answer";
+                        if(result.type = 3) type = "Insufficient data";
+                        if(result.type = 4) type = "Spam content";
+                        $template = $template.replace("#type", type);
+
+                        //$template = $template.replace("#comment_id", result.id);
+                        //$template = $template.replace("#q_id", result.question_id);
+                        //$template = $template.replace("#exam_id", result.exam_id);
+                        //$template = $template.replace("#creator_id", result.creator_id);
+                        $("#reportList").append($template);
+                    });
+                    if (resultList.length > 0)
+                        pageNumber++;
+                    else
+                        noMoreReport = true;
+                }
+            });
+    }
+
+    var today = new Date();
+    function timeToString(d) {
+        date = new Date(d);
+        Difference_In_Time = today.getTime() - date.getTime();
+        Difference_In_Days = parseInt(Difference_In_Time / (1000 * 3600 * 24));
+        // return string
+        if (parseInt(Difference_In_Days / 365) > 0)
+            return parseInt(Difference_In_Days / 365) + ' years ago';
+        if (parseInt(Difference_In_Days / 30) > 0)
+            return parseInt(Difference_In_Days / 30) + ' months ago';
+        if (Difference_In_Days > 1)
+            return Difference_In_Days + ' days ago';
+        if (Difference_In_Days == 1)
+            return Difference_In_Days + ' day ago';
+        return 'today';
+    }
+
+    function getTemplate() {
+        return '<div class="list-group-item"><div class="h6 mb-1"><div>#badge</div> <a class="text-decoration-none" href="#correctionUrl">#title</a></li></div><div class="small text-muted"> <span class="text-danger">#type</span> - #reporter_name . #time</div><div class="mt-2">#report</div></div>';
+    }
+
+    // initial load
+    loadReport();
+</script>

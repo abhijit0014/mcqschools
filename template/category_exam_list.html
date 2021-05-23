@@ -38,7 +38,7 @@
             <div class="list-group-item list-group-item-action" >
                 <div class="row">
 
-                    <div class="col-12 col-md-7">
+                    <div class="col-12 col-md-6">
                         <a href="/examcenter/start/#examId" class="d-block text-decoration-none">
                             <div class="h6">
                                 #examTitle
@@ -51,7 +51,7 @@
                         </a>
                     </div>
 
-                    <div class="col-12 col-md-5 text-secondary">
+                    <div class="col-12 col-md-6 text-secondary">
                         <div class="d-flex small pt-2">
                             <div class="flex-fill justify-content-center align-self-center">
                                 <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
@@ -84,6 +84,19 @@
                                     <span class="small">Copy Link</span>
                                 </button>
                             </div>
+                            <div class="flex-fill justify-content-center align-self-center text-end">
+                                <div class="dropdown dropstart">
+                                    <button class="btn btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span style="vertical-align: 0.125em;">
+                                            <img src="/template/icon/three-dots-vertical.svg" alt="users">
+                                        </span>
+                                    </button>
+                                    <ul class="dropdown-menu shadow-sm" aria-labelledby="dropdownMenuButton1">
+                                      <li><button onclick="setReportExamId(#examId2)" class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">Report</button></li>
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -104,6 +117,10 @@
 
     <!-- FOOTER -->
     <?php include __DIR__.'/static/footer.html';?>
+
+    <!-- Report Start -->
+    <?php include __DIR__.'/static/reportCode.html';?>
+
 
 
     <script>
@@ -143,6 +160,7 @@
                             $template = $template.replace("#duration", result.duration_mins);
                             $template = $template.replace("#examId", result.id);
                             $template = $template.replace("#examId", result.id);
+                            $template = $template.replace("#examId2", result.id);
                             $("#examList").append($template);
                         });
                         if (resultList.length > 0)
@@ -172,7 +190,7 @@
         }
     
         function getExamTemplate() {
-            return '<div class="list-group-item list-group-item-action" ><div class="row"><div class="col-12 col-md-7"> <a href="/examcenter/start/#examId" class="d-block text-decoration-none"><div class="h6"> #examTitle</div><div class="small text-secondary"> <span> #time </span></div> </a></div><div class="col-12 col-md-5 text-secondary"><div class="d-flex small pt-2"><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/count.svg" alt="count"> </span> <span class="font-weight-bold"> #number_of_question </span></div><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/users.svg" alt="users"> </span> <span class="font-weight-bold"> #attemped </span></div><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/clock.svg" alt="clock"> </span> <span class="font-weight-bold"> #duration </span> mins</div><div class="flex-fill justify-content-center align-self-center text-end"> <input type="hidden" value="/examcenter/start/#examId"> <button id="copyUrlBtn" class="btn btn-sm btn-outline-secondary p-1 ps-2 pe-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy Exam Link"> <span class="small">Copy Link</span> </button></div></div></div></div></div>';
+            return '<div class="list-group-item list-group-item-action" ><div class="row"><div class="col-12 col-md-6"> <a href="/examcenter/start/#examId" class="d-block text-decoration-none"><div class="h6"> #examTitle</div><div class="small text-secondary"> <span> #time </span></div> </a></div><div class="col-12 col-md-6 text-secondary"><div class="d-flex small pt-2"><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/count.svg" alt="count"> </span> <span class="font-weight-bold"> #number_of_question </span></div><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/users.svg" alt="users"> </span> <span class="font-weight-bold"> #attemped </span></div><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/clock.svg" alt="clock"> </span> <span class="font-weight-bold"> #duration </span> mins</div><div class="flex-fill justify-content-center align-self-center text-end"> <input type="hidden" value="/examcenter/start/#examId"> <button id="copyUrlBtn" class="btn btn-sm btn-outline-secondary p-1 ps-2 pe-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy Exam Link"> <span class="small">Copy Link</span> </button></div><div class="flex-fill justify-content-center align-self-center text-end"><div class="dropdown dropstart"> <button class="btn btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> <span style="vertical-align: 0.125em;"> <img src="/template/icon/three-dots-vertical.svg" alt="users"> </span> </button><ul class="dropdown-menu shadow-sm" aria-labelledby="dropdownMenuButton1"><li><button onclick="setReportExamId(#examId2)" class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">Report</button></li></ul></div></div></div></div></div></div>';
         }
     
         // initial load
