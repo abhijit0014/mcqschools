@@ -40,15 +40,24 @@
 
         <div class="d-flex justify-content-center mt-5 mb-5" id="loadingWindow">
             <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
+                <span class="visually-hidden">Loading...</span>
             </div>
         </div>
 
+        <div class="row">
 
-        <div class="row m-auto">
             <div class="col-12 col-md-9">
 
                 <div class="d-none" id="quizWindow">
+
+                    <!--quiz Title-->
+                    <div class="h5 mb-4 text-secondary">
+                        <span style="vertical-align: 0.125em;" class="pe-2">
+                            <img src="/template/icon/quiz.svg" width="20px" alt="quiz">
+                        </span>
+                        <span id="pageTitle"> </span>
+                    </div>
+
                     <!-- progressbar -->
                     <div class="">
                         <div class="progress" style="height: 3px;">
@@ -62,7 +71,7 @@
                     <!-- quiz -->
                     <div class="p-4 shadow-sm rounded bg-white">
 
-                        <!-- nev -->
+                        <!-- quiz nev -->
                         <div class="d-flex bd-highlight">
                             <div class="flex-fill bd-highlight">
                                 <span id="questionTypeDisplayBadge"
@@ -224,9 +233,16 @@
 
             </div>
 
-            <div class="col-12 col-md-3">
-                <div class="shadow-sm rounded bg-white p-4 d-none" id="topicWindow">
-                    <div class="h6">Topics</div>
+            <div class="col-12 col-md-3 d-none" id="topicWindow">
+                <!--topic Title-->
+                <div class="h5 mb-4 text-secondary">
+                    <span style="vertical-align: 0.125em;" class="pe-2">
+                        <img src="/template/icon/topic.svg" width="20px" alt="topic">
+                    </span>
+                    <span>Topics </span>
+                </div>
+
+                <div class="shadow-sm rounded bg-white p-4">
                     <div class="mt-2 mb-2" id="topicList"></div>
                 </div>
             </div>
@@ -371,7 +387,7 @@
                     $("#optionThreeDisplay").text(question_list[current_question].option_three);
                     $("#optionFourDisplay").text(question_list[current_question].option_four);
 
-                    $("#quizWindow code").each(function(){ $(this).text($(this).text().trim()); });
+                    $("#quizWindow code").each(function () { $(this).text($(this).text().trim()); });
                     $('#quizWindow pre code').each(function (i, block) { hljs.highlightElement(block); });
 
                     countdownTimer();
@@ -387,12 +403,12 @@
         }
 
         // convert special html characters
-        function  convert_special_html_characters(str){
-            str = str.replace("<code>","codeStart");
-            str = str.replace("</code>","codeEnd");
+        function convert_special_html_characters(str) {
+            str = str.replace("<code>", "codeStart");
+            str = str.replace("</code>", "codeEnd");
             str = $("<div/>").text(str.trim()).html();
-            str = str.replace("codeStart","<code>");
-            str = str.replace("codeEnd","</code>");
+            str = str.replace("codeStart", "<code>");
+            str = str.replace("codeEnd", "</code>");
             //console.log(str);
             return str;
         }
@@ -428,8 +444,8 @@
                     }
 
                     // remove category if no result found
-                    if (!result.question_list.length && next_page==null) {
-                        config_categories = jQuery.grep(config_categories, function(value){
+                    if (!result.question_list.length && next_page == null) {
+                        config_categories = jQuery.grep(config_categories, function (value) {
                             return value != current_category;
                         })
                         Cookies.set('config_categories', config_categories.toString());
@@ -497,7 +513,7 @@
                 config_categories.unshift(current_category);
                 Cookies.set('config_categories', config_categories.toString());
             }
-            if(!current_category){
+            if (!current_category) {
                 current_category = config_categories[0];
             }
 
@@ -520,7 +536,7 @@
 
 
             // set display text
-            $("#searchQuery").val(current_category);
+            $("#pageTitle").text(current_category);
             $("#questionTypeDisplay").text(config_question_type);
             $('#inputTime').val(config_question_time);
 
@@ -666,8 +682,8 @@
 
 
         // topic template
-        function getTopicHtml(item){
-            if(current_category === item)
+        function getTopicHtml(item) {
+            if (current_category === item)
                 return '<a href="#" class="btn btn-primary btn-sm rounded-pill mt-1 mb-1 me-1 d-md-block d-lg-inline-block">' + item + '</a>';
             else
                 return '<a href="/category/quiz/' + item.replaceAll(" ", "-") + '" class="btn btn-sm border rounded-pill mt-1 mb-1 me-1 d-md-block d-lg-inline-block">' + item + '</a>';
