@@ -38,10 +38,6 @@
                 $("#newQuestionCount").text(newQuestionList.length + " question there");
                 localStorage.removeItem('newQuestionList');
                 localStorage.setItem('newQuestionList', JSON.stringify(newQuestionList));
-                var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
-                var collapseList = collapseElementList.map(function (collapseEl) {
-                    return new bootstrap.Collapse(collapseEl)
-                });
             }
         });
         $("#clearList").click(function () {
