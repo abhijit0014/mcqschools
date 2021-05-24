@@ -17,15 +17,15 @@
     <script>
 
         // autoDetectQuestionList
-        var newQuestionList = Cookies.get('newQuestionList') ? JSON.parse(Cookies.get('newQuestionList')) : [];
+        newQuestionList = localStorage.getItem('newQuestionList') ? JSON.parse(localStorage.getItem('newQuestionList')) : [];
         if (newQuestionList.length) {
             $("#autoDetectQuestion").val(newQuestionList[0]);
             newQuestionList.shift();
             if (newQuestionList.length) {
-                Cookies.set('newQuestionList', JSON.stringify(newQuestionList));
-            }
-            else
-                Cookies.remove('newQuestionList');
+                localStorage.setItem('newQuestionList', JSON.stringify(newQuestionList));
+            }else
+                localStorage.removeItem('newQuestionList');
+
             $("#newQuestionCount").text(newQuestionList.length + " question in list");
         }
 
@@ -36,9 +36,8 @@
                 $("#autoDetectQuestion").val(newQuestionList[0]);
                 newQuestionList.shift();
                 $("#newQuestionCount").text(newQuestionList.length + " question there");
-                Cookies.remove('newQuestionList');
-                Cookies.set('newQuestionList', JSON.stringify(newQuestionList));
-
+                localStorage.removeItem('newQuestionList');
+                localStorage.setItem('newQuestionList', JSON.stringify(newQuestionList));
                 var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
                 var collapseList = collapseElementList.map(function (collapseEl) {
                     return new bootstrap.Collapse(collapseEl)
@@ -46,7 +45,7 @@
             }
         });
         $("#clearList").click(function () {
-            Cookies.remove('newQuestionList');
+            localStorage.removeItem('newQuestionList');
             newQuestionList = [];
             $("#newQuestionCount").text(newQuestionList.length + " question there");
         });
