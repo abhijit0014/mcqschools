@@ -13,7 +13,7 @@
             $string = '01234567899876543210';
             $string_shuffled = str_shuffle($string);
             $otp = substr($string_shuffled, 1, 6);
-            $expiry_time = date('Y-m-d H:i:s', time()+ (10 * 60));
+            $expiry_time = date('Y-m-d H:i:s', time()+ (15 * 60));
 
             $otpObject = R::dispense( 'otp' );
             $otpObject->otp = $otp;

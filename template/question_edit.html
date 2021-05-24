@@ -135,10 +135,10 @@
 
                 <script>
                     // autoDetectQuestion
-                    option1Match = ["(A)", "(a)", "A)", "a)", "A.", "a.", "A -", "a -", "1."];
-                    option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2."];
-                    option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3."];
-                    option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4."];
+                    option1Match = ["(A)", "(a)", "A)", "a)", "A.", "a.", "A -", "a -", "1.", "১."];
+                    option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2.", "২."];
+                    option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3.", "৩."];
+                    option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4.", "৪."];
                     optionAnsMatch = ["Ans", "ANS", "Answer", "Ans Key :", "ANSWER"];
 
                     $("#autoDetectQuestion").change(function () {
@@ -159,10 +159,10 @@
 
                         ans_flag = false;
                         ans = validateString(text[++i], "ans").replace(/[^a-zA-Z0-9]/g, '').trim();
-                        if (ans == 1 || ans == 'A' || ans == 'a'){ $('#ansOption option[value="1"]').prop('selected', true); ans_flag = true; }
-                        if (ans == 2 || ans == 'B' || ans == 'b'){ $('#ansOption option[value="2"]').prop('selected', true); ans_flag = true; }
-                        if (ans == 3 || ans == 'C' || ans == 'c'){ $('#ansOption option[value="3"]').prop('selected', true); ans_flag = true; }
-                        if (ans == 4 || ans == 'D' || ans == 'd'){ $('#ansOption option[value="4"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 1 || ans == 'A' || ans == 'a' || ans == '১'){ $('#ansOption option[value="1"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 2 || ans == 'B' || ans == 'b' || ans == '২'){ $('#ansOption option[value="2"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 3 || ans == 'C' || ans == 'c' || ans == '৩'){ $('#ansOption option[value="3"]').prop('selected', true); ans_flag = true; }
+                        if (ans == 4 || ans == 'D' || ans == 'd' || ans == '৪'){ $('#ansOption option[value="4"]').prop('selected', true); ans_flag = true; }
 
                         if(ans_flag){
                             $("#autoDetectQuestion").removeClass("border-danger");
