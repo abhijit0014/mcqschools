@@ -15,11 +15,15 @@
             $otp = substr($string_shuffled, 1, 6);
             $expiry_time = date('Y-m-d H:i:s', time()+ (15 * 60));
 
-            $otpObject = R::dispense( 'otp' );
+            $otpObject = R::findOne( 'otp', ' email = ? ', [ $email ] );
+            if(empty($otpObject)){
+                $otpObject = R::dispense( 'otp' );
+                $otpObject->email = $email;
+            }
+
             $otpObject->otp = $otp;
             $otpObject->end_time = $expiry_time;
             //$otpObject->user_id = $user_id;
-            $otpObject->email = $email;
             
             R::store( $otpObject );
             return $otp;

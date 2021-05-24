@@ -212,22 +212,25 @@
             $otp = $param[1];
             $otp = $this->otpRepository->findOtp($otp, $email);
             if(!empty($otp)){
-                $start_time = date('Y-m-d H:i:s');
-                $end_time = date( 'Y-m-d H:i:s', $otp->end_time );
-                if($start_time < $end_time)
-                    return true;
+                $current_time = date('Y-m-d H:i:s');
+                $end_time = date( 'Y-m-d H:i:s', strtotime($otp->end_time) );
+                if($current_time < $end_time)
+                    return "success";
                 else
-                    return false;
+                    return "error?Otp expired. Please try again";
             }
-            return false;
+            return "error?Entered a wrong otp";
         }
 
-        public function sendOtp($param){
-            $email = $param[0];
-            $user =  $this->repository->getByEmail($email);
-            if(!empty($user)){
-                $otp = $this->otpRepository->create_otp($email);
-                $flag = $this->emailService->send_password_reset_mail($email, $otp);
+        public function sendOtp($param)
+        {
+            if(isset($param[0])){
+                $email = $param[0];
+                $user =  $this->repository->getByEmail($email);
+                if(!empty($user)){
+                    $otp = $this->otpRepository->create_otp($email);
+                    $flag = $this->emailService->send_password_reset_mail($email, $otp);
+                }
             }
             return true;
         }
