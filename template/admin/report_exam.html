@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <script src="/template/resource/js.cookie.min.js"></script>
+    <link href="/template/resource/highlight.css" rel="stylesheet">
+    <script src="/template/resource/highlight.min.js"></script>
+    <link href="/template/resource/app.css?v=1.1" rel="stylesheet">
+    <title> Exam Reports </title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/admin_header.html';?>
+
+
+    <!-- BODY -->
+    <div class="container mt-2 p-4">
+
+        <div class="h5 mb-3">
+            Exam Report
+        </div>
+
+        <div class="accordion" id="accordionExample">
+            <?php foreach ($reportList as $exam) { ?>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button onclick="loadReports(<?php echo $exam['id'] ?>)" class="accordion-button" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse<?php echo $exam['id'] ?>" aria-expanded="true"
+                        aria-controls="collapseOne">
+                        <?php echo $exam['title'] ?>
+                    </button>
+                </h2>
+                <div id="collapse<?php echo $exam['id'] ?>" class="accordion-collapse collapse"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body" id="reportView<?php echo $exam['id'] ?>">
+
+                        <div class="text-end">
+                            <button onclick="blockexam(<?php echo $exam['id'] ?>)" class="btn btn-sm border">Block</button> 
+                        </div>
+                        <table class="table table-striped" >
+                            <thead class="small">
+                                <tr>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Report</th>
+                                    <th scope="col">solved</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportList<?php echo $exam['id'] ?>">
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+            <?php }?>
+        </div>
+
+
+
+
+        <script>
+            examIdList = [];
+            
+            function loadReports(exam_id){
+                if(!examIdList.includes(exam_id))
+                $.ajax({
+                    url: "/admin/examReportApi/"+exam_id, 
+                    type: "POST",
+                    success: function (resultList) {
+                        resultList = JSON.parse(resultList);
+                        $.each(resultList, function (i, result) {
+                            $template = getTemplate();
+                            
+                            typeText = ''
+                            if(result.type == 1) typeText = "Wrong category";
+                            if(result.type == 2) typeText = "Wrong answer";
+                            if(result.type == 3) typeText = "Insufficient data";
+                            if(result.type == 4) typeText = '<span class="text-danger">Spam content</span>';
+
+                            $template = $template.replace("#type", typeText);
+                            $template = $template.replace("#report", result.report);
+                            $template = $template.replace("#isSolved", true==result.solved);
+                            $("#reportList"+exam_id).append($template);
+                        });
+                        examIdList.push(exam_id);
+                    }
+                });
+            }
+
+            function getTemplate(){
+                return '<tr class="small"><td>#type</td><td>#report</td><td>#isSolved</td></tr>';
+            }
+
+            function blockexam(exam_id){
+                $.ajax({
+                    url: "/admin/block_exam/"+exam_id, 
+                    type: "POST",
+                    success: function (result) {
+                        $("#reportView"+exam_id).empty();
+                        $("#reportView"+exam_id).text("exam Blocked");
+                    }
+                });
+            }
+        </script>
+
+
+    </div>
+
+
+</body>
+
+</html>

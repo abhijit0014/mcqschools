@@ -99,6 +99,53 @@
             return;
         }
 
+
+
+
+
+
+        //admin ----------------------------------------------------------------------------------
+
+        // question
+        public function questionReportList()
+        {
+            return R::getAll('SELECT DISTINCT question.id, question.question FROM question
+                            left join report on report.question_id = question.id
+                            where question.enabled = true and report.solved = false 
+                            order by report.created_date DESC limit 100');
+        }
+
+        public function questionReportsById($question_id)
+        {
+            return R::getAll('SELECT * FROM report where question_id = '.$question_id.' order by created_date DESC limit 100');
+        }
+
+        public function blockQuestion($question_id){
+            R::exec('UPDATE question SET enabled = false WHERE id = ? ',array($question_id));
+            return;
+        }
+
+
+        // exam
+        public function examReportList()
+        {
+            return R::getAll('SELECT DISTINCT exam.id, exam.title FROM exam
+                            left join report on report.exam_id = exam.id
+                            where exam.enabled = true and report.solved = false 
+                            order by report.created_date DESC limit 100');
+        }
+
+        public function examReportsById($exam_id)
+        {
+            return R::getAll('SELECT * FROM report where exam_id = '.$exam_id.' order by created_date DESC limit 100');
+        }
+
+        public function blockExam($exam_id){
+            R::exec('UPDATE exam SET enabled = false WHERE id = ? ',array($exam_id));
+            return;
+        }
+
+
     }
 
 ?>
