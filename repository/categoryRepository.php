@@ -62,7 +62,7 @@
 
         public function autocompleteList($str_search)
         {
-            return R::getAll( "SELECT * FROM category WHERE TITLE LIKE '%".$str_search."%' ORDER BY hit_count DESC LIMIT 5 " );
+            return R::getAll( "SELECT * FROM category WHERE TITLE LIKE '%".$str_search."%' ORDER BY hit_count DESC LIMIT 10 " );
         }
 
     }
