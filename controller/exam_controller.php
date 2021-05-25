@@ -60,8 +60,12 @@
                     header("Location: /exam/list"); exit;
                 }
 
-                $id = $this->repository->save($_POST);
-                header("Location: /exam/list"); exit;
+                if($this->repository->checkAllowedExamLimit()){
+                    $id = $this->repository->save($_POST);
+                    header("Location: /exam/list"); exit;
+                }else{
+                    header("Location: /exam/list?error=true&msg=You can add maximum 3 exam each day"); exit;
+                }
             }
         }
 

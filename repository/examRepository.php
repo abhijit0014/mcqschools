@@ -54,6 +54,17 @@
             return R::count( 'exam', 'created_by = ? and published = ?', [$creator_id, true] );
         }
 
+        public function checkAllowedExamLimit()
+        {
+            $creator_id = SessionManager::get("user_id");
+            $count =  R::count( 'exam', "created_by = ? And created_date BETWEEN CONCAT(CURDATE(), ' ', '00:00:00') AND CONCAT(CURDATE(), ' ', '23:59:59')", [$creator_id] );
+  
+            if($count<=3){
+                return true;
+            }
+            return false;
+        }
+
         // for search bar ------------------------------------------------------------
         public function searchByTitle($str_search, $page, $limit)
         {
