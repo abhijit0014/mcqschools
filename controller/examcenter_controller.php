@@ -156,7 +156,7 @@
                 $examUser->not_answered = $notAnswered;// wrong ans
                 $examUser->wrong_answered = $wrongAns; // #not answered
                 $examUser->total_marks = sizeof($questionlist) * $exam->point; //total marks
-                $examUser->obtained_marks = (int)$obtainedMarks; // obtained marks
+                $examUser->obtained_marks = $obtainedMarks; // obtained marks
                 $examUser->duration = $exam->duration_mins - $examUser->duration;
                 $examUser->rank_score = ($correctAns/sizeof($questionlist)) * 100;
                 R::store( $examUser);
