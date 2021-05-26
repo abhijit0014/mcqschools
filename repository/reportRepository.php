@@ -76,7 +76,7 @@
         public function reportByCreatorId($creator_id, $page, $limit )
         {
             $list = R::getAll("SELECT report.id, report.exam_id, report.question_id, report.report, 
-            report.created_by as creator_id, report.created_date, 
+            report.type, report.created_by as creator_id, report.created_date, 
             question.question, exam.title as exam, 
             users.username as reporter_name
             FROM report left join question on report.question_id = question.id
@@ -140,8 +140,26 @@
             return R::getAll('SELECT * FROM report where exam_id = '.$exam_id.' order by created_date DESC limit 100');
         }
 
+        public function examReportsByIdAndUnsolved($exam_id)
+        {
+            return R::getAll('SELECT * FROM report where exam_id = '.$exam_id.' and solved = false order by created_date DESC limit 100');
+        }
+
         public function blockExam($exam_id){
             R::exec('UPDATE exam SET enabled = false WHERE id = ? ',array($exam_id));
+            return;
+        }
+
+
+
+        // review request -------------------------------------------------------------------
+        public function examReviewRequest($exam_id){
+            R::exec('UPDATE exam SET review = true WHERE id = ? ',array($exam_id));
+            return;
+        }
+
+        public function questionReviewRequest($question_id){
+            R::exec('UPDATE question SET review = true WHERE id = ? ',array($question_id));
             return;
         }
 

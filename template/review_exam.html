@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- resource -->
+    <?php include __DIR__.'/resource/resource.php';?>
+    
+    <title><?php echo $exam->title ?></title>
+    <meta name="description" content="<?php echo $exam->descp ?>">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+    <!-- BODY -->
+    <div class="container">
+        <div class="shadow-sm p-4 border mt-5 rounded">
+
+            <div class="d-flex bd-highlight">
+                <div class="flex-fill bd-highlight">
+                    <span  style="vertical-align: 0.125em;">
+                        <img src="/template/icon/block.svg" alt="block">
+                    </span> 
+                    <span class="h5 ps-2"> 
+                        <a class="text-decoration-none" href="/exam/edit/<?php echo $exam->id ?>"><?php echo $exam->title ?></a> 
+                    </span>
+                </div>
+                <div class="flex-fill bd-highlight text-end small">
+                    <?php if( !$exam['review'] ) {?>
+                    <button class="btn btn-sm btn-info" value="<?php echo $exam->id ?>" id="reviewBtn">Review Request</button>
+                    <?php } else { ?>
+                        <button class="btn btn-sm btn-success disabled">Review Request Sent</button>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="small">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm ps-0"> 
+                        <span  style="vertical-align: 0.125em;">
+                            <img src="/template/icon/count.svg" alt="count">
+                        </span> 
+                        <?php echo $exam['number_of_question'] ?> 
+                    </button>
+                    <button type="button" class="btn btn-sm"> 
+                        <span  style="vertical-align: 0.125em;">
+                            <img src="/template/icon/clock.svg" alt="clock">
+                        </span>
+                        <?php echo $exam['duration_mins'] ?> mins
+                    </button>
+                    <button type="button" class="btn btn-sm"> 
+                        <span  style="vertical-align: 0.125em;">
+                            <img src="/template/icon/users.svg" alt="users">
+                        </span>
+                        <?php echo $exam['attemped'] ?> 
+                    </button>
+                    <button type="button" class="btn btn-sm"> 
+                        <span  style="vertical-align: 0.125em;">
+                            <img src="/template/icon/plus.svg" alt="plus">
+                        </span> 
+                          <?php echo $exam['point'] ?> 
+                    </button>
+                    <button type="button" class="btn btn-sm">
+                        <span  style="vertical-align: 0.125em;">
+                            <img src="/template/icon/minus.svg" alt="minus">
+                        </span> 
+                      <?php echo $exam['negative_point'] ?> 
+                    </button>
+                </div>
+            </div>
+            <div class="mt-2 text-secondary small"> <?php echo $exam->descp ?> </div>
+            <div class="mt-4 mb-2 h6">Reports</div>
+            <div>
+                <table class="table small" id="reportTable">
+                    <thead>
+                        <tr class="text-secondary">
+                            <th scope="col">Type</th>
+                            <th scope="col">Report</th>
+                            <th scope="col">solved</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        function getReportText($type){
+                            if($type == 1) return "Wrong category";
+                            if($type == 2) return "Wrong answer";
+                            if($type == 3) return "Insufficient data";
+                            if($type == 4) return "Spam content";
+                        }
+                    ?>
+                    <?php foreach ($reportList as $report) { ?>
+                      <tr>
+                        <td><?php echo getReportText($report['type']) ?></td>
+                        <td><?php echo $report['report'] ?></td>
+                        <td><button class="btn btn-sm border" value="<?php echo $report['id'] ?>">Solved</button></td>
+                      </tr>
+                      <?php } ?>
+                    </tbody>
+                  </table>
+            </div>
+
+
+        </div>
+    </div>
+
+    
+    <!-- FOOTER -->
+    <div class="bg-white">
+        <?php include __DIR__.'/static/footer.html';?>
+    </div>
+
+    <script>
+
+        review_count = parseInt('<?php echo count($reportList) ?>');
+        $("#reportTable").on("click", "button", function(event){
+            report_id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: "/report/solved/" + report_id,
+                success: function (result) { 
+                    $(this).parent().parent().parent().fadeOut(700, function() { 
+                        $(this).remove();
+                    });
+                    if(review_count>0) review_count--;
+                }
+            });
+            
+        });
+
+        $("#reviewBtn").click(function(){
+            exam_id = $(this).val();
+            if(review_count>0) alert("Please solve all the issues before you request for review");
+            if(review_count==0)
+            $.ajax({
+                type: 'GET',
+                url: "/report/reviewRequest/exam/" + exam_id,
+                success: function (result) { 
+                    alert("hhh");
+                    $("#reviewBtn").removeClass("btn-info");
+                    $("#reviewBtn").addClass("btn-success disabled");
+                    $("#reviewBtn").text("Review Request Sent");
+                }
+            });
+        });
+    </script>
+    
+</body>
+
+</html>

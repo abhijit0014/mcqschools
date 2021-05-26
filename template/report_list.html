@@ -119,20 +119,20 @@
                             correctionUrl = '/exam/edit/'+result.exam_id;
                             $template = $template.replace("#correctionUrl", correctionUrl);
                             $template = $template.replace("#title", result.exam);
-                            $template = $template.replace("#badge", '<span class="badge bg-secondary">Exam</span>');
+                            $template = $template.replace("#badge", '<span class="h6 small text-secondary">Exam</span>');
                         }
                         else{
                             correctionUrl = '/question/correction/'+result.question_id;
                             $template = $template.replace("#correctionUrl", correctionUrl);
                             $template = $template.replace("#title", result.question);
-                            $template = $template.replace("#badge", '<span class="badge bg-primary">Question</span>');
+                            $template = $template.replace("#badge", '<span class="h6 small text-secondary">Question</span>');
                         }
 
                         type = '';
-                        if(result.type = 1) type = "Wrong category";
-                        if(result.type = 2) type = "Wrong answer";
-                        if(result.type = 3) type = "Insufficient data";
-                        if(result.type = 4) type = "Spam content";
+                        if(result.type == 1) type = "Wrong category";
+                        if(result.type == 2) type = "Wrong answer";
+                        if(result.type == 3) type = "Insufficient data";
+                        if(result.type == 4) type = "Spam content";
                         $template = $template.replace("#type", type);
 
                         //$template = $template.replace("#comment_id", result.id);
