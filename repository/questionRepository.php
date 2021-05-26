@@ -20,6 +20,7 @@
                 $question = R::dispense( 'question' );
                 $question->exam_id = $obj['exam_id'];
                 $question->enabled = true;
+                $question->review = false;
                 $question->correct_attempt = 0;
                 $question->total_attempt = 0;
                 $question->created_date = date('Y-m-d H:i:s');

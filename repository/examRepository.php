@@ -20,6 +20,7 @@
                 $exam->love = 0;
                 $exam->number_of_question = 0;
                 $exam->published = false;
+                $exam->review = false;
                 $exam->created_by = SessionManager::get("user_id");
                 $exam->created_date = date('Y-m-d H:i:s');
             }else{
