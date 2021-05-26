@@ -7,6 +7,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="mt-2 mb-2 d-none" id="message"></div>
+                    <div class="small mb-2">Cause</div>
                     <form id="reportForm">
                         <input name="exam_id" value="" type="hidden">
                         <input name="question_id" value="" type="hidden">
@@ -51,18 +53,23 @@
         $('#reportForm input[name="question_id"]').val(questionId);
     }
     $( "#submitReportBtn" ).click(function() {
-        if($('#reportForm input[name="type"]').val())
+        if(!$('#reportForm input[name="type"]').is(":checked")){
+            $("#message").removeClass("d-none");
+            $("#message").text("Please select a cause");
+        }
+        else
         $.ajax({
             url: '/report/save',
             type: 'post',
             data: $("#reportForm").serialize(),
             success: function(data) {
-                $('#submitReportBtn').prop('disabled', true);
-                $(".submitReportBtn").addClass("d-none");
-                $(".modal-body").empty();
-                $(".modal-body").html('<div class="mt-5 mb-5 text-success">Report has been sent successfully</div>');
+                $("#message").removeClass("d-none");
+                $("#message").text("Report successfully sent");
+                
                 setTimeout(function() {
+                    $("#message").addClass("d-none");
                     reportModal.hide();
+                    $('#reportForm').trigger("reset");
                 }, 2000);
             }
         });
