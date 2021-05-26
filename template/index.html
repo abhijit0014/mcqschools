@@ -75,8 +75,8 @@
                                 <span id="questionTypeDisplayBadge"
                                     class="bg-light text-secondary ps-2 pe-2 rounded small">New</span>
                             </div>
-                            <div class="flex-fill bd-highlight">
-                                <div class="dropdown float-end d-inline">
+                            <div class="flex-fill bd-highlight text-end">
+                                <div class="dropdown dropstart d-inline">
                                     <div class="btn btn-white p-0 m-0" id="dropdownMenuButton1"
                                         data-bs-toggle="dropdown">
                                         <span id="timerDisplay"
@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
 
-                                <div class="dropdown float-end d-inline">
+                                <div class="dropdown dropstart d-inline">
                                     <div class="btn btn-white p-0 m-0" id="dropdownMenuButton2"
                                         data-bs-toggle="dropdown">
                                         <span id="questionTypeDisplay"
@@ -115,6 +115,20 @@
                                         <li ng-click="setQuestionType('Advance')" class="dropdown-item">Advance</li>
                                     </ul>
                                 </div>
+
+                                <?php if (isset($_SESSION['authenticated']) ){ ?>
+                                <div class="dropdown dropstart d-inline">
+                                    <button class="btn btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span style="vertical-align: 0.125em;">
+                                            <img src="/template/icon/three-dots-vertical.svg" alt="users">
+                                        </span>
+                                    </button>
+                                    <ul class="dropdown-menu shadow-sm" aria-labelledby="dropdownMenuButton1">
+                                      <li><button id="questionReportBtn" class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">Report</button></li>
+                                    </ul>
+                                </div>
+                                <?php } ?>
+
 
                             </div>
                         </div>
@@ -254,6 +268,11 @@
     <!-- FOOTER -->
     <?php include __DIR__.'/static/footer.html';?>
 
+    <!-- Report Start -->
+    <?php include __DIR__.'/static/reportCode.html';?>
+
+
+
     <script src="/app.js?v=1.1"></script>
     <script>
 
@@ -281,6 +300,7 @@
             setup();
             loadQuestion();
 
+
             // nevbar-------------------------------------------------------
 
             // timer dropdown
@@ -304,6 +324,12 @@
                     Cookies.set('config_question_type', $(e.target).text());
                     $("#questionTypeDisplay").text($(e.target).text());
                 }
+            });
+
+            // report question
+            $("#questionReportBtn").click(function(){ 
+                if(question_list[current_question].id)
+                setReportQuestionId(question_list[current_question].id);
             });
 
 
