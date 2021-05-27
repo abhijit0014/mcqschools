@@ -60,7 +60,7 @@
             $creator_id = SessionManager::get("user_id");
             $count =  R::count( 'exam', "created_by = ? And created_date BETWEEN CONCAT(CURDATE(), ' ', '00:00:00') AND CONCAT(CURDATE(), ' ', '23:59:59')", [$creator_id] );
 
-            if($count<12){
+            if($count<20){
                 return true;
             }
             return false;

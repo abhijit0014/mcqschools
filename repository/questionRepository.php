@@ -69,7 +69,7 @@
             $creator_id = SessionManager::get("user_id");
             $count =  R::count( 'question', "created_by = ? And created_date BETWEEN CONCAT(CURDATE(), ' ', '00:00:00') AND CONCAT(CURDATE(), ' ', '23:59:59')", [$creator_id] );
 
-            if($count<149){
+            if($count<200){
                 return true;
             }
             return false;
