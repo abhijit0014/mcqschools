@@ -148,9 +148,11 @@
             return json_encode($list);
         }
 
-        public function listOfSuggestedExams_api()
+        public function suggestedExamsApi()
         {
-            $list = $this->repository->listOfSuggestedExams();
+            $json = file_get_contents('php://input');
+            $arr = json_decode($json);
+            $list = $this->repository->listOfSuggestedExams($arr);
             return json_encode($list);
         }
 

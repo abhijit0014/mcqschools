@@ -201,13 +201,14 @@
 
         // initial load
         loadExam();
+
+        // update user choice
+        getUserChoiceList(category_id);
+
     </script>
 
 
-
-
-
-
+    <!-- Copy link -->
     <script>
         var currentToolTip = undefined;
         $(document).ready(function () {
@@ -229,9 +230,9 @@
             $(currentToolTip).attr('data-bs-original-title', 'Copy Exam Link');
             currentToolTip = undefined;
         });
-
-
     </script>
+
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
     <script>

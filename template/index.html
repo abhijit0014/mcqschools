@@ -118,13 +118,16 @@
 
                                 <?php if (isset($_SESSION['authenticated']) ){ ?>
                                 <div class="dropdown dropstart d-inline">
-                                    <button class="btn btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-sm" type="button" id="dropdownMenuButton1"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         <span style="vertical-align: 0.125em;">
                                             <img src="/template/icon/three-dots-vertical.svg" alt="users">
                                         </span>
                                     </button>
                                     <ul class="dropdown-menu shadow-sm" aria-labelledby="dropdownMenuButton1">
-                                      <li><button id="questionReportBtn" class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">Report</button></li>
+                                        <li><button id="questionReportBtn" class="dropdown-item btn btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#reportModal">Report</button>
+                                        </li>
                                     </ul>
                                 </div>
                                 <?php } ?>
@@ -246,7 +249,7 @@
             </div>
 
             <div class="col-12 col-md-3 d-none" id="topicWindow">
-                <!--topic Title-->
+                <!--topic list-->
                 <div class="h5 mb-4 text-secondary">
                     <span style="vertical-align: 0.125em;" class="pe-2">
                         <img src="/template/icon/topic.svg" width="20px" alt="topic">
@@ -256,6 +259,27 @@
 
                 <div class="shadow-sm rounded bg-white p-4">
                     <div class="mt-2 mb-2" id="topicList"></div>
+                </div>
+
+                <!--exam list-->
+                <div class="h5 mt-4 mb-4 text-secondary">
+                    <span style="vertical-align: 0.125em;" class="pe-2">
+                        <img src="/template/icon/topic.svg" width="20px" alt="topic">
+                    </span>
+                    <span>Exams </span>
+                </div>
+
+                <div class="shadow-sm rounded bg-white p-3">
+                    <div class="mt-2 mb-2" id="suggestedExamList">
+                        <!-- 
+                        <div class="bg-hover rounded p-2">
+                            <a class="text-decoration-none text-dark" href="/examcenter/start/#examId">
+                                <div class="overflow-hidden text-nowrap h6 mb-0">#title</div>
+                                <div class="small text-secondary"> #attempted attempted . #Qcount question</div>
+                            </a>
+                        </div>
+                        -->
+                    </div>
                 </div>
             </div>
 
@@ -299,6 +323,7 @@
 
             setup();
             loadQuestion();
+            loadSuggestedExams();
 
 
             // nevbar-------------------------------------------------------
@@ -327,9 +352,9 @@
             });
 
             // report question
-            $("#questionReportBtn").click(function(){ 
-                if(question_list[current_question].id)
-                setReportQuestionId(question_list[current_question].id);
+            $("#questionReportBtn").click(function () {
+                if (question_list[current_question].id)
+                    setReportQuestionId(question_list[current_question].id);
             });
 
 
@@ -465,6 +490,7 @@
                         page_size = question_list.length;
                         current_question = 0;
                         setQuestion();
+                        setUserChoice(category_id);
                     }
 
                     // remove category if no result found
@@ -523,6 +549,7 @@
                 }, 1000);
         }
 
+        /* --------------------------------- setup -------------------------------- */
         function setup() {
 
             // set category
@@ -574,27 +601,46 @@
 
         function shuffle(array) {
             var currentIndex = array.length, temporaryValue, randomIndex;
-
             // While there remain elements to shuffle...
             while (0 !== currentIndex) {
-
                 // Pick a remaining element...
                 randomIndex = Math.floor(Math.random() * currentIndex);
                 currentIndex -= 1;
-
                 // And swap it with the current element.
                 temporaryValue = array[currentIndex];
                 array[currentIndex] = array[randomIndex];
                 array[randomIndex] = temporaryValue;
             }
-
             return array;
         }
 
+        /* ------------------------------------ load suggested exams -------------------------*/
 
+        function loadSuggestedExams() {
+            cat = getUserChoiceList();
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                data: JSON.stringify(cat),
+                url: "/exam/suggestedExamsApi",
+                success: function (result) {
+                    result.forEach(exam => {
+                        $("#suggestedExamList").append(getExamTemplate(exam));
+                    });
+                }
+            });
+        }
 
+        function getExamTemplate(exam) {
+            str =  '<div class="bg-hover rounded p-2"> <a class="text-decoration-none text-dark" href="/examcenter/start/#examId"> <div class="overflow-hidden text-nowrap h6 mb-0">#title</div> <div class="small text-secondary"> #attempted attempted . #Qcount question</div> </a> </div>';
+            str = str.replace("#examId",exam.id);
+            str = str.replace("#title",exam.title);
+            str = str.replace("#attempted",exam.attemped);
+            str = str.replace("#Qcount",exam.number_of_question);
+            return str;
+        }
 
-        // comment --------------------------------------------------------------------------
+        /* ------------------------------------- comment ------------------------------------- */
 
         // comment switch
         var commentSwitch = false;

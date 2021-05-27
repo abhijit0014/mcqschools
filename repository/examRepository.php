@@ -69,7 +69,7 @@
         // for search bar ------------------------------------------------------------
         public function searchByTitle($str_search, $page, $limit)
         {
-            $list = R::getAll( "Select * from exam WHERE published = true AND TITLE LIKE '%".$str_search."%' ORDER BY id DESC LIMIT ".(($page-1)*$limit).', '.$limit);
+            $list = R::getAll( "Select * from exam WHERE published = true AND enabled = true AND TITLE LIKE '%".$str_search."%' ORDER BY id DESC LIMIT ".(($page-1)*$limit).', '.$limit);
             return $list;
         }
 
@@ -103,26 +103,38 @@
             FROM exam 
             left join subscription on exam.created_by = subscription.creator_id
             left join exam_user on exam.id = exam_user.exam_id
-            where exam.published = true and subscription.user_id = ".$user_id." order by exam.created_date desc LIMIT ".(($page-1)*$limit).', '.$limit  );
+            where exam.published = true and exam.enabled = true and subscription.user_id = ".$user_id." 
+            order by exam.created_date desc LIMIT ".(($page-1)*$limit).', '.$limit  );
             return $list;
         }
 
-        // list of suggested exams --------------------------------------------------
-        public function listOfSuggestedExams()
+        // list of suggested exams at home page --------------------------------------------------
+        public function listOfSuggestedExams($category_ids)
         {
+            $list = null;
+            /*
             $user_id = SessionManager::get("user_id");
             $list = R::getAll("SELECT * FROM projectdb.exam where category_id in 
                                 (select exam.category_id from exam_user
                                 left join exam on exam_user.exam_id = exam.id
                                 where exam_user.user_id = "+ $user_id +")
                                 order by id desc limit 15");
+            */
+
+            if(count($category_ids))
+            $list = R::getAll("SELECT * FROM exam WHERE category_id IN (" .implode(',',$category_ids). ")
+                                and enabled = true and published = true order by rand() limit 5");
+
+            if(!$list)
+            $list = R::getAll("SELECT * FROM exam WHERE enabled = true and published = true order by rand() limit 5");
+
             return $list;
         }
 
         // list by category id -------------------------------------------------------
         public function listByCategoryId($page, $limit, $categoryId)
         {
-            $list=R::getAll('select * from exam WHERE category_id = '.$categoryId.' AND published = true ORDER BY id DESC LIMIT '.(($page-1)*$limit).', '.$limit);
+            $list=R::getAll('select * from exam WHERE category_id = '.$categoryId.' AND published = true and enabled = true ORDER BY id DESC LIMIT '.(($page-1)*$limit).', '.$limit);
             return $list;
         }
 
