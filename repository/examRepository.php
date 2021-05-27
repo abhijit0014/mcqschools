@@ -122,11 +122,13 @@
             */
 
             if(count($category_ids))
-            $list = R::getAll("SELECT * FROM exam WHERE category_id IN (" .implode(',',$category_ids). ")
+            $list = R::getAll("SELECT id,title,attemped,number_of_question FROM exam 
+                                WHERE category_id IN (" .implode(',',$category_ids). ")
                                 and enabled = true and published = true order by rand() limit 5");
 
             if(!$list)
-            $list = R::getAll("SELECT * FROM exam WHERE enabled = true and published = true order by rand() limit 5");
+            $list = R::getAll("SELECT id,title,attemped,number_of_question FROM exam 
+            WHERE enabled = true and published = true order by rand() limit 5");
 
             return $list;
         }
