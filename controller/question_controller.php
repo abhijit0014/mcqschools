@@ -47,9 +47,15 @@
             if(isset($_POST)){
                 $exam =  $this->examRepository->getOne($_POST['exam_id']);
                 if(SessionManager::get("user_id")==$exam->created_by)
-                $id = $this->repository->save($_POST);
-                header("Location: /question/list/".$_POST['exam_id']);
-                exit;
+
+                if($this->repository->checkAllowedQuestionLimit()){
+                    $id = $this->repository->save($_POST);
+                    header("Location: /question/list/".$_POST['exam_id']); 
+                    exit;
+                }else{
+                    header("Location: /question/list/".$_POST['exam_id']."?error=true&msg=You can add maximum 150 question per day"); 
+                    exit;
+                }
             }
         }
 

@@ -4,14 +4,14 @@
 <head>
     <!-- resource -->
     <?php include __DIR__.'/resource/resource.php';?>
-    
+
     <script>
-    $( document ).ready(function() {
-        $("code").each(function(){
-            $(this).html($(this).html().trim());
+        $(document).ready(function () {
+            $("code").each(function () {
+                $(this).html($(this).html().trim());
+            });
+            hljs.highlightAll();
         });
-        hljs.highlightAll();
-    });
     </script>
     <title>Question List</title>
 </head>
@@ -20,6 +20,32 @@
 
     <!-- HEADER -->
     <?php include __DIR__.'/static/header.html';?>
+
+    <!-- error message start -->
+    <?php if(isset($_GET['error'])) {
+            if(!$_GET['error']){ ?>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <div class="container">
+            <div>
+                <?php echo $_GET['msg'] ?>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <?php }} ?>
+
+    <?php if(isset($_GET['error'])) {
+            if($_GET['error']){ ?>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="container">
+            <div>
+                <?php echo $_GET['msg'] ?>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <?php }} ?>
+    <!-- error message end -->
 
     <!-- BODY -->
     <div class="container mt-4">
@@ -35,7 +61,8 @@
                     <?php echo $exam->title ?>
                 </div>
                 <div class="col text-end">
-                    <a class="btn btn-sm btn-outline-primary" href="/question/add/<?php echo $exam['id'] ?>" role="button">Add Question</a>
+                    <a class="btn btn-sm btn-outline-primary" href="/question/add/<?php echo $exam['id'] ?>"
+                        role="button">Add Question</a>
                 </div>
             </div>
         </div>
@@ -64,37 +91,48 @@
                     ?>
                     <?php foreach ($questionlist as $i => $question) { ?>
                     <tr>
-                        <td> 
+                        <td>
                             <div class="mb-2 h6">
-                                <span class="bg-primary badge"> Q <?php echo (($i+1)+($currentPage*10)-10 ) ?></span>
+                                <span class="bg-primary badge"> Q
+                                    <?php echo (($i+1)+($currentPage*10)-10 ) ?>
+                                </span>
                                 <pre><?php echo convert($question['question']) ?></pre>
                             </div>
                             <div class="">
                                 <div class="p-1 ">
-                                    <span class="badge <?php echo $question['ans'] == 1 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">1</span>
+                                    <span
+                                        class="badge <?php echo $question['ans'] == 1 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">1</span>
                                     <?php echo htmlentities( $question['option_one'] ) ?>
                                 </div>
                                 <div class="p-1 ">
-                                    <span class="badge <?php echo $question['ans'] == 2 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">2</span>
+                                    <span
+                                        class="badge <?php echo $question['ans'] == 2 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">2</span>
                                     <?php echo htmlentities( $question['option_two'] ) ?>
                                 </div>
                                 <div class="p-1 ">
-                                    <span class="badge <?php echo $question['ans'] == 3 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">3</span>
+                                    <span
+                                        class="badge <?php echo $question['ans'] == 3 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">3</span>
                                     <?php echo htmlentities( $question['option_three'] )?>
                                 </div>
                                 <div class="p-1 ">
-                                    <span class="badge <?php echo $question['ans'] == 4 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">4</span>
+                                    <span
+                                        class="badge <?php echo $question['ans'] == 4 ? 'bg-success text-white' : 'bg-light text-secondary' ?>">4</span>
                                     <?php echo htmlentities( $question['option_four'] ) ?>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="small">
-                                <div class=""><?php echo $question['total_attempt'] ?> Total Attempt </div>
-                                <div class="text-success"><?php echo $question['correct_attempt'] ?> Correct Attempt</div>
+                                <div class="">
+                                    <?php echo $question['total_attempt'] ?> Total Attempt
+                                </div>
+                                <div class="text-success">
+                                    <?php echo $question['correct_attempt'] ?> Correct Attempt
+                                </div>
                             </div>
                         </td>
-                        <td><a class="btn btn-sm btn-light" href="/question/edit/<?php echo $question['id'] ?>" role="button">Edit</a></td>
+                        <td><a class="btn btn-sm btn-light" href="/question/edit/<?php echo $question['id'] ?>"
+                                role="button">Edit</a></td>
                     </tr>
                     <?php } ?>
                 </tbody>
@@ -105,24 +143,31 @@
             <nav>
                 <ul class="pagination justify-content-center">
                     <li class="page-item <?php echo $currentPage==1? 'disabled':'' ?>">
-                        <a class="page-link" href="/question/list/<?php echo $exam->id ?>/<?php echo $currentPage-1 ?>/<?php echo $pages ?>">Prev</a>
+                        <a class="page-link"
+                            href="/question/list/<?php echo $exam->id ?>/<?php echo $currentPage-1 ?>/<?php echo $pages ?>">Prev</a>
                     </li>
-                
+
                     <?php for($i = 1; $i <= $pages; $i++) {?>
-                        <?php if($i!=$currentPage) { ?>
-                        <li class="page-item"><a class="page-link" href="/question/list/<?php echo $exam->id ?>/<?php echo $i ?>/<?php echo $pages ?>"><?php echo $i ?></a></li>
-                        <?php } else { ?>
-                        <li class="page-item active" aria-current="page">
-                            <span class="page-link"><?php echo $i ?></span>
-                        </li>
-                        <?php } ?>
+                    <?php if($i!=$currentPage) { ?>
+                    <li class="page-item"><a class="page-link"
+                            href="/question/list/<?php echo $exam->id ?>/<?php echo $i ?>/<?php echo $pages ?>">
+                            <?php echo $i ?>
+                        </a></li>
+                    <?php } else { ?>
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            <?php echo $i ?>
+                        </span>
+                    </li>
                     <?php } ?>
-                
+                    <?php } ?>
+
                     <li class="page-item <?php echo $currentPage==$pages? 'disabled':'' ?>">
-                        <a class="page-link" href="/question/list/<?php echo $exam->id ?>/<?php echo $currentPage+1 ?>/<?php echo $pages ?>">Next</a>
+                        <a class="page-link"
+                            href="/question/list/<?php echo $exam->id ?>/<?php echo $currentPage+1 ?>/<?php echo $pages ?>">Next</a>
                     </li>
                 </ul>
-              </nav>
+            </nav>
         </div>
 
 

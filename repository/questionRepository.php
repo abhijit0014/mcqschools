@@ -64,6 +64,17 @@
             }
         }
 
+        public function checkAllowedQuestionLimit()
+        {
+            $creator_id = SessionManager::get("user_id");
+            $count =  R::count( 'question', "created_by = ? And created_date BETWEEN CONCAT(CURDATE(), ' ', '00:00:00') AND CONCAT(CURDATE(), ' ', '23:59:59')", [$creator_id] );
+
+            if($count<149){
+                return true;
+            }
+            return false;
+        }
+
         public function pageCount($examId, $limit)
         {
             $questions=R::count( 'question', 'WHERE exam_id = ?', [ $examId ] );
