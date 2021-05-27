@@ -32,7 +32,7 @@
             $exam = R::dispense( 'exam' );
             $exam->point = 1;
             $exam->negative_point = 0;
-            $exam->duration_mins = 15;
+            $exam->duration_mins = 10;
 
             $view = new view('exam_form');
             $view->assign('exam',  $exam );
@@ -78,13 +78,14 @@
                 if(SessionManager::get("user_id") == $exam->created_by){
                     if($exam->number_of_question >= 10){
                         $exam->published = $exam->published ? false : true;
+                        $exam->created_date = $exam->attemped == 0 ? date('Y-m-d H:i:s') : $exam->created_date;
                         $user_info = $this->userRepository->getProfileById($exam->created_by);
                         $user_info->exam_count = $this->repository->countExamByCreatorId($exam->created_by); 
                         R::store( $user_info );
                         R::store( $exam );
                     }else{
                         R::store( $exam ); 
-                        header("Location: ".$_SERVER['HTTP_REFERER']."?error=true&msg=Minimum 10 questions required to publish");
+                        header("Location: ".$_SERVER['HTTP_REFERER']."?error=true&msg=Minimum 10 questions required to publish a exam");
                         exit;
                     }
                 }

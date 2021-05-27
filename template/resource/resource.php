@@ -8,4 +8,4 @@
 <link href="/template/resource/highlight.css" rel="stylesheet">
 <script src="/template/resource/highlight.min.js"></script>
 <link href="/template/resource/app.css?v=1.1" rel="stylesheet">
-<script src="/template/resource/mcqschools.js?v=1.1"></script>
+<script src="/template/resource/mcqschools.js?v=1.2"></script>

@@ -331,7 +331,7 @@
             // timer dropdown
             $("#timerSwitch").on("change", function () {
                 config_timer_switch = this.checked
-                Cookies.set('config_timer_switch', config_timer_switch);
+                Cookies.set('config_timer_switch', config_timer_switch, { expires: 700 });
                 $("#timerDisplay").text(this.checked ? '0:00' : 'Off');
                 if (!config_timer_switch) $("#progressbartime").css("width", "0%");
             });
@@ -339,14 +339,14 @@
             // question time - timer dropdown
             $("#inputTime").on("change", function (e) {
                 config_question_time = $('#inputTime').val();
-                Cookies.set('config_question_time', config_question_time);
+                Cookies.set('config_question_time', config_question_time, { expires: 700 });
             });
 
             // question_type dropdown
             $("#questionTypeDropdown").on("click", function (e) {
                 if ($(e.target).is("li")) {
                     config_question_type = $(e.target).text();
-                    Cookies.set('config_question_type', $(e.target).text());
+                    Cookies.set('config_question_type', $(e.target).text(), { expires: 700 });
                     $("#questionTypeDisplay").text($(e.target).text());
                 }
             });
@@ -498,7 +498,7 @@
                         config_categories = jQuery.grep(config_categories, function (value) {
                             return value != current_category;
                         })
-                        Cookies.set('config_categories', config_categories.toString());
+                        Cookies.set('config_categories', config_categories.toString(), { expires: 700 });
                         $("#topicList").empty();
                         config_categories.forEach(item => {
                             $("#topicList").append(getTopicHtml(item));
@@ -562,7 +562,7 @@
                 if (config_categories.length > 10)
                     config_categories.pop();
                 config_categories.unshift(current_category);
-                Cookies.set('config_categories', config_categories.toString());
+                Cookies.set('config_categories', config_categories.toString(), { expires: 700 });
             }
             if (!current_category) {
                 current_category = config_categories[0];

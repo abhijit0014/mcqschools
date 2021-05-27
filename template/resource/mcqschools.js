@@ -20,7 +20,7 @@ function setUserChoice(category_id) {
                 if (Object.keys(arr).length > 4)
                     delete arr[property];
         }
-        Cookies.set('user_category_choice_list', JSON.stringify(arr));
+        Cookies.set('user_category_choice_list', JSON.stringify(arr), { expires: 700 });
     }
 }
 
