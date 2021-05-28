@@ -257,8 +257,8 @@
                     <span>Topics </span>
                 </div>
 
-                <div class="shadow-sm rounded bg-white p-4">
-                    <div class="mt-2 mb-2" id="topicList"></div>
+                <div class="shadow-sm rounded bg-white p-3">
+                    <div class="" id="topicList"></div>
                 </div>
 
                 <!--exam list-->
@@ -270,7 +270,7 @@
                 </div>
 
                 <div class="shadow-sm rounded bg-white p-3">
-                    <div class="mt-2 mb-2" id="suggestedExamList">
+                    <div class="" id="suggestedExamList">
                         <!-- 
                         <div class="bg-hover rounded p-2">
                             <a class="text-decoration-none text-dark" href="/examcenter/start/#examId">
@@ -554,7 +554,7 @@
 
             // set category
             if (!Cookies.get('config_categories') || Cookies.get('config_categories') == '')
-                config_categories = new Array('Quiz', 'Computer', 'Science', 'Geography', 'History', 'Inventions');
+                config_categories = new Array('Quiz', 'Computer Fundamental', 'Science', 'Geography', 'History', 'Inventions');
             else
                 config_categories = Cookies.get('config_categories').split(",");
 

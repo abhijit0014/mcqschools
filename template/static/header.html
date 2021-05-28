@@ -145,13 +145,13 @@
     $("#searchForm").submit(function (e) {
         e.preventDefault();
         search_query = $("#searchQuery").val();
-        window.location.href = "/search/query/" + search_query.replace(' ', '-');
+        window.location.href = "/search/query/" + search_query.replaceAll(' ', '-');
     });
 
     // suggation click
     $("#searchQueryList").on("click", "div", function () {
         search_query = $(this).find('span').text();
-        window.location.href = "/search/query/" + search_query.replace(' ', '-');
+        window.location.href = "/search/query/" + search_query.replaceAll(' ', '-');
     });
 
     function searchQuerySuggest() {
