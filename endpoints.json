@@ -42,7 +42,6 @@
     { "url": "/subscription/unsubscribe",  "role": ["student", "admin"], "csrf": true },
     { "url": "/subscription/subscription_list",  "role": ["student", "admin"], "csrf": true },
         
-    { "url": "/report/save",  "role": ["student", "admin"], "csrf": true },
     { "url": "/report/list",  "role": ["student", "admin"], "csrf": true },
     { "url": "/report/listByCreatorId",  "role": ["student", "admin"], "csrf": true },
     { "url": "/report/solved",  "role": ["student", "admin"], "csrf": true },

@@ -15,6 +15,10 @@
             // update exam report
             if(!empty($obj['exam_id'])){
                 $exam_id = $obj['exam_id'];
+
+                $report_count = R::count('report', 'exam_id = ?', [$exam_id]);
+                if($report_count>4) return;
+
                 $tempReport = $this->getByExamIdAndUserId($exam_id, $user_id);
                 if(!empty($tempReport)){
                     $tempReport->type = $obj['type'];
@@ -30,6 +34,10 @@
             // update question report
             if(!empty($obj['question_id'])){
                 $question_id = $obj['question_id'];
+
+                $report_count = R::count('report', 'question_id = ?', [$question_id]);
+                if($report_count>4) return;
+
                 $tempReport = $this->getByQuestionIdAndUserId($question_id, $user_id);
                 if(!empty($tempReport)){
                     $tempReport->type = $obj['type'];

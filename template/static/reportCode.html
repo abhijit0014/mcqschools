@@ -13,16 +13,16 @@
                         <input name="exam_id" value="" type="hidden">
                         <input name="question_id" value="" type="hidden">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" value="1" name="type" required>
-                            <label class="form-check-label">Wrong category</label>
+                            <input class="form-check-input" type="radio" value="3" name="type">
+                            <label class="form-check-label" >Insufficient data</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" value="2" name="type">
                             <label class="form-check-label" >Wrong answer</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" value="3" name="type">
-                            <label class="form-check-label" >Insufficient data</label>
+                            <input class="form-check-input" type="radio" value="1" name="type" required>
+                            <label class="form-check-label">Wrong category</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" value="4" name="type">
@@ -58,21 +58,25 @@
             $("#message").text("Please select a cause");
         }
         else
-        $.ajax({
-            url: '/report/save',
-            type: 'post',
-            data: $("#reportForm").serialize(),
-            success: function(data) {
-                $("#message").removeClass("d-none");
-                $("#message").text("Report successfully sent");
-                
-                setTimeout(function() {
-                    $("#message").addClass("d-none");
-                    reportModal.hide();
-                    $('#reportForm').trigger("reset");
-                }, 2000);
-            }
-        });
+        {
+            $( "#submitReportBtn" ).addClass("disabled");
+            $.ajax({
+                url: '/report/save',
+                type: 'post',
+                data: $("#reportForm").serialize(),
+                success: function(data) {
+                    $("#message").removeClass("d-none");
+                    $("#message").html('<span class="h5 text-success">Report successfully sent</span>');
+                    
+                    setTimeout(function() {
+                        $("#message").addClass("d-none");
+                        reportModal.hide();
+                        $('#reportForm').trigger("reset");
+                        $( "#submitReportBtn" ).removeClass("disabled");
+                    }, 1500);
+                }
+            });
+        }
     });
     </script>
     <!-- Report Modal - END -->
