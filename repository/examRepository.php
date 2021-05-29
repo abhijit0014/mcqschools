@@ -136,7 +136,7 @@
         // list by category id -------------------------------------------------------
         public function listByCategoryId($page, $limit, $categoryId)
         {
-            $list=R::getAll('select * from exam WHERE category_id = '.$categoryId.' AND published = true and enabled = true ORDER BY id DESC LIMIT '.(($page-1)*$limit).', '.$limit);
+            $list=R::getAll('select * from exam WHERE category_id = '.$categoryId.' AND published = true and enabled = true ORDER BY created_date DESC LIMIT '.(($page-1)*$limit).', '.$limit);
             return $list;
         }
 
