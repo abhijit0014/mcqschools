@@ -2,13 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/template/resource/app.css" rel="stylesheet">
-    <script src="/template/resource/jquery.min.js"></script>
-    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
-    <script src="/template/resource/bootstrap.bundle.min.js"></script>
-    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <!-- resource -->
+    <?php include __DIR__.'/resource/resource.php';?>
     <title><?php echo ucfirst($query) ?> - Search</title>
     <meta name="description" content="<?php echo ucfirst($query) ?> mock test for online competitive examination, entrance examination and campus interview. 
     Practice and Learn <?php echo $query ?> MCQ questions">
@@ -203,11 +198,11 @@
     }
 
     function getExamTemplate() {
-        return '<div class="list-group-item"> <a href="/examcenter/start/#examId" class="text-decoration-none"><div class="h6 text-dark">#title</div><div class="small text-secondary"> <span>#number_of_question questions</span> . <span>#duration mins</span> . <span>#time</span></div> </a></div>';
+        return '<div class="list-group-item"> <a href="/examcenter/start/#examId" class="text-decoration-none"><div class="h6 text-dark">#title</div><div class="small text-secondary"> <span>#attempted attempted</span> . <span>#number_of_question questions</span> . <span>#duration mins</span> </div> </a></div>';
     }
 
     function getTopicTemplate() {
-        return '<div class="d-inline-block bg-light rounded mt-1 me-1"><a href="/category/quiz/#query" class="text-decoration-none text-secondary d-inline-block p-1 ps-2 pe-2 small"><span style=" vertical-align: 0.125em;" class="pe-3"><img src="/template/icon/search.svg" alt="search"></span>#title</a></div>';
+        return '<div class="d-inline-block bg-light rounded mt-1 me-1"><a href="/category/quiz/#query" class="text-decoration-none text-secondary d-inline-block p-1 ps-2 pe-2 small"><span style=" vertical-align: 0.125em;" class="pe-3"><img src="/template/icon/quiz.svg" alt="quiz"></span>#title</a></div>';
     }
 
     // initial load

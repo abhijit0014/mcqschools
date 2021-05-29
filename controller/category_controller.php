@@ -41,19 +41,17 @@
             }
         }
 
-        public function list($param)
-        {  
-            $categorylist;          
-            if(empty($param[0]))
-                $categorylist = $this->repository->categoryList();
-            else
-                $categorylist = $this->repository->searchCategoryByTitle($param[0]);
-                
-            $view = new view('category_list');
-            $view->assign('search_str', empty($param[0]) ? '' : $param[0]);
-            $view->assign('categorylist', $categorylist);
-            return;
-        }
+
+
+
+        // category api for autocomplete - API
+        public function autocomplete($param)
+        {
+            $search_query = $param[0];
+            $list = $this->repository->autocompleteList($search_query);
+            return  json_encode($list);
+        }       
+
 
         // quiz by topic or category
         public function quiz($param)
@@ -64,15 +62,8 @@
             return;
         }
 
-        // category api for autocomplete
-        public function autocomplete($param)
-        {
-            $search_query = $param[0];
-            $list = $this->repository->autocompleteList($search_query);
-            return  json_encode($list);
-        }
 
-        // exam & test list by category
+        // exam list based on category
         public function exam($param)
         {
             $category_name = str_replace("-"," ",$param[0]);
@@ -91,6 +82,42 @@
             $currentPage = isset($param[1]) ? $param[1] : 1;
             $list = $this->examRepository->listByCategoryId($currentPage, $limit, $category_id);
             return json_encode($list);
+        }
+
+
+        //-------------------------------------------------------------------------------------------------
+        // category list page for ADMIN
+        public function list($param)
+        {  
+            $categorylist;          
+            if(empty($param[0]))
+                $categorylist = $this->repository->categoryList();
+            else
+                $categorylist = $this->repository->searchCategoryByTitle($param[0]);
+                
+            $view = new view('category_list');
+            $view->assign('search_str', empty($param[0]) ? '' : $param[0]);
+            $view->assign('categorylist', $categorylist);
+            return;
+        }
+
+        // update category listing information
+        public function categoryInfoUpdate()
+        {  
+            $categorylist = R::getAll( " SELECT * FROM category" );  
+
+            foreach ($categorylist as $category) 
+            {
+                $exam = R::findOne( 'exam', ' enabled = true and published = true and category_id = ? ', [ $category['id'] ] );
+                if($exam) R::exec('UPDATE category SET exam_avl = true WHERE id = ?', [ $category['id'] ]);
+                else R::exec('UPDATE category SET exam_avl = false WHERE id = ?', [ $category['id'] ]);
+
+                $question = R::findOne( 'question', ' enabled = true and category_id = ? ', [ $category['id'] ] );
+                if($question)  R::exec('UPDATE category SET question_avl = true WHERE id = ? ', [ $category['id'] ]);
+                else R::exec('UPDATE category SET question_avl = false WHERE id = ? ', [ $category['id'] ]);
+            }
+
+            return "update completed";
         }
 
     }

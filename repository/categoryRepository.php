@@ -65,6 +65,13 @@
             return R::getAll( "SELECT * FROM category WHERE TITLE LIKE '%".$str_search."%' ORDER BY hit_count DESC LIMIT ".$GLOBALS['CATEGORY_AUTOCOMPLETE_RESULT_LIMIT'] );
         }
 
+
+        // for search result page
+        public function availableCategoryList($str_search)
+        {
+            return R::getAll( "SELECT * FROM category WHERE question_avl = true and TITLE LIKE '%".$str_search."%' ORDER BY hit_count DESC LIMIT ".$GLOBALS['CATEGORY_AUTOCOMPLETE_RESULT_LIMIT'] );
+        }
+
     }
 
 ?>

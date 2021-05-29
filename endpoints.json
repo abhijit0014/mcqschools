@@ -16,6 +16,7 @@
     { "url": "/category/edit", "role": ["admin"], "csrf": true },
     { "url": "/category/save", "role": ["admin"], "csrf": true },
     { "url": "/category/save_process", "role": [ "admin"], "csrf": true },
+    { "url": "/category/categoryInfoUpdate", "role": [ "admin"], "csrf": true },
 
     { "url": "/user/profile", "role": ["student", "admin"], "csrf": true },
     { "url": "/user/update_profile", "role": ["student", "admin"], "csrf": true },

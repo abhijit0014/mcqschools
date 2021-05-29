@@ -40,7 +40,7 @@
             $categorylist = [];
             
             if($page_number==1)
-            $categorylist = $this->categoryRepository->autocompleteList($search_query);
+            $categorylist = $this->categoryRepository->availableCategoryList($search_query);
             $examList = $this->examRepository->searchByTitle($search_query, $page_number, $limit);
 
             // update query
