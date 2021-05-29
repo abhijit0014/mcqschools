@@ -53,7 +53,7 @@
                     header("Location: /question/list/".$_POST['exam_id']); 
                     exit;
                 }else{
-                    header("Location: /question/list/".$_POST['exam_id']."?error=true&msg=You can add maximum 150 question per day"); 
+                    header("Location: /question/list/".$_POST['exam_id']."?error=true&msg=You can add maximum". $GLOBALS['QUESTION_ADITION_LIMIT_PER_DAY']." question per day"); 
                     exit;
                 }
             }

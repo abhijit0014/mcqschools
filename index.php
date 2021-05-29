@@ -2,6 +2,7 @@
     // Report all errors
     error_reporting(E_ALL);
 
+    require_once __DIR__.'/property.php';
     require_once __DIR__.'/rb-mysql.php';
     require_once __DIR__.'/session.php';
     require_once __DIR__.'/view_config.php';
@@ -10,27 +11,16 @@
     // session manager
     SessionManager::setup();
 
-    /*
-    try{
-        $db = new PDO('mysql:host=localhost; dbname=mcqschoolsdb', 'mcqschoolsdbuser', 'kmp#2323@DB');
-    } catch(PDOException $e){
-        echo $e->getmessage();
-    }
-    exit("jhgdjhgjd");
-    */
-
 
     // set database
-    //R::setup( 'mysql:host=localhost; dbname=mcqschoolsdb', 'mcqschoolsdbuser', 'kmp#2323@DB' );
-    R::setup( 'mysql:host=localhost:3306; dbname=projectdb', 'root', 'master' );
-    //R::debug( TRUE );
-    //$isConn = R::testConnection();
-    //echo $isConn ? "true" : "false";
+    R::setup( 'mysql:host=localhost; dbname=mcqschoolsdb', 'mcqschoolsdbuser', 'kmp#2323@DB' );
+    //R::setup( 'mysql:host=localhost:3306; dbname=projectdb', 'root', 'master' );
     R::useFeatureSet( 'novice/latest' );
     R::ext('xdispense', function($type){
         return R::getRedBean()->dispense($type);
     });
     R::freeze( true );
+
 
 
     // get endpoint url

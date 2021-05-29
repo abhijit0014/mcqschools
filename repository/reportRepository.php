@@ -36,7 +36,7 @@
                 $question_id = $obj['question_id'];
 
                 $report_count = R::count('report', 'question_id = ?', [$question_id]);
-                if($report_count>4) return;
+                if($report_count>$GLOBALS['UNSOLVED_REPORT_LIMIT']) return;
 
                 $tempReport = $this->getByQuestionIdAndUserId($question_id, $user_id);
                 if(!empty($tempReport)){
