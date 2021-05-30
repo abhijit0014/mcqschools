@@ -597,6 +597,7 @@
             config_categories.forEach(item => {
                 $("#topicList").append(getTopicHtml(item));
             });
+            $("#topicList").append('<a href="/category/browse" class="btn btn-sm border bg-light rounded-pill d-md-block d-lg-inline-block ps-3 pe-3">All Categories</a>');
         }
 
         function shuffle(array) {
