@@ -1,9 +1,9 @@
 <?php
 
-// exam limit
-$EXAM_ADITION_LIMIT_PER_DAY = 5;
+// maximum exam user can add per day
+$EXAM_ADITION_LIMIT_PER_DAY = 20;
 
-// question limit
+// maximum question user can add per day
 $QUESTION_ADITION_LIMIT_PER_DAY = 150;
 
 // maximum unsolved report limit

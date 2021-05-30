@@ -72,7 +72,7 @@
             $("#option4").val(validateString(text[++i], "option4"));
 
             ans_flag = false;
-            ans = validateString(text[++i], "ans").replace(/[^a-zA-Z0-9]/g, '').trim();
+            ans = validateString(text[++i], "ans").replace(/[&\/\\#,+()$~%.'":*?<>{}=_-]/g, '').trim();
             if (ans == 1 || ans == 'A' || ans == 'a' || ans == '১') { $('#ansOption option[value="1"]').prop('selected', true); ans_flag = true; }
             if (ans == 2 || ans == 'B' || ans == 'b' || ans == '২') { $('#ansOption option[value="2"]').prop('selected', true); ans_flag = true; }
             if (ans == 3 || ans == 'C' || ans == 'c' || ans == '৩') { $('#ansOption option[value="3"]').prop('selected', true); ans_flag = true; }
