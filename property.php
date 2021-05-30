@@ -12,6 +12,8 @@ $UNSOLVED_REPORT_LIMIT = 5;
 // number of result in category autocomplete
 $CATEGORY_AUTOCOMPLETE_RESULT_LIMIT = 8;
 
+// blocked categories
+$BLOCKED_CATEGORIES = array("West Bengal Police (WBP) Examination", "General Knowledge Bengali", "WBJEE Nursing", "Wbjee nursing");
 
 
 ?>

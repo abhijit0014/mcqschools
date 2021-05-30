@@ -121,7 +121,8 @@
                 else R::exec('UPDATE category SET exam_avl = false WHERE id = ?', [ $category['id'] ]);
 
                 $question = R::findOne( 'question', ' enabled = true and category_id = ? ', [ $category['id'] ] );
-                if($question)  R::exec('UPDATE category SET question_avl = true WHERE id = ? ', [ $category['id'] ]);
+                if($question && !in_array($category['title'],  $GLOBALS['BLOCKED_CATEGORIES']))  
+                    R::exec('UPDATE category SET question_avl = true WHERE id = ? ', [ $category['id'] ]);
                 else R::exec('UPDATE category SET question_avl = false WHERE id = ? ', [ $category['id'] ]);
             }
 
