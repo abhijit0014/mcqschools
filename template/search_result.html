@@ -45,8 +45,8 @@
 
             <!--
                 <div class="list-group-item">
-                    <a href="/examcenter/start/#examId" class="text-decoration-none">
-                        <div class="h5 text-dark">#title</div>
+                    <a href="/examcenter/start/#examId" class="text-decoration-none d-block mt-1 mb-1">
+                        <div class="h6 mb-1 text-dark">#title</div>
                         <div class="small text-secondary">
                             <span>#number_of_question questions</span> . 
                             <span>#duration mins</span> . 
@@ -54,7 +54,7 @@
                         </div>
                     </a>
                 </div>
-                    -->
+            -->   
 
         </div>
         <div id="moreResults" class="mt-3 mb-2 p-2 border text-center small text-secondary d-none" style="cursor:pointer">More results</div>
@@ -198,7 +198,7 @@
     }
 
     function getExamTemplate() {
-        return '<div class="list-group-item"> <a href="/examcenter/start/#examId" class="text-decoration-none"><div class="h6 text-dark">#title</div><div class="small text-secondary"> <span>#attempted attempted</span> . <span>#number_of_question questions</span> . <span>#duration mins</span> </div> </a></div>';
+        return '<div class="list-group-item"> <a href="/examcenter/start/#examId" class="text-decoration-none d-block mt-1 mb-1"> <div class="h6 mb-1 text-dark">#title</div> <div class="small text-secondary"> <span>#number_of_question questions</span> . <span>#duration mins</span> . <span>#time</span> </div> </a> </div>';
     }
 
     function getTopicTemplate() {
