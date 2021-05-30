@@ -50,8 +50,16 @@
             $search_query = $param[0];
             $list = $this->repository->autocompleteList($search_query);
             return  json_encode($list);
-        }       
-
+        } 
+        
+        // all category list
+        public function browse()
+        {  
+            $categorylist = $this->repository->allCategoryList();
+            $view = new view('category_browse');
+            $view->assign('categorylist', $categorylist);
+            return;
+        }
 
         // quiz by topic or category
         public function quiz($param)

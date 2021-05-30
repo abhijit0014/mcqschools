@@ -55,6 +55,12 @@
             return R::getAll( " SELECT * FROM category ORDER BY id DESC LIMIT 50" );
         }
 
+        // all category list
+        public function allCategoryList()
+        {
+            return R::getAll( " SELECT * FROM category where exam_avl=true or question_avl=true ORDER BY title" );
+        }
+
         public function searchCategoryByTitle($str_search)
         {
             return R::getAll( "SELECT * FROM category WHERE TITLE LIKE '%".$str_search."%' ORDER BY hit_count DESC LIMIT 50 " );

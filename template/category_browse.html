@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- resource -->
+    <?php include __DIR__.'/resource/resource.php';?>
+    <title>Our categories</title>
+    <style>
+        svg:hover {
+            fill: red;
+        }
+    </style>
+</head>
+
+<body class="">
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+
+    <!-- BODY -->
+    <div class="container">
+        <div class="h5 text-secondary mt-4 p-4">Categories</div>
+        <div class="ps-4 pe-4">
+            <div class="row g-2">
+
+                <?php foreach ($categorylist as $cat) { ?>
+                <div class="col-12 col-md-6 col-lg-4 border-bottom">
+                    <div class="d-flex bd-highlight p-2 ps-3">
+                        <div class="flex-grow-1 bd-highlight h6 mt-1 mb-0"><?php echo $cat['title'] ?></div>
+                        <div class="bd-highlight">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-sm btn-primary ps-3 pe-3 <?php echo $cat['question_avl'] ? '' : 'disabled' ?>">
+                                    <a class="d-block text-white text-decoration-none" href="/category/quiz/<?php echo str_replace(' ','-',$cat['title']) ?>">Quiz</a> 
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary ps-3 pe-3 <?php echo $cat['exam_avl'] ? '' : 'disabled' ?>">
+                                    <a class="d-block text-white text-decoration-none" href="/category/exam/<?php echo str_replace(' ','-',$cat['title']) ?>">Test</a> 
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
+    
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+
+
+    <script>
+
+        var creator_id = '<?php echo $creator->user_id ?>';
+        var noMoreComments = false;
+        var commentPageNumber = 1;
+        //jquery load more comment on scroll
+        /*
+        var delayTimer = null;
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                if (delayTimer) { clearTimeout(delayTimer); }
+                delayTimer = setTimeout(loadExam, 400);
+            }
+        });
+        */
+
+        $("#moreResults").click(function () {
+            loadExam();
+        });
+
+        // load comment ajax
+        function loadExam() {
+            if (!noMoreComments)
+                $.ajax({
+                    type: 'GET',
+                    url: "/creator/exam_list_api/" + creator_id + "/" + commentPageNumber,
+                    success: function (resultList) {
+                        resultList = JSON.parse(resultList);
+
+                        if (resultList.length) {
+                            $("#examList").removeClass("d-none");
+                            $("#moreResults").removeClass("d-none");
+                        }
+                        else
+                            $("#moreResults").addClass("d-none");
+
+                        $.each(resultList, function (i, result) {
+                            $template = getExamTemplate();
+                            $template = $template.replace("#examTitle", result.title);
+                            $template = $template.replace("#time", timeToString(result.created_date));
+                            $template = $template.replace("#number_of_question", result.number_of_question);
+                            $template = $template.replace("#attemped", result.attemped);
+                            $template = $template.replace("#duration", result.duration_mins);
+                            $template = $template.replace("#examId", result.id);
+                            $template = $template.replace("#examId", result.id);
+                            $("#examList").append($template);
+                        });
+                        if (resultList.length > 0)
+                            commentPageNumber++;
+                        else
+                            noMoreComments = true;
+                    }
+                });
+        }
+
+        var today = new Date();
+        function timeToString(d) {
+            date = new Date(d);
+            Difference_In_Time = today.getTime() - date.getTime();
+            Difference_In_Days = parseInt(Difference_In_Time / (1000 * 3600 * 24));
+            // return string
+            if (parseInt(Difference_In_Days / 365) > 0)
+                return parseInt(Difference_In_Days / 365) + ' years ago';
+            if (parseInt(Difference_In_Days / 30) > 0)
+                return parseInt(Difference_In_Days / 30) + ' months ago';
+            if (Difference_In_Days > 1)
+                return Difference_In_Days + ' days ago';
+            if (Difference_In_Days == 1)
+                return Difference_In_Days + ' day ago';
+            return 'today';
+        }
+
+        function getExamTemplate() {
+            return '<div class="list-group-item list-group-item-action" ><div class="row"><div class="col-12 col-md-7"> <a href="/examcenter/start/#examId" class="d-block text-decoration-none"><div class="h6"> #examTitle</div><div class="small text-secondary"> <span> #time </span></div> </a></div><div class="col-12 col-md-5 text-secondary"><div class="d-flex small pt-2"><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/count.svg" alt="count"> </span> <span class="font-weight-bold"> #number_of_question </span></div><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/users.svg" alt="users"> </span> <span class="font-weight-bold"> #attemped </span></div><div class="flex-fill justify-content-center align-self-center"> <span style=" vertical-align: 0.125em;" class="ps-2 pe-2"> <img src="/template/icon/clock.svg" alt="clock"> </span> <span class="font-weight-bold"> #duration </span> mins</div><div class="flex-fill justify-content-center align-self-center text-end"> <input type="hidden" value="/examcenter/start/#examId"> <button id="copyUrlBtn" class="btn btn-sm btn-outline-secondary p-1 ps-2 pe-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy Exam Link"> <span class="small">Copy Link</span> </button></div></div></div></div></div>';
+        }
+
+        // initial load
+        loadExam();
+    </script>
+
+
+
+
+
+
+    <script>
+        var currentToolTip = undefined;
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+        $("body").on("click", "#copyUrlBtn", function () {
+            var $temp = $("<textarea>");
+            $("body").append($temp);
+            host = "http://" + $(location).attr('hostname');
+            $temp.val(host + $(this).parent().find('input').val()).select();
+            document.execCommand("copy");
+            $temp.remove();
+            $(this).tooltip('hide')
+                .attr('data-bs-original-title', 'Copied!')
+                .tooltip('show');
+            currentToolTip = $(this);
+        });
+        $("body").on("mouseleave", "#copyUrlBtn", function () {
+            $(currentToolTip).attr('data-bs-original-title', 'Copy Exam Link');
+            currentToolTip = undefined;
+        });
+
+
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-KPXYFG7WZV');
+    </script>
+
+</body>
+
+</html>
