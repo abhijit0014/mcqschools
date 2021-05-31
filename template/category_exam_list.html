@@ -8,7 +8,7 @@
     Mcqschools's free online test will help to score high marks in competitive exams. Increase your efficiency with 
     <?php echo ucfirst($category_name) ?> online exams and prepare yourself.">
     <meta name="keywords" content="<?php echo ucfirst($category_name) ?>, mock test, online exam, MCQ questions, MCQs with answers, MCQs test, Mcq questions on computer, General Knowledge" />
-    <title><?php echo ucfirst($category_name) ?> - Online Test Series & Mock Tests</title>
+    <title><?php echo $category_name ?> - Online Mock Test & Test Series</title>
 </head>
 
 <body class="bg-light">
@@ -27,7 +27,7 @@
                     <?php echo $category_name ?>
                 </div>
                 <div class="text-secondary small">
-                    Test Series & Mock Tests
+                    Mock Test & Test Series
                 </div>
             </div>
             <?php if(!in_array( $category_name,  $GLOBALS['BLOCKED_CATEGORIES'])) { ?>
