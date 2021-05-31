@@ -76,7 +76,11 @@
         {
             $category_name = str_replace("-"," ",$param[0]);
             $category =  $this->repository->getByCategoryName($category_name);
-            if(empty($category)) header("Location: /");
+
+            if(empty($category)){ 
+                header("Location: /"); exit; 
+            }
+
             $view = new view('category_exam_list');
             $view->assign('category_name', $category->title);
             $view->assign('category_id', $category->id);
