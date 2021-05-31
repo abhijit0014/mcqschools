@@ -157,7 +157,13 @@
                         <a class="page-link" href="/exam/list/<?php echo $currentPage-1 ?>/<?php echo $pages ?>">Prev</a>
                     </li>
                 
-                    <?php for($i = 1; $i <= $pages; $i++) {?>
+                    <?php 
+                    $i = 1; $limit = 10;
+                    if($currentPage > 5) {
+                        $i = $currentPage-5;
+                        $limit = $currentPage+5 > $pages ? $pages : $currentPage+5;
+                    }
+                    for($i ; $i <= $limit; $i++) {?>
                         <?php if($i!=$currentPage) { ?>
                         <li class="page-item"><a class="page-link" href="/exam/list/<?php echo $i ?>/<?php echo $pages ?>"><?php echo $i ?></a></li>
                         <?php } else { ?>

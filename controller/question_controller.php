@@ -110,20 +110,24 @@
 
         public function list($param)
         {
-            $examId = null;
+            $examId = $param[0];;
             $limit = 10;
             $pages = null;
-            $currentPage = null;
-
-            $examId = $param[0];
             $currentPage = isset($param[1]) ? $param[1] : 1;
+
+            $exam =  $this->examRepository->getOne($examId);
+            if($exam->created_by != SessionManager::get("user_id")){
+                header("Location: /exam/list"); 
+                exit;
+            }
             
-            if(!isset($param[2])) $pages = $this->repository->pageCount($examId, $limit);
-            else  $pages = $param[2];
+            if(!isset($param[2])) 
+                $pages = $this->repository->pageCount($examId, $limit);
+            else  
+                $pages = $param[2];
 
             $questionlist = $this->repository->list($examId, $currentPage, $limit);
-            $exam =  $this->examRepository->getOne($examId);
-
+            
             $view = new view('question_list');
             $view->assign('exam', $exam);
             $view->assign('questionlist', $questionlist);
