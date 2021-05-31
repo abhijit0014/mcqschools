@@ -158,7 +158,7 @@
                     </li>
                 
                     <?php 
-                    $i = 1; $limit = 10;
+                    $i = 1; $limit = $pages;
                     if($currentPage > 5) {
                         $i = $currentPage-5;
                         $limit = $currentPage+5 > $pages ? $pages : $currentPage+5;
