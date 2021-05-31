@@ -78,7 +78,7 @@
             $category =  $this->repository->getByCategoryName($category_name);
             if(empty($category)) header("Location: /");
             $view = new view('category_exam_list');
-            $view->assign('category_name', ucfirst($category_name));
+            $view->assign('category_name', $category->title);
             $view->assign('category_id', $category->id);
             return;
         }
