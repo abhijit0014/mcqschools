@@ -158,10 +158,12 @@
                     </li>
                 
                     <?php 
-                    $i = 1; $limit = $pages;
+                    $i = 1; $limit = $pages>10 ? 10 : $pages;
                     if($currentPage > 5) {
                         $i = $currentPage-5;
                         $limit = $currentPage+5 > $pages ? $pages : $currentPage+5;
+                        $i = $limit-9;
+                        if($i<1) $i=1;
                     }
                     for($i ; $i <= $limit; $i++) {?>
                         <?php if($i!=$currentPage) { ?>
