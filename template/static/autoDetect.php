@@ -53,7 +53,7 @@
         option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2.", "২."];
         option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3.", "৩."];
         option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4.", "৪."];
-        optionAnsMatch = ["Ans", "ANS", "Answer", "Ans Key :", "ANSWER"];
+        optionAnsMatch = ["answer: option", "answer", "ans key", "option", "ans"];
 
         $("#autoDetectQuestion").change(function () {
             var text = $("#autoDetectQuestion").val().split("\n");
@@ -73,10 +73,10 @@
 
             ans_flag = false;
             ans = validateString(text[++i], "ans").replace(/[&\/\\#,+()$~%.'":*?<>{}=_-]/g, '').trim();
-            if (ans == 1 || ans == 'A' || ans == 'a' || ans == '১') { $('#ansOption option[value="1"]').prop('selected', true); ans_flag = true; }
-            if (ans == 2 || ans == 'B' || ans == 'b' || ans == '২') { $('#ansOption option[value="2"]').prop('selected', true); ans_flag = true; }
-            if (ans == 3 || ans == 'C' || ans == 'c' || ans == '৩') { $('#ansOption option[value="3"]').prop('selected', true); ans_flag = true; }
-            if (ans == 4 || ans == 'D' || ans == 'd' || ans == '৪') { $('#ansOption option[value="4"]').prop('selected', true); ans_flag = true; }
+            if (ans == 1 ||  ans == 'a' || ans == '১') { $('#ansOption option[value="1"]').prop('selected', true); ans_flag = true; }
+            if (ans == 2 ||  ans == 'b' || ans == '২') { $('#ansOption option[value="2"]').prop('selected', true); ans_flag = true; }
+            if (ans == 3 ||  ans == 'c' || ans == '৩') { $('#ansOption option[value="3"]').prop('selected', true); ans_flag = true; }
+            if (ans == 4 ||  ans == 'd' || ans == '৪') { $('#ansOption option[value="4"]').prop('selected', true); ans_flag = true; }
 
             if (ans_flag) {
                 $("#autoDetectQuestion").removeClass("border-danger");
@@ -98,7 +98,8 @@
             else if (selector == 'option3') badTextArray = option3Match;
             else if (selector == 'option4') badTextArray = option4Match;
             else if (selector == 'ans') badTextArray = optionAnsMatch;
-
+            if (selector == 'ans') str = str.toLowerCase();
+            
             if (str);
             badTextArray.forEach(element => {
                 if (str.indexOf(element) == 0) {
@@ -106,6 +107,7 @@
                         result = str.replace(element, "").trim();
                 }
             });
+            console.log(result);
             return result;
         }
 
