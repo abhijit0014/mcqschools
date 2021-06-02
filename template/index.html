@@ -497,12 +497,8 @@
                     if (!result.question_list.length && next_page == null) {
                         config_categories = jQuery.grep(config_categories, function (value) {
                             return value != current_category;
-                        })
-                        Cookies.set('config_categories', config_categories.toString(), { expires: 700 });
-                        $("#topicList").empty();
-                        config_categories.forEach(item => {
-                            $("#topicList").append(getTopicHtml(item));
                         });
+                        Cookies.set('config_categories', config_categories.toString(), { expires: 700 });
                     }
                     $("#topicWindow").removeClass("d-none");
                 }
@@ -553,19 +549,22 @@
         function setup() {
 
             // set category
-            if (!Cookies.get('config_categories') || Cookies.get('config_categories') == '')
+            topic_list = Cookies.get('config_categories');
+            if (!topic_list)
                 config_categories = new Array('Quiz', 'Computer Fundamental', 'Science', 'Geography', 'History', 'Inventions');
             else
-                config_categories = Cookies.get('config_categories').split(",");
+                config_categories = topic_list.split(",");
 
             if (current_category && !config_categories.includes(current_category)) {
-                if (config_categories.length > 10)
+                if (config_categories.length > 5)
                     config_categories.pop();
-                config_categories.unshift(current_category);
+                // Add new items to the beginning of an array
+                config_categories.unshift(current_category); 
                 Cookies.set('config_categories', config_categories.toString(), { expires: 700 });
             }
             if (!current_category) {
-                current_category = config_categories[0];
+                random = Math.floor(Math.random() * config_categories.length);
+                current_category = config_categories[random];
             }
 
             // set question type
