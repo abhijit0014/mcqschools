@@ -3,3 +3,4 @@ Disallow: /exam/list
 Disallow: /search/query_result_api/
 Disallow: /search/autocomplete/
 Disallow: /user/reset_password
+Disallow: /exam/suggestedExamsApi

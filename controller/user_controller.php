@@ -59,6 +59,10 @@
         {
             if(isset($_POST))
             {
+                if(!isset( $_POST['email']) || !isset( $_POST['pass'])){
+                    header("Location: /user/login/error"); exit;
+                }
+
                 $principle = $this->repository->login($_POST);
                 if(!empty($principle))
                 {
