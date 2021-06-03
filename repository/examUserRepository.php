@@ -19,29 +19,6 @@
             return R::load('exam_user', $id);
         }
 
-        /*
-        public function save($obj)
-        {
-            $examUser;
-
-            if(empty($obj['id'])){
-                $examUser = R::xdispense( 'exam_user' );
-            }else{
-                $examUser= R::load( 'exam_user', $obj['id'] );
-            }
-
-            $examUser->exam_id = $obj['exam_id'];
-            $examUser->user_id = $obj['user_id'];
-            $examUser->duration = $obj['duration'];
-            $examUser->love = $obj['love'];
-
-            $examUser->end_time = $obj['end_time'];
-            $examUser->start_time = $obj['start_time'];
-
-            $id = R::store( $examUser);
-            return $id;
-        }
-*/
         public function getOne($id)
         {
             return R::load( 'exam_user', $id );
@@ -99,7 +76,7 @@
             return $totalPages;
         }
         
-        public function listByExamId($page, $limit, $exam_id)
+        public function resultListByExamId($page, $limit, $exam_id)
         {
             $list = R::getAll("SELECT users.username, exam_user.start_time,
             exam_user.obtained_marks, exam_user.duration, exam_user.submitted, exam_user.pause
@@ -108,6 +85,16 @@
             return $list;
         }
 
+        // toppers ---------------------------------------------
+        public function getToppers($exam_id)
+        {
+            $list = R::getAll("SELECT users.username, users_info.display_name, exam_user.obtained_marks
+            FROM exam_user left join users on exam_user.user_id = users.id
+            left join users_info on exam_user.user_id = users_info.user_id
+            WHERE exam_user.submitted = true and exam_user.exam_id = ".$exam_id." 
+            ORDER BY exam_user.obtained_marks DESC, exam_user.wrong_answered ASC,  exam_user.duration ASC LIMIT 3" );
+            return $list;
+        }
     }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 // maximum exam user can add per day
-$EXAM_ADITION_LIMIT_PER_DAY = 20;
+$EXAM_ADITION_LIMIT_PER_DAY = 5;
 
 // maximum question user can add per day
 $QUESTION_ADITION_LIMIT_PER_DAY = 150;

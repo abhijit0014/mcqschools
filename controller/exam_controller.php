@@ -174,7 +174,7 @@
                 else 
                     $pages = $param[2];
     
-                $list = $this->examUserRepository->listByExamId($currentPage, $limit, $exam_id);
+                $list = $this->examUserRepository->resultListByExamId($currentPage, $limit, $exam_id);
     
                 $view = new view('exam_result_list');
                 $view->assign('resultlist', $list);

@@ -188,11 +188,15 @@
             //$creator_profile = $this->userRepository->getByProfileId($exam->created_by);
             //$creator_name = empty($creator->display_name)? $creator->username : $creator->display_name;
 
+            $toppers = $this->examUserRepository->getToppers($examId);
+            
+
             $view = new view('examcenter_result');
             $view->assign('exam',  $exam);
             $view->assign('questionlist',  $questionResultlist);
             $view->assign('examUser',  $examUser);
             $view->assign('creator_username', $creator->username);
+            $view->assign('toppers',  $toppers);
             return;
         }
 

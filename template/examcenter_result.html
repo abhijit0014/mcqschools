@@ -2,14 +2,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/template/resource/app.css" rel="stylesheet">
-    <script src="/template/resource/jquery.min.js"></script>
-    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
-    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <!-- resource -->
+    <?php include __DIR__.'/resource/resource.php';?>
     <script src="/template/resource/chart.js"></script>
-    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
     <title><?php echo $exam->title ?> - Result</title>
 </head>
 
@@ -28,8 +23,9 @@
                     <?php echo $exam['title'] ?>
                 </div>
                 <div class="text-secondary small">
-                    Created by <a href="/creator/info/<?php echo $creator_username ?>"
-                        class="text-decoration-none"><?php echo $creator_username ?></a>
+                    Created by <a href="/creator/info/<?php echo $creator_username ?>" class="text-decoration-none">
+                        <?php echo $creator_username ?>
+                    </a>
                 </div>
             </div>
             <div class="flex-fill bd-highlight text-end small">
@@ -68,8 +64,12 @@
                                     <label class="form-check-label">
                                         Negative Point
                                         <div class="text-end h6">
-                                            <span class="pe-4">+ <?php echo $exam->point ?></span> 
-                                            <span>- <?php echo $exam->negative_point ?></span>
+                                            <span class="pe-4">+
+                                                <?php echo $exam->point ?>
+                                            </span>
+                                            <span>-
+                                                <?php echo $exam->negative_point ?>
+                                            </span>
                                         </div>
                                     </label>
                                 </div>
@@ -130,9 +130,11 @@
             </div>
         </div>
 
+
+
         <!--  Question List -->
         <div class="mt-5 mb-3">
-            <span class="h6 text-secondary">Question & Answer</span>
+            <span class="h5 text-secondary">Question & Answer</span>
         </div>
         <div class="accordion shadow-sm ccordion-flush" id="accordionExample">
             <?php foreach ($questionlist as $i=>$question) {?>
@@ -141,7 +143,8 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapse<?php echo $i?>" aria-expanded="true"
                         aria-controls="collapse<?php echo $i; ?>">
-                        <span class="<?php echo $question['user_result']!=null ? ($question['user_result'] ? 'text-success' : 'text-danger') : 'text-secondary' ?> me-4">
+                        <span
+                            class="<?php echo $question['user_result']!=null ? ($question['user_result'] ? 'text-success' : 'text-danger') : 'text-secondary' ?> me-4">
                             <?php echo $question['user_result']!=null ? ($question['user_result'] ? '&#10003;' : '&#x2715;') : '&#8722;'?>
                         </span>
                         <?php echo $question['question'] ?>
@@ -189,7 +192,9 @@
                                         </span>
                                     </div>
                                     <div class="flex-fill bd-highlight text-end">
-                                        <button onclick="setReportQuestionId(<?php echo $question['id'] ?>)" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">Report</button>
+                                        <button onclick="setReportQuestionId(<?php echo $question['id'] ?>)"
+                                            class="btn btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#reportModal">Report</button>
                                     </div>
                                 </div>
                             </div>
@@ -200,6 +205,40 @@
                 </div>
             </div>
             <?php } ?>
+        </div>
+
+
+
+        <!-- Toppers List -->
+        <div class="col <?php echo sizeof($toppers)>2 ? '' : 'd-none' ?>">
+            <div class="h5 text-secondary mt-5">
+                Toppers
+            </div>
+
+            <div class="mt-3 p-2 bg-white border shadow-sm rounded <?php echo sizeof($toppers)>2 ? '' : 'd-none' ?>">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="row small h6">
+                            <div class="col-9">Name</div>
+                            <div class="col-3">Marks</div>
+                        </div>
+                    </div>
+
+                    <?php foreach ($toppers as $result) { ?>
+                    <div class="list-group-item bg-hover">
+                        <div class="row">
+                            <div class="col-9">
+                                <?php echo $result['display_name'] ? $result['display_name'] : $result['username'] ?>
+                            </div>
+                            <div class="col-3 text-success">
+                                <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                </div>
+            </div>
         </div>
 
     </div>
@@ -219,11 +258,11 @@
         var correct_answered = '<?php echo $examUser->total_marks ?>';
         var true_obtained_marks = '<?php echo $examUser->correct_answered * $exam->point ?>';
 
-        var checked = $(this).is(':checked'); 
+        var checked = $(this).is(':checked');
         if (checked) {
-            $("#score").text(obtained_marks+" / "+total_marks);
-        }else{
-            $("#score").text(true_obtained_marks+" / "+total_marks);
+            $("#score").text(obtained_marks + " / " + total_marks);
+        } else {
+            $("#score").text(true_obtained_marks + " / " + total_marks);
         }
     });
 </script>
@@ -237,7 +276,7 @@
         ],
         datasets: [{
             label: 'Exam Result',
-            data: [<?php echo $examUser -> correct_answered ?>, <?php echo $examUser -> wrong_answered ?>, <?php echo $examUser -> not_answered ?>],
+            data: [<?php echo $examUser->correct_answered ?>, <?php echo $examUser->wrong_answered ?>, <?php echo $examUser->not_answered ?>],
             backgroundColor: [
                 'rgb(178, 229, 152)',
                 'rgb(255, 178, 178)',
