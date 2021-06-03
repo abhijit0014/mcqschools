@@ -53,9 +53,11 @@
                     <div class="form-group">
                         <div class="h6 mb-2">Enter a new username</div>
                         <input id="usernameInput" name="username" type="text" class="form-control" placeholder="Username"
-                            autocomplete="off" value="<?php echo $username ?>">
+                            autocomplete="off" value="<?php echo $username ?>" minlength="3">
                         <div class="invalid-feedback">Username already exists.</div>
                         <div class="form-text text-muted small">
+                            Minimum username length is 3 characters <br /><br />
+                            
                             You can change your username to another username that is not currently in use.
                             If the username you want is not available, you can choose another username
                             or keep your current username. <br /><br />
@@ -91,7 +93,7 @@
 
     function usernameSuggest() {
         usernameStr = $("#usernameInput").val();
-        if (usernameStr.length > 0) {
+        if (usernameStr.length > 2) {
             $.ajax({
                 type: 'POST',
                 //dataType: 'JSON',
@@ -109,6 +111,9 @@
                     }
                 }
             });
+        }else{
+            $("#usernameInput").removeClass("is-valid");
+            $("#usernameInput").removeClass("is-invalid");
         }
     }
 

@@ -228,7 +228,7 @@
                     <div class="list-group-item bg-hover">
                         <div class="row">
                             <div class="col-9">
-                                <?php echo $result['display_name'] ? $result['display_name'] : $result['username'] ?>
+                                <?php echo $result['username'] ?>
                             </div>
                             <div class="col-3 text-success">
                                 <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
@@ -241,7 +241,7 @@
             </div>
 
             <div class="small mt-3 text-secondary">
-                Do you want to change your name ? <a href="/user/profile">Change Name</a>
+                Do you want to change your name ? <a href="/user/username">Change Username</a>
             </div>
         </div>
 
