@@ -27,7 +27,7 @@
 
         public function test()
         {
-            $view = new view('category_browse');
+            $view = new view('test_index');
             return;
         }
 

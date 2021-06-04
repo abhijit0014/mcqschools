@@ -47,6 +47,10 @@
     { "url": "/report/listByCreatorId",  "role": ["student", "admin"], "csrf": true },
     { "url": "/report/solved",  "role": ["student", "admin"], "csrf": true },
 
+    { "url": "/history/save",  "role": ["student", "admin"], "csrf": true },
+    { "url": "/history/add",  "role": ["student", "admin"], "csrf": true },
+    { "url": "/history/edit",  "role": ["student", "admin"], "csrf": true },
+
     { "url": "/admin/",  "role": ["admin"], "csrf": false }
 
 ]

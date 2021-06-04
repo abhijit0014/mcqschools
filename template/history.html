@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- resource -->
+    <?php include __DIR__.'/resource/resource.php';?>
+    <title>Day In History</title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+    <!-- HEADER -->
+    <div class="container">
+
+        <div class="mt-4 p-2">
+
+            <div class="d-flex bd-highlight">
+                <div class="bd-highlight flex-fill">
+                    <div class="h3"><span id="titleDay"></span> <span id="titleMonth"></span> </div>
+                    <div class="small text-secondary" id="titleDescp">Day In History</div>
+                </div>
+                <div class="bd-highlight">
+                    <div class="input-group">
+                        <select class="form-select" id="month"></select>
+                        <select class="form-select" id="day"></select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Template -->
+            <div id="template" class="d-none">
+                <div class="mt-4 border-bottom pb-3">
+                    <span class="h5">
+                        <span class="text-primary">#year</span> #title
+                    </span>
+                    <div class="mt-2">
+                        #descp
+                    </div>
+                    <div class="mt-2">
+                        <span class="badge border border-primary bg-light text-dark"> #category
+                            <!-- 
+                            <span style="vertical-align: 0.125em;" class="ps-1">
+                                <img src="/template/icon/link.svg" alt="link" width="12px">
+                            </span>
+                            -->
+                        </span>
+                        <a href="/history/edit/#eventId" class="btn btn-sm border #editDisplay">Edit</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Template -->
+
+            <div class="mt-4" id="dataWindow">
+
+            </div>
+
+            <div class="mt-4 mb-5 text-center d-none" id="addBtn">
+                <a href="/history/add"><button type="button" class="btn btn-primary">Add Event</button></a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+</body>
+
+</html>
+
+
+<script>
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var numberOfDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var selected_category_id = null;
+    var editAccess = parseInt('<?php echo $edit_access; ?>');
+
+
+    $("#month").change(function () {
+        setDays();
+        updateData();
+    });
+
+    $("#day").change(function () {
+        updateData();
+    });
+
+    function updateData() {
+        m = $("#month option:selected").text();
+        d = $("#day option:selected").text();
+        $("#titleMonth").text(m);
+        $("#titleDay").text(d);
+
+        $("#dataWindow").empty();
+        $("#dataWindow").html('<div class="text-center mt-3"><div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div></div>');
+
+        month = $("#month option:selected").val();
+        day = $("#day option:selected").val();
+
+        $.ajax({
+            type: 'GET',
+            url: "/history/getData/" + month + "/" + day,
+            success: function (resultList) {
+                resultList = JSON.parse(resultList);
+                $("#dataWindow").empty();
+                if (resultList.length)
+                $.each(resultList, function (i, result) {
+                    $template = $("#template").html();
+
+                    $template = $template.replace("#year", result.year);
+                    $template = $template.replace("#title", result.title);
+                    $template = $template.replace("#descp", result.descp);
+                    $template = $template.replace("#category", result.category);
+                    $template = $template.replace("#eventId", result.id);
+                    
+                    if(editAccess)
+                        $template = $template.replace("#editDisplay", "");
+                    else
+                        $template = $template.replace("#editDisplay", "d-none");
+
+                    $("#dataWindow").append($template);
+                });
+            }
+        });
+
+    }
+
+    function setDays() {
+        m = $("#month option:selected").text();
+        limit = numberOfDays[months.indexOf(m)];
+        for (let i = 1; i <= limit; i++) {
+            $("#day").append('<option value="' + i + '">' + i + '</option>');
+        }
+    }
+
+    function setup() {
+
+        months.forEach(element => {
+            $("#month").append('<option value="' + (months.indexOf(element) + 1) + '">' + element + '</option>');
+        });
+
+        var date = new Date();
+        m = date.getMonth() + 1;
+        d = date.getDay()-1;
+        $('#month option[value="' + m + '"]').prop('selected', true);
+        setDays();
+        $('#day option[value="' + d + '"]').prop('selected', true);
+
+        m = $("#month option:selected").text();
+        d = $("#day option:selected").text();
+        $("#titleMonth").text(m);
+        $("#titleDay").text(d);
+
+        if(editAccess)
+            $("#addBtn").removeClass("d-none");
+    }
+
+    setup();
+    updateData()
+</script>
