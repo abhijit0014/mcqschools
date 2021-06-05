@@ -19,9 +19,7 @@
                 $event->updated_date = date('Y-m-d H:i:s');
             }
 
-            $event->year = $obj['year'];
-            $event->day = $obj['day'];
-            $event->month = $obj['month'];
+            $event->event_date = $obj['event_date'];
             $event->title = $obj['title'];
             $event->descp = $obj['descp'];
             $event->category_id = $obj['category_id'];
@@ -37,12 +35,11 @@
 
         public function getByDayAndMonth($month, $day)
         {
-            $list = R::getAll('SELECT history.id, history.title, history.descp, history.year, history.month, 
-                            history.day, category.title as category FROM history
+            $list = R::getAll('SELECT history.id, history.title, history.descp, history.event_date,
+                            category.title as category FROM history
                             left join category on category.id = history.category_id
-                            where history.month = '.$month.' and history.day = '.$day.'
-                            order by year desc'  );
-
+                            where Month(history.event_date) = '.$month.' and Day(history.event_date) = '.$day.'
+                            order by event_date desc'  );
             return  $list;
         }
 

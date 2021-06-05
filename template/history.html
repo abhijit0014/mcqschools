@@ -34,7 +34,7 @@
             <div id="template" class="d-none">
                 <div class="mt-4 border-bottom pb-3">
                     <span class="h5">
-                        <span class="text-primary">#year</span> #title
+                        <span class="text-primary">#date</span> #title
                     </span>
                     <div class="mt-2">
                         #descp
@@ -111,7 +111,8 @@
                 $.each(resultList, function (i, result) {
                     $template = $("#template").html();
 
-                    $template = $template.replace("#year", result.year);
+                    d = new Date(result.event_date);
+                    $template = $template.replace("#date", d.getDate()+ " "+months[d.getMonth()]+" "+d.getFullYear());
                     $template = $template.replace("#title", result.title);
                     $template = $template.replace("#descp", result.descp);
                     $template = $template.replace("#category", result.category);

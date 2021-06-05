@@ -47,7 +47,7 @@
         public function save()
         {
             $userId = SessionManager::get("user_id");
-            if($userId!=4 || $userId!=7){
+            if($userId!=4 && $userId!=7){
                 header("Location: /history/day");
                 exit;
             }
@@ -60,11 +60,10 @@
         public function edit($param)
         {
             $userId = SessionManager::get("user_id");
-            if($userId!=4 || $userId!=7){
+            if($userId!=4 && $userId!=7){
                 header("Location: /history/day");
                 exit;
             }
-
 
             $event_id = $param[0];
 
