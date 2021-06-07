@@ -31,6 +31,19 @@
             $this->subscriptionRepository = new SubscriptionRepository();
         }
 
+        public function live($param)
+        {
+            $exam =  $this->examRepository->getOne(145);
+            $view = new view('live');
+            $view->assign('exam',  $exam);
+            date_default_timezone_set('Asia/Kolkata');
+            $view->assign('current_time',  date('Y-m-d H:i:s'));
+            $d=mktime(10, 00, 00, 6, 13, 2021);
+            // $d=mktime(10, 23, 00, 6, 6, 2021);
+            $view->assign('start_time',   date("Y-m-d H:i:s", $d));
+            return;
+        }
+
         public function start($param)
         {
             $exam =  $this->examRepository->getOne($param[0]);

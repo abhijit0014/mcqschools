@@ -43,6 +43,17 @@
             return  $list;
         }
 
+        public function getImportantDay()
+        {
+            date_default_timezone_set('Asia/Kolkata');
+
+            return R::getAll('SELECT history.id, history.title, history.descp, history.event_date,
+            category.title as category FROM history
+            left join category on category.id = history.category_id
+            where Month(history.event_date) = '.date('m').' and Day(history.event_date) = '.date('d').' 
+            and category.title = "important day" '  );
+        }
+
         public function delete($id)
         {
             return R::trash( "history", $id );
