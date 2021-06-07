@@ -146,7 +146,7 @@
 
         var date = new Date();
         m = date.getMonth() + 1;
-        d = date.getDay()-1;
+        d = date.getDate();
         $('#month option[value="' + m + '"]').prop('selected', true);
         setDays();
         $('#day option[value="' + d + '"]').prop('selected', true);
