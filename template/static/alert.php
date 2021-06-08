@@ -17,29 +17,24 @@
 <?php } ?>
 
 <!-- upcoming live exam -->
-<!-- 
-<div class="mb-2">
-    <div class="row m-3 p-2 pt-4 pb-4 bg-white rounded shadow-sm">
-        <div class="col-2 col-md-2">
-            <button class="btn btn-success" type="button">
-                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                LIVE
-            </button>
-     
-            <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
-                <img src="/template/icon/topic.svg" alt="topic" width="50px">
-            </span>
-   
+
+<div class="mb-2 ">
+    <div class="row m-3 p-2 pt-4 pb-4 bg-white rounded shadow-sm border ">
+        <div class="col-10 col-md-7">
+            <span class="h4">General Combined Test - Live</span>
+            <div class="small text-secondary">10 AM - Sunday, 13 June 2021</div>
+            <div class="d-flex bd-highlight">
+                <div class="flex-fill bd-highlight">
+                    <span class="h6">100</span> <span class="text-secondary">Question</span>
+                </div>
+                <div class="flex-fill bd-highlight">
+                    <span class="h6">60 </span> <span class="text-secondary">mins</span>
+                </div>
+            </div>
         </div>
-        <div class="col-7 col-md-4">
-            <span class="h4">WBP Mock Test</span>
-            <div class="small text-secondary">8 AM - Sunday, 12 June 2021</div>
-            <div class="small text-secondary">100 Question . 60 mins</div>
-        </div>
-        <div class="col-3 col-md-4 text-end">
-            <button class="btn border mt-2">Details</button>
+        <div class="col-12 col-md-4 text-end">
+            <a href="/examcenter/live" class="d-grid text-decoration-none"><button class="btn border border-primary mt-3">Details</button></a>
         </div>
     </div>
 </div>
 
--->
