@@ -33,7 +33,7 @@
 
         public function live($param)
         {
-            $exam =  $this->examRepository->getOne(145);
+            $exam =  $this->examRepository->getOne(247);
             $view = new view('live');
             $view->assign('exam',  $exam);
             date_default_timezone_set('Asia/Kolkata');
@@ -42,7 +42,7 @@
             // $d=mktime(10, 23, 00, 6, 6, 2021);
             $view->assign('start_time',   date("Y-m-d H:i:s", $d));
 
-            $toppers = $this->examUserRepository->getRank(120);
+            $toppers = $this->examUserRepository->getRank(247);
             $view->assign('toppers', $toppers);
             return;
         }

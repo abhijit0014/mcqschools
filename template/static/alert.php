@@ -7,6 +7,9 @@
             <div class="small"><?php echo date("l, d F Y", strtotime($current_date)); ?></div>
         </div>
         <div class="col-12 col-md-8">
+            <blockquote class="blockquote">
+                <p class="mb-0">The Ocean: Life and Livelihoods</p>
+            </blockquote>
             <span class="small text-secondary"><?php echo $today[0]['descp'] ?></span>
         </div>
     </div>
