@@ -4,10 +4,7 @@
 <head>
     <!-- resource -->
     <?php include __DIR__.'/resource/resource.php';?>
-
-    <title>
-        <?php echo $exam->title ?>
-    </title>
+    <title><?php echo $exam->title ?></title>
     <meta name="description" content="<?php echo $exam->descp ?>">
 </head>
 
@@ -17,11 +14,18 @@
 
     <!-- BODY -->
     <div class="container">
-        <div class="row mt-5">
+        <div class="row m-1 mt-5">
             <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto">
+                <div class="small mb-5 text-secondary align-justify">
+                    We are going to conduct a live mock test on Sunday, 13 June 2021 at 10AM with the help of Competitive Coaching Centre. 
+                    Please make sure you have an mcqschool account before you appear for mock test. If you don't have an account please register.
+                </div>
+            </div>
+            <div class="col-12"></div>
+            <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto border rounded-3 shadow-sm">
                 <div class="row">
-                    <div class="col-12 col-lg-12 text-center mb-2">
-                        <div class="h3 text-primary"> Competitive Coaching Centre</div>
+                    <div class="col-12 col-lg-12 text-center mb-2 p-3 bg-success text-white rounded-top">
+                        <div class="h3"> Competitive Coaching Centre</div>
                         <div class="small">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -33,16 +37,17 @@
                             </span>
                             Kamalpur, Bankura
                         </div>
-
-                        <div class="h6 text-dark mt-2">
-                            WBP, EXCISE MAINS, TET, RAILWAY GROUP-D, NTPC, MTS
-                            <span class="text-secondary"> (All Subjects)</span>
-                        </div>
                     </div>
 
 
-                    <div class="col-6">
-                        <div class="h5 mt-2">Animesh Banerjee</div>
+                    <div class="col-12 p-3">
+                        <div class="h6 text-center mt-2">
+                            WBP, EXCISE MAINS, NURSING (ANM, GNM), RAILWAY GROUP-D, NTPC, MTS
+                            <span class="text-secondary"> (All Subjects)</span>
+                        </div>
+                    </div>
+                    <div class="col-6 p-3 bg-light">
+                        <div class="h5">Animesh Banerjee</div>
                         <div class="small text-secondary">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -55,30 +60,22 @@
                         </div>
                     </div>
 
-                    <div class="col-6">
-
-                        <div class="small mt-2">
+                    <div class="col-6 p-3 bg-light">
+                        <div class="small">
                             <div class="h6">Contact</div>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
                                     <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
                                   </svg>
                             </span>
-                            8910867768
-                            <div></div>
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
-                                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
-                                  </svg>
-                            </span>
-                            7595948212
+                            8910867768, 7595948212
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row" style="margin-bottom: 50px;">
+        <div class="row">
             <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto">
                 <div class="mt-5 border rounded shadow-sm">
                     <div class="p-3">
@@ -128,7 +125,7 @@
 
 
         <!-- Rank List -->
-        <div class="row" style="margin-bottom: 150px;">
+        <div class="row">
             <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto <?php echo sizeof($toppers)>5 ? '' : 'd-none' ?>">
         
                 <div class="d-flex bd-highlight">
@@ -180,7 +177,8 @@
 
     </div>
 
-
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
 
 </body>
 
