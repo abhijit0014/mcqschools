@@ -28,7 +28,7 @@
                     <span class="h6">100</span> <span class="text-secondary">Question</span>
                 </div>
                 <div class="flex-fill bd-highlight">
-                    <span class="h6">60 </span> <span class="text-secondary">mins</span>
+                    <span class="h6">90 </span> <span class="text-secondary">mins</span>
                 </div>
             </div>
         </div>
