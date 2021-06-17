@@ -2,6 +2,7 @@
 
     class ExamResultRepository
     {
+        
         function __construct()
         {
 
@@ -30,9 +31,9 @@
         public function delete($exam_user_id, $question_id)
         {
             $result = R::findOne('exam_result','exam_user_id = ? AND question_id = ?', [$exam_user_id, $question_id]);
-            R::trash( 'exam_result', $result->id );
+            if(!empty($result))
+                R::trash( 'exam_result', $result->id );
         }
-
 
     }
 

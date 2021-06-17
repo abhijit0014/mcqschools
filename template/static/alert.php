@@ -7,9 +7,11 @@
             <div class="small"><?php echo date("l, d F Y", strtotime($current_date)); ?></div>
         </div>
         <div class="col-12 col-md-8">
+            <!--
             <blockquote class="blockquote">
                 <p class="mb-0">The Ocean: Life and Livelihoods</p>
             </blockquote>
+            -->
             <span class="small text-secondary"><?php echo $today[0]['descp'] ?></span>
         </div>
     </div>
@@ -18,7 +20,7 @@
 
 <!-- upcoming live exam -->
 
-<div class="mb-2 ">
+<div class="mb-2 d-none">
     <div class="row m-3 p-2 pt-4 pb-4 bg-white rounded shadow-sm border ">
         <div class="col-10 col-md-7">
             <span class="h4">General Combined Test - Live</span>
