@@ -15,14 +15,14 @@
     <!-- BODY -->
     <div class="container">
         <div class="row m-1 mt-5">
-            <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto">
+            <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto d-none">
                 <div class="small mb-5 text-secondary align-justify">
                     We are going to conduct a live mock test on Sunday, 13 June 2021 at 10AM with the help of Competitive Coaching Centre. 
                     Please make sure you have an mcqschool account before you appear for mock test. If you don't have an account please register.
                 </div>
             </div>
-            <div class="col-12"></div>
-            <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto border rounded-3 shadow-sm">
+            <div class="col-12 d-none"></div>
+            <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto border rounded-3 shadow-sm d-none">
                 <div class="row">
                     <div class="col-12 col-lg-12 text-center mb-2 p-3 bg-success text-white rounded-top">
                         <div class="h3"> Competitive Coaching Centre</div>
@@ -128,19 +128,13 @@
         <div class="row">
             <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto <?php echo sizeof($toppers)>5 ? '' : 'd-none' ?>">
         
-                <div class="d-flex bd-highlight">
-                    <div class="flex-fill bd-highlight">
-                        <div class="h5">
-                            Rank List
-                        </div>
-                    </div>
-                    <div class="flex-fill bd-highlight text-end small">
-                        <button class="btn btn-sm" type="button">
-                            <span class="spinner-grow spinner-grow-sm text-success" role="status" aria-hidden="true"></span>
-                            <span class="text-success">LIVE</span>
-                        </button>
+            
+                <div class="mt-4">
+                    <div class="h5">
+                        Rank List
                     </div>
                 </div>
+
         
                 <div class="mt-3 p-2 bg-white border shadow-sm rounded <?php echo sizeof($toppers)>2 ? '' : 'd-none' ?>">
                     <div class="list-group list-group-flush">
@@ -169,9 +163,6 @@
                     </div>
                 </div>
         
-                <div class="small mt-3 text-secondary">
-                    Do you want to change your name ? <a href="/user/username">Change Username</a>
-                </div>
             </div>
         </div>
 
