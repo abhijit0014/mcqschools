@@ -23,7 +23,7 @@
 <div class="mb-2">
     <div class="row m-3 p-2 pt-4 pb-4 bg-white rounded shadow-sm border ">
         <div class="col-10 col-md-7">
-            <span class="h4">WBP Preliminary Mock Test - Live</span>
+            <span class="h4">WBP Constable Preliminary Mock Test - Live</span>
             <div class="small text-secondary">10 AM - Sunday, 27 June 2021</div>
             <div class="d-flex bd-highlight">
                 <div class="flex-fill bd-highlight">

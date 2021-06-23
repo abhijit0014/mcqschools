@@ -1,0 +1,29 @@
+[21-Jun-2021 02:02:57 UTC] PHP Notice:  Undefined index: exam_id in /home/j3oczexe1lte/public_html/controller/question_controller.php on line 78
+[21-Jun-2021 02:33:15 UTC] PHP Notice:  Undefined index: exam_id in /home/j3oczexe1lte/public_html/controller/question_controller.php on line 78
+[21-Jun-2021 02:33:15 UTC] PHP Notice:  Undefined index: exam_id in /home/j3oczexe1lte/public_html/repository/questionRepository.php on line 21
+[21-Jun-2021 02:33:15 UTC] PHP Notice:  Undefined index: question in /home/j3oczexe1lte/public_html/repository/questionRepository.php on line 30
+[21-Jun-2021 02:33:15 UTC] PHP Notice:  Undefined index: optionOne in /home/j3oczexe1lte/public_html/repository/questionRepository.php on line 31
+[21-Jun-2021 02:33:15 UTC] PHP Notice:  Undefined index: optionTwo in /home/j3oczexe1lte/public_html/repository/questionRepository.php on line 32
+[21-Jun-2021 02:33:15 UTC] PHP Notice:  Undefined index: optionThree in /home/j3oczexe1lte/public_html/repository/questionRepository.php on line 33
+[21-Jun-2021 02:33:15 UTC] PHP Notice:  Undefined index: optionFour in /home/j3oczexe1lte/public_html/repository/questionRepository.php on line 34
+[21-Jun-2021 02:33:15 UTC] PHP Notice:  Undefined index: ans in /home/j3oczexe1lte/public_html/repository/questionRepository.php on line 35
+[21-Jun-2021 02:33:15 UTC] PHP Notice:  Undefined index: categoryId in /home/j3oczexe1lte/public_html/repository/questionRepository.php on line 36
+[21-Jun-2021 02:33:15 UTC] PHP Fatal error:  Uncaught [23000] - SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'ans' cannot be null
+trace: #0 /home/j3oczexe1lte/public_html/rb-mysql.php(1171): RedBeanPHP\Driver\RPDO->runQuery('INSERT INTO `qu...', Array)
+#1 /home/j3oczexe1lte/public_html/rb-mysql.php(1211): RedBeanPHP\Driver\RPDO->GetAll('INSERT INTO `qu...', Array)
+#2 /home/j3oczexe1lte/public_html/rb-mysql.php(4377): RedBeanPHP\Driver\RPDO->GetOne('INSERT INTO `qu...', Array)
+#3 /home/j3oczexe1lte/public_html/rb-mysql.php(6097): RedBeanPHP\Adapter\DBAdapter->getCell('INSERT INTO `qu...', Array, 0)
+#4 /home/j3oczexe1lte/public_html/rb-mysql.php(6224): RedBeanPHP\QueryWriter\AQueryWriter->insertRecord('question', Array, Array)
+#5 /home/j3oczexe1lte/public_html/rb-mysql.php(9045): RedBeanPHP\QueryWriter\AQueryWriter->updateRecord('question', Array, 0)
+#6 /home/j3oczexe1lte/public_html/rb-mysql.php(8412): RedBeanPHP\Repository\Frozen->storeBean(Object(RedBeanPHP\OODBBean))
+#7 /home/j3oczexe1lte/public_html/rb-mysql.php(9522): RedBeanPHP\Repo in /home/j3oczexe1lte/public_html/rb-mysql.php on line 834
+[21-Jun-2021 15:59:35 UTC] PHP Fatal error:  Uncaught PDOException: Could not connect to database (mcqschoolsdb). in /home/j3oczexe1lte/public_html/rb-mysql.php:1101
+Stack trace:
+#0 /home/j3oczexe1lte/public_html/rb-mysql.php(798): RedBeanPHP\Driver\RPDO->connect()
+#1 /home/j3oczexe1lte/public_html/rb-mysql.php(1253): RedBeanPHP\Driver\RPDO->runQuery('UPDATE question...', Array)
+#2 /home/j3oczexe1lte/public_html/rb-mysql.php(4285): RedBeanPHP\Driver\RPDO->Execute('UPDATE question...', Array)
+#3 /home/j3oczexe1lte/public_html/rb-mysql.php(11915): RedBeanPHP\Adapter\DBAdapter->exec('UPDATE question...', Array)
+#4 /home/j3oczexe1lte/public_html/rb-mysql.php(12945): RedBeanPHP\Facade::query('exec', 'UPDATE question...', Array)
+#5 /home/j3oczexe1lte/public_html/repository/questionRepository.php(63): RedBeanPHP\Facade::exec('UPDATE question...', Array)
+#6 /home/j3oczexe1lte/public_html/controller/question_controller.php(94): QuestionRepository->updateQuestionAttemptCounter('2114', 'false')
+#7 /home/j3oczexe1lte/public_html/index.php(76): QuestionController->a in /home/j3oczexe1lte/public_html/rb-mysql.php on line 1101
