@@ -4,7 +4,7 @@
 <head>
     <!-- resource -->
     <?php include __DIR__.'/resource/resource.php';?>
-    <title><?php echo $exam->title ?></title>
+    <title>Live Mock Test</title>
     <meta name="description" content="<?php echo $exam->descp ?>">
 </head>
 
@@ -25,7 +25,7 @@
             <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto border rounded-3 shadow-sm">
                 <div class="row">
                     <div class="col-12 col-lg-12 text-center mb-2 p-3 bg-success text-white rounded-top">
-                        <div class="h3"> Competitive Coaching Centre</div>
+                        <div class="h3"> Competitive Coaching Center</div>
                         <div class="small">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -86,11 +86,13 @@
                                 </div>
                             </div>
                             <div class="flex-fill bd-highlight text-end small">
+                                <!-- 
                                 <button class="btn btn-sm d-none" type="button" id="liveBlink">
                                     <span class="spinner-grow spinner-grow-sm text-success" role="status"
                                         aria-hidden="true"></span>
                                     <span class="text-success">LIVE</span>
                                 </button>
+                                -->
                             </div>
                         </div>
                     </div>
@@ -102,7 +104,7 @@
                         Negative Marking - 1 for 4 wrong answers
                     </div>
                     <div class="border-top mb-1 ms-3 me-3"></div>
-                    <div class="text-center p-2 text-secondary">
+                    <div class="text-center p-2 text-secondary mb-3">
                         <div class="row">
                             <div class="col">
                                 <div class="h6">
@@ -118,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-3 d-grid">
+                    <div class="mt-3 d-grid d-none">
                         <button id="startButton" class="btn btn-success" style="border-radius: 0 0 3px 3px;" disabled></button>
                     </div>
                 </div>
