@@ -31,6 +31,22 @@
             $this->subscriptionRepository = new SubscriptionRepository();
         }
 
+        public function rank($param)
+        {
+            $month = date("Y-m-d H:i:s");
+            if(!empty($param[0])){
+                $m = $param[0];
+                $year = date("Y");
+                $d=mktime(10, 00, 00, $m, 1, $year);
+                $month = date("Y-m-d H:i:s", $d);
+            }
+
+            $rankList =  $this->examUserRepository->monthlyTestRank($month);
+            $view = new view('rank_list');
+            $view->assign('resultList',  $rankList);
+            $view->assign('month',  date("F", strtotime($month)));
+        }
+
         public function live($param)
         {
             $exam =  $this->examRepository->getOne(289);

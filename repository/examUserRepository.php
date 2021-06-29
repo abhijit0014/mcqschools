@@ -104,6 +104,20 @@
             ORDER BY exam_user.obtained_marks DESC, exam_user.wrong_answered ASC,  exam_user.duration ASC LIMIT 100" );
             return $list;
         }
+
+        // live monthly rank ---------------------------------------------
+        public function monthlyTestRank($month)
+        {
+            $list = R::getAll("SELECT username, user_id, count(exam_id) as test_count, 
+            sum(correct_answered) as correct_ans_count, 
+            sum(correct_answered+wrong_answered) as question_count,
+            round(sum(obtained_marks)) as obtained_marks
+            FROM exam_user  left join users on users.id = exam_user.user_id
+            WHERE MONTH(start_time) = MONTH(:month)
+            AND YEAR(start_time) = YEAR(CURRENT_DATE())
+            group by user_id order by obtained_marks desc limit 50", array(':month'=>$month) );
+            return $list;
+        }
         
     }
 
