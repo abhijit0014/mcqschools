@@ -26,7 +26,24 @@
                     </div>
                     <div class="flex-fill bd-highlight">
                         <div class="input-group">
-                            <select class="form-select" id="month"><option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select>
+                            <select class="form-select" id="month">
+                                <!-- 
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                -->
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <!-- 
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                                -->
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -36,11 +53,11 @@
                     <div class="list-group list-group-flush">
                         <div class="list-group-item">
                             <div class="row small h6">
-                                <div class="col-1 col-md-2">SL</div>
-                                <div class="col-3 col-md-2">Username</div>
-                                <div class="col-2">No of test</div>
-                                <div class="col-2 overflow-hidden">Total questions attempted</div>
-                                <div class="col-2">Correct ans</div>
+                                <div class="col-1">SL</div>
+                                <div class="col-3">Username</div>
+                                <div class="col-2">No Of Test</div>
+                                <div class="col-2 overflow-hidden">Total Questions Attempted</div>
+                                <div class="col-2">Correct Ans</div>
                                 <div class="col-2">Score</div>
                             </div>
                         </div>
@@ -48,8 +65,8 @@
                         <?php foreach ($resultList as $i=> $result) { ?>
                         <div class="list-group-item bg-hover">
                             <div class="row">
-                                <div class="col-1 col-md-2"><?php echo $i+1 ?></div>
-                                <div class="col-3 col-md-2 overflow-hidden">
+                                <div class="col-1"><?php echo $i+1 ?></div>
+                                <div class="col-3 overflow-hidden">
                                     <?php echo $result['username'] ?>
                                 </div>
                                 <div class="col-2">
