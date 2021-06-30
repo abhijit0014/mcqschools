@@ -50,6 +50,7 @@
 
         <div class="row ps-3 pe-3">
             <div class="col-12 col-md-9">
+                
                 <div class="d-none" id="quizWindow">
 
                     <!--quiz Title-->
@@ -237,6 +238,28 @@
                         </div>
 
                     </div>
+
+                    <!--exam list-->
+                    <div class="h5 mt-4 mb-4 text-secondary">
+                        <span style="vertical-align: 0.125em;" class="pe-2">
+                            <img src="/template/icon/topic.svg" width="20px" alt="topic">
+                        </span>
+                        <span>Exams </span>
+                    </div>
+
+                    <div class="shadow-sm rounded bg-white p-3 mb-3">
+                        <div class="" id="suggestedExamList">
+                            <!-- 
+                            <div class="bg-hover rounded p-2">
+                                <a class="text-decoration-none text-dark" href="/examcenter/start/#examId">
+                                    <div class="overflow-hidden text-nowrap h6 mb-0">#title</div>
+                                    <div class="small text-secondary"> #attempted attempted . #Qcount question</div>
+                                </a>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                    
                 </div>
 
                 <!-- not found -->
@@ -253,6 +276,7 @@
             </div>
 
             <div class="col-12 col-md-3 d-none" id="topicWindow">
+
                 <!--topic list-->
                 <div class="h5 mb-4 text-secondary">
                     <span style="vertical-align: 0.125em;" class="pe-2">
@@ -261,30 +285,42 @@
                     <span>Topics </span>
                 </div>
 
-                <div class="shadow-sm rounded bg-white p-3">
+                <div class="shadow-sm rounded bg-white p-3 mb-3">
                     <div class="" id="topicList"></div>
                 </div>
-
-                <!--exam list-->
-                <div class="h5 mt-4 mb-4 text-secondary">
+                    
+                 <!--Rank list-->
+                 <div class="h5 mb-4 text-secondary">
                     <span style="vertical-align: 0.125em;" class="pe-2">
-                        <img src="/template/icon/topic.svg" width="20px" alt="topic">
+                        <img src="/template/icon/rank.svg" width="20px" alt="rank">
                     </span>
-                    <span>Exams </span>
+                    <span>Rank </span>
                 </div>
 
-                <div class="shadow-sm rounded bg-white p-3">
-                    <div class="" id="suggestedExamList">
-                        <!-- 
-                        <div class="bg-hover rounded p-2">
-                            <a class="text-decoration-none text-dark" href="/examcenter/start/#examId">
-                                <div class="overflow-hidden text-nowrap h6 mb-0">#title</div>
-                                <div class="small text-secondary"> #attempted attempted . #Qcount question</div>
-                            </a>
+                <div class="shadow-sm rounded bg-white p-3 list-group list-group-flush small">
+                    <?php foreach ($rankList as $i=> $result) { ?>
+                        <div class="list-group-item bg-hover">
+                            <div class="row">
+                                <div class="col-2"><?php echo $i+1 ?></div>
+                                <div class="col-7 overflow-hidden">
+                                    <?php echo $result['username'] ?>
+                                </div>
+                                <div class="col-3 text-success">
+                                    <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
+                                </div>
+                            </div>
                         </div>
-                        -->
+                    <?php } ?>
+
+                    <div class="d-flex bd-highlight p-3 text-secondary">
+                        <div class="pe-2 flex-fill bd-highlight">Current month rank</div>
+                        <div class="flex-fill bd-highlight text-center">
+                            <a href="/examcenter/rank" class="text-decoration-none">more</a>
+                        </div>
                     </div>
                 </div>
+                
+
             </div>
 
         </div>

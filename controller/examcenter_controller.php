@@ -41,7 +41,7 @@
                 $month = date("Y-m-d H:i:s", $d);
             }
 
-            $rankList =  $this->examUserRepository->monthlyTestRank($month);
+            $rankList =  $this->examUserRepository->monthlyTestRank($month, 50);
             $view = new view('rank_list');
             $view->assign('resultList',  $rankList);
             $view->assign('month',  date("F", strtotime($month)));

@@ -106,7 +106,7 @@
         }
 
         // live monthly rank ---------------------------------------------
-        public function monthlyTestRank($month)
+        public function monthlyTestRank($month, $limit)
         {
             $list = R::getAll("SELECT username, user_id, count(exam_id) as test_count, 
             sum(correct_answered) as correct_ans_count, 
@@ -115,7 +115,7 @@
             FROM exam_user  left join users on users.id = exam_user.user_id
             WHERE MONTH(start_time) = MONTH(:month)
             AND YEAR(start_time) = YEAR(CURRENT_DATE())
-            group by user_id order by obtained_marks desc limit 50", array(':month'=>$month) );
+            group by user_id order by obtained_marks desc limit :limit", array(':month'=>$month, ':limit'=>$limit) );
             return $list;
         }
         
