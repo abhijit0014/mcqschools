@@ -1,6 +1,0 @@
-[29-Jun-2021 03:13:56 UTC] PHP Fatal error:  Uncaught Exception: Template rankList not found! in /home/j3oczexe1lte/public_html/view_config.php:17
-Stack trace:
-#0 /home/j3oczexe1lte/public_html/controller/examcenter_controller.php(45): View->__construct('rankList')
-#1 /home/j3oczexe1lte/public_html/index.php(76): ExamcenterController->rank(Array)
-#2 {main}
-  thrown in /home/j3oczexe1lte/public_html/view_config.php on line 17
