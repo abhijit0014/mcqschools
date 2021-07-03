@@ -113,7 +113,7 @@
                                     </div>
                                 </div>
 
-                                <div class="dropdown dropstart d-inline">
+                                <div class="dropdown dropstart d-inline d-none">
                                     <div class="btn btn-white p-0 m-0" id="dropdownMenuButton2"
                                         data-bs-toggle="dropdown">
                                         <span id="questionTypeDisplay"
@@ -461,12 +461,13 @@
             } else {
                 mcqQuestionType = undefined;
 
-                if (question_list[current_question].total_attempt < 50)
+                if (question_list[current_question].total_attempt < 20)
                     mcqQuestionType = 'New';
                 else {
                     strength = (question_list[current_question].correct_attempt / question_list[current_question].total_attempt) * 100;
-                    if (strength <= 25) mcqQuestionType = 'Advanced';
-                    mcqQuestionType = strength > 65 ? 'Easy' : 'Average';
+                    if (strength <= 30) mcqQuestionType = 'Easy';
+                    else if (strength <= 65) mcqQuestionType = 'Average';
+                    else mcqQuestionType = 'Advanced';
                 }
 
                 if (mcqQuestionType) {
@@ -644,7 +645,7 @@
             config_categories.forEach(item => {
                 $("#topicList").append(getTopicHtml(item));
             });
-            $("#topicList").append('<a href="/category/browse" class="btn btn-sm border bg-light rounded-pill d-md-block d-lg-inline-block ps-3 pe-3">All Categories</a>');
+            $("#topicList").append('<a href="/category/browse" class="btn btn-sm border bg-light rounded-pill ps-3 pe-3">All Categories</a>');
         }
 
         function shuffle(array) {
@@ -802,9 +803,9 @@
         // topic template
         function getTopicHtml(item) {
             if (current_category === item)
-                return '<a href="#" class="btn btn-primary btn-sm rounded-pill mt-1 mb-1 me-1 d-lg-inline-block">' + item + '</a>';
+                return '<a href="#" class="btn btn-primary btn-sm rounded-pill mt-1 mb-1 me-1">' + item + '</a>';
             else
-                return '<a href="/category/quiz/' + item.replaceAll(" ", "-") + '" class="btn btn-sm border rounded-pill mt-1 mb-1 me-1 d-md-block d-lg-inline-block">' + item + '</a>';
+                return '<a href="/category/quiz/' + item.replaceAll(" ", "-") + '" class="btn btn-sm border rounded-pill mt-1 mb-1 me-1">' + item + '</a>';
         }
 
     </script>

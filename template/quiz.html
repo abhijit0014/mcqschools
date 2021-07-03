@@ -99,7 +99,7 @@
                                     </div>
                                 </div>
 
-                                <div class="dropdown dropstart d-inline">
+                                <div class="dropdown dropstart d-inline d-none">
                                     <div class="btn btn-white p-0 m-0" id="dropdownMenuButton2"
                                         data-bs-toggle="dropdown">
                                         <span id="questionTypeDisplay"
@@ -396,12 +396,13 @@
             } else {
                 mcqQuestionType = undefined;
 
-                if (question_list[current_question].total_attempt < 50)
+                if (question_list[current_question].total_attempt < 20)
                     mcqQuestionType = 'New';
                 else {
                     strength = (question_list[current_question].correct_attempt / question_list[current_question].total_attempt) * 100;
-                    if (strength <= 25) mcqQuestionType = 'Advanced';
-                    mcqQuestionType = strength > 65 ? 'Easy' : 'Average';
+                    if (strength <= 30) mcqQuestionType = 'Easy';
+                    else if (strength <= 65) mcqQuestionType = 'Average';
+                    else mcqQuestionType = 'Advanced';
                 }
 
                 if (mcqQuestionType) {
@@ -539,7 +540,7 @@
                 config_categories = topic_list.split(",");
 
             if (current_category && !config_categories.includes(current_category)) {
-                if (config_categories.length > 5)
+                if (config_categories.length > 15)
                     config_categories.pop();
                 // Add new items to the beginning of an array
                 config_categories.unshift(current_category); 
