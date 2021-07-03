@@ -20,7 +20,7 @@
         public function index()
         {
             $day = $this->historyRepository->getImportantDay();
-            $rankList =  $this->examUserRepository->monthlyTestRank(date("Y-m-d H:i:s"),5);
+            $rankList =  $this->examUserRepository->monthlyTestRank(date("Y-m-d H:i:s"),10);
             $view = new view('index');
             $view->assign('today', $day);
             $view->assign('current_date', date('Y-m-d H:i:s'));
