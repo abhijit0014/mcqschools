@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- resource -->
+    <?php include __DIR__.'/resource/resource.php';?>
+    <!-- pwa -->
+    <link rel="apple-touch-icon" href="logo/logo-152.png">
+    <meta name="theme-color" content="#0072ff" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Hello World">
+    <meta name="msapplication-TileImage" content="logo/logo-144.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <link rel="manifest" href="/manifest.json">
+    <!-- pwa -->
+
+    <title><?php echo ucfirst($category_name) ?> mcq questions</title>
+    <meta name="description" content="
+    <?php echo ucfirst($category_name) ?> mcq questions and answers with solution for competitive exam, interview, mock test, 
+    entrance test and engineering students. Practice and Learn <?php echo $category_name ?> MCQ.">
+    <meta name="keywords" content="Mock test, online exam, Test series, MCQ questions, MCQs with answers, MCQs test, Mcq questions on computer, General Knowledge, 
+    Online Exam Maker, Online Examination System" />
+</head>
+
+<body class="bg-light">
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+    <!-- BODY -->
+    <div class="container mt-4 mb-5">
+
+
+        <!-- HEADER -->
+        <?php include __DIR__.'/static/alert.php';?>
+
+        <div class="d-flex justify-content-center mt-5 mb-5" id="loadingWindow">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <div class="row ps-3 pe-3">
+            <div class="col-12 col-md-9 mb-3">
+                
+                <div class="d-none" id="quizWindow">
+
+                    <!--quiz Title-->
+                    <div class="h5 mb-4 text-secondary">
+                        <span style="vertical-align: 0.125em;" class="pe-2">
+                            <img src="/template/icon/quiz.svg" width="20px" alt="quiz">
+                        </span>
+                        <span id="pageTitle"> </span>
+                    </div>
+
+                    <!-- progressbar -->
+                    <div class="">
+                        <div class="progress" style="height: 3px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressbartime"
+                                role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
+                                style="width: 0%">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- quiz -->
+                    <div class="p-4 shadow-sm rounded bg-white">
+
+                        <!-- quiz nev -->
+                        <div class="d-flex bd-highlight">
+                            <div class="flex-fill bd-highlight">
+                                <span id="questionTypeDisplayBadge"
+                                    class="bg-light text-secondary ps-2 pe-2 rounded small">New</span>
+                            </div>
+                            <div class="flex-fill bd-highlight text-end">
+                                <div class="dropdown dropstart d-inline">
+                                    <div class="btn btn-white p-0 m-0" id="dropdownMenuButton1"
+                                        data-bs-toggle="dropdown">
+                                        <span id="timerDisplay"
+                                            class="bg-light text-secondary ps-2 pe-2 rounded small">0:00</strong>
+                                    </div>
+
+                                    <div class="dropdown-menu">
+                                        <h6 class="dropdown-header">Timer switch</h6>
+                                        <div class="ps-3">
+                                            <div class="form-check form-switch form-switch-lg">
+                                                <input id="timerSwitch" class="form-check-input" type="checkbox"
+                                                    checked>
+                                            </div>
+                                        </div>
+                                        <hr class="dropdown-divider">
+                                        <h6 class="dropdown-header">Question time</h6>
+                                        <div class="input-group input-group-sm p-2">
+                                            <input type="text" class="form-control" ng-model="config_question_time"
+                                                id="inputTime">
+                                            <span class="input-group-text" id="inputGroup-sizing-sm">Sec</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown dropstart d-inline">
+                                    <div class="btn btn-white p-0 m-0" id="dropdownMenuButton2"
+                                        data-bs-toggle="dropdown">
+                                        <span id="questionTypeDisplay"
+                                            class="bg-light text-secondary ps-2 pe-2 rounded small"> </span>
+                                    </div>
+
+                                    <ul class="dropdown-menu" id="questionTypeDropdown">
+                                        <li ng-click="setQuestionType('All')" class="dropdown-item">All</li>
+                                        <li ng-click="setQuestionType('Easy')" class="dropdown-item">Easy</li>
+                                        <li ng-click="setQuestionType('Average')" class="dropdown-item">Average</li>
+                                        <li ng-click="setQuestionType('Advance')" class="dropdown-item">Advance</li>
+                                    </ul>
+                                </div>
+
+                                
+                                <div class="dropdown dropstart d-inline">
+                                    <button class="btn btn-sm" type="button" id="dropdownMenuButton1"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span style="vertical-align: 0.125em;">
+                                            <img src="/template/icon/three-dots-vertical.svg" alt="users">
+                                        </span>
+                                    </button>
+                                    <ul class="dropdown-menu shadow-sm" aria-labelledby="dropdownMenuButton1">
+                                        <li><button id="questionReportBtn" class="dropdown-item btn btn-sm"
+                                                data-bs-toggle="modal" data-bs-target="#reportModal">Report</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                        
+
+
+                            </div>
+                        </div>
+
+                        <!-- Question -->
+                        <div class="h6 mb-4">
+                            <pre id="questionDisplay">
+                                Question
+                            </pre>
+                        </div>
+
+                        <!-- Ans -->
+                        <form id="quizOptionForm">
+                            <div class="border rounded-pill p-2 ps-3 bg-light mb-2" id="option1">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="option" value="1"
+                                        id="radio-option-1">
+                                    <label class="form-check-label d-block" id="optionOneDisplay" for="radio-option-1">
+                                        option
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="border rounded-pill p-2 ps-3 bg-light mb-2" id="option2">
+                                <div class="form-check" for="option1">
+                                    <input class="form-check-input" type="radio" name="option" value="2"
+                                        id="radio-option-2">
+                                    <label class="form-check-label d-block" id="optionTwoDisplay" for="radio-option-2">
+                                        option
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="border rounded-pill p-2 ps-3 bg-light  mb-2" id="option3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="option" value="3"
+                                        id="radio-option-3">
+                                    <label class="form-check-label d-block" id="optionThreeDisplay"
+                                        for="radio-option-3">
+                                        option
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="border rounded-pill p-2 ps-3 bg-light mb-2" id="option4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="option" value="4"
+                                        id="radio-option-4">
+                                    <label class="form-check-label d-block" id="optionFourDisplay" for="radio-option-4">
+                                        option
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class=" mt-4 pt-2">
+                            <div class="row">
+                                <div class="col">
+                                    <span id="prev" class="btn btn-sm btn-secondary">Prev</span>
+                                </div>
+                                <div class="col text-center text-secondary">
+                                    <span id="skip" class="btn btn-sm btn-light">Skip</span>
+                                </div>
+                                <div class="col text-end">
+                                    <span class="btn btn-sm btn-primary" id="next">Next</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Comments  -->
+                    <div class="mt-3 mb-3">
+
+                        <div class="">
+                            <span id="commentSwitch" class="btn btn-sm small text-secondary" data-bs-toggle="collapse"
+                                data-bs-target="#collapseComment">Comments</span>
+                        </div>
+
+                        <div class="mt-3 collapse" id="collapseComment">
+                            <div>
+                                <form id="commentForm">
+                                    <div class="form-group">
+                                        <input type="text" name="message" minlength="2" maxlength="150"
+                                            class="form-control" placeholder="Add a public comment" autocomplete="off"
+                                            id="commentText">
+                                    </div>
+                                    <div class="text-end mt-2 ">
+                                        <button id="resetBtn" type="button"
+                                            class="btn btn-sm btn-light text-secondary">Cancel</button>
+                                        <button type="submit"
+                                            class="btn btn-sm btn-light text-secondary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="commentList" class="border-top mt-2 pt-2">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    
+                </div>
+
+                <!-- not found -->
+                <div class="d-none text-center text-secondary mb-5" id="notFoundWindow">
+                    <div class="h2 mb-2">
+                        Sorry we couldn't find any matches for <br />
+                        <span class="text-success">
+                            <?php echo $category_name?>
+                        </span>
+                    </div>
+                    Try searching for another term or go back to the <a href="/">home</a>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-3 d-none" id="topicWindow">
+
+                <!--topic list-->
+                <div class="h5 mb-4 text-secondary">
+                    <span style="vertical-align: 0.125em;" class="pe-2">
+                        <img src="/template/icon/topic.svg" width="20px" alt="topic">
+                    </span>
+                    <span>Topics </span>
+                </div>
+
+                <div class="shadow-sm rounded bg-white p-3 mb-3">
+                    <div class="" id="topicList"></div>
+                </div>
+                    
+                
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+
+    <!-- Report -->
+    <?php include __DIR__.'/static/reportCode.html';?>
+
+
+
+    <script src="/app.js?v=1.1"></script>
+    <script>
+
+        var user_id = "<?php echo isset($_SESSION['user_id'])? $_SESSION['user_id']: 0; ?>";
+        var config_question_type = null;
+        var config_timer_switch = true;
+        var config_question_time = 90;
+        var config_categories = [];
+        var current_category = '<?php echo $category_name?>';
+
+        var pages = null;
+        var page_size = null;
+        var next_page = null;
+        var category_id = null;
+        var question_list = null;
+        var current_question = null;
+
+        var noMoreComments = false;
+        var commentPageNumber = 1;
+
+
+
+        $(document).ready(function () {
+
+            setup();
+            loadQuestion();
+
+
+            // nevbar-------------------------------------------------------
+
+            // timer dropdown
+            $("#timerSwitch").on("change", function () {
+                config_timer_switch = this.checked
+                Cookies.set('config_timer_switch', config_timer_switch, { expires: 700 });
+                $("#timerDisplay").text(this.checked ? '0:00' : 'Off');
+                if (!config_timer_switch) $("#progressbartime").css("width", "0%");
+            });
+
+            // question time - timer dropdown
+            $("#inputTime").on("change", function (e) {
+                config_question_time = $('#inputTime').val();
+                Cookies.set('config_question_time', config_question_time, { expires: 700 });
+            });
+
+            // question_type dropdown
+            $("#questionTypeDropdown").on("click", function (e) {
+                if ($(e.target).is("li")) {
+                    config_question_type = $(e.target).text();
+                    Cookies.set('config_question_type', $(e.target).text(), { expires: 700 });
+                    $("#questionTypeDisplay").text($(e.target).text());
+                }
+            });
+
+            // report question
+            $("#questionReportBtn").click(function () {
+                if (question_list[current_question].id)
+                    setReportQuestionId(question_list[current_question].id);
+            });
+
+
+
+            // quiz - next - prev - skip ------------------------------------------------------------------
+            $("#next").click(function () { setQuestion("next"); });
+            $("#skip").click(function () { setQuestion("next"); });
+            $("#prev").click(function () { setQuestion("prev"); });
+
+            // option click - user ans
+            $('#quizOptionForm input').on('change', function () {
+                user_ans = $('input[name=option]:checked', '#quizOptionForm').val();
+                ans = question_list[current_question].ans;
+
+                if (ans == user_ans) {
+                    $('#option' + user_ans).removeClass("bg-light");
+                    $('#option' + user_ans).addClass("bg-correct text-white");
+                }
+                else {
+                    $('#option' + ans).removeClass("bg-light");
+                    $('#option' + ans).addClass("bg-correct text-white");
+                    $('#option' + user_ans).removeClass("bg-light");
+                    $('#option' + user_ans).addClass("bg-wrong text-white");
+                }
+
+                // update question status
+                if (!question_list[current_question].attempt)
+                    updateQuestionStatus(question_list[current_question].id, ans == user_ans);
+                question_list[current_question].attempt = true;
+
+                // stop question timer
+                clearInterval(countDownInterval);
+                $("#timerDisplay").text("Done");
+                $("#progressbartime").css("width", "0%");
+
+            });
+
+        });
+
+
+
+
+
+        // set question on screen
+        function setQuestion(action) {
+            if (action == "next" && current_question < page_size) current_question = current_question + 1;
+            if (action == "prev" && current_question > 0) current_question = current_question - 1;
+
+            if (current_question == page_size) {
+                current_question--;
+                if (next_page >= pages) {
+                    alert("No more question in this category");
+                } else {
+                    loadQuestion();
+                }
+            } else {
+                mcqQuestionType = undefined;
+
+                if (question_list[current_question].total_attempt < 50)
+                    mcqQuestionType = 'New';
+                else {
+                    strength = (question_list[current_question].correct_attempt / question_list[current_question].total_attempt) * 100;
+                    if (strength <= 25) mcqQuestionType = 'Advanced';
+                    mcqQuestionType = strength > 65 ? 'Easy' : 'Average';
+                }
+
+                if (mcqQuestionType) {
+                    $("#questionTypeDisplayBadge").text(mcqQuestionType);
+
+                    $('#quizOptionForm').trigger("reset");
+                    $("#option1,#option2,#option3,#option4").removeClass("bg-correct text-white");
+                    $("#option1,#option2,#option3,#option4").removeClass("bg-wrong text-white");
+                    $("#option1,#option2,#option3,#option4").addClass("bg-light");
+
+
+                    $("#questionDisplay").html(convert_special_html_characters(question_list[current_question].question));
+                    $("#optionOneDisplay").text(question_list[current_question].option_one);
+                    $("#optionTwoDisplay").text(question_list[current_question].option_two);
+                    $("#optionThreeDisplay").text(question_list[current_question].option_three);
+                    $("#optionFourDisplay").text(question_list[current_question].option_four);
+
+                    $("#quizWindow code").each(function () { $(this).text($(this).text().trim()); });
+                    $('#quizWindow pre code').each(function (i, block) { hljs.highlightElement(block); });
+
+                    countdownTimer();
+
+                    $("#commentList").empty();
+                    noMoreComments = false;
+                    commentPageNumber = 1;
+
+                } else {
+                    setQuestion("next")
+                }
+            }
+        }
+
+        // convert special html characters
+        function convert_special_html_characters(str) {
+            str = str.replace("<code>", "codeStart");
+            str = str.replace("</code>", "codeEnd");
+            str = $("<div/>").text(str.trim()).html();
+            str = str.replace("codeStart", "<code>");
+            str = str.replace("codeEnd", "</code>");
+            //console.log(str);
+            return str;
+        }
+
+        // load question set
+        function loadQuestion() {
+            var questionRequestObj = {
+                category: current_category,
+                category_id: category_id,
+                pages: pages,
+                next_page: next_page
+            };
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                data: JSON.stringify(questionRequestObj),
+                url: "/question/question_list_api",
+                success: function (result) {
+                    $("#loadingWindow").addClass("d-none");
+                    if (!result.question_list.length) {
+                        $("#notFoundWindow").removeClass("d-none");
+                    }
+                    else {
+                        $("#quizWindow").removeClass("d-none");
+                        pages = result.pages;
+                        category_id = result.category_id;
+                        next_page = result.current_page + 1;
+                        question_list = shuffle(result.question_list);
+                        page_size = question_list.length;
+                        current_question = 0;
+                        setQuestion();
+                        setUserChoice(category_id);
+                    }
+
+                    // remove category if no result found
+                    if (!result.question_list.length && next_page == null) {
+                        config_categories = jQuery.grep(config_categories, function (value) {
+                            return value != current_category;
+                        });
+                        Cookies.set('config_categories', config_categories.toString(), { expires: 700 });
+                    }
+                    $("#topicWindow").removeClass("d-none");
+                }
+            });
+        }
+
+        function updateQuestionStatus(qid, ans) {
+            $.ajax({
+                type: 'POST',
+                url: "/question/api_uq_status/" + qid + "/" + ans,
+                success: function (result) {
+                }
+            });
+        }
+
+        var countDownSec = 90;
+        var countDownInterval = undefined;
+        function countdownTimer() {
+            // Set the date we're counting down to
+            countDownSec = config_question_time;
+
+            // Update the count down every 1 second
+            clearInterval(countDownInterval);
+            if (config_timer_switch)
+                countDownInterval = setInterval(function () {
+
+                    var minutes = Math.floor(countDownSec / 60);
+                    var seconds = Math.floor((countDownSec % 60));
+
+                    if (countDownSec >= 0 && config_timer_switch) {
+                        $("#timerDisplay").text(minutes + " : " + seconds);
+                        width = ((90 - countDownSec) / 90) * 100 + "%";
+                        $("#progressbartime").css("width", width);
+                    }
+
+                    if (countDownSec <= 0) {
+                        clearInterval(countDownInterval);
+                        $("#timerDisplay").text("Time up");
+                        $("#progressbartime").css("width", "0%");
+                    }
+
+                    countDownSec--;
+                    // If the count down is over, write some text 
+                }, 1000);
+        }
+
+        /* --------------------------------- setup -------------------------------- */
+        function setup() {
+
+            // set category
+            topic_list = Cookies.get('config_categories');
+            if (!topic_list)
+                config_categories = new Array('Quiz', 'Computer Fundamental', 'Science', 'Geography', 'History', 'Inventions');
+            else
+                config_categories = topic_list.split(",");
+
+            if (current_category && !config_categories.includes(current_category)) {
+                if (config_categories.length > 5)
+                    config_categories.pop();
+                // Add new items to the beginning of an array
+                config_categories.unshift(current_category); 
+                Cookies.set('config_categories', config_categories.toString(), { expires: 700 });
+            }
+            if (!current_category) {
+                random = Math.floor(Math.random() * config_categories.length);
+                current_category = config_categories[random];
+            }
+
+            // set question type
+            if (!Cookies.get('config_question_type') || Cookies.get('config_question_type') == '')
+                config_question_type = 'All';
+            else
+                config_question_type = Cookies.get('config_question_type');
+
+            // set timer switch
+            if (Cookies.get('config_timer_switch') == 'false')
+                config_timer_switch = false;
+            $('#timerSwitch').prop('checked', config_timer_switch);
+
+
+            // set question time
+            if (!Cookies.get('config_question_time')) config_question_time = 90;
+            else config_question_time = Cookies.get('config_question_time');
+
+
+
+            // set display text
+            $("#pageTitle").text(current_category);
+            $("#questionTypeDisplay").text(config_question_type);
+            $('#inputTime').val(config_question_time);
+
+            if (!config_timer_switch)
+                $("#timerDisplay").text("Timer Off");
+
+            config_categories.forEach(item => {
+                $("#topicList").append(getTopicHtml(item));
+            });
+            $("#topicList").append('<a href="/category/browse" class="btn btn-sm border bg-light rounded-pill d-md-block d-lg-inline-block ps-3 pe-3">All Categories</a>');
+        }
+
+        function shuffle(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+            return array;
+        }
+
+        /* ------------------------------------ load suggested exams -------------------------*/
+
+        /*
+        function loadSuggestedExams() {
+            cat = getUserChoiceList();
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                data: JSON.stringify(cat),
+                url: "/exam/suggestedExamsApi",
+                success: function (result) {
+                    result.forEach(exam => {
+                        $("#suggestedExamList").append(getExamTemplate(exam));
+                    });
+                }
+            });
+        }
+
+        function getExamTemplate(exam) {
+            str =  '<div class="bg-hover rounded p-2"> <a class="text-decoration-none text-dark" href="/examcenter/start/#examId"> <div class="overflow-hidden text-nowrap h6 mb-0">#title</div> <div class="small text-secondary"> #attempted attempted . #Qcount question</div> </a> </div>';
+            str = str.replace("#examId",exam.id);
+            str = str.replace("#title",exam.title);
+            str = str.replace("#attempted",exam.attemped);
+            str = str.replace("#Qcount",exam.number_of_question);
+            return str;
+        }
+        */
+
+        /* ------------------------------------- comment ------------------------------------- */
+
+        // comment switch
+        var commentSwitch = false;
+        $("#commentSwitch").on('click', function () {
+            commentSwitch = true;
+        });
+
+        // save comment on submit
+        $("#commentForm").on('submit', function (e) {
+            e.preventDefault();
+            dataArray = $("#commentForm").serialize() + "&question_id=" + question_list[current_question].id;
+            $.ajax({
+                type: 'POST',
+                //dataType: 'JSON',
+                data: dataArray,
+                url: "/comment/save",
+                success: function (result) {
+                    commentPageNumber = 1;
+                    noMoreComments = false;
+                    $("#commentList").empty();
+                    loadComment();
+                    $("#commentText").val("");
+                }
+            });
+        });
+
+        // reset comment
+        $("#resetBtn").on('click', function () {
+            $("#commentText").val("");
+        });
+
+        //jquery load more comment on scroll
+        var delayTimer = null;
+        $(window).scroll(function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                if (delayTimer) { clearTimeout(delayTimer); }
+                delayTimer = setTimeout(loadComment, 400);
+            }
+        });
+
+        // load comment ajax
+        function loadComment() {
+            if (!noMoreComments && commentSwitch){
+                $.ajax({
+                    type: 'GET',
+                    url: "/comment/listByQuestionId/" + question_list[current_question].id + "/" + commentPageNumber,
+                    success: function (resultList) {
+                        resultList = JSON.parse(resultList);
+                        $.each(resultList, function (i, result) {
+                            fullname = result.fullname ? result.fullname : "Anonynous";
+                            str = '<div class="d-flex grayHover p-2"><div class="flex-fill">';
+                            str = str + '<span class="small text-secondary">' + fullname + ' . ' + timeToString(result.created_date) + '</span><div>' + result.comment + '</div>';
+                            str = str + '</div><div class="flex-fill text-end">';
+                            if (result.created_by === user_id)
+                                str = str + '<button onclick="deleteComment(' + result.id + ',this)" type="button" class="btn btn-sm btn-outline-secondary">Delete</button>';
+                            str = str + '</div></div>';
+                            $("#commentList").append(str);
+                        });
+                        if (resultList.length > 0)
+                            commentPageNumber++;
+                        else
+                            noMoreComments = true;
+                    }
+                });
+            }
+        }
+
+        var today = new Date();
+        function timeToString(d) {
+            date = new Date(d);
+            Difference_In_Time = today.getTime() - date.getTime();
+            Difference_In_Days = parseInt(Difference_In_Time / (1000 * 3600 * 24));
+            // return string
+            if (parseInt(Difference_In_Days / 365) > 0)
+                return parseInt(Difference_In_Days / 365) + ' years ago';
+            if (parseInt(Difference_In_Days / 30) > 0)
+                return parseInt(Difference_In_Days / 30) + ' months ago';
+            if (Difference_In_Days > 1)
+                return Difference_In_Days + ' days ago';
+            if (Difference_In_Days == 1)
+                return Difference_In_Days + ' day ago';
+            return 'today';
+        }
+
+        // save comment on submit
+        $("#reportForm").on('submit', function (e) {
+            e.preventDefault();
+            dataArray = $("#reportForm").serialize() + "&question_id=" + question_list[current_question].id;
+            $.ajax({
+                type: 'POST',
+                //dataType: 'JSON',
+                data: dataArray,
+                url: "/report/save",
+                success: function (result) {
+                }
+            });
+            alert("Report successfully submitted");
+        });
+
+        // delete comment
+        function deleteComment(comment_id, element) {
+            $.ajax({
+                type: 'POST',
+                url: "/comment/delete/" + comment_id,
+                success: function (result) {
+                }
+            });
+            $(element).parent().parent().remove();
+        }
+
+
+        // topic template
+        function getTopicHtml(item) {
+            if (current_category === item)
+                return '<a href="#" class="btn btn-primary btn-sm rounded-pill mt-1 mb-1 me-1 d-md-block d-lg-inline-block">' + item + '</a>';
+            else
+                return '<a href="/category/quiz/' + item.replaceAll(" ", "-") + '" class="btn btn-sm border rounded-pill mt-1 mb-1 me-1 d-md-block d-lg-inline-block">' + item + '</a>';
+        }
+
+    </script>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-KPXYFG7WZV');
+    </script>
+
+</body>
+
+</html>

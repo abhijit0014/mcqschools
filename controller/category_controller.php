@@ -65,7 +65,7 @@
         public function quiz($param)
         {
             $this->repository->updateHitCount($param[0]);
-            $view = new view('index');
+            $view = new view('quiz');
             $view->assign('category_name', str_replace("-"," ",$param[0]));
             return;
         }
