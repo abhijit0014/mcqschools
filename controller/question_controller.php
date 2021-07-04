@@ -62,10 +62,13 @@
         // duplicate question check api
         public function isQuestionExist($param)
         {
-            if(isset($param[0]))
-            $question =  $this->repository->isQuestionExist($param[0]);
-            return json_encode($question);
-            // return $param[0];
+            $data = json_decode( file_get_contents('php://input') );
+            if(isset($data)){
+                $question =  $this->repository->isQuestionExist($data);
+                return json_encode($question);
+            }
+
+            return null;
         }
 
         // question correction 

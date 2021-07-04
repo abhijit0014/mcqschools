@@ -157,9 +157,11 @@
         function checkDuplicateQuestion(question){
             $.ajax({
                 type: 'POST',
-                url: "/question/isQuestionExist/"+question,
+                dataType: "JSON",
+                data : JSON.stringify(question),
+                url: "/question/isQuestionExist",
                 success: function (result) {
-                    if(result) $("#duplicateQuestion").removeClass("d-none");
+                    if(result) $("#duplicateQuestion").removeClass("d-none"); 
                     else $("#duplicateQuestion").addClass("d-none");
                 }
             });
