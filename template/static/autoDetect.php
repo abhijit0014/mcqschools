@@ -1,6 +1,7 @@
 <div class="col-12 col-md-4 col-lg-6">
     <div class="mb-3">
         <span class="h5">Auto Detect</span>
+        <span class="text-danger d-none h6" id="duplicateQuestion"> ( Exists ) </span>
         <span id="newQuestionCount" class="ms-3 small float-end"></span>
     </div>
     <div class="mb-3">
@@ -66,6 +67,8 @@
             };
 
             $("#questionStr").val(questionText.trim());
+            checkDuplicateQuestion(questionText.trim());
+
             $("#option1").val(validateString(text[i], "option1"));
             $("#option2").val(validateString(text[++i], "option2"));
             $("#option3").val(validateString(text[++i], "option3"));
@@ -126,7 +129,7 @@
                         result = str.replace(element, "").trim();
                 }
             });
-            console.log(result);
+            //console.log(result);
             return result;
         }
 
@@ -149,6 +152,17 @@
 
             if (line1_flag && line2_flag) return true;
             else return false;
+        }
+
+        function checkDuplicateQuestion(question){
+            $.ajax({
+                type: 'POST',
+                url: "/question/isQuestionExist/"+question,
+                success: function (result) {
+                    if(result) $("#duplicateQuestion").removeClass("d-none");
+                    else $("#duplicateQuestion").addClass("d-none");
+                }
+            });
         }
 
 

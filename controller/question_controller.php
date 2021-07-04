@@ -59,6 +59,15 @@
             }
         }
 
+        // duplicate question check api
+        public function isQuestionExist($param)
+        {
+            if(isset($param[0]))
+            $question =  $this->repository->isQuestionExist($param[0]);
+            return json_encode($question);
+            // return $param[0];
+        }
+
         // question correction 
         public function correction($param)
         {

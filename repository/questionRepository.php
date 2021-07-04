@@ -50,6 +50,11 @@
             R::exec('DELETE FROM exam_result WHERE question_id = ? ',array($id));
             R::trash( 'question', $id );
         }
+
+        public function isQuestionExist($question)
+        {
+            return R::findOne( 'question', ' question = ? ', [ $question ] );
+        }
         
         public function questionCountByExamId($examId){
             return R::count( 'question', 'WHERE exam_id = ?', [ $examId ] );
