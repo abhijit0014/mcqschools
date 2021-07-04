@@ -49,17 +49,33 @@
 
         public function live($param)
         {
-            $exam =  $this->examRepository->getOne(289);
+            $live_exam_id = 289;
+            $exam_start_time=mktime(10, 00, 00, 7, 11, 2021);
+
+            $exam =  $this->examRepository->getOne($live_exam_id);
+            $toppers = $this->examUserRepository->getRank($live_exam_id);
+
+            date_default_timezone_set('Asia/Kolkata');
+
+            $current_time = date('Y-m-d H:i:s');
+            $start_time = date("Y-m-d H:i:s", $exam_start_time);
+
+            // auto publish before 5min
+            $min_diff = round((strtotime($start_time)- strtotime($current_time)) / 60,0);
+            if(!$exam->published){
+                if($min_diff<10){
+                    $exam->published = true;
+                    R::store( $exam );
+                }
+            }
+
             $view = new view('live');
             $view->assign('exam',  $exam);
-            date_default_timezone_set('Asia/Kolkata');
-            $view->assign('current_time',  date('Y-m-d H:i:s'));
-            $d=mktime(10, 00, 00, 6, 27, 2021);
-            // $d=mktime(10, 23, 00, 6, 6, 2021);
-            $view->assign('start_time',   date("Y-m-d H:i:s", $d));
-
-            $toppers = $this->examUserRepository->getRank(289);
             $view->assign('toppers', $toppers);
+            $view->assign('current_time',  $current_time);
+            $view->assign('start_time',   $start_time);
+            $view->assign('min_diff',   $min_diff);
+            
             return;
         }
 
