@@ -49,10 +49,10 @@
 
 
         // autoDetectQuestion
-        option1Match = ["(A)", "(a)", "A)", "a)", "A.", "a.", "A -", "a -", "1.", "১."];
-        option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2.", "২."];
-        option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3.", "৩."];
-        option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4.", "৪."];
+        option1Match = ["(A)", "(a)", "A)", "a)", "A.", "a.", "A -", "a -", "1.", "১.", "(ক)"];
+        option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2.", "২.", "(খ)"];
+        option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3.", "৩.", "(গ)"];
+        option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4.", "৪.", "(ঘ)"];
         optionAnsMatch = ["answer: option", "answer", "ans key", "option", "ans"];
 
         $("#autoDetectQuestion").change(function () {
@@ -72,15 +72,34 @@
             $("#option4").val(validateString(text[++i], "option4"));
 
             ans_flag = false;
+            ans_number = 0;
             ans = validateString(text[++i], "ans").replace(/[&\/\\#,+()$~%.'":*?<>{}=_-]/g, '').trim();
-            if (ans == 1 ||  ans == 'a' || ans == '১') { $('#ansOption option[value="1"]').prop('selected', true); ans_flag = true; }
-            if (ans == 2 ||  ans == 'b' || ans == '২') { $('#ansOption option[value="2"]').prop('selected', true); ans_flag = true; }
-            if (ans == 3 ||  ans == 'c' || ans == '৩') { $('#ansOption option[value="3"]').prop('selected', true); ans_flag = true; }
-            if (ans == 4 ||  ans == 'd' || ans == '৪') { $('#ansOption option[value="4"]').prop('selected', true); ans_flag = true; }
+            if (ans == 1 ||  ans == 'a' || ans == '১' || ans == 'ক') { 
+                $('#ansOption option[value="1"]').prop('selected', true); 
+                ans_flag = true; 
+                ans_number = 1;
+            }
+            if (ans == 2 ||  ans == 'b' || ans == '২' || ans == 'খ') { 
+                $('#ansOption option[value="2"]').prop('selected', true); 
+                ans_flag = true; 
+                ans_number = 2;
+            }
+            if (ans == 3 ||  ans == 'c' || ans == '৩' || ans == 'গ') { 
+                $('#ansOption option[value="3"]').prop('selected', true); 
+                ans_flag = true; 
+                ans_number = 3;
+            }
+            if (ans == 4 ||  ans == 'd' || ans == '৪' || ans == 'ঘ') { 
+                $('#ansOption option[value="4"]').prop('selected', true); 
+                ans_flag = true; 
+                ans_number = 4;
+            }
 
             if (ans_flag) {
                 $("#autoDetectQuestion").removeClass("border-danger");
                 $("#autoDetectQuestion").addClass("border-success");
+                $("#qstOptions input").removeClass("bg-option");
+                $("#option"+ans_number).addClass("bg-option");
             } else {
                 $("#autoDetectQuestion").removeClass("border-success");
                 $("#autoDetectQuestion").addClass("border-danger");
