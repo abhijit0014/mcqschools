@@ -225,19 +225,15 @@
             //option -----------------------------------------------------------------------------
 
             // set option background color
-            option_bg_flag = true
             $('#categorySearchQuery').on("focus", function () {
-                if (option_bg_flag) {
-                    $("#option1").addClass("bg-option");
-                    option_bg_flag = false;
-                }
+                optionNumber = $('#ansOption').find(":selected").val();
+                $("#option"+optionNumber).addClass("bg-option");
             });
 
             // on ans select change option background color
             $('#ansOption').on("change", function () {
                 $("#qstOptions input").removeClass("bg-option");
                 $("#option" + this.value).addClass("bg-option");
-                option_bg_flag = false;
             });
 
             // on load check ans
@@ -245,7 +241,6 @@
             inputValue = $("#option" + ansVal).val().trim();
             if (ansVal != undefined && inputValue) {
                 $("#option" + ansVal).addClass("bg-option");
-                option_bg_flag = false;
             }
 
             /*
