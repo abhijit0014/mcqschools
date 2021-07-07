@@ -1,6 +1,9 @@
 <?php
 
 // maximum exam user can add per day
+$LIVE_EXAM_ID = 377;
+
+// maximum exam user can add per day
 $EXAM_ADITION_LIMIT_PER_DAY = 5;
 
 // maximum question user can add per day
@@ -13,7 +16,7 @@ $UNSOLVED_REPORT_LIMIT = 5;
 $CATEGORY_AUTOCOMPLETE_RESULT_LIMIT = 8;
 
 // blocked categories
-$BLOCKED_CATEGORIES = array("West Bengal Police (WBP) Examination", "General Knowledge Bengali", "WBJEE Nursing", "Wbjee nursing");
+$BLOCKED_CATEGORIES = array("Others");
 
 
 ?>

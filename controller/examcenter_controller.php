@@ -49,7 +49,7 @@
 
         public function live($param)
         {
-            $live_exam_id = 289;
+            $live_exam_id = $GLOBALS['LIVE_EXAM_ID'];
             //$exam_start_time=mktime(10, 00, 00, 7, 11, 2021);
 
             $exam =  $this->examRepository->getOne($live_exam_id);
