@@ -59,18 +59,18 @@
 
         public function save()
         {
-            if(isset($_POST)){
-                
+            if(isset($_POST))
+            {
                 if(!is_numeric($_POST['point']) || !is_numeric($_POST['negative_point'])){
                     header("Location: /exam/list"); exit;
                 }
 
-                if($this->repository->checkAllowedExamLimit()){
-                    $id = $this->repository->save($_POST);
-                    header("Location: /exam/list"); exit;
-                }else{
+                if(!$this->repository->checkAllowedExamLimit()){
                     header("Location: /exam/list?error=true&msg=You can add maximum ". $GLOBALS['EXAM_ADITION_LIMIT_PER_DAY']." exam per day"); exit;
                 }
+
+                $id = $this->repository->save($_POST);
+                header("Location: /exam/list"); exit;
             }
         }
 
