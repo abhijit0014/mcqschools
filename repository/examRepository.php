@@ -38,8 +38,8 @@
             $exam->point = $obj['point'];
             $exam->negative_point = $obj['negative_point'];
             $exam->duration_mins = $obj['duration_mins'];
-            //$exam->start_time = $obj['start_time'];
-            //$exam->end_time = $obj['end_time'];
+            $exam->start_time = $obj['start_time'];
+            $exam->end_time = $obj['end_time'];
 
             $id = R::store( $exam );
             return $id;

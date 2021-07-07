@@ -50,7 +50,7 @@
         public function live($param)
         {
             $live_exam_id = 289;
-            $exam_start_time=mktime(10, 00, 00, 7, 11, 2021);
+            //$exam_start_time=mktime(10, 00, 00, 7, 11, 2021);
 
             $exam =  $this->examRepository->getOne($live_exam_id);
             $toppers = $this->examUserRepository->getRank($live_exam_id);
@@ -58,7 +58,8 @@
             date_default_timezone_set('Asia/Kolkata');
 
             $current_time = date('Y-m-d H:i:s');
-            $start_time = date("Y-m-d H:i:s", $exam_start_time);
+            //$start_time = date("Y-m-d H:i:s", $exam_start_time);
+            $start_time = date("Y-m-d H:i:s",  strtotime($exam->start_time));
 
             // auto publish before 5min
             $min_diff = round((strtotime($start_time)- strtotime($current_time)) / 60,0);
@@ -237,6 +238,16 @@
             //$creator_name = empty($creator->display_name)? $creator->username : $creator->display_name;
 
             $toppers = $this->examUserRepository->getToppers($examId);
+
+            // result publish flag
+            $result_publish_flag = true;
+            if($exam->end_time){
+                date_default_timezone_set('Asia/Kolkata');
+                $current_time = date('Y-m-d H:i:s');
+                $end_time = date( 'Y-m-d H:i:s', strtotime($exam->end_time) );
+                if($current_time < $end_time)
+                    $result_publish_flag = false;
+            }
             
 
             $view = new view('examcenter_result');
@@ -245,6 +256,7 @@
             $view->assign('examUser',  $examUser);
             $view->assign('creator_username', $creator->username);
             $view->assign('toppers',  $toppers);
+            $view->assign('result_publish_flag',  $result_publish_flag);
             return;
         }
 

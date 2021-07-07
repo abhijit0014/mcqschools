@@ -82,18 +82,21 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- time input -->
-                        <!--
-                        <div class="form-group mt-2">
-                            <label class="small">Start Time</label>
-                            <input name="start_time" type="datetime-local" class="form-control" value="<?php echo $exam->start_time ?>" autocomplete="off" required>
-                        </div>
 
-                        <div class="form-group mt-2">
-                            <label class="small">End Time</label>
-                            <input name="end_time" type="datetime-local" class="form-control" value="<?php echo $exam->end_time ?>" autocomplete="off" required>
+                        <!-- time input -->
+                        <div class="small text-secondary">
+                            <span class="border p-1 ps-3 pe-3 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample">Advanced</span>
                         </div>
-                        -->
+                        <div class="collapse" id="collapseExample">
+                            <div class="form-group mt-2">
+                                <label class="small">Exam Start Time</label>
+                                <input name="start_time" type="datetime-local" class="form-control" value="<?php echo date('Y-m-d\TH:i', strtotime($exam->start_time)) ?>" autocomplete="off" required>
+                            </div>
+                            <div class="form-group mt-2">
+                                <label class="small">Result Publish Time</label>
+                                <input name="end_time" type="datetime-local" class="form-control" value="<?php echo date('Y-m-d\TH:i', strtotime($exam->end_time)) ?>" autocomplete="off" required>
+                            </div>
+                        </div>
 
                         <!-- close or save changes -->
                         <div class="mt-4 pt-3 border-top">

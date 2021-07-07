@@ -14,7 +14,7 @@
     <?php include __DIR__.'/static/header.html';?>
 
     <!-- BODY -->
-    <div class="container mt-4">
+    <div class="container mt-4 <?php echo $result_publish_flag? '':'d-none'?> ">
 
         <!--  Exam Info -->
         <div class="d-flex bd-highlight">
@@ -246,7 +246,13 @@
         </div>
 
     </div>
-
+    <div class="container mt-4 <?php echo $result_publish_flag? 'd-none':''?> text-center">
+        <div class="mb-3">
+            <img src="/template/icon/publish.svg" alt="publish" width="60px">
+        </div>
+        <div class="h6">Result Publish Time</div>
+        <div class="h6"><?php echo date_format(date_create($exam->end_time),"d F Y, h:i A"); ?></div>
+    </div>
     <!-- FOOTER -->
     <?php include __DIR__.'/static/footer.html';?>
 
