@@ -46,6 +46,11 @@
             $exam =  $this->repository->getOne($param[0]);
             $category =  $this->categoryRepository->getOne($exam->category_id);
 
+            if($exam->start_time)
+            $exam->start_time = date('Y-m-d\TH:i', strtotime($exam->start_time));
+            if($exam->end_time)
+            $exam->end_time = date('Y-m-d\TH:i', strtotime($exam->start_time));
+
             $view = new view('exam_form');
             $view->assign('exam', $exam);
             $view->assign('category', $category);

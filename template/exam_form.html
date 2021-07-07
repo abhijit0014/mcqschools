@@ -90,11 +90,11 @@
                         <div class="collapse" id="collapseExample">
                             <div class="form-group mt-2">
                                 <label class="small">Exam Start Time</label>
-                                <input name="start_time" type="datetime-local" class="form-control" value="<?php echo date('Y-m-d\TH:i', strtotime($exam->start_time)) ?>" autocomplete="off" required>
+                                <input name="start_time" type="datetime-local" class="form-control" value="<?php echo $exam->start_time ?>" autocomplete="off" >
                             </div>
                             <div class="form-group mt-2">
                                 <label class="small">Result Publish Time</label>
-                                <input name="end_time" type="datetime-local" class="form-control" value="<?php echo date('Y-m-d\TH:i', strtotime($exam->end_time)) ?>" autocomplete="off" required>
+                                <input name="end_time" type="datetime-local" class="form-control" value="<?php echo $exam->end_time ?>" autocomplete="off" >
                             </div>
                         </div>
 
