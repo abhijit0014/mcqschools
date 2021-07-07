@@ -82,9 +82,21 @@
 
         public function start($param)
         {
+            $exam_start_flag = true;
             $exam =  $this->examRepository->getOne($param[0]);
+            
+            if($exam->start_time){            
+                date_default_timezone_set('Asia/Kolkata');
+                $current_time = date('Y-m-d H:i:s');
+                $start_time = date("Y-m-d H:i:s",  strtotime($exam->start_time));
+                if($current_time < $start_time)
+                    $exam_start_flag = false;
+            }
+            
             $view = new view('examcenter_start');
             $view->assign('exam',  $exam);
+            //$view->assign('current_time',  $current_time);
+            $view->assign('exam_start_flag',  $exam_start_flag);
             return;
         }
 
