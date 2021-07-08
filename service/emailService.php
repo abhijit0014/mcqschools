@@ -18,7 +18,8 @@
             // To send HTML mail, the Content-type header must be set
             $headers[] = 'MIME-Version: 1.0';
             $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-            $headers[] = 'From: mcQschools <noreply@mcqschools.com>';
+            $headers[] = 'From: mcqschools <noreply@mcqschools.com>';
+            //$headers[] = 'From: mcqschools <info@mcqschools.com>';
         
             $result =  mail($to, $subject, $message, implode("\r\n", $headers));
             
