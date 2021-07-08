@@ -20,7 +20,7 @@
 
 <!-- upcoming live exam -->
 
-<div class="mb-2">
+<div class="mb-2 <?php echo $GLOBALS["LIVE_EXAM_ID"] ? '':'d-none' ?>">
     <div class="row m-3 p-2 pt-4 pb-4 bg-white rounded shadow-sm border ">
         <div class="col-10 col-md-7">
             <span class="h4">WBP Constable Preliminary Mock Test - Live</span>

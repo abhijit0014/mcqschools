@@ -51,22 +51,30 @@
         {
             $live_exam_id = $GLOBALS['LIVE_EXAM_ID'];
             //$exam_start_time=mktime(10, 00, 00, 7, 11, 2021);
+            $exam = null;
+            $toppers = [];
+            $current_time = 0;
+            $start_time = 0;
+            $min_diff = 0;
 
-            $exam =  $this->examRepository->getOne($live_exam_id);
-            $toppers = $this->examUserRepository->getRank($live_exam_id);
+            if($live_exam_id)
+            {
+                $exam =  $this->examRepository->getOne($live_exam_id);
+                $toppers = $this->examUserRepository->getRank($live_exam_id);
 
-            date_default_timezone_set('Asia/Kolkata');
+                date_default_timezone_set('Asia/Kolkata');
 
-            $current_time = date('Y-m-d H:i:s');
-            //$start_time = date("Y-m-d H:i:s", $exam_start_time);
-            $start_time = date("Y-m-d H:i:s",  strtotime($exam->start_time));
+                $current_time = date('Y-m-d H:i:s');
+                //$start_time = date("Y-m-d H:i:s", $exam_start_time);
+                $start_time = date("Y-m-d H:i:s",  strtotime($exam->start_time));
 
-            // auto publish before 5min
-            $min_diff = round((strtotime($start_time)- strtotime($current_time)) / 60,0);
-            if(!$exam->published){
-                if($min_diff<10){
-                    $exam->published = true;
-                    R::store( $exam );
+                // auto publish before 5min
+                $min_diff = round((strtotime($start_time)- strtotime($current_time)) / 60,0);
+                if(!$exam->published){
+                    if($min_diff<10){
+                        $exam->published = true;
+                        R::store( $exam );
+                    }
                 }
             }
 

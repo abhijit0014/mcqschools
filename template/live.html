@@ -5,7 +5,7 @@
     <!-- resource -->
     <?php include __DIR__.'/resource/resource.php';?>
     <title>Live Mock Test</title>
-    <meta name="description" content="<?php echo $exam->descp ?>">
+    <meta name="description" content="Free All India Live Mock Test, Real time exam experience, Compete with thousands of students, Detailed report card.">
 </head>
 
 <body>
@@ -13,7 +13,7 @@
     <?php include __DIR__.'/static/header.html';?>
 
     <!-- BODY -->
-    <div class="container">
+    <div class="container <?php echo $GLOBALS["LIVE_EXAM_ID"] ? '':'d-none' ?>">
         <div class="row m-1 mt-5">
             <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto">
                 <div class="small mb-5 text-secondary align-justify">
@@ -171,6 +171,14 @@
             </div>
         </div>
 
+    </div>
+    <div class="container <?php echo $GLOBALS["LIVE_EXAM_ID"] ? 'd-none':'' ?>">
+        <div class="text-center pt-5">
+            <div class="mb-3">
+                <img src="/template/icon/online-test.png" alt="online-test" width="100px">
+            </div>
+            Upcoming online mock test will be informed in our telegram channel and facebook page
+        </div>
     </div>
 
     <!-- FOOTER -->

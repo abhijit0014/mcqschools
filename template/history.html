@@ -112,7 +112,11 @@
                     $template = $("#template").html();
 
                     d = new Date(result.event_date);
-                    $template = $template.replace("#date", d.getDate()+ " "+months[d.getMonth()]+" "+d.getFullYear());
+                    if(result.category=="Important Day")
+                        $template = $template.replace("#date", d.getDate()+ " "+months[d.getMonth()]);
+                    else
+                        $template = $template.replace("#date", d.getDate()+ " "+months[d.getMonth()]+" "+d.getFullYear());
+
                     $template = $template.replace("#title", result.title);
                     $template = $template.replace("#descp", result.descp);
                     $template = $template.replace("#category", result.category);
