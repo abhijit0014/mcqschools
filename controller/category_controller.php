@@ -52,6 +52,9 @@
             return  json_encode($list);
         } 
         
+
+        // -----------------------------------------------------------------------
+
         // all category list
         public function browse()
         {  
@@ -69,7 +72,6 @@
             $view->assign('category_name', str_replace("-"," ",$param[0]));
             return;
         }
-
 
         // exam list based on category
         public function exam($param)
