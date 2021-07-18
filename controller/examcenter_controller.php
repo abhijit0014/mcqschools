@@ -73,7 +73,7 @@
                 if(!$exam->published){
                     if($min_diff<10){
                         $exam->published = true;
-                        R::store( $exam );
+                        //R::store( $exam );
                     }
                 }
             }

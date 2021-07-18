@@ -14,6 +14,8 @@
 
     <!-- BODY -->
     <div class="container <?php echo $GLOBALS["LIVE_EXAM_ID"] ? '':'d-none' ?>">
+
+        <!-- AD -->
         <div class="row m-1 mt-5">
             <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto">
                 <div class="small mb-5 text-secondary align-justify">
@@ -75,6 +77,7 @@
             </div>
         </div>
 
+        <!-- EXAM-->
         <div class="row">
             <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto">
                 <div class="mt-5 border rounded shadow-sm">
@@ -135,8 +138,11 @@
         
             
                 <div class="mt-4">
-                    <div class="h5">
-                        Rank List
+                    <div class="d-flex bd-highlight">
+                        <div class="pe-2 flex-fill bd-highlight h5">Rank List</div>
+                        <div class="flex bd-highlight">
+                            <a href="/examcenter/result/<?php echo $exam->id ?>" class="text-decoration-none btn btn-sm btn-primary">My Result</a>
+                        </div>
                     </div>
                 </div>
 
