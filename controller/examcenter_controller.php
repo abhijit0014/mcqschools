@@ -73,6 +73,7 @@
                 if(!$exam->published){
                     if($min_diff > -10){
                         $exam->published = true;
+                        $exam->created_date = date('Y-m-d H:i:s');
                         R::store( $exam );
                     }
                 }
@@ -84,7 +85,6 @@
             $view->assign('current_time',  $current_time);
             $view->assign('start_time',   $start_time);
             $view->assign('min_diff',   $min_diff);
-            
             return;
         }
 
