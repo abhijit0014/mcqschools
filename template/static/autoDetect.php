@@ -59,6 +59,7 @@
                 $("#newQuestionCount").text(newQuestionList.length + " question there");
                 localStorage.removeItem('newQuestionList');
                 localStorage.setItem('newQuestionList', JSON.stringify(newQuestionList));
+                setQuestion ();
             }
         });
 
@@ -82,7 +83,14 @@
         option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4.", "৪.", "(ঘ)"];
         optionAnsMatch = ["answer: option", "answer", "ans key", "option", "ans"];
 
-        $("#autoDetectQuestion").change(function () {
+        // on change
+        $("#autoDetectQuestion").change(function () { setQuestion(); });
+
+        // on reload
+        qst = $("#autoDetectQuestion").val();
+        if(qst.length>0) { setQuestion (); }
+
+        function setQuestion () {
             var text = $("#autoDetectQuestion").val().split("\n");
             var questionText = '';
             var i = 0;
@@ -134,7 +142,7 @@
                 $("#autoDetectQuestion").addClass("border-danger");
             }
 
-        });
+        }
 
         // validate text
         function validateString(str, selector) {
