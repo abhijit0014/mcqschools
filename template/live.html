@@ -13,7 +13,8 @@
     <?php include __DIR__.'/static/header.html';?>
 
     <!-- BODY -->
-    <div class="container <?php echo $GLOBALS["LIVE_EXAM_ID"] ? '':'d-none' ?>">
+    <?php if( $GLOBALS["LIVE_EXAM_ID"] ){ ?>
+    <div class="container">
 
         <!-- AD -->
         <div class="row m-1 mt-5">
@@ -178,6 +179,8 @@
         </div>
 
     </div>
+    <?php } ?>
+    
     <div class="container <?php echo $GLOBALS["LIVE_EXAM_ID"] ? 'd-none':'' ?>">
         <div class="text-center pt-5">
             <div class="mb-3">
@@ -198,7 +201,7 @@
 </html>
 
 <script>
-    url = '/examcenter/exam/<?php echo $exam->id ?>';
+    url = '/examcenter/exam/<?php echo $GLOBALS["LIVE_EXAM_ID"] ?>';
     $("#startButton").click(function(){
         window.location.href = url;
     });

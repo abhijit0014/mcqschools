@@ -192,7 +192,7 @@
             $userId = SessionManager::get("user_id");
 
             $examUser = $this->examUserRepository->getByExamIdAndUserId($examId,$userId);
-            if(!$examUser->submitted){
+            if(!$examUser || !$examUser->submitted){
                 header("Location: /examcenter/exam/".$examId); exit;
             }
             
