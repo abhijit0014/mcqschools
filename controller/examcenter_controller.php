@@ -69,9 +69,9 @@
                 $start_time = date("Y-m-d H:i:s",  strtotime($exam->start_time));
 
                 // auto publish before 5min
-                $min_diff = round((strtotime($start_time)- strtotime($current_time)) / 60,0);
+                $min_diff = round((strtotime($current_time) - strtotime($start_time)) / 60,0);
                 if(!$exam->published){
-                    if($min_diff<10){
+                    if($min_diff > -10){
                         $exam->published = true;
                         R::store( $exam );
                     }
