@@ -1,18 +1,33 @@
-<div class="col-12 col-md-4 col-lg-6">
-    <div class="mb-3">
-        <span class="h5">Auto Detect</span>
-        <span class="text-danger d-none h6" id="duplicateQuestion"> ( Exists ) </span>
-        <span id="newQuestionCount" class="ms-3 small float-end"></span>
-    </div>
-    <div class="mb-3">
-        <textarea class="form-control" id="autoDetectQuestion" rows="12"></textarea>
-    </div>
-    <div class="mt-5 mb-2 text-end">
-        <button class="btn btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseId">Auto detect question list</button>
-        <button class="btn btn-sm ms-3" id="clearList">Clear List</button>
-    </div>
-    <div class="collapse" id="collapseId">
-        <textarea class="form-control" id="autoDetectQuestionList" rows="14"></textarea>
+    
+    <div class="col-12 col-md-4 col-lg-6">
+        <div class="mb-3">
+            <span class="h5">Auto Detect</span>
+            <span class="text-danger d-none h6" id="duplicateQuestion"> ( Exists ) </span>
+            <span id="newQuestionCount" class="ms-3 small float-end"></span>
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" id="autoDetectQuestion" rows="12"></textarea>
+        </div>
+        <div class="mt-5 mb-2">
+            <div class="d-flex bd-highlight">
+                <div class="flex-fill bd-highlight">
+                    <button class="btn border btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseId">Auto detect question list</button>
+                </div>
+                <div class="bd-highlight">
+                    <span class="ps-2 pe-2 small">
+                        <input class="form-check-input" type="checkbox" value="" name="shuffle">
+                        <label class="form-check-label">Shuffle</label>
+                    </span>
+                </div>
+                <div class="bd-highlight">
+                    <button class="btn border btn-sm ms-3" id="clearList">Clear List</button>
+                </div>
+            </div>
+            
+        </div>
+        <div class="collapse" id="collapseId">
+            <textarea class="form-control" id="autoDetectQuestionList" rows="14"></textarea>
+        </div>
     </div>
 
     <script>
@@ -32,6 +47,11 @@
 
         $("#autoDetectQuestionList").change(function () {
             newQuestionList = $("#autoDetectQuestionList").val().split("\n\n");
+
+            if ($('input[name=shuffle]:checked')){
+                newQuestionList = shuffle(newQuestionList);
+            }
+
             if (newQuestionList.length) {
                 $("#autoDetectQuestionList").val("");
                 $("#autoDetectQuestion").val(newQuestionList[0]);
@@ -41,11 +61,17 @@
                 localStorage.setItem('newQuestionList', JSON.stringify(newQuestionList));
             }
         });
+
+        // clear question list
         $("#clearList").click(function () {
             localStorage.removeItem('newQuestionList');
             newQuestionList = [];
             $("#newQuestionCount").text(newQuestionList.length + " question there");
         });
+
+
+        // ---------------------------------------------------------------------------------------------------------
+
 
 
 
@@ -154,6 +180,19 @@
             else return false;
         }
 
+        // array suffel
+        function shuffle(array) {
+            var currentIndex = array.length,  randomIndex;
+            while (0 !== currentIndex) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        // duplicte question
         function checkDuplicateQuestion(question){
             $.ajax({
                 type: 'POST',
@@ -169,4 +208,3 @@
 
 
     </script>
-</div>
