@@ -198,6 +198,7 @@
 
 
 
+
     <script>
         var goToQ;
         $(document).ready(function () {
@@ -460,8 +461,15 @@
             var saveAnswer = function (ansOption) {
                 ans = activeQuestionAns == ansOption ? true : false;
                 url = "/examcenter/saveResult/" + examUserId + "/" + activeQuestionId + "/" + ansOption;
-                ajaxCall(url, "POST", 3, '');
-                updateExamResult(ansOption);
+                //ajaxCall(url, "POST", 3, '');
+                $.ajax({ 
+                    url: url, type: "POST",
+                    success: function (result) {
+                        if (result=="true") updateExamResult(ansOption);
+                        else alert("Answer not saved. Please wait a few minutes before trying again.");
+                    }
+                });
+                //updateExamResult(ansOption);
             }
 
             // save duration

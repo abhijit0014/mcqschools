@@ -147,7 +147,7 @@
             if(SessionManager::get("currentExamUserId")==$exam_user_id)
                 $exam =  $this->examResultRepository->save($exam_user_id, $question_id, $ansOption);
 
-            return;
+            return "true";
         }
 
         public function deleteResult($param)
