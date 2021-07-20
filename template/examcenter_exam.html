@@ -197,6 +197,27 @@
 
 
 
+    <!--- alert toast -->
+    <div aria-live="polite" aria-atomic="true" class="bg-dark bd-example-toasts">
+        <div class="toast-container position-absolute p-3 bottom-0 start-50 translate-middle-x" id="toastPlacement">
+            <div id = "alertToast" class="toast align-items-center text-white bg-dark border-0 " role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                  <div class="toast-body">
+                        Answer not saved. Please wait a few minutes before trying again.
+                  </div>
+                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var alertToast = new bootstrap.Toast(document.querySelector('#alertToast'), {
+            autohide: true
+        });
+        // alertToast.show();
+    </script>
+     <!--- alert toast end -->
+
 
 
     <script>
@@ -409,24 +430,6 @@
                 countDownSec--;
             },1000);
 
-            /*
-            var x = setInterval(function () {
-                duration--;
-                hr = Math.floor(duration / 60);
-                mins = duration % 60;
-                if (duration == 5){
-                    $("#timer").removeClass("btn-secondary");
-                    $("#timer").addClass("btn-danger");
-                }
-                if (duration <= 0) {
-                    clearInterval(x);
-                    submitExam(); //submit exam on duration end
-                } else {
-                    //saveDuration();
-                }
-                $("#timer").text(hr + " : " + mins);
-            }, 60000);
-            */
 
             // submit exam
             $("#submit").click(function () { 
@@ -466,7 +469,8 @@
                     url: url, type: "POST",
                     success: function (result) {
                         if (result=="true") updateExamResult(ansOption);
-                        else alert("Answer not saved. Please wait a few minutes before trying again.");
+                        else alertToast.show(); 
+                        //alert("Answer not saved. Please wait a few minutes before trying again.");
                     }
                 });
                 //updateExamResult(ansOption);
