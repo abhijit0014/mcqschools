@@ -3,6 +3,7 @@
         <div class="mb-3">
             <span class="h5">Auto Detect</span>
             <span class="text-danger d-none h6" id="duplicateQuestion"> ( Exists ) </span>
+            <button class="btn border btn-sm ms-3 float-end d-none" id="clearList">Clear List</button>
             <span id="newQuestionCount" class="ms-3 small float-end"></span>
         </div>
         <div class="mb-3">
@@ -18,9 +19,6 @@
                         <input class="form-check-input" type="checkbox" value="" name="shuffle">
                         <label class="form-check-label">Shuffle</label>
                     </span>
-                </div>
-                <div class="bd-highlight">
-                    <button class="btn border btn-sm ms-3" id="clearList">Clear List</button>
                 </div>
             </div>
             
@@ -43,6 +41,7 @@
                 localStorage.removeItem('newQuestionList');
 
             $("#newQuestionCount").text(newQuestionList.length + " question in list");
+            $("#clearList").removeClass('d-none');
         }
 
         $("#autoDetectQuestionList").change(function () {
@@ -56,10 +55,11 @@
                 $("#autoDetectQuestionList").val("");
                 $("#autoDetectQuestion").val(newQuestionList[0]);
                 newQuestionList.shift();
-                $("#newQuestionCount").text(newQuestionList.length + " question there");
+                $("#newQuestionCount").text(newQuestionList.length + " question in list");
                 localStorage.removeItem('newQuestionList');
                 localStorage.setItem('newQuestionList', JSON.stringify(newQuestionList));
                 setQuestion ();
+                $("#clearList").removeClass('d-none');
             }
         });
 
