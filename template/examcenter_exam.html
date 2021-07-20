@@ -465,15 +465,22 @@
                 ans = activeQuestionAns == ansOption ? true : false;
                 url = "/examcenter/saveResult/" + examUserId + "/" + activeQuestionId + "/" + ansOption;
                 //ajaxCall(url, "POST", 3, '');
-                $.ajax({ 
-                    url: url, type: "POST",
+                updateExamResult(ansOption);
+                // alertToast.show(); 
+                $.ajax({
+                    url: url, type: "POST", qId: activeQuestionId,
                     success: function (result) {
-                        if (result=="true") updateExamResult(ansOption);
-                        else alertToast.show(); 
-                        //alert("Answer not saved. Please wait a few minutes before trying again.");
+                    },error: function (xhr, textStatus, errorThrown) {
+                        undoAnswer(this.qId);
+                        alertToast.show(); 
                     }
                 });
-                //updateExamResult(ansOption);
+            }
+            var undoAnswer = function (questionId) {
+                examResult = $.grep(examResult, function (qust) {
+                    return qust.question_id != questionId;
+                });
+                updateQuestionOverviewList();
             }
 
             // save duration
