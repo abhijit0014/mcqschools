@@ -42,7 +42,30 @@
         </div>
     </div>
     
+
+
+
+
+    <!--- alert toast -->
+    <div aria-live="polite" aria-atomic="true" class="bg-dark bd-example-toasts">
+        <div class="toast-container position-absolute p-3 bottom-0 start-50 translate-middle-x" id="toastPlacement">
+            <div id = "reportAlertToast" class="toast align-items-center text-white bg-dark border-0 " role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                  <div class="toast-body">
+                    Report successfully sent
+                  </div>
+                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <script>
+    var reportAlertToast = new bootstrap.Toast(document.querySelector('#reportAlertToast'), {
+        autohide: true
+    });
     var reportModal = new bootstrap.Modal(document.getElementById('reportModal'), {
         keyboard: false
     });
@@ -65,15 +88,23 @@
                 type: 'post',
                 data: $("#reportForm").serialize(),
                 success: function(data) {
+                    reportModal.hide();
+                    $('#reportForm').trigger("reset");
+                    $( "#submitReportBtn" ).removeClass("disabled");
+                    reportAlertToast.show();
+                    /*
                     $("#message").removeClass("d-none");
                     $("#message").html('<span class="h5 text-success">Report successfully sent</span>');
                     
                     setTimeout(function() {
                         $("#message").addClass("d-none");
+
                         reportModal.hide();
                         $('#reportForm').trigger("reset");
                         $( "#submitReportBtn" ).removeClass("disabled");
+                        alertToast.show();
                     }, 1500);
+                    */
                 }
             });
         }
