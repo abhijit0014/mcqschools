@@ -55,7 +55,8 @@
                             <div class="row small h6">
                                 <div class="col-1">SL</div>
                                 <div class="col-3">Username</div>
-                                <div class="col-2">No Of Test</div>
+                                <div class="col-1"></div>
+                                <div class="col-1">No Of Test</div>
                                 <div class="col-2 overflow-hidden">Total Questions Attempted</div>
                                 <div class="col-2">Correct Ans</div>
                                 <div class="col-2">Score</div>
@@ -68,8 +69,23 @@
                                 <div class="col-1"><?php echo $i+1 ?></div>
                                 <div class="col-3 overflow-hidden">
                                     <?php echo $result['username'] ?>
+
+                                    <?php 
+                                        $icon = null;
+                                        if( $result['obtained_marks'] >= 1000 ){ $icon = 'star.png'; }
+                                        else if ($result['obtained_marks'] >= 700 ) { $icon = 'dimond.png'; }
+                                        else if ($result['obtained_marks'] >= 500 ) { $icon = 'gold.png'; }
+                                        else if ($result['obtained_marks'] >= 200 ) { $icon = 'silver.png'; }
+                                        else if ($result['obtained_marks'] >= 50 ) { $icon = 'bronze.png'; }
+                                        else { $icon = 'new.png'; }
+                                    ?>
+
+                                    
                                 </div>
-                                <div class="col-2">
+                                <div class="col-1">
+                                    <img src="/template/icon/rank/<?php echo $icon ?>" width="20px" alt="rank">
+                                </div>
+                                <div class="col-1">
                                     <?php echo $result['test_count'] ?>
                                 </div>
                                 <div class="col-2">
