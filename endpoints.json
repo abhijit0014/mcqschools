@@ -1,15 +1,15 @@
 [
-    { "url": "/exam/list",  "role": ["student", "admin"], "csrf": false },
-    { "url": "/exam/add", "role": ["student", "admin"], "csrf": true },
-    { "url": "/exam/edit", "role": ["student", "admin"], "csrf": true },
-    { "url": "/exam/save", "role": ["student", "admin"], "csrf": true },
+    { "url": "/exam/list",  "role": ["admin"], "csrf": false },
+    { "url": "/exam/add", "role": ["admin"], "csrf": true },
+    { "url": "/exam/edit", "role": ["admin"], "csrf": true },
+    { "url": "/exam/save", "role": ["admin"], "csrf": true },
     { "url": "/exam/results", "role": ["student", "admin"], "csrf": false },
     { "url": "/exam/subscription", "role": ["student", "admin"], "csrf": false },
 
-    { "url": "/question/list", "role": ["student", "admin"], "csrf": false },
-    { "url": "/question/add", "role": ["student", "admin"], "csrf": true },
-    { "url": "/question/edit", "role": ["student", "admin"], "csrf": true },
-    { "url": "/question/save", "role": ["student", "admin"], "csrf": true},
+    { "url": "/question/list", "role": ["admin"], "csrf": false },
+    { "url": "/question/add", "role": ["admin"], "csrf": true },
+    { "url": "/question/edit", "role": ["admin"], "csrf": true },
+    { "url": "/question/save", "role": ["admin"], "csrf": true},
 
     { "url": "/category/list",  "role": ["admin"], "csrf": false },
     { "url": "/category/add", "role": ["admin"], "csrf": true },
@@ -43,9 +43,9 @@
     { "url": "/subscription/unsubscribe",  "role": ["student", "admin"], "csrf": true },
     { "url": "/subscription/subscription_list",  "role": ["student", "admin"], "csrf": true },
         
-    { "url": "/report/list",  "role": ["student", "admin"], "csrf": true },
+    { "url": "/report/list",  "role": ["admin"], "csrf": true },
     { "url": "/report/listByCreatorId",  "role": ["student", "admin"], "csrf": true },
-    { "url": "/report/solved",  "role": ["student", "admin"], "csrf": true },
+    { "url": "/report/solved",  "role": ["admin"], "csrf": true },
 
     { "url": "/history/save",  "role": ["student", "admin"], "csrf": true },
     { "url": "/history/add",  "role": ["student", "admin"], "csrf": true },
