@@ -6,6 +6,14 @@
         Menu
     </div>
     <div class="list-group mb-2">
+        <span class="list-group-item list-group-item-action bg-light">
+            <span style=" vertical-align: 0.125em;  padding-right: 6px;">
+                <img src="/template/icon/user.svg" alt="profile">
+            </span>
+            <span class="h6">
+                <?php echo SessionManager::get('email'); ?>
+            </span>
+        </span>
         <a href="/user/profile" class="list-group-item list-group-item-action">
             <span style=" vertical-align: 0.125em;  padding-right: 6px;">
                 <img src="/template/icon/profile.svg" alt="profile">
