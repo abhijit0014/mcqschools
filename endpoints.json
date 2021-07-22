@@ -3,6 +3,8 @@
     { "url": "/exam/add", "role": ["admin"], "csrf": true },
     { "url": "/exam/edit", "role": ["admin"], "csrf": true },
     { "url": "/exam/save", "role": ["admin"], "csrf": true },
+    { "url": "/exam/delete", "role": ["admin"], "csrf": true },
+    { "url": "/exam/publish", "role": ["admin"], "csrf": true },
     { "url": "/exam/results", "role": ["student", "admin"], "csrf": false },
     { "url": "/exam/subscription", "role": ["student", "admin"], "csrf": false },
 
