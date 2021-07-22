@@ -310,8 +310,20 @@
                         <div class="list-group-item bg-hover">
                             <div class="row">
                                 <div class="col-2"><?php echo $i+1 ?></div>
-                                <div class="col-7 overflow-hidden">
+                                <div class="col-5 overflow-hidden">
                                     <?php echo $result['username'] ?>
+                                </div>
+                                <div class="col-2">
+                                    <?php 
+                                        $icon = null;
+                                        if( $result['obtained_marks'] >= 1000 ){ $icon = 'star.png'; }
+                                        else if ($result['obtained_marks'] >= 700 ) { $icon = 'dimond.png'; }
+                                        else if ($result['obtained_marks'] >= 500 ) { $icon = 'gold.png'; }
+                                        else if ($result['obtained_marks'] >= 200 ) { $icon = 'silver.png'; }
+                                        else if ($result['obtained_marks'] >= 50 ) { $icon = 'bronze.png'; }
+                                        else { $icon = 'new.png'; }
+                                    ?>
+                                    <img src="/template/icon/rank/<?php echo $icon ?>" width="20px" alt="rank">
                                 </div>
                                 <div class="col-3 text-success">
                                     <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
