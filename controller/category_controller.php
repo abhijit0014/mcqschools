@@ -64,6 +64,33 @@
             return;
         }
 
+        // test list
+        public function testList()
+        {  
+            $categorylist = $this->repository->allCategoryList();
+            $view = new view('menu_test');
+            return;
+        }
+
+        // quiz list
+        public function quizList()
+        {  
+            $categorylist = $this->repository->allCategoryList();
+            $view = new view('menu_quiz');
+            return;
+        }
+
+        // syllabus
+        public function syllabus()
+        {  
+            $categorylist = $this->repository->allCategoryList();
+            $view = new view('menu_syllabus');
+            return;
+        }
+
+
+
+
         // quiz by topic or category
         public function quiz($param)
         {

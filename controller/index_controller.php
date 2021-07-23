@@ -37,7 +37,7 @@
 
         public function test()
         {
-            $view = new view('test_index');
+            $view = new view('menu_test');
             return;
         }
 
