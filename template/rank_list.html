@@ -21,8 +21,9 @@
         
             
                 <div class="mt-4 d-flex bd-highlight">
-                    <div class="h5 flex-fill bd-highlight">
-                        Rank List (<?php echo $month ?>)
+                    <div class="flex-fill bd-highlight">
+                        <div class="h5 mb-0">Rank List</div>
+                        <div class="text-secondary small">Monthly rank list</div>
                     </div>
                     <div class="flex-fill bd-highlight">
                         <div class="input-group">
@@ -49,17 +50,17 @@
                 </div>
 
         
-                <div class="mt-3 p-2 bg-white border rounded <?php echo sizeof($resultList)>0 ? '' : 'd-none' ?>">
-                    <div class="list-group list-group-flush">
+                <div class=" overflow-auto small mt-3 p-2 bg-white border rounded <?php echo sizeof($resultList)>0 ? '' : 'd-none' ?>">
+                    <div class="list-group list-group-flush" style="min-width: 600px">
                         <div class="list-group-item">
                             <div class="row small h6">
                                 <div class="col-1">Rank</div>
-                                <div class="col-3">Username</div>
+                                <div class="col-3">Name</div>
                                 <div class="col-1"></div>
-                                <div class="col-1">No Of Test</div>
-                                <div class="col-2 overflow-hidden">Total Questions Attempted</div>
-                                <div class="col-2">Correct Ans</div>
                                 <div class="col-2">Score</div>
+                                <div class="col-1">Test</div>
+                                <div class="col-2 overflow-hidden">Question</div>
+                                <div class="col-2">Correct Ans</div>
                             </div>
                         </div>
         
@@ -67,7 +68,7 @@
                         <div class="list-group-item bg-hover">
                             <div class="row">
                                 <div class="col-1"><?php echo $i+1 ?></div>
-                                <div class="col-3 overflow-hidden">
+                                <div class="col-3 col-lg-2 overflow-hidden">
                                     <?php echo $result['username'] ?>
 
                                     <?php 
@@ -82,8 +83,11 @@
 
                                     
                                 </div>
-                                <div class="col-1">
+                                <div class="col-1 col-lg-2">
                                     <img src="/template/icon/rank/<?php echo $icon ?>" width="20px" alt="rank">
+                                </div>
+                                <div class="col-2 text-success">
+                                    <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
                                 </div>
                                 <div class="col-1">
                                     <?php echo $result['test_count'] ?>
@@ -93,9 +97,6 @@
                                 </div>
                                 <div class="col-2">
                                     <?php echo $result['correct_ans_count'] ?>
-                                </div>
-                                <div class="col-2 text-success">
-                                    <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
                                 </div>
                             </div>
                         </div>
