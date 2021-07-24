@@ -3,29 +3,35 @@
     include 'repository/questionRepository.php';
     include 'repository/historyRepository.php';
     include 'repository/examUserRepository.php';
+    include 'repository/webstatusRepository.php';
 
     class IndexController
     {
         private $repository;
         private $historyRepository;
         private $examUserRepository;
+        private $webstatusRepository;
 
         function __construct()
         {
             $this->repository = new QuestionRepository();
             $this->historyRepository = new HistoryRepository();
             $this->examUserRepository = new ExamUserRepository();
+            $this->webstatusRepository = new WebStatusRepository();
         }
 
         public function index()
         {
             $day = $this->historyRepository->getImportantDay();
             $rankList =  $this->examUserRepository->monthlyTestRank(date("Y-m-d H:i:s"),10);
+            $status = $this->webstatusRepository->get_status();
+
             $view = new view('index');
             $view->assign('today', $day);
             $view->assign('current_date', date('Y-m-d H:i:s'));
             $view->assign('category_name', null);
             $view->assign('rankList', $rankList);
+            $view->assign('status', $status);
             return;
         }
 
