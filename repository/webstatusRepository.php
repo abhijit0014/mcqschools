@@ -24,7 +24,8 @@
                 $status = R::dispense( 'webstatus' );
                 $status->user = R::count( 'users' );;
                 $status->atmp_test = R::count( 'exam_user' );
-                $status->atmp_question = R::count( 'exam_result' );
+                $quiz_attempted = R::getCell( 'SELECT sum(total_attempt) as attempted FROM question' );
+                $status->atmp_question = R::count( 'exam_result' ) + (int) $quiz_attempted;
                 $status->created_date = date('Y-m-d H:i:s'); 
                 R::store($status);
             }
