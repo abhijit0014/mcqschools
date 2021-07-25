@@ -85,7 +85,7 @@
                         header("Location: /"); exit;
                     }
 
-                    if( strpos( $_SERVER['HTTP_REFERER'], 'mcqschools.com' ) == false ){
+                    if( strpos( $_SERVER['HTTP_REFERER'], 'localhost' ) == false ){
                         header("Location: /"); exit;
                     }
                 }
