@@ -3,6 +3,7 @@
     include 'repository/userRepository.php';
     include 'repository/otpRepository.php';
     include 'service/emailService.php';
+    //include 'repository/tokenRepository.php';
 
 
     class UserController
@@ -10,12 +11,14 @@
         private $repository;
         private $emailService;
         private $otpRepository;
+        private $tokenRepository;
 
         function __construct()
         {
             $this->repository = new UserRepository();
             $this->otpRepository = new OtpRepository();
             $this->emailService = new EmailService();
+            $this->tokenRepository = new TokenRepository();
         }
 
         public function login($param)
@@ -52,8 +55,11 @@
         public function logout()
         {
             SessionManager::clear();
+            setcookie("jwt", "", time() - 3600, "/");
             header("Location: /");
         }
+
+
 
         public function login_process()
         {
@@ -70,6 +76,8 @@
                     SessionManager::set("email", $principle->email);
                     SessionManager::set("user_id", $principle->id);
                     SessionManager::set("user_role", $principle->user_role);
+
+                    $this->tokenRepository->createToken($principle);
                     header("Location: ".$_POST['redirect']); exit;
                 }
                 else{

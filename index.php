@@ -28,6 +28,7 @@
     
     // endpoint security
     $securityManager = new SecurityManager();
+    $securityManager->autoLogin();
     if ($url != '/')
     $securityManager->authenticate('/'.implode("/",$url));
 

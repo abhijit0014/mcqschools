@@ -10,7 +10,7 @@
         public function get_status()
         {
             $new_update_flag = false;
-            $status = R::findOne( 'webstatus' );
+            $status = R::findLast( 'webstatus' );
             if(empty($status)){
                 $new_update_flag = true;
             }else{
