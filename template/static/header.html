@@ -63,13 +63,8 @@
                     <span class="d-inline-block">Exam Creator</span>
                 </a>
             </div>
-            
-            <!-- DROPDOWN MENU -->
-            <div class="flex-fill bd-highlight  text-start">
-                <?php include __DIR__.'/dropdownMenu.html';?>
-            </div>
 
-            <div class="flex-fill bd-highlight text-center">
+            <div class="flex-fill bd-highlight text-start">
                 <a href="/category/testList" class="text-decoration-none text-secondary">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/practice.svg" alt="practice">
@@ -78,9 +73,18 @@
                 </a>
             </div>
 
+            <div class="flex-fill bd-highlight  text-center">
+                <a href="/examcenter/rank" class="text-decoration-none text-secondary">
+                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                        <img src="/template/icon/rank-black.svg" alt="rank">
+                    </span>
+                    <span class="">Rank</span>
+                </a>
+            </div>
+
             <?php if (!isset($_SESSION['authenticated']) ){ ?>
 
-            <div class="flex-fill bd-highlight text-end">
+            <div class="flex-fill bd-highlight text-center">
                 <a href="/user/login" class="text-decoration-none text-secondary">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/login.svg" alt="login">
@@ -99,7 +103,7 @@
 
             <?php } else { ?>
 
-            <div class="flex-fill bd-highlight text-center">
+            <div class="flex-fill bd-highlight text-end">
                 <a href="/examcenter/myresults" class="text-decoration-none text-secondary">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/result.svg" alt="result">
@@ -119,7 +123,7 @@
             </div>
             -->
 
-            <div class="flex-fill bd-highlight text-center d-none d-sm-block">
+            <div class="flex-fill bd-highlight text-end d-none d-sm-block">
                 <a href="/user/profile" class="text-decoration-none text-secondary">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/setting.svg" alt="setting">
