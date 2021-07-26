@@ -17,7 +17,7 @@
         public function add()
         {
             $category = R::dispense( 'category' );
-            $view = new view('category_form');
+            $view = new view('admin/category_form');
             $view->assign('category', $category);
             return;
         }
@@ -26,7 +26,7 @@
         {
             if(isset($param[0])){
                 $category =  $this->repository->getOne($param[0]);
-                $view = new view('category_form');
+                $view = new view('admin/category_form');
                 $view->assign('category', $category);
             }
             return;
@@ -136,7 +136,7 @@
             else
                 $categorylist = $this->repository->searchCategoryByTitle($param[0]);
                 
-            $view = new view('category_list');
+            $view = new view('admin/category_list');
             $view->assign('search_str', empty($param[0]) ? '' : $param[0]);
             $view->assign('categorylist', $categorylist);
             return;
