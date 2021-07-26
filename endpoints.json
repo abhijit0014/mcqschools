@@ -49,9 +49,11 @@
     { "url": "/report/listByCreatorId",  "role": ["student", "admin"], "csrf": true },
     { "url": "/report/solved",  "role": ["admin"], "csrf": true },
 
-    { "url": "/history/save",  "role": ["student", "admin"], "csrf": true },
-    { "url": "/history/add",  "role": ["student", "admin"], "csrf": true },
-    { "url": "/history/edit",  "role": ["student", "admin"], "csrf": true },
+    { "url": "/history/list",  "role": ["admin"], "csrf": true },
+    { "url": "/history/save",  "role": ["admin"], "csrf": true },
+    { "url": "/history/add",  "role": ["admin"], "csrf": true },
+    { "url": "/history/edit",  "role": ["admin"], "csrf": true },
+    { "url": "/history/delete",  "role": ["admin"], "csrf": true },
 
     { "url": "/admin/",  "role": ["admin"], "csrf": false }
 

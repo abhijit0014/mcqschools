@@ -47,7 +47,6 @@
                             </span>
                             -->
                         </span>
-                        <a href="/history/edit/#eventId" class="btn btn-sm border #editDisplay">Edit</a>
                     </div>
                 </div>
             </div>
@@ -57,9 +56,6 @@
 
             </div>
 
-            <div class="mt-4 mb-5 text-center d-none" id="addBtn">
-                <a href="/history/add"><button type="button" class="btn btn-primary">Add Event</button></a>
-            </div>
 
         </div>
 
@@ -77,7 +73,6 @@
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var numberOfDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     var selected_category_id = null;
-    var editAccess = parseInt('<?php echo $edit_access; ?>');
 
 
     $("#month").change(function () {
@@ -122,10 +117,8 @@
                     $template = $template.replace("#category", result.category);
                     $template = $template.replace("#eventId", result.id);
                     
-                    if(editAccess)
-                        $template = $template.replace("#editDisplay", "");
-                    else
-                        $template = $template.replace("#editDisplay", "d-none");
+
+                    $template = $template.replace("#editDisplay", "d-none");
 
                     $("#dataWindow").append($template);
                 });
@@ -159,9 +152,6 @@
         d = $("#day option:selected").text();
         $("#titleMonth").text(m);
         $("#titleDay").text(d);
-
-        if(editAccess)
-            $("#addBtn").removeClass("d-none");
     }
 
     setup();

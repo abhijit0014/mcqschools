@@ -33,6 +33,14 @@
             return R::load( 'history', $id );
         }
 
+        public function getAll()
+        {
+            return R::getAll('SELECT history.id, history.title, history.descp, history.event_date,
+            category.title as category FROM history
+            left join category on category.id = history.category_id
+            order by event_date desc');
+        }
+
         public function getByDayAndMonth($month, $day)
         {
             $list = R::getAll('SELECT history.id, history.title, history.descp, history.event_date,

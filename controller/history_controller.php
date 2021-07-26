@@ -15,26 +15,6 @@
             $this->categoryRepository = new CategoryRepository();
         }
 
-        public function day()
-        {
-            $userId = SessionManager::get("user_id");
-            $access = false;
-            if($userId==4 || $userId==7)
-                $access = true;
-
-            $view = new view('history');
-            $view->assign('edit_access', $access);
-            return;
-        }
-
-        public function getData($param) // api
-        {
-            $month = $param[0];
-            $day = $param[1];
-            $list = $this->repository->getByDayAndMonth($month, $day);
-            return json_encode($list);
-        }
-
         public function add()
         {
             $event = R::dispense( 'history' );
@@ -46,25 +26,13 @@
 
         public function save()
         {
-            $userId = SessionManager::get("user_id");
-            if($userId!=4 && $userId!=7){
-                header("Location: /history/day");
-                exit;
-            }
-
             $this->repository->save($_POST);
-            header("Location: /history/day");
+            header("Location: /history/list");
             exit;
         }
 
         public function edit($param)
         {
-            $userId = SessionManager::get("user_id");
-            if($userId!=4 && $userId!=7){
-                header("Location: /history/day");
-                exit;
-            }
-
             $event_id = $param[0];
 
             $event = $this->repository->getById($event_id);
@@ -82,6 +50,29 @@
             $this->repository->delete($event_id);
             return;
         }
+
+
+        public function day()
+        {
+            $view = new view('history');
+            return;
+        }
+
+        public function getData($param) // api
+        {
+            $month = $param[0];
+            $day = $param[1];
+            $list = $this->repository->getByDayAndMonth($month, $day);
+            return json_encode($list);
+        }  
+        
+        public function list()
+        {
+            $list = $this->repository->getAll();
+            $view = new view('admin/history_list');
+            $view->assign('historyList', $list);
+            return;
+        }        
 
     }
 
