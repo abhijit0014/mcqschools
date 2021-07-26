@@ -23,14 +23,14 @@
 <div class="mb-2 <?php echo $GLOBALS["LIVE_EXAM_ID"] ? '':'d-none' ?>">
     <div class="row m-3 p-2 pt-4 pb-4 bg-white rounded shadow-sm border ">
         <div class="col-10 col-md-7">
-            <span class="h4">WBP Constable Preliminary Mock Test - Live</span>
-            <div class="small text-secondary">10 AM - Sunday, 18th July 2021</div>
+            <span class="h4">Class 9 Physical Science Unit Test</span>
+            <div class="small text-secondary">3PM - Wednesday, 28th July 2021</div>
             <div class="d-flex bd-highlight">
                 <div class="flex-fill bd-highlight">
-                    <span class="h6">100</span> <span class="text-secondary">Question</span>
+                    <span class="h6">30</span> <span class="text-secondary">Question</span>
                 </div>
                 <div class="flex-fill bd-highlight">
-                    <span class="h6">60 </span> <span class="text-secondary">mins</span>
+                    <span class="h6">30 </span> <span class="text-secondary">mins</span>
                 </div>
             </div>
         </div>
