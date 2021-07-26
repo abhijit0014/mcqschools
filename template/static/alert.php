@@ -19,18 +19,18 @@
 <?php } ?>
 
 <!-- upcoming live exam -->
-
-<div class="mb-2 <?php echo $GLOBALS["LIVE_EXAM_ID"] ? '':'d-none' ?>">
+<?php if( $GLOBALS["LIVE_EXAM_ID"]) { ?>
+<div class="mb-2">
     <div class="row m-3 p-2 pt-4 pb-4 bg-white rounded shadow-sm border ">
         <div class="col-10 col-md-7">
-            <span class="h4">Class 9 Physical Science Unit Test</span>
-            <div class="small text-secondary">3PM - Wednesday, 28th July 2021</div>
+            <span class="h4"><?php echo $liveExam['title'] ?></span>
+            <div class="small text-secondary"><?php echo date_format(date_create($liveExam['start_time']),"h:i A - l, dS F Y"); ?> </div>
             <div class="d-flex bd-highlight">
                 <div class="flex-fill bd-highlight">
-                    <span class="h6">30</span> <span class="text-secondary">Question</span>
+                    <span class="h6"><?php echo $liveExam['number_of_question'] ?></span> <span class="text-secondary">Question</span>
                 </div>
                 <div class="flex-fill bd-highlight">
-                    <span class="h6">30 </span> <span class="text-secondary">mins</span>
+                    <span class="h6"><?php echo $liveExam['duration_mins'] ?></span> <span class="text-secondary">mins</span>
                 </div>
             </div>
         </div>
@@ -39,4 +39,5 @@
         </div>
     </div>
 </div>
+<?php } ?>
 
