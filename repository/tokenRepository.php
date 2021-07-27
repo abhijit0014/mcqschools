@@ -39,6 +39,7 @@
                 $details = R::findOne( 'login_details', ' jwt = ? ', [ $temp ] );
                 if(empty($details)) $login_details->jwt = $temp;
             }
+            $login_details->created_date = date('Y-m-d H:i:s');
             R::store($login_details);
 
             setcookie('jwt', $login_details->jwt, time() + (86400 * 15), "/");
