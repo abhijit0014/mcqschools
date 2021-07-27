@@ -71,28 +71,32 @@
             </div>
         </div>
 
-
-
+        <!-- pagination -->
         <div class="mt-3 mb-5">
             <nav>
                 <ul class="pagination justify-content-center">
                     <li class="page-item <?php echo $currentPage==1? 'disabled':'' ?>">
-                        <a class="page-link"
-                            href="/examcenter/myresults/<?php echo $currentPage-1 ?>/<?php echo $pages ?>">Prev</a>
+                        <a class="page-link" href="/examcenter/myresults/<?php echo $currentPage-1 ?>/<?php echo $pages ?>">Prev</a>
                     </li>
 
-                    <?php for($i = 1; $i <= $pages; $i++) {?>
-                    <?php if($i!=$currentPage) { ?>
-                    <li class="page-item"><a class="page-link" href="/examcenter/myresults/<?php echo $i ?>/<?php echo $pages ?>">
-                            <?php echo $i ?>
-                        </a></li>
-                    <?php } else { ?>
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link">
-                            <?php echo $i ?>
-                        </span>
-                    </li>
-                    <?php } ?>
+                    <?php 
+                    $i = 1; $limit = $pages>10 ? 10 : $pages;
+                    if($currentPage > 5) {
+                        $i = $currentPage-5;
+                        $limit = $currentPage+5 > $pages ? $pages : $currentPage+5;
+                        $i = $limit-9;
+                        if($i<1) $i=1;
+                    }
+                    for($i ; $i <= $limit; $i++) {?>
+                        <?php if($i!=$currentPage) { ?>
+                        <li class="page-item">
+                            <a class="page-link" href="/examcenter/myresults/<?php echo $i ?>/<?php echo $pages ?>"><?php echo $i ?></a>
+                        </li>
+                        <?php } else { ?>
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link"><?php echo $i ?></span>
+                        </li>
+                        <?php } ?>
                     <?php } ?>
 
                     <li class="page-item <?php echo $currentPage==$pages? 'disabled':'' ?>">

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- resource -->
+    <?php include __DIR__.'/resource/resource.php';?>
+    <title>Age calculator</title>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+    <!-- HEADER -->
+    <div class="container">
+        <div id="age"></div>
+
+    </div>
+
+
+
+
+</body>
+
+</html>
+
+
+<script>
+    var dob = new Date("01/01/1993");  
+    function getAge(dateString) {
+  var now = new Date();
+  var today = new Date(now.getYear(),now.getMonth(),now.getDate());
+
+  var yearNow = now.getYear();
+  var monthNow = now.getMonth();
+  var dateNow = now.getDate();
+
+  var dob = new Date(dateString.substring(6,10),
+                     dateString.substring(0,2)-1,                   
+                     dateString.substring(3,5)                  
+                     );
+
+  var yearDob = dob.getYear();
+  var monthDob = dob.getMonth();
+  var dateDob = dob.getDate();
+  var age = {};
+  var ageString = "";
+  var yearString = "";
+  var monthString = "";
+  var dayString = "";
+
+
+  yearAge = yearNow - yearDob;
+
+  if (monthNow >= monthDob)
+    var monthAge = monthNow - monthDob;
+  else {
+    yearAge--;
+    var monthAge = 12 + monthNow -monthDob;
+  }
+
+  if (dateNow >= dateDob)
+    var dateAge = dateNow - dateDob;
+  else {
+    monthAge--;
+    var dateAge = 31 + dateNow - dateDob;
+
+    if (monthAge < 0) {
+      monthAge = 11;
+      yearAge--;
+    }
+  }
+
+  age = {
+      years: yearAge,
+      months: monthAge,
+      days: dateAge
+      };
+
+  if ( age.years > 1 ) yearString = " years";
+  else yearString = " year";
+  if ( age.months> 1 ) monthString = " months";
+  else monthString = " month";
+  if ( age.days > 1 ) dayString = " days";
+  else dayString = " day";
+
+
+ 
+ageString = age.years + yearString + ", " + age.months + monthString + ", and " + age.days + dayString + " old.";
+
+
+  return ageString;
+}
+
+$("#age").html(getAge());
+ 
+    document.write("Age of the date entered: " + age + " years");  
+</script>
