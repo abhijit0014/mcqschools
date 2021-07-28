@@ -43,8 +43,19 @@
         <!-- HEADER -->
         <?php include __DIR__.'/static/alert.php';?>
 
-        <div class="row ps-3 pe-3">
+        <!-- ad -->
+        <?php include __DIR__.'/ad/horizontal.php';?>
 
+        <!-- Loading -->
+        <div class="d-flex justify-content-center mt-5 mb-5" id="loadingWindow">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <div class="row ps-3 pe-3 d-none" id="contentWindow">
+
+            <!-- Topic list -->
             <div class="col-12">
                 <div class="mb-3">
                     <div class="overflow-auto text-nowrap" id="topicList"></div>
@@ -53,12 +64,7 @@
 
             <div class="col-12 col-md-9">
 
-                <div class="d-flex justify-content-center mt-5 mb-5" id="loadingWindow">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-                
+                <!-- Quiz Window -->
                 <div class="d-none" id="quizWindow">
 
                     <!--quiz Title-->
@@ -247,27 +253,6 @@
                         </div>
 
                     </div>
-
-                    <!--exam list-->
-                    <div class="h5 mt-4 mb-4 text-secondary">
-                        <span style="vertical-align: 0.125em;" class="pe-2">
-                            <img src="/template/icon/topic.svg" width="20px" alt="topic">
-                        </span>
-                        <span>Exams </span>
-                    </div>
-
-                    <div class="shadow-sm rounded bg-white p-3 mb-3">
-                        <div class="" id="suggestedExamList">
-                            <!-- 
-                            <div class="bg-hover rounded p-2">
-                                <a class="text-decoration-none text-dark" href="/examcenter/start/#examId">
-                                    <div class="overflow-hidden text-nowrap h6 mb-0">#title</div>
-                                    <div class="small text-secondary"> #attempted attempted . #Qcount question</div>
-                                </a>
-                            </div>
-                            -->
-                        </div>
-                    </div>
                     
                 </div>
 
@@ -282,22 +267,34 @@
                     Try searching for another term or go back to the <a href="/">home</a>
                 </div>
 
+                <!-- Suggested Exam Window -->
+                <div class="d-none" id="suggestedExamWindow">
+                    <div class="h5 mt-4 mb-4 text-secondary">
+                        <span style="vertical-align: 0.125em;" class="pe-2">
+                            <img src="/template/icon/topic.svg" width="20px" alt="topic">
+                        </span>
+                        <span>Exams </span>
+                    </div>
+    
+                    <div class="shadow-sm rounded bg-white p-3 mb-3">
+                        <div class="" id="suggestedExamList">
+                            <!-- 
+                            <div class="bg-hover rounded p-2">
+                                <a class="text-decoration-none text-dark" href="/examcenter/start/#examId">
+                                    <div class="overflow-hidden text-nowrap h6 mb-0">#title</div>
+                                    <div class="small text-secondary"> #attempted attempted . #Qcount question</div>
+                                </a>
+                            </div>
+                            -->
+                        </div>
+                    </div>                    
+                </div>
+
+
             </div>
 
-            <div class="col-12 col-md-3 d-none" id="rankWindow">
-
-                <!--topic list-->
-                <div class="h5 mb-4 text-secondary d-none">
-                    <span style="vertical-align: 0.125em;" class="pe-2">
-                        <img src="/template/icon/topic.svg" width="20px" alt="topic">
-                    </span>
-                    <span>Topics </span>
-                </div>
-
-                <div class="shadow-sm rounded bg-white p-3 mb-3 d-none">
-                    <div class="" id="topicList"></div>
-                </div>
-                    
+            <div class="col-12 col-md-3" id="rankWindow">
+  
                  <!--Rank list-->
                  <div class="h5 mb-4 text-secondary">
                     <span style="vertical-align: 0.125em;" class="pe-2">
@@ -341,62 +338,54 @@
                     </div>
                 </div>
                 
-
             </div>
 
-        </div>
-
-    </div>
-
-    <!-- AD -->
-    <div>
-       
-    </div>
-
-    <!-- Status -->
-    <div class="container">
-        <div class="row g-2 ps-3 pe-3">
-            <div class="col-12 col-md-4">
-                <div class="d-flex small bd-highlight bg-white shadow-sm rounded p-3">
-                    <div class="bd-highlight">
-                        <span style="vertical-align: 0.125em;" class="pe-4">
-                            <img src="/template/icon/student.png" width="45px" alt="topic">
-                        </span>
-                    </div>
-                    <div class="flex-fill bd-highlight">
-                        <div class="h5"><?php echo $status->user ?> +</div>
-                        <div class="text-secondary small">Happy Students</div>
+            <!-- Status -->
+            <div class="row g-2 ps-2">
+                <div class="col-12 col-md-4">
+                    <div class="d-flex small bd-highlight bg-white shadow-sm rounded p-3">
+                        <div class="bd-highlight">
+                            <span style="vertical-align: 0.125em;" class="pe-4">
+                                <img src="/template/icon/student.png" width="45px" alt="topic">
+                            </span>
+                        </div>
+                        <div class="flex-fill bd-highlight">
+                            <div class="h5"><?php echo $status->user ?> +</div>
+                            <div class="text-secondary small">Happy Students</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="d-flex small bd-highlight bg-white shadow-sm rounded p-3">
-                    <div class="bd-highlight">
-                        <span style="vertical-align: 0.125em;" class="pe-4">
-                            <img src="/template/icon/test.png" width="45px" alt="topic">
-                        </span>
-                    </div>
-                    <div class="flex-fill bd-highlight">
-                        <div class="h5"><?php echo $status->atmp_test ?> +</div>
-                        <div class="text-secondary small">Tests Taken</div>
+                <div class="col-12 col-md-4">
+                    <div class="d-flex small bd-highlight bg-white shadow-sm rounded p-3">
+                        <div class="bd-highlight">
+                            <span style="vertical-align: 0.125em;" class="pe-4">
+                                <img src="/template/icon/test.png" width="45px" alt="topic">
+                            </span>
+                        </div>
+                        <div class="flex-fill bd-highlight">
+                            <div class="h5"><?php echo $status->atmp_test ?> +</div>
+                            <div class="text-secondary small">Tests Taken</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="d-flex small bd-highlight bg-white shadow-sm rounded p-3">
-                    <div class="bd-highlight">
-                        <span style="vertical-align: 0.125em;" class="pe-4">
-                            <img src="/template/icon/question.png" width="45px" alt="topic">
-                        </span>
-                    </div>
-                    <div class="flex-fill bd-highlight">
-                        <div class="h5"><?php echo $status->atmp_question ?> +</div>
-                        <div class="text-secondary small">Questions Practiced</div>
+                <div class="col-12 col-md-4">
+                    <div class="d-flex small bd-highlight bg-white shadow-sm rounded p-3">
+                        <div class="bd-highlight">
+                            <span style="vertical-align: 0.125em;" class="pe-4">
+                                <img src="/template/icon/question.png" width="45px" alt="topic">
+                            </span>
+                        </div>
+                        <div class="flex-fill bd-highlight">
+                            <div class="h5"><?php echo $status->atmp_question ?> +</div>
+                            <div class="text-secondary small">Questions Practiced</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+
 
 
     <!-- FOOTER -->
@@ -589,6 +578,8 @@
                 url: "/question/question_list_api",
                 success: function (result) {
                     $("#loadingWindow").addClass("d-none");
+                    $("#contentWindow").removeClass("d-none");
+                    
                     if (!result.question_list.length) {
                         $("#notFoundWindow").removeClass("d-none");
                     }
@@ -611,7 +602,6 @@
                         });
                         Cookies.set('config_categories', config_categories.toString(), { expires: 700 });
                     }
-                    $("#rankWindow").removeClass("d-none");
                 }
             });
         }
@@ -735,6 +725,7 @@
                 data: JSON.stringify(cat),
                 url: "/exam/suggestedExamsApi",
                 success: function (result) {
+                    $("#suggestedExamWindow").removeClass("d-none");
                     result.forEach(exam => {
                         $("#suggestedExamList").append(getExamTemplate(exam));
                     });
