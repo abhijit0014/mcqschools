@@ -26,7 +26,7 @@
         public function index()
         {
             $day = $this->historyRepository->getImportantDay();
-            $rankList =  $this->examUserRepository->monthlyTestRank(date("Y-m-d H:i:s"),5);
+            $rankList =  $this->examUserRepository->monthlyTestRank(date("Y-m-d H:i:s"),10);
             $status = $this->webstatusRepository->get_status();
             $liveExam = $this->examRepository->getOne($GLOBALS['LIVE_EXAM_ID']);
 
