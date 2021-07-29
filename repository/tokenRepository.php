@@ -27,7 +27,7 @@
             
             R::store($login_details);
 
-            setcookie('jwt', $login_details->jwt, time() + (86400 * 15), "/");
+            setcookie('jwt', $login_details->jwt, time() + (86400 * 30), "/");
             return  $login_details->jwt;
         }
 
@@ -42,7 +42,7 @@
             $login_details->created_date = date('Y-m-d H:i:s');
             R::store($login_details);
 
-            setcookie('jwt', $login_details->jwt, time() + (86400 * 15), "/");
+            setcookie('jwt', $login_details->jwt, time() + (86400 * 30), "/");
             return $login_details->jwt;
         }       
     }
