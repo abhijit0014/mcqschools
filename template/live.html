@@ -18,16 +18,16 @@
     <div class="container">
 
         <!-- AD -->
-        <div class="row m-1 mt-5">
-            <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto">
-                <div class="small mb-5 text-secondary align-justify d-none">
+        <div class="row m-1 mt-3">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6 m-auto">
+                <div class="small mb-2 text-secondary align-justify d-none">
                     We are going to conduct a live mock test on <?php echo date_format(date_create($exam->start_time),"l, dS F Y, h:i A"); ?> 
                     with the help of Brilliant Coaching Center. 
                     Please make sure you have an mcqschool account before you appear for mock test. If you don't have an account please register.
                 </div>
             </div>
             <div class="col-12"></div>
-            <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto border rounded-3 shadow-sm">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6 m-auto border rounded-3 shadow-sm">
                 <div class="row">
                     <div class="col-12 col-lg-12 text-center mb-2 p-3 bg-success text-white rounded-top">
                         <div class="h3">Brilliant Coaching Center</div>
@@ -82,8 +82,8 @@
 
         <!-- EXAM-->
         <div class="row">
-            <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto">
-                <div class="mt-5 border rounded shadow-sm">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6 m-auto">
+                <div class="mt-2 border rounded shadow-sm">
                     <div class="p-3">
                         <div class="d-flex bd-highlight">
                             <div class="flex-fill bd-highlight">
@@ -134,10 +134,10 @@
 
         <!-- Rank List -->
         <div class="row">
-            <div class="col-10 col-md-6 col-lg-6 col-xl-6 m-auto <?php echo sizeof($toppers)>5 ? '' : 'd-none' ?>">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6 m-auto <?php echo sizeof($toppers)>5 ? '' : 'd-none' ?>">
         
             
-                <div class="mt-4">
+                <div class="mt-4 ps-2 pe-2">
                     <div class="d-flex bd-highlight">
                         <div class="pe-2 flex-fill bd-highlight h5">Rank List</div>
                         <div class="flex bd-highlight">
@@ -151,7 +151,7 @@
                     <div class="list-group list-group-flush">
                         <div class="list-group-item">
                             <div class="row small h6">
-                                <div class="col-2">SL</div>
+                                <div class="col-2">Rank</div>
                                 <div class="col-7">Name</div>
                                 <div class="col-3">Marks</div>
                             </div>
