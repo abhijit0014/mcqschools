@@ -31,14 +31,8 @@
     <!-- BODY -->
     <div class="container mt-4 mb-5">
 
-        <div class="d-flex justify-content-center mt-5 mb-5" id="loadingWindow">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-
         <div class="row ps-3 pe-3">
-            <div class="col-12 col-md-9 mb-3">
+            <div class="col-12 col-md-8 mb-3">
                 
                 <div class="d-none" id="quizWindow">
 
@@ -243,9 +237,16 @@
                     Try searching for another term or go back to the <a href="/">home</a>
                 </div>
 
+                <!-- loading -->
+                <div class="d-flex justify-content-center mt-5 mb-5" id="loadingWindow">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="col-12 col-md-3 d-none" id="topicWindow">
+            <div class="col-12 col-md-4" id="topicWindow">
 
                 <!--topic list-->
                 <div class="h5 mb-4 text-secondary">
@@ -259,7 +260,10 @@
                     <div class="" id="topicList"></div>
                 </div>
                     
-                
+                <!-- AD -->
+                <div class="mt-2">
+                    <?php include __DIR__.'/ad/square.php';?>
+                </div>
 
             </div>
 
@@ -480,7 +484,7 @@
                         });
                         Cookies.set('config_categories', config_categories.toString(), { expires: 700 });
                     }
-                    $("#topicWindow").removeClass("d-none");
+                    //$("#topicWindow").removeClass("d-none");
                 }
             });
         }
