@@ -3,6 +3,9 @@
 // maximum exam user can add per day
 $LIVE_EXAM_ID = 0;
 
+// live exam stop after x mins from start time
+$LIVE_EXAM_ACTIVE_DURATION = 60;
+
 // maximum exam user can add per day
 $EXAM_ADITION_LIMIT_PER_DAY = 20;
 

@@ -14,6 +14,7 @@
 
     <!-- BODY -->
     <?php if( $GLOBALS["LIVE_EXAM_ID"] ){ ?>
+
     <div class="container">
 
         <!-- AD -->
@@ -122,7 +123,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-3 d-grid <?php echo $min_diff < 61 ? '' : 'd-none' ?>">
+                    <div class="mt-3 d-grid <?php echo $exam_stop_flag ? 'd-none' : '' ?>">
                         <button id="startButton" class="btn btn-success" style="border-radius: 0 0 3px 3px;" disabled></button>
                     </div>
                 </div>
@@ -177,9 +178,10 @@
         </div>
 
     </div>
-    <?php } ?>
+
+    <?php } else { ?>
     
-    <div class="container <?php echo $GLOBALS["LIVE_EXAM_ID"] ? 'd-none':'' ?>">
+    <div class="container">
         <div class="text-center pt-5">
             <div class="mb-3">
                 <img src="/template/icon/online-test.png" alt="online-test" width="100px">
@@ -190,6 +192,11 @@
             <a href="/creator/info/live" class="btn btn-primary"> Previous Exams </a>
         </div>
     </div>
+
+    <?php } ?>
+
+
+
 
     <!-- FOOTER -->
     <?php include __DIR__.'/static/footer.html';?>

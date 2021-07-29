@@ -55,7 +55,8 @@
             $toppers = [];
             $current_time = 0;
             $start_time = 0;
-            $min_diff = 0;
+            //$min_diff = 0;
+            $exam_stop_flag = false;
 
             if($live_exam_id)
             {
@@ -77,6 +78,9 @@
                         R::store( $exam );
                     }
                 }
+
+                if($min_diff > $GLOBALS["LIVE_EXAM_ACTIVE_DURATION"] )
+                    $exam_stop_flag = true;
             }
 
             $view = new view('live');
@@ -84,7 +88,7 @@
             $view->assign('toppers', $toppers);
             $view->assign('current_time',  $current_time);
             $view->assign('start_time',   $start_time);
-            $view->assign('min_diff',   $min_diff);
+            $view->assign('exam_stop_flag',   $exam_stop_flag);
             return;
         }
 
