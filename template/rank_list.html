@@ -19,8 +19,12 @@
         <div class="row">
             <div class=" ">
         
-            
-                <div class="mt-4 d-flex bd-highlight">
+                <!-- AD -->
+                <div class="mt-3 p-2" style="background-color: #DCDCDC;">
+                    <?php include __DIR__.'/ad/banner.php';?>
+                </div>
+
+                <div class="mt-2 d-flex bd-highlight">
                     <div class="flex-fill bd-highlight">
                         <div class="h5 mb-0">Rank List</div>
                         <div class="text-secondary small">Monthly rank list</div>
@@ -47,11 +51,6 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                
-                <!-- AD -->
-                <div class="mt-1 p-2" style="background-color: #DCDCDC;">
-                    <?php include __DIR__.'/ad/inFeed.php';?>
                 </div>
         
                 <div class=" overflow-auto small mt-3 p-2 bg-white border rounded <?php echo sizeof($resultList)>0 ? '' : 'd-none' ?>">

@@ -208,6 +208,10 @@
         </div>
 
 
+        <!-- AD -->
+        <div class="mt-3">
+            <?php include __DIR__.'/ad/banner.php';?>
+        </div>
 
         <!-- Toppers List -->
         <div class="col <?php echo sizeof($toppers)>2 ? '' : 'd-none' ?>">
@@ -255,10 +259,6 @@
         <div class="h6"><?php echo date_format(date_create($exam->end_time),"d F Y, h:i A"); ?></div>
     </div>
 
-    <!-- AD -->
-    <div class="container mt-2">
-        <?php include __DIR__.'/ad/banner.php';?>
-    </div>
 
 
 
