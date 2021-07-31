@@ -2,98 +2,98 @@
 <html lang="en">
 
 <head>
-    <!-- resource -->
-    <?php include __DIR__.'/resource/resource.php';?>
-    <title>Age calculator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title>Age Calculator</title>
 </head>
 
 <body>
-
     <!-- HEADER -->
     <?php include __DIR__.'/static/header.html';?>
 
-    <!-- HEADER -->
+
+    <!-- BODY -->
     <div class="container">
-        <div id="age"></div>
+
+        <!-- AD -->
+        <div class="mt-3 mb-1">
+            <?php include __DIR__.'/ad/horizontal.php';?>
+        </div>
+
+        <div class="row mt-4">
+
+            <!-- age calculator -->
+            <div class="col-12 col-md-9 mb-3">
+
+                <div class="border-bottom pb-3 h5">
+                    Age Calculator
+                </div>
+                <div>
+                    <form id="ageCalculatorForm">
+                        <div id="result" class="text-center h5 pt-2"></div>
+                        <div class="mb-2">
+                            <label class="form-label">Date of Birth</label>
+                            <input name="dob" type="date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Age on Date</label>
+                            <input name="toDate"  type="date" class="form-control">
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-sm btn-primary ps-3 pe-3">Calculate</button>
+                            <button type="reset" class="btn btn-sm btn-primary ps-3 pe-3" id="reset" >Clear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Side Bar -->
+            <div class="col-12 col-md-3 mb-3">
+                <?php include __DIR__.'/static/tool_sidebar.html';?>
+            </div>
+
+        </div>
 
     </div>
-
-
-
-
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+    $( "#ageCalculatorForm" ).submit(function( event ) {
+        event.preventDefault();
+
+        dobStr = $("#ageCalculatorForm :input[name='dob']").val(); 
+        toDateStr = $("#ageCalculatorForm :input[name='toDate']").val(); 
+        
+        var startDate = moment(dobStr);
+        var endDate = moment(toDateStr);
+
+        var year = endDate.diff(startDate, 'years');
+        startDate.add(year, 'years');
+        var month = endDate.diff(startDate, 'months');
+        startDate.add(month, 'months');
+        var day = endDate.diff(startDate, 'days', false);
+
+        $('#result').html(year+' year '+ month + ' month '+ day +' day old');
+    });
+
+</script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-KPXYFG7WZV');
+    </script>
 
 </html>
-
-
-<script>
-    var dob = new Date("01/01/1993");  
-    function getAge(dateString) {
-  var now = new Date();
-  var today = new Date(now.getYear(),now.getMonth(),now.getDate());
-
-  var yearNow = now.getYear();
-  var monthNow = now.getMonth();
-  var dateNow = now.getDate();
-
-  var dob = new Date(dateString.substring(6,10),
-                     dateString.substring(0,2)-1,                   
-                     dateString.substring(3,5)                  
-                     );
-
-  var yearDob = dob.getYear();
-  var monthDob = dob.getMonth();
-  var dateDob = dob.getDate();
-  var age = {};
-  var ageString = "";
-  var yearString = "";
-  var monthString = "";
-  var dayString = "";
-
-
-  yearAge = yearNow - yearDob;
-
-  if (monthNow >= monthDob)
-    var monthAge = monthNow - monthDob;
-  else {
-    yearAge--;
-    var monthAge = 12 + monthNow -monthDob;
-  }
-
-  if (dateNow >= dateDob)
-    var dateAge = dateNow - dateDob;
-  else {
-    monthAge--;
-    var dateAge = 31 + dateNow - dateDob;
-
-    if (monthAge < 0) {
-      monthAge = 11;
-      yearAge--;
-    }
-  }
-
-  age = {
-      years: yearAge,
-      months: monthAge,
-      days: dateAge
-      };
-
-  if ( age.years > 1 ) yearString = " years";
-  else yearString = " year";
-  if ( age.months> 1 ) monthString = " months";
-  else monthString = " month";
-  if ( age.days > 1 ) dayString = " days";
-  else dayString = " day";
-
-
- 
-ageString = age.years + yearString + ", " + age.months + monthString + ", and " + age.days + dayString + " old.";
-
-
-  return ageString;
-}
-
-$("#age").html(getAge());
- 
-    document.write("Age of the date entered: " + age + " years");  
-</script>
