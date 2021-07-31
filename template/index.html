@@ -199,13 +199,13 @@
                         <div class=" mt-4 pt-2">
                             <div class="row">
                                 <div class="col">
-                                    <span id="prev" class="btn btn-sm btn-secondary">Prev</span>
+                                    <span id="prev" class="btn btn-sm btn-secondary ps-3 pe-3">Prev</span>
                                 </div>
                                 <div class="col text-center text-secondary">
-                                    <span id="skip" class="btn btn-sm btn-light">Skip</span>
+                                    <span id="skip" class="btn btn-sm btn-light ps-3 pe-3">Skip</span>
                                 </div>
                                 <div class="col text-end">
-                                    <span class="btn btn-sm btn-primary" id="next">Next</span>
+                                    <span class="btn btn-sm btn-primary ps-3 pe-3" id="next">Next</span>
                                 </div>
                             </div>
                         </div>
@@ -275,7 +275,7 @@
                         <span style="vertical-align: 0.125em;" class="pe-2">
                             <img src="/template/icon/topic.svg" width="20px" alt="topic">
                         </span>
-                        <span>Exams </span>
+                        <span>Suggested Tests</span>
                     </div>
     
                     <div class="shadow-sm rounded bg-white p-3 mb-3">
@@ -288,6 +288,9 @@
                                 </a>
                             </div>
                             -->
+                        </div>
+                        <div class="p-2 text-end">
+                                <a href="/category/testList" class="text-decoration-none small">more test</a>
                         </div>
                     </div>                    
                 </div>
@@ -310,6 +313,14 @@
                 </div>
 
                 <div class="shadow-sm rounded bg-white p-3 list-group list-group-flush small">
+                    <div class="list-group-item h6 mb-0 small">
+                        <div class="row">
+                            <div class="col-2">Rank</div>
+                            <div class="col-5 overflow-hidden">Name</div>
+                            <div class="col-2"></div>
+                            <div class="col-3">Score</div>
+                        </div>
+                    </div>
                     <?php foreach ($rankList as $i=> $result) { ?>
                         <div class="list-group-item bg-hover">
                             <div class="row">
@@ -338,8 +349,8 @@
 
                     <div class="d-flex bd-highlight p-3 text-secondary">
                         <div class="pe-2 flex-fill bd-highlight">Current month rank</div>
-                        <div class="flex-fill bd-highlight text-center">
-                            <a href="/examcenter/rank" class="text-decoration-none">more</a>
+                        <div class="flex-fill bd-highlight text-end">
+                            <a href="/examcenter/rank" class="text-decoration-none">full list</a>
                         </div>
                     </div>
 
