@@ -524,13 +524,13 @@
             } else {
                 mcqQuestionType = undefined;
 
-                if (question_list[current_question].total_attempt < 20)
+                if (question_list[current_question].total_attempt < 15)
                     mcqQuestionType = 'New';
                 else {
                     strength = (question_list[current_question].correct_attempt / question_list[current_question].total_attempt) * 100;
-                    if (strength <= 30) mcqQuestionType = 'Easy';
-                    else if (strength <= 65) mcqQuestionType = 'Average';
-                    else mcqQuestionType = 'Advanced';
+                    if (strength <= 30) mcqQuestionType = 'Advanced';
+                    else if (strength <= 60) mcqQuestionType = 'Average';
+                    else mcqQuestionType = 'Easy';
                 }
 
                 if (mcqQuestionType) {
