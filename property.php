@@ -10,7 +10,7 @@ $LIVE_EXAM_ACTIVE_DURATION = 60;
 $EXAM_ADITION_LIMIT_PER_DAY = 20;
 
 // maximum question user can add per day
-$QUESTION_ADITION_LIMIT_PER_DAY = 150;
+$QUESTION_ADITION_LIMIT_PER_DAY = 200;
 
 // maximum unsolved report limit
 $UNSOLVED_REPORT_LIMIT = 5;
