@@ -21,13 +21,13 @@
     <!-- BODY -->
     <div class="container mt-4 <?php echo sizeof($examlist)>0 ? '' : 'd-none' ?>">
 
+        <!-- AD -->
+        <div class="mb-2">
+            <?php include __DIR__.'/ad/banner.php';?>
+        </div>
+
         <div class="h5 text-secondary">
             My Results
-        </div>
-        
-        <!-- AD -->
-        <div class="mt-1 p-2" style="background-color: #DCDCDC;">
-            <?php include __DIR__.'/ad/inFeed.php';?>
         </div>
 
         <!-- exam List -->
@@ -120,4 +120,15 @@
     <?php include __DIR__.'/static/footer.html';?>
 </body>
 
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-KPXYFG7WZV');
+    </script>
+    
 </html>
