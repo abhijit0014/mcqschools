@@ -134,6 +134,7 @@
                         </div>
 
                         <div class="h6"><pre id="question">Question</pre></div>
+                        <div><img src="" id="questionImg"></div>
                         <div id="optionTable">
                             <div id="option1" class="border bg-hover rounded p-2 ps-3  mt-5">option 1</div>
                             <div id="option2" class="border bg-hover rounded p-2 ps-3  mt-2">option 2</div>
@@ -298,6 +299,14 @@
             // set question
             var updateQuestion = function (questionObj) {
                 $("#question").html(convert_special_html_characters(questionObj.question));
+                if(questionObj.question_img){
+                    $("#questionImg").show();
+                    $('#questionImg').attr('src', '/'+questionObj.question_img);
+                }else{
+                    $('#questionImg').hide();
+                    $('#questionImg').attr('src', '');
+                }
+
                 $("#option1").text(questionObj.option_one);
                 $("#option2").text(questionObj.option_two);
                 $("#option3").text(questionObj.option_three);

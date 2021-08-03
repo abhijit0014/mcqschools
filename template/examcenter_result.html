@@ -6,6 +6,11 @@
     <?php include __DIR__.'/resource/resource.php';?>
     <script src="/template/resource/chart.js"></script>
     <title><?php echo $exam->title ?> - Result</title>
+    <script>
+        $(document).ready(function () {
+            $("code").parent().addClass("flex-column align-items-start");
+        });
+    </script>
 </head>
 
 <body>
@@ -151,6 +156,13 @@
                     aria-labelledby="heading<?php echo $i?>" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="row pl-4 pr-2">
+
+                            <?php if($question['question_img']){ ?>
+                                <div class="col-12">
+                                    <img src="<?php echo '/'.$question['question_img'] ?>" alt="">
+                                </div>
+                            <?php } ?>
+
                             <div class="col-12 col-md-6">
                                 <span class="text-secondary">a. </span>
                                 <span class="<?php echo $question['ans']==1 ?'text-success' : 'text-danger' ?>">
