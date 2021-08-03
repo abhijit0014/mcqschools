@@ -18,7 +18,7 @@
         <!-- question form -->
         <div class="row">
             <div class="col-12 col-md-8 col-lg-6 m-auto">
-                <form action="/question/save" method="post">
+                <form action="/question/save" method="post" enctype="multipart/form-data">
                     <input name="id" type="hidden" value="<?php echo $question->id ?>">
                     <input name="exam_id" type="hidden" value="<?php echo $question->exam_id ?>">
                     <input name="categoryId" type="hidden" id="categoryId" value="<?php echo $question->category_id ?>">
@@ -31,6 +31,24 @@
                     </div>
 
                     <div class="form-group mt-2" id="qstOptions">
+                        
+                        <input class="form-check-input" name="deleteImg" type="hidden" value="false">
+                        <?php if($question->question_img){ ?>
+                            <div class="bg-light text-center" id="questionImgWindow">
+                                <img src="<?php echo '/'.$question->question_img ?>" alt="">
+                                <div class="form-check p-2 bg-light">
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-sm btn-info" type="button" id="deleteImgBtn">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+
+                        <div class="mt-2 mb-2">
+                            <label class="small">Question Image</label>
+                            <input class="form-control" type="file" name="questionImg" >
+                        </div>
+
                         <label class="small">Options</label>
 
                         <div class="input-group mb-3">
@@ -140,6 +158,12 @@
         var autocompleteList = [];
         var timer = 0;
         $(document).ready(function () {
+
+            // delete image -------------------------------------------------------------------
+            $("#deleteImgBtn").click(function () {
+                $('input[name=deleteImg]').val('true');
+                $("#questionImgWindow").hide();
+            });
 
             // ctegory -------------------------------------------------------------------------
 

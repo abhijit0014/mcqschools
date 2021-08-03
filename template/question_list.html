@@ -97,6 +97,11 @@
                                     <?php echo (($i+1)+($currentPage*10)-10 ) ?>
                                 </span>
                                 <pre><?php echo convert($question['question']) ?></pre>
+                                <div class="">
+                                    <?php if($question['question_img']){ ?>
+                                        <img src="<?php echo '/'.$question['question_img'] ?>" alt="">
+                                    <?php } ?>
+                                </div>
                             </div>
                             <div class="">
                                 <div class="p-1 ">

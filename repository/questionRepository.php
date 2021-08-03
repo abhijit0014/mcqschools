@@ -35,6 +35,19 @@
             $question->ans = $obj['ans'];
             $question->category_id = $obj['categoryId'];
 
+            if($obj['deleteImg']=="true"){
+                if($question->question_img)
+                    if(unlink($question->question_img))
+                        $question->question_img = "";
+            }
+
+            if(!empty($_FILES['questionImg']['name'])) {
+                require_once __DIR__.'/../service/fileUpload.php';
+                if($question->question_img){
+                    unlink($question->question_img);
+                }
+                $question->question_img = uploadFile();
+            }
 
             $id = R::store( $question );
             return $id;
@@ -47,6 +60,11 @@
 
         public function delete($id)
         {
+            $question = R::load('question', $id);
+            if($question->question_img){
+                unlink($question->question_img);
+            }
+
             R::exec('DELETE FROM exam_result WHERE question_id = ? ',array($id));
             R::trash( 'question', $id );
         }
