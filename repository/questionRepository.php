@@ -129,7 +129,7 @@
 
         public function questionListByCategoryId($page, $limit, $category_id)
         {
-            return R::getAll('SELECT id, question, option_four, option_one, option_three, option_two, ans, total_attempt, correct_attempt FROM question WHERE category_id = '.$category_id.' ORDER BY RAND() LIMIT '.(($page-1)*$limit).', '.$limit);
+            return R::getAll('SELECT id, question, question_img, option_four, option_one, option_three, option_two, ans, total_attempt, correct_attempt FROM question WHERE category_id = '.$category_id.' ORDER BY RAND() LIMIT '.(($page-1)*$limit).', '.$limit);
         }
 
     }

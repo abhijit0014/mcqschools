@@ -125,11 +125,12 @@
                         </div>
 
                         <!-- Question -->
-                        <div class="h6 mb-4">
+                        <div class="h6 mb-2">
                             <pre id="questionDisplay">
                                 Question
                             </pre>
                         </div>
+                        <div class="mb-4"><img src="" id="questionImg"></div>
 
                         <!-- Ans -->
                         <form id="quizOptionForm">
@@ -415,6 +416,15 @@
 
 
                     $("#questionDisplay").html(convert_special_html_characters(question_list[current_question].question));
+                    
+                    if(question_list[current_question].question_img){
+                        $("#questionImg").show();
+                        $('#questionImg').attr('src', '/'+question_list[current_question].question_img);
+                    }else{
+                        $('#questionImg').hide();
+                        $('#questionImg').attr('src', '');
+                    }
+
                     $("#optionOneDisplay").text(question_list[current_question].option_one);
                     $("#optionTwoDisplay").text(question_list[current_question].option_two);
                     $("#optionThreeDisplay").text(question_list[current_question].option_three);
