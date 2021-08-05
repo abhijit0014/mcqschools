@@ -66,12 +66,12 @@
                 date_default_timezone_set('Asia/Kolkata');
 
                 $current_time = date('Y-m-d H:i:s');
-                //$start_time = date("Y-m-d H:i:s", $exam_start_time);
                 $start_time = date("Y-m-d H:i:s",  strtotime($exam->start_time));
+                $end_time = date("Y-m-d H:i:s",  strtotime($exam->end_time));
 
                 // auto publish before 5min
-                $min_diff = round((strtotime($current_time) - strtotime($start_time)) / 60,0);
                 if(!$exam->published){
+                    $min_diff = round((strtotime($current_time) - strtotime($start_time)) / 60,0);
                     if($min_diff > -10){
                         $exam->published = true;
                         $exam->created_date = date('Y-m-d H:i:s');
@@ -79,7 +79,9 @@
                     }
                 }
 
-                if($min_diff > $GLOBALS["LIVE_EXAM_ACTIVE_DURATION"] )
+                // exam stop
+                $min_diff = round((strtotime($end_time) - strtotime($current_time)) / 60,0);
+                if($min_diff < 1 )
                     $exam_stop_flag = true;
             }
 

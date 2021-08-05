@@ -49,7 +49,7 @@
             if($exam->start_time)
             $exam->start_time = date('Y-m-d\TH:i', strtotime($exam->start_time));
             if($exam->end_time)
-            $exam->end_time = date('Y-m-d\TH:i', strtotime($exam->start_time));
+            $exam->end_time = date('Y-m-d\TH:i', strtotime($exam->end_time));
 
             $view = new view('exam_form');
             $view->assign('exam', $exam);
