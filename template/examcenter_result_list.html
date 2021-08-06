@@ -17,16 +17,15 @@
     <!-- HEADER -->
     <?php include __DIR__.'/static/header.html';?>
 
+    <!-- AD -->
+    <div class="mt-2 text-center">
+        <?php include __DIR__.'/ad/leaderboard.php';?>
+    </div>
 
     <!-- BODY -->
     <div class="container mt-4 <?php echo sizeof($examlist)>0 ? '' : 'd-none' ?>">
 
-        <!-- AD -->
-        <div class="mt-1 mb-5 text-center">
-            <?php include __DIR__.'/ad/leaderboard.php';?>
-        </div>
-
-        <div class="h5 text-secondary">
+        <div class="h5 ps-3 text-secondary">
             My Results
         </div>
 
