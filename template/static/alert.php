@@ -20,7 +20,7 @@
 
 <!-- upcoming live exam -->
 <?php if( $GLOBALS["LIVE_EXAM_ID"]) { ?>
-<div class="mb-2">
+<div class="mb-3">
     <div class="row m-1 p-2 pt-4 pb-4 bg-white rounded shadow-sm border ">
         <div class="col-10 col-md-7">
             <span class="h4"><?php echo $liveExam['title'] ?></span>
