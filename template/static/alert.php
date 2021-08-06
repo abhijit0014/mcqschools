@@ -1,7 +1,7 @@
 <!-- Important Day -->
 <?php if(!empty($today)) { ?>
 <div class="mb-2">
-    <div class="row m-3 p-2 pt-3 pb-4 bg-white rounded shadow-sm">
+    <div class="row m-1 p-2 pt-3 pb-4 bg-white rounded shadow-sm">
         <div class="col-12 col-md-4">
             <span class="h4 text-success"><?php echo $today[0]['title'] ?></span>
             <div class="small"><?php echo date("l, d F Y", strtotime($current_date)); ?></div>
@@ -21,7 +21,7 @@
 <!-- upcoming live exam -->
 <?php if( $GLOBALS["LIVE_EXAM_ID"]) { ?>
 <div class="mb-2">
-    <div class="row m-3 p-2 pt-4 pb-4 bg-white rounded shadow-sm border ">
+    <div class="row m-1 p-2 pt-4 pb-4 bg-white rounded shadow-sm border ">
         <div class="col-10 col-md-7">
             <span class="h4"><?php echo $liveExam['title'] ?></span>
             <div class="small text-secondary"><?php echo date_format(date_create($liveExam['start_time']),"h:i A - l, dS F Y"); ?> </div>
