@@ -285,10 +285,12 @@
                             <div class="bg-hover rounded p-2">
                                 <a class="text-decoration-none text-dark" href="/examcenter/start/#examId">
                                     <div class="overflow-hidden text-nowrap h6 mb-0">#title</div>
-                                    <div class="small text-secondary"> #attempted attempted . #Qcount question</div>
+                                    <div class="small text-secondary"> #attempted attempts</div>
+                                    <div class="small text-secondary">#Qcount questions | #QDuration mins</div>
+                                    <div class="h6 text-success mt-1">Attempt <img src="/template/icon/next.svg" alt=""></div>
                                 </a>
                             </div>
-                            -->
+                           -->
                         </div>
                         <div class="p-2 text-end">
                                 <a href="/category/testList" class="text-decoration-none small">more test</a>
@@ -782,11 +784,12 @@
         }
 
         function getExamTemplate(exam) {
-            str =  '<div class="bg-hover rounded p-2"> <a class="text-decoration-none text-dark" href="/examcenter/start/#examId"> <div class="overflow-hidden text-nowrap h6 mb-0">#title</div> <div class="small text-secondary"> #attempted attempted . #Qcount question</div> </a> </div>';
+            str =  '<div class="bg-hover rounded p-2"> <a class="text-decoration-none text-dark" href="/examcenter/start/#examId"> <div class="overflow-hidden text-nowrap h6 mb-0">#title</div> <div class="small text-secondary"> #attempted attempts</div> <div class="small text-secondary">#Qcount questions | #QDuration mins</div> <div class="h6 text-success mt-1">Attempt <img src="/template/icon/next.svg" alt=""></div> </a> </div>';
             str = str.replace("#examId",exam.id);
             str = str.replace("#title",exam.title);
             str = str.replace("#attempted",exam.attemped);
             str = str.replace("#Qcount",exam.number_of_question);
+            str = str.replace("#QDuration",exam.duration_mins);
             return str;
         }
 
