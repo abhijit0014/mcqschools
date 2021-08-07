@@ -87,6 +87,7 @@
                     <div class="p-3">
                         <div class="d-flex bd-highlight">
                             <div class="flex-fill bd-highlight">
+                                <span class="badge bg-success <?php echo date_create($exam->end_time) < date_create()? 'd-none': '' ?>">Live</span>
                                 <div class="h5">
                                     <?php echo $exam->title ?>
                                 </div>

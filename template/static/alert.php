@@ -21,21 +21,26 @@
 <!-- upcoming live exam -->
 <?php if( $GLOBALS["LIVE_EXAM_ID"]) { ?>
 <div class="mb-3">
-    <div class="row m-1 p-2 pt-4 pb-4 bg-white rounded shadow-sm border ">
+    <div class="row m-1 p-2 pt-4 pb-4 alert alert-info shadow-sm border border-info ">
         <div class="col-10 col-md-7">
-            <span class="h4"><?php echo $liveExam['title'] ?></span>
-            <div class="small text-secondary"><?php echo date_format(date_create($liveExam['start_time']),"h:i A - l, dS F Y"); ?> </div>
+            <span class="badge bg-success <?php echo date_create($liveExam['end_time']) < date_create()? 'd-none': '' ?>">Live</span>
+            <div class="h4"><?php echo $liveExam['title'] ?></div>
+            <div class="small h6 text-secondary"><?php echo date_format(date_create($liveExam['start_time']),"l, dS F Y"); ?> </div>
             <div class="d-flex bd-highlight">
                 <div class="flex-fill bd-highlight">
-                    <span class="h6"><?php echo $liveExam['number_of_question'] ?></span> <span class="text-secondary">Question</span>
+                    <span class="h6 small">Starts On : <?php echo date_format(date_create($liveExam['start_time']),"h:i A"); ?></span> 
                 </div>
                 <div class="flex-fill bd-highlight">
-                    <span class="h6"><?php echo $liveExam['duration_mins'] ?></span> <span class="text-secondary">mins</span>
+                    <span class="h6 small">Ends On : <?php echo date_format(date_create($liveExam['end_time']),"h:i A"); ?></span> 
                 </div>
-            </div>
+            </div>            
         </div>
         <div class="col-12 col-md-4 text-end">
-            <a href="/examcenter/live" class="d-grid text-decoration-none"><button class="btn border border-primary mt-3">Details</button></a>
+            <a href="/examcenter/live" class="d-grid text-decoration-none">
+                <button class="btn border border-secondary mt-3">
+                    <?php echo date_create($liveExam['end_time']) < date_create()? 'Result': 'Details' ?>
+                </button>
+            </a>
         </div>
     </div>
 </div>
