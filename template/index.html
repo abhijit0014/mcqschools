@@ -48,7 +48,22 @@
             <!-- Topic list -->
             <div class="col-12">
                 <div class="mb-3">
-                    <div class="overflow-auto text-nowrap" id="topicList"></div>
+                    <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 g-2 pb-2 flex-row flex-nowrap overflow-auto" id="topicList">
+                        <!-- 
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <p class="h6 small m-0">#title</p>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="/category/quiz/#url" class="text-decoration-none">
+                                        <span class="text-success h6 small m-0">Start Quiz <img src="/template/icon/next.svg" alt=""></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
                 </div>
             </div>
 
@@ -747,7 +762,16 @@
             config_categories.forEach(item => {
                 $("#topicList").append(getTopicHtml(item));
             });
-            $("#topicList").append('<a href="/category/browse" class="btn btn-sm border bg-light rounded-pill ps-3 pe-3">All Categories</a>');
+            //$("#topicList").append('<a href="/category/browse" class="btn btn-sm border bg-light rounded-pill ps-3 pe-3">All Categories</a>');
+        }
+
+        // topic template
+        function getTopicHtml(item) {
+            str = '<div class="col"> <div class="card h-100"> <div class="card-body"> <p class="h6 m-0 small">#title</p> </div> <div class="card-footer"> <a href="/category/quiz/#url" class="text-decoration-none"> <span class="text-success h6 m-0 small">Start Quiz <img src="/template/icon/next.svg" alt=""></span> </a> </div> </div> </div>';
+            str = str.replace("#url",item.replaceAll(" ", "-"));
+            str = str.replace("#title",item);
+            //if (current_category === item)
+            return str;
         }
 
         function shuffle(array) {
@@ -901,15 +925,6 @@
                 }
             });
             $(element).parent().parent().remove();
-        }
-
-
-        // topic template
-        function getTopicHtml(item) {
-            if (current_category === item)
-                return '<a href="#" class="btn btn-primary btn-sm rounded-pill mt-1 mb-1 me-1">' + item + '</a>';
-            else
-                return '<a href="/category/quiz/' + item.replaceAll(" ", "-") + '" class="btn btn-sm border rounded-pill mt-1 mb-1 me-1">' + item + '</a>';
         }
 
     </script>
