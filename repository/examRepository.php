@@ -114,16 +114,16 @@
         public function listOfSuggestedExams($category_ids)
         {
             $list = null;
-            /*
-            $user_id = SessionManager::get("user_id");
-            $list = R::getAll("SELECT * FROM projectdb.exam where category_id in 
-                                (select exam.category_id from exam_user
-                                left join exam on exam_user.exam_id = exam.id
-                                where exam_user.user_id = "+ $user_id +")
-                                order by id desc limit 15");
-            */
 
-            if(count($category_ids))
+            $user_id = SessionManager::get("user_id");
+            if($user_id && count($category_ids)){
+                $list = R::getAll("SELECT exam.id, title, attemped, number_of_question, duration_mins
+                FROM exam  Left JOIN exam_user on exam.id = exam_user.exam_id and exam_user.user_id = '.$user_id.'
+                WHERE category_id IN (" .implode(',',$category_ids). ") and 
+                exam_user.user_id Is NULL and enabled = true and published = true order by rand() limit 10");                
+            }
+
+            if(!$list && count($category_ids))
             $list = R::getAll("SELECT id,title,attemped,number_of_question, duration_mins FROM exam 
                                 WHERE category_id IN (" .implode(',',$category_ids). ")
                                 and enabled = true and published = true order by rand() limit 10");
@@ -138,7 +138,15 @@
         // list by category id -------------------------------------------------------
         public function listByCategoryId($page, $limit, $categoryId)
         {
-            $list=R::getAll('select * from exam WHERE category_id = '.$categoryId.' AND published = true and enabled = true ORDER BY created_date DESC LIMIT '.(($page-1)*$limit).', '.$limit);
+            $user_id = SessionManager::get("user_id");
+            if(!$user_id) $user_id = 0;
+
+            $list=R::getAll('select exam.id, title, number_of_question, duration_mins, attemped, created_date,
+            exam_user.user_id from exam 
+            Left JOIN exam_user on exam_user.exam_id = exam.id and exam_user.user_id = '.$user_id.'
+            WHERE  exam.category_id = '.$categoryId.' AND exam.published = true and exam.enabled = true 
+            ORDER BY created_date DESC LIMIT '.(($page-1)*$limit).', '.$limit);
+
             return $list;
         }
 
