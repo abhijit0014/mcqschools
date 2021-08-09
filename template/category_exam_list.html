@@ -170,7 +170,7 @@
                             $template = $template.replace("#examId", result.id);
                             $template = $template.replace("#examId", result.id);
                             $template = $template.replace("#examId2", result.id);
-                            if(result.user_id) $template = $template.replace("#titleColor", "text-secondary");
+                            if(result.submitted) $template = $template.replace("#titleColor", "text-secondary");
                             else $template = $template.replace("#titleColor", " ");
                             $("#examList").append($template);
                         });

@@ -87,38 +87,36 @@
 
         <!-- EXAM-->
         <div class="row ps-2 pe-2">
-            <div class="col-12 col-md-6 col-lg-6 col-xl-6 m-auto border rounded shadow-sm mt-3 p-3">
-
-                <div class="d-flex bd-highlight">
-                    <span class="badge bg-success <?php echo date_create($exam->end_time) < date_create()? 'd-none': '' ?>">Live</span>
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6 m-auto border rounded shadow-sm mt-3 p-0">
+                <div class="p-3">
+                    <span class="badge bg-success <?php echo date(" Y-m-d H:i:s", strtotime($liveExam['start_time']))>
+                        date('Y-m-d H:i:s') && date("Y-m-d H:i:s", strtotime($liveExam['end_time'])) < date('Y-m-d H:i:s') ? ' '
+                            : 'd-none' ?>">Live</span>
                     <div class="h5"><?php echo $exam->title ?></div>
-                </div>
+                    <div class="text-secondary small"><?php echo $exam->descp ?></div>
 
-                <div class="text-secondary small">
-                    <?php echo $exam->descp ?>
-                </div>
-                <div class="border-top mb-1 mt-4"></div>
-                <div class="text-center p-2 text-secondary mb-3">
-                    <div class="row">
-                        <div class="col">
-                            <div class="h6">
-                                <?php echo $exam->number_of_question ?>
+                    <div class="border-top mb-1 mt-4"></div>
+                    <div class="text-center p-2 text-secondary">
+                        <div class="row">
+                            <div class="col">
+                                <div class="h6">
+                                    <?php echo $exam->number_of_question ?>
+                                </div>
+                                <div class="small">Question</div>
                             </div>
-                            <div class="small">Question</div>
-                        </div>
-                        <div class="col border-start">
-                            <div class="h6">
-                                <?php echo $exam->duration_mins ?> Mins
+                            <div class="col border-start">
+                                <div class="h6">
+                                    <?php echo $exam->duration_mins ?> Mins
+                                </div>
+                                <div class="small">Duration</div>
                             </div>
-                            <div class="small">Duration</div>
                         </div>
                     </div>
                 </div>
-                <div class="mt-3 d-grid <?php echo $exam_stop_flag ? 'd-none' : '' ?>">
-                    <button id="startButton" class="btn btn-success" style="border-radius: 0 0 3px 3px;"
-                        disabled></button>
+                <div class="d-grid <?php echo $exam_stop_flag ? 'd-non' : '' ?>">
+                    <button id="startButton" class="btn btn-success" style="border-radius: 0 0 3px 3px;" disabled></button>
                 </div>
-
+                
             </div>
         </div>
 

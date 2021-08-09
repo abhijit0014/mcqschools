@@ -23,7 +23,7 @@
 <div class="mb-3">
     <div class="row m-1 p-2 pt-4 pb-4 alert alert-info shadow-sm border border-info ">
         <div class="col-10 col-md-7">
-            <span class="badge bg-success <?php echo date_create($liveExam['end_time']) < date_create()? 'd-none': '' ?>">Live</span>
+            <span class="badge bg-success <?php echo date("Y-m-d H:i:s",  strtotime($liveExam['start_time'])) > date('Y-m-d H:i:s') && date("Y-m-d H:i:s",  strtotime($liveExam['end_time'])) < date('Y-m-d H:i:s') ? ' ': 'd-none' ?>">Live</span>
             <div class="h4"><?php echo $liveExam['title'] ?></div>
             <div class="small h6 text-secondary"><?php echo date_format(date_create($liveExam['start_time']),"l, dS F Y"); ?> </div>
             <div class="d-flex bd-highlight">
