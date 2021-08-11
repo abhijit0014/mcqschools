@@ -184,7 +184,10 @@
                 <div id="questionWindow">
                     <!-- list edit -->
                     <div id="questionListInputWindow">
-                        <div class="small text-secondary">Question List Input</div>
+                        <div class="small text-secondary mt-2 mb-2">
+                            Question List Input
+                            <button class="btn btn-sm border btn-light float-end" id="questionListFilterBtn">Filter</button>
+                        </div>
                         <div class="mb-2">
                             <textarea class="form-control" id="autoDetectQuestionList" rows="14"></textarea>
                         </div>   
@@ -293,6 +296,7 @@
         // ## QUESTION ##
 
         // submit question list --------------------------------------------------------
+        $('#questionListFilterBtn').on("click",function(e) {filterQuestionList(); });
         $("#submitQuestionList").click(function () {
             questionList = $("#autoDetectQuestionList").val().trim().split("\n\n");
             if (questionList.length) {
@@ -416,13 +420,37 @@
             question = {
                 title: questionTitle,
                 option1: option1,
-                option2: option1,
-                option3: option1,
-                option4: option1,
+                option2: option2,
+                option3: option3,
+                option4: option4,
                 ans: ans
             };
             
             return question;
+        }
+
+
+
+
+
+        // filter question List
+        var ansWords = ["answer: option", "answer", "Answer", "ans key", "option", "ans", "Ans", "ANS"];
+        function filterQuestionList() {
+            list = $("#autoDetectQuestionList").val().trim().split("\n");
+            newList = '';
+            list.forEach(line => {
+                if(line.trim()){
+                    ans_flag = false;
+                    ansWords.forEach(element => {
+                        if (line.indexOf(element) == 0)
+                            ans_flag = true;
+                    });
+
+                    if(ans_flag) newList = newList + line + "\n\n";
+                    else newList = newList + line + "\n";
+                }
+            });
+            $("#autoDetectQuestionList").val(newList);
         }
 
         // validate option
