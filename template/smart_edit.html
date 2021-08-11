@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title>Smart Edit</title>
+</head>
+
+<body>
+    <!-- Heading -->
+    <div class="bg-light pt-2 pb-2 mb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <span class="h5">Smart Edit</span>
+                </div>
+                <div class="col text-end">
+                    <span class="h6">
+                        <?php echo $email ?>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row g-5">
+            <!-- Info -->
+            <div class="col-3">
+                <div class="h5 border-bottom border-primary pt-1 pb-2 text-secondary">Info</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span class="small text-secondary">Exam Details</span>
+                        <span class="float-end text-success small h6" id="displayExamSubmit">  </span>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="small text-secondary">Total Questions</span>
+                        <span class="float-end" id="displayQuestionList"> 0 </span>
+                    </li>
+                    <li class="list-group-item">
+                        <!-- slot  -->
+                        <div class="form-group mt-2 mb-2">
+                            <div class="row">
+                                <div class="col-3">
+                                    <label class="small">Slot</label>
+                                    <input id="slot" name="slot" type="text" class="form-control" value="1" disabled>
+                                </div>
+                                <div class="col-9">
+                                    <label class="small">Question per slot</label>
+                                    <input id="question_per_slot" name="question_per_slot" type="text" class="form-control" value="10" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <button class="btn btn-sm btn-primary ps-3 pe-3" id="startSubmitProcess">Submit</button>
+                    </li>
+                </ul>
+                <div id="successLink" class="mt-3">
+                </div>
+            </div>
+
+            <!----------------------------------------- Edit---------------------------------------->
+            <div class="col-9">
+                <!-- nev bar -->
+                <div class="border-bottom border-primary pb-2 mb-3">
+                    <span class="h5 me-3" id="examBtn">Exam</span>
+                    <span class="h5" id="questionBtn">Question</span>
+                </div>
+
+                <!-- Exam edit -->
+                <div id="examWindow">
+                    <form id="examForm">
+                        <input name="id" type="hidden" value="">
+                        <input name="category_id" type="hidden" id="categoryId" value="">
+
+                        <div class="row">
+                            <div class="col-12 ">
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <!-- title input -->
+                                        <div class="col">
+                                            <label class="small">Title</label>
+                                            <input name="title" type="text" class="form-control form-control"
+                                                placeholder="Title" minlength="3" maxlength="100" autocomplete="off"
+                                                required value="">
+                                        </div>
+                                        <!-- category input -->
+                                        <div class="col" style="position: relative">
+                                            <label class="small">Category</label>
+                                            <ul class="list-group list-group-flush bg-white border border-primary shadow-sm rounded"
+                                                id="autocompleteResult"
+                                                style="position: absolute; top: 65px; bottom:auto; left: auto; right: auto; z-index: 100; width: 100%; display: none;">
+                                            </ul>
+                                            <input name="categoryName" id="categorySearchQuery" type="text"
+                                                class="form-control" placeholder="Category" autocomplete="off" value=""
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- descp input -->
+                                <div class="form-group mt-2">
+                                    <label class="small">Description</label>
+                                    <textarea name="descp" type="text" class="form-control" placeholder="Description"
+                                        maxlength="250"></textarea>
+                                </div>
+
+                                <!-- point input -->
+                                <div class="form-group mt-2 mb-2">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="small">Point</label>
+                                            <input name="point" type="text" class="form-control" value="1"
+                                                autocomplete="off" required>
+                                        </div>
+                                        <div class="col">
+                                            <label class="small">Negative Point</label>
+                                            <input name="negative_point" type="text" class="form-control" value=".25"
+                                                autocomplete="off" required>
+                                        </div>
+                                        <div class="col">
+                                            <label class="small">Duration</label>
+                                            <div class="input-group mb-3">
+                                                <input name="duration_mins" type="number" max="240" min="10"
+                                                    class="form-control" value="10" required>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">Min</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                               
+
+                                <!-- time input -->
+                                <div class="small text-secondary">
+                                    <span class="border p-1 ps-3 pe-3 rounded-pill" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseExample">Advanced</span>
+                                </div>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="form-group mt-2">
+                                        <label class="small">Exam Start Time</label>
+                                        <input name="start_time" type="datetime-local" class="form-control" value=""
+                                            autocomplete="off">
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label class="small">Result Publish Time</label>
+                                        <input name="end_time" type="datetime-local" class="form-control" value=""
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <!-- close or save changes -->
+                                <div class="mt-4 pt-3 border-top">
+                                    <div class="row">
+                                        <div class="col">
+                                            <?php if(!empty($exam->id)) { ?>
+                                            <a id="delete" href="/exam/delete/<?php echo $exam->id ?>"
+                                                class="btn btn-sm btn-light">Delete</a>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-sm btn-primary float-end">Save</button>
+                                            <a th:href="@{ '/creator' }"
+                                                class="btn btn-sm btn-secondary float-end me-1">Close</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Question Edit -->
+                <div id="questionWindow">
+                    <!-- list edit -->
+                    <div id="questionListInputWindow">
+                        <div class="small text-secondary">Question List Input</div>
+                        <div class="mb-2">
+                            <textarea class="form-control" id="autoDetectQuestionList" rows="14"></textarea>
+                        </div>   
+                        <div class="d-flex bd-highlight">
+                            <div class="flex-fill bd-highlight">
+                                <span class="ps-2 pe-2 small">
+                                    <input class="form-check-input" type="checkbox" value="" name="shuffle">
+                                    <label class="form-check-label">Shuffle</label>
+                                </span>
+                            </div>
+                            <div class="bd-highlight">
+                                <button class="btn btn-sm btn-primary ps-3 pe-3" id="submitQuestionList">Submit List</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- single question edit -->
+                    <div id="questionCorrectionWindow">
+                        <div class="small text-secondary">Question Correction</div>
+                        <div class="mb-2">
+                            <textarea class="form-control" id="questionCorrectionInput" rows="10"></textarea>
+                        </div>   
+                        <div class="d-flex bd-highlight">
+                            <div class="flex-fill bd-highlight">
+                            </div>
+                            <div class="bd-highlight">
+                                <button class="btn btn-sm btn-primary ps-3 pe-3" id="submitQuestionCorrection">Correct</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- question list -->
+                    <div id="questionListPrintWindow">
+                        <div>
+                            <button class="btn btn-sm btn-light border" id="openQuestionInputList">Question Input List</button>
+                        </div>
+                        <ul class="list-group list-group-flush" id="questionListDisplayWindow">
+                            <li class="list-group-item">An item</li>
+                        </ul>
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var examTitle = null;
+        var examDescp = null;
+        var examCategory = null;
+        var examCategoryId = null;
+        var examPoint = null;
+        var examNegativePoint = null;
+        var examDuration = null;
+
+        var slot = 1;
+        var questionPerSlot = 10;
+        var totalQuestion = 0;
+
+        var questionList = [];
+        var questionObjList = [];
+        var questionPointer = 0;
+
+        // nav button -------------------------------------------------
+        $("#questionWindow").hide();
+        $("#questionListPrintWindow").hide();
+        $("#questionCorrectionWindow").hide();
+
+        $("#examBtn").click(function(){
+            $("#examWindow").show();
+            $("#questionWindow").hide();
+        });
+        $("#questionBtn").click(function(){
+            $("#examWindow").hide();
+            $("#questionWindow").show();
+        });
+        $("#openQuestionInputList").click(function(){
+            $("#questionListPrintWindow").hide();
+            $("#questionListInputWindow").show();
+        });
+
+        // exam form - submit  --------------------------------------------
+        $('#examForm').submit(function(e) {
+            e.preventDefault();
+            examTitle = $("#examForm :input[name='title']").val();
+            $("#displayExamTitle").text(examTitle);
+            examDescp = $("#examForm :input[name='descp']").val();
+            examCategory = $("#examForm :input[name='categorySearchQuery']").val();
+            examCategoryId = $("#examForm :input[name='category_id']").val();
+            examPoint = $("#examForm :input[name='point']").val();
+            examNegativePoint = $("#examForm :input[name='negative_point']").val();
+            examDuration = $("#examForm :input[name='duration_mins']").val();
+            $("#displayExamSubmit").text("Added");
+        });
+
+        // slot -----------------------------------------------------------------
+        $('#question_per_slot').on("keyup",function(e) {
+            questionPerSlot = $(this).val();
+            if(totalQuestion)
+                slot = Math.floor(totalQuestion / questionPerSlot);
+            $("#slot").val(slot);
+        });
+
+        // ## QUESTION ##
+
+        // submit question list --------------------------------------------------------
+        $("#submitQuestionList").click(function () {
+            questionList = $("#autoDetectQuestionList").val().trim().split("\n\n");
+            if (questionList.length) {
+                if ($('input[name=shuffle]:checked'))
+                questionList = shuffle(questionList);
+                $("#questionListInputWindow").hide();
+                verifyQuestionList();
+            }
+        });
+
+        // array suffel
+        function shuffle(array) {
+            var currentIndex = array.length,  randomIndex;
+            while (0 !== currentIndex) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        // verify Question List -------------------------------------------
+        var correctionQuestionIndex = 0;
+        function verifyQuestionList () {
+            var questionListVerifiedFlag = true;
+            questionObjList = [];
+            for (index = 0; index < questionList.length; index++) {
+                result = verifyQuestion(questionList[index]);
+                if(!result){
+                    $("#questionCorrectionWindow").show();
+                    $("#questionCorrectionInput").val(questionList[index]);
+                    correctionQuestionIndex = index;
+                    questionListVerifiedFlag = false;
+                    break;
+                }else{
+                    questionObjList.push(result);
+                }
+            }
+            if(questionListVerifiedFlag){
+                totalQuestion = questionObjList.length;
+                slot = Math.floor(totalQuestion / questionPerSlot);
+                $("#slot").val(slot);
+                $("#displayQuestionList").text(totalQuestion);
+
+                $("#questionCorrectionWindow").hide();
+                $("#questionListPrintWindow").show();
+                printQuestionList();
+            }
+        }
+
+        // submit corrected question -------------------------------------------
+        $("#submitQuestionCorrection").click(function(){
+            if(verifyQuestion ($("#questionCorrectionInput").val()) ){
+                questionList[correctionQuestionIndex] = $("#questionCorrectionInput").val();
+                $("#questionCorrectionInput").val("");
+            }
+            verifyQuestionList();
+        });
+
+        // print question list -----------------------------------------------
+        function printQuestionList(){
+            $("#questionListDisplayWindow").empty();
+            i = 0;
+            questionObjList.forEach(element => {
+                template = '<li class="list-group-item mt-2"><div class="h6">#title</div><div>A. #option1</div><div>B. #option2</div><div>C. #option3</div><div>D. #option4</div><div>ANS: #ans</div></li>';
+                template = template.replace("#title", (++i)+". "+ element.title);
+                template = template.replace("#option1", element.option1);
+                template = template.replace("#option2", element.option2);
+                template = template.replace("#option3", element.option3);
+                template = template.replace("#option4", element.option4);
+                template = template.replace("#ans", element.ans);
+                $("#questionListDisplayWindow").append(template);
+                        
+            });
+        }
+
+
+        var option1Match = ["(A)", "(a)", "A)", "a)", "A.", "a.", "A -", "a -", "1.", "১.", "(ক)"];
+        var option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2.", "২.", "(খ)"];
+        var option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3.", "৩.", "(গ)"];
+        var option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4.", "৪.", "(ঘ)"];
+        var optionAnsMatch = ["answer: option", "answer", "ans key", "option", "ans"];
+
+        function verifyQuestion (str_question) 
+        {
+            var questionVerifiedFlag = false;
+            var questionTitle = '';
+            var option1, option2, option3, option4, ans = null;
+            var text = str_question.split("\n");
+          
+            // verify minimum line
+            if(text.length < 4) return false;
+
+            // get question
+            var i = 0;
+            for (i = 0; i < text.length; i++) {
+                if (isOption(text[i], text[i + 1], text[i + 2], text[i + 3])){
+                    break;
+                }else
+                    questionTitle += '\n' + text[i];
+            };
+
+            questionTitle = questionTitle.trim()
+            if(!questionTitle) return false;
+
+            // get option
+            option1 = validateOption(text[i], "option1");
+            option2 = validateOption(text[++i], "option2");
+            option3 = validateOption(text[++i], "option3");
+            option4 = validateOption(text[++i], "option4");
+            if(!option1 && !option2 && !option3 && !option4) return false;
+
+            //$("#questionStr").val(questionTitle.trim());
+            //checkDuplicateQuestion(questionTitle.trim());
+
+            // get ans
+            ans = getAns(text[++i]);
+            if(!ans) return false;
+
+            question = {
+                title: questionTitle,
+                option1: option1,
+                option2: option1,
+                option3: option1,
+                option4: option1,
+                ans: ans
+            };
+            
+            return question;
+        }
+
+        // validate option
+        function validateOption(str, selector) {
+            result = undefined;
+            badTextArray = [];
+            str = str.trim();
+            if (selector == 'option1') badTextArray = option1Match;
+            else if (selector == 'option2') badTextArray = option2Match;
+            else if (selector == 'option3') badTextArray = option3Match;
+            else if (selector == 'option4') badTextArray = option4Match;
+            
+            if (str);
+            badTextArray.forEach(element => {
+                if (str.indexOf(element) == 0) {
+                    if (!result)
+                        result = str.replace(element, "").trim();
+                }
+            });
+
+            return result;
+        }
+
+        // check for option
+        function isOption(line1, line2, line3, line4) 
+        {
+            var line1_flag, line2_flag, line3_flag, line4_flag = false;
+            line1 = line1.trim();
+            line2 = line2.trim();
+            line3 = line3.trim();
+            line4 = line4.trim();
+
+            option1Match.forEach(element => {
+                if (line1.indexOf(element) == 0)
+                    line1_flag = true;
+            });
+            option2Match.forEach(element => {
+                if (line2.indexOf(element) == 0)
+                    line2_flag = true;
+            });
+            option3Match.forEach(element => {
+                if (line3.indexOf(element) == 0)
+                    line3_flag = true;
+            });
+            option4Match.forEach(element => {
+                if (line4.indexOf(element) == 0)
+                    line4_flag = true;
+            });
+
+            if (line1_flag && line2_flag && line3_flag && line4_flag) 
+                return true;
+            
+            return false;
+        } 
+        
+        // get ans
+        function getAns(answare)
+        {
+            if (!answare) return false;
+            answare = answare.toLowerCase();
+
+            result = undefined;
+            optionAnsMatch.forEach(element => {
+                if (answare.indexOf(element) == 0) {
+                    if (!result)
+                        result = answare.replace(element, "").trim();
+                }
+            });
+            
+            ans = result.replace(/[&\/\\#,+()$~%.'":*?<>{}=_-]/g, '').trim();
+            if (ans == 1 ||  ans == 'a' || ans == '১' || ans == 'ক') return 1;
+            if (ans == 2 ||  ans == 'b' || ans == '২' || ans == 'খ') return 2;
+            if (ans == 3 ||  ans == 'c' || ans == '৩' || ans == 'গ') return 3;
+            if (ans == 4 ||  ans == 'd' || ans == '৪' || ans == 'ঘ') return 4;
+
+            return false;
+        }
+
+        // ## exam and question add---------------------------------------------------------------
+
+        // start submit process --------------------
+        var currentExamSlot = 0;
+        $("#startSubmitProcess").click(function () {
+
+            if(!examTitle && !examDescp && !examCategoryId && !examPoint && !examNegativePoint && !examDuration ){
+                alert("Fillup all details of exam form"); return false;
+            }else if(questionObjList.length<10){
+                alert("Please add questions"); return false;
+            }else{
+                addExamSlots();
+            }
+        });
+
+        // add exam --------------------------
+        function addExamSlots() 
+        {
+            for (i = 0; i < slot; i++) {
+                exam = {
+                    title: examTitle,
+                    descp: examDescp,
+                    category_id: examCategoryId,
+                    point: examPoint,
+                    negative_point: examNegativePoint,
+                    duration_mins: examDuration,
+                };
+
+                index = i * 10;
+                qList = questionObjList.slice(index, index + 10);
+
+                examSlot = {
+                    exam: exam,
+                    questions: qList
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify(examSlot),
+                    url: "/smartedit/addExamSlotApi",
+                    success: function (response) {
+                        template = '<div><a href="/question/list/#examId">#examTitle</a></div>';
+                        template = template.replace("#examTitle",examTitle);
+                        template = template.replace("#examId",response);
+                        $("#successLink").append(template);
+                    }
+                });
+            }
+        }
+
+
+    </script>
+
+
+
+
+
+
+    <!-- Input Category -->
+    <script>
+
+        var autocompleteList = [];
+        var timer = 0;
+        $("#categorySearchQuery").keyup(function () {
+            if (timer) { clearTimeout(timer); }
+            timer = setTimeout(categoryQuerySuggest, 400);
+        });
+
+        function categoryQuerySuggest() {
+            searchStr = $("#categorySearchQuery").val();
+            if (searchStr.length > 0) {
+                $("#categoryId").val(0);
+                $.ajax({
+                    type: 'GET',
+                    //dataType: 'JSON',
+                    url: "/category/autocomplete/" + searchStr,
+                    success: function (result) {
+                        result = JSON.parse(result);
+                        $("#autocompleteResult").show();
+                        $("#autocompleteResult").empty();
+                        autocompleteList = result;
+                        $.each(result, function (key, obj) {
+                            $("#autocompleteResult").append('<li class="list-group-item grayHover p-2"><a href="#" class="text-decoration-none d-block text-dark">' + obj.title + '</a></li>');
+                        });
+                        if (result.length == 0)
+                            $("#autocompleteResult").hide();
+                    }
+                });
+            } else {
+                $("#autocompleteResult").hide();
+            }
+        }
+
+
+        $("body").on("click", "ul#autocompleteResult li", function () {
+            catStr = $(this).text().trim();
+            $.each(autocompleteList, function (key, value) {
+                if (catStr == value.title) {
+                    $("#categorySearchQuery").val(catStr);
+                    $("#categoryId").val(value.id);
+                }
+            });
+            $("#autocompleteResult").hide();
+        });
+        $("body").on("click", function () {
+            $("#autocompleteResult").hide();
+        });
+
+    </script>    
+</body>
+
+</html>

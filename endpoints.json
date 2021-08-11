@@ -55,7 +55,8 @@
     { "url": "/history/edit",  "role": ["admin"], "csrf": true },
     { "url": "/history/delete",  "role": ["admin"], "csrf": true },
 
-    { "url": "/admin/",  "role": ["admin"], "csrf": false }
+    { "url": "/admin/",  "role": ["admin"], "csrf": false },
+    { "url": "/smartedit/",  "role": ["admin"], "csrf": false }
 
 ]
 

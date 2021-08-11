@@ -29,6 +29,15 @@
             header("Location: /admin/questionReportList");
             exit;
         }
+
+        // smart edit ----------------------------------------------
+        public function smart_edit()
+        {
+            $view = new view('admin/smart_edit');
+            $view->assign('email', SessionManager::get("email"));
+            return;
+        }
+
         // exam report ---------------------------------------------
         public function examReportList($param)
         {
