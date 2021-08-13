@@ -9,7 +9,7 @@
     questions and answers for interview, competitive examination and entrance test. ">
 </head>
 
-<body class="bg-light">
+<body class="">
 
     <!-- HEADER -->
     <?php include __DIR__.'/static/header.html';?>
@@ -17,231 +17,214 @@
 
     <!-- BODY -->
     <div class="container">
-        
+
         <!-- AD -->
         <div class="mt-2 text-center">
             <?php include __DIR__.'/ad/leaderboard.php';?>
         </div>
 
         <!-- heading -->
-        <div class="h6 mt-3 mb-3 text-secondary">
-            <a href="/category/testList"
-                class="border-bottom border-2 border-primary pb-1 me-2 text-decoration-none text-secondary">Test</a>
-            <a href="/category/quizList"
-                class="border-bottom border-2 border-light pb-1 me-2 text-decoration-none text-secondary">Quiz</a>
-            <a href="/category/syllabus"
-                class="border-bottom border-2 border-light pb-1 me-2 text-decoration-none text-secondary">Syllabus</a>
-            <a href="/category/browse" class="btn btn-sm border-primary rounded-pill ps-3 pe-3 float-end">All
-                Categories</a>
+        <div class="mt-3 mb-3">
+            <a href="/category/testList" class="btn btn-sm border rounded-pill ps-3 pe-3 bg-light">Test</a>
+            <a href="/category/quizList" class="btn btn-sm border rounded-pill ps-3 pe-3 bg-light">Quiz</a>
+            <a href="/category/syllabus" class="btn btn-sm border rounded-pill ps-3 pe-3 bg-light">Syllabus</a>
+            <a href="/category/browse" class="btn btn-sm border rounded-pill ps-3 pe-3 bg-light">All Categories</a>
         </div>
 
         <!-- new Menu-->
         <div class="accordion" id="accordionExample">
-            <div class="row g-2 row-cols-1 row-cols-md-2 row-cols-lg-3 mt-2">
 
-                <!-- col 1-->
-                <div class="col">
-                    <!-- WBP-->
-                    <div class="accordion-item mb-2">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseWBP" aria-expanded="true" aria-controls="collapseWBP">
-                                <div class="d-flex bd-highlight">
-                                    <div class="bd-highlight">
-                                        <span style="vertical-align: 0.125em;" class="me-4">
-                                            <img src="/template/icon/exam.svg" alt="test" width="25px">
-                                        </span>
-                                    </div>
-                                    <div class="flex-fill bd-highlight">
-                                        <div class="h6 mb-0">West Bengal Police (WBP)</div>
-                                        <div class="small text-secondary">Test series</div>
-                                    </div>
-                                </div>
-                            </button>
-                        </h2>
-                        <div id="collapseWBP" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/West-Bengal-Police-(WBP)-Examination"
-                                            class="text-decoration-none text-dark"> WBP Test Series</a>
-                                    </li>
-                                </ul>
+            <!-- WBP-->
+            <div class="accordion-item">
+                <h2 class="accordion-header bg-white" id="headingOne">
+                    <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseWBP" aria-expanded="true" aria-controls="collapseWBP">
+                        <div class="d-flex bd-highlight">
+                            <div class="bd-highlight">
+                                <span style="vertical-align: 0.125em;" class="me-4">
+                                    <img src="/template/icon/exam.svg" alt="test" width="25px">
+                                </span>
+                            </div>
+                            <div class="flex-fill bd-highlight">
+                                <div class="h6 mb-0">West Bengal Police (WBP)</div>
+                                <div class="small text-secondary">Test series</div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Nursing -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseNursing" aria-expanded="true" aria-controls="collapseNursing">
-                                <div class="d-flex bd-highlight">
-                                    <div class="bd-highlight">
-                                        <span style="vertical-align: 0.125em;" class="me-4">
-                                            <img src="/template/icon/exam.svg" alt="test" width="25px">
-                                        </span>
-                                    </div>
-                                    <div class="flex-fill bd-highlight">
-                                        <div class="h6 mb-0">WBJEE Nursing (ANM, GNM)</div>
-                                        <div class="small text-secondary">Test series</div>
-                                    </div>
-                                </div>
-                            </button>
-                        </h2>
-                        <div id="collapseNursing" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/wbjee-nursing"
-                                            class="text-decoration-none text-dark">Wbjee Nursing Test Series</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-
-                <!-- col 2-->
-                <div class="col">
-                    <!-- WBPSC -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseWBPSC" aria-expanded="true" aria-controls="collapseWBPSC">
-                                <div class="d-flex bd-highlight">
-                                    <div class="bd-highlight">
-                                        <span style="vertical-align: 0.125em;" class="me-4">
-                                            <img src="/template/icon/exam.svg" alt="test" width="25px">
-                                        </span>
-                                    </div>
-                                    <div class="flex-fill bd-highlight">
-                                        <div class="h6 mb-0">West Bengal Public Service Commission (WBPSC)</div>
-                                        <div class="small text-secondary">Test series</div>
-                                    </div>
-                                </div>
-                            </button>
-                        </h2>
-                        <div id="collapseWBPSC" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/west-bengal-geography"
-                                            class="text-decoration-none text-dark">West Bengal Geography</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/indian-geography"
-                                            class="text-decoration-none text-dark">Indian Geography</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/indian-history"
-                                            class="text-decoration-none text-dark">Indian History</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/indian-economy"
-                                            class="text-decoration-none text-dark">Indian Economy</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/indian-polity"
-                                            class="text-decoration-none text-dark">Indian Polity</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Railways -->
-                    <div class="accordion-item mt-2">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseRailways" aria-expanded="true" aria-controls="collapseRailways">
-                                <div class="d-flex bd-highlight">
-                                    <div class="bd-highlight">
-                                        <span style="vertical-align: 0.125em;" class="me-4">
-                                            <img src="/template/icon/exam.svg" alt="test" width="25px">
-                                        </span>
-                                    </div>
-                                    <div class="flex-fill bd-highlight">
-                                        <div class="h6 mb-0">Railways Examination</div>
-                                        <div class="small text-secondary">Test series</div>
-                                    </div>
-                                </div>
-                            </button>
-                        </h2>
-                        <div id="collapseRailways" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/railways"
-                                            class="text-decoration-none text-dark">Railways</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>                
-                </div>
-
-                <!-- col 3-->
-                <div class="col">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapsePlacement" aria-expanded="true" aria-controls="collapsePlacement">
-                                <div class="d-flex bd-highlight">
-                                    <div class="bd-highlight">
-                                        <span style="vertical-align: 0.125em;" class="me-4">
-                                            <img src="/template/icon/exam.svg" alt="test" width="25px">
-                                        </span>
-                                    </div>
-                                    <div class="flex-fill bd-highlight">
-                                        <div class="h6 mb-0">Interview and Placement</div>
-                                        <div class="small text-secondary">Test series</div>
-                                    </div>
-                                </div>
-                            </button>
-                        </h2>
-                        <div id="collapsePlacement" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/aptitude-and-reasoning"
-                                            class="text-decoration-none text-dark">Aptitude and Reasoning</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/Computer-Fundamental"
-                                            class="text-decoration-none text-dark">Computer Fundamental</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="/category/exam/C-Programming"
-                                            class="text-decoration-none text-dark">C Programming</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    </button>
+                </h2>
+                <div id="collapseWBP" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="/category/exam/West-Bengal-Police-(WBP)-Examination"
+                                    class="text-decoration-none text-dark"> WBP Test Series</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
 
+            <!-- Nursing -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseNursing" aria-expanded="true" aria-controls="collapseNursing">
+                        <div class="d-flex bd-highlight">
+                            <div class="bd-highlight">
+                                <span style="vertical-align: 0.125em;" class="me-4">
+                                    <img src="/template/icon/exam.svg" alt="test" width="25px">
+                                </span>
+                            </div>
+                            <div class="flex-fill bd-highlight">
+                                <div class="h6 mb-0">WBJEE Nursing (ANM, GNM)</div>
+                                <div class="small text-secondary">Test series</div>
+                            </div>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapseNursing" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="/category/exam/wbjee-nursing" class="text-decoration-none text-dark">Wbjee
+                                    Nursing Test Series</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WBPSC -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseWBPSC" aria-expanded="true" aria-controls="collapseWBPSC">
+                        <div class="d-flex bd-highlight">
+                            <div class="bd-highlight">
+                                <span style="vertical-align: 0.125em;" class="me-4">
+                                    <img src="/template/icon/exam.svg" alt="test" width="25px">
+                                </span>
+                            </div>
+                            <div class="flex-fill bd-highlight">
+                                <div class="h6 mb-0">West Bengal Public Service Commission (WBPSC)</div>
+                                <div class="small text-secondary">Test series</div>
+                            </div>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapseWBPSC" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="/category/exam/west-bengal-geography"
+                                    class="text-decoration-none text-dark">West Bengal Geography</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/category/exam/indian-geography" class="text-decoration-none text-dark">Indian
+                                    Geography</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/category/exam/indian-history" class="text-decoration-none text-dark">Indian
+                                    History</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/category/exam/indian-economy" class="text-decoration-none text-dark">Indian
+                                    Economy</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/category/exam/indian-polity" class="text-decoration-none text-dark">Indian
+                                    Polity</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Railways -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseRailways" aria-expanded="true" aria-controls="collapseRailways">
+                        <div class="d-flex bd-highlight">
+                            <div class="bd-highlight">
+                                <span style="vertical-align: 0.125em;" class="me-4">
+                                    <img src="/template/icon/exam.svg" alt="test" width="25px">
+                                </span>
+                            </div>
+                            <div class="flex-fill bd-highlight">
+                                <div class="h6 mb-0">Railways Examination</div>
+                                <div class="small text-secondary">Test series</div>
+                            </div>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapseRailways" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="/category/exam/railways" class="text-decoration-none text-dark">Railways</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Interview and Placement -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button p-3" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapsePlacement" aria-expanded="true" aria-controls="collapsePlacement">
+                        <div class="d-flex bd-highlight">
+                            <div class="bd-highlight">
+                                <span style="vertical-align: 0.125em;" class="me-4">
+                                    <img src="/template/icon/exam.svg" alt="test" width="25px">
+                                </span>
+                            </div>
+                            <div class="flex-fill bd-highlight">
+                                <div class="h6 mb-0">Interview and Placement</div>
+                                <div class="small text-secondary">Test series</div>
+                            </div>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapsePlacement" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="/category/exam/aptitude-and-reasoning"
+                                    class="text-decoration-none text-dark">Aptitude and Reasoning</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/category/exam/Computer-Fundamental"
+                                    class="text-decoration-none text-dark">Computer Fundamental</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/category/exam/C-Programming" class="text-decoration-none text-dark">C
+                                    Programming</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
-        <!-- FOOTER -->
-        <?php include __DIR__.'/static/footer.html';?>
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
 
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            gtag('js', new Date());
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-            gtag('config', 'G-KPXYFG7WZV');
-        </script>
+        gtag('config', 'G-KPXYFG7WZV');
+    </script>
 
 </body>
 
