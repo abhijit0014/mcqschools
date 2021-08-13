@@ -57,6 +57,7 @@
             $view->assign('current_time',  $current_time);
             $view->assign('start_time',   $start_time);
             $view->assign('exam_stop_flag',   $exam_stop_flag);
+            $view->assign('quiz_id',   $quiz_id);
             return;
         }
 
