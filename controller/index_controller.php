@@ -29,6 +29,7 @@
             $rankList =  $this->examUserRepository->monthlyTestRank(date("Y-m-d H:i:s"),10);
             $status = $this->webstatusRepository->get_status();
             $liveExam = $this->examRepository->getOne($GLOBALS['LIVE_EXAM_ID']);
+            $liveQuiz =  $this->examRepository->getLiveQuiz();
 
             $view = new view('index');
             $view->assign('today', $day);
@@ -37,6 +38,7 @@
             $view->assign('rankList', $rankList);
             $view->assign('status', $status);
             $view->assign('liveExam', $liveExam);
+            $view->assign('liveQuiz', $liveQuiz);
             return;
         }
 

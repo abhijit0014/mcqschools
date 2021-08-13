@@ -152,7 +152,7 @@
 
         // get live quiz --------------------------------------------------------------
         public function getLiveQuiz(){
-            //return R::getRow('SELECT * FROM projectdb.exam where date(start_time) = CURRENT_DATE AND created_by = 4 limit 1');
+            //return R::getRow('SELECT * FROM projectdb.exam where date(start_time) = CURRENT_DATE AND created_by = 417 limit 1');
             return R::findOne( 'exam', ' date(start_time) = CURRENT_DATE AND created_by = ? ', [ 417 ] );
         }
 
