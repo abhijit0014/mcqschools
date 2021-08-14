@@ -53,19 +53,40 @@
 
 <div class="border-bottom bg-white" id="topNevbar">
     <div class="container ">
-        <div class="d-flex small bd-highlight pt-3 pb-3">
+        <div class="row flex-row flex-nowrap pt-2 pb-2 small overflow-auto">
 
-            <div class="flex-fill bd-highlight d-none d-sm-block">
-                <a href="/exam/list" class="text-decoration-none text-secondary">
-                    <span style="vertical-align: 0.125em;" class="pe-2">
-                        <img src="/template/icon/conduct-exam.svg" alt="conduct exam">
+            <?php if (!isset($_SESSION['authenticated']) ){ ?>
+
+            <div class="col">
+                    <a href="/user/login" class="text-decoration-none text-secondary text-nowrap">
+                        <span style=" vertical-align: 0.125em;" class="pe-2">
+                            <img src="/template/icon/login.svg" alt="login">
+                        </span>
+                        <span class="">Login</span>
+                    </a>
+            </div>
+            <div class="col">
+                    <a href="/user/register" class="text-decoration-none text-secondary text-nowrap">
+                        <span style="vertical-align: 0.125em;" class="ps-2 pe-2">
+                            <img src="/template/icon/register.svg" alt="register">
+                        </span>
+                        <span class="">Register</span>
+                    </a>
+            </div>
+    
+            <?php } ?>
+
+            <div class="col">
+                <a href="/category/browse" class="text-decoration-none text-secondary text-nowrap">
+                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                        <img src="/template/icon/category.svg" alt="rank">
                     </span>
-                    <span class="d-inline-block">Exam Creator</span>
+                    <span class="">All Categories</span>
                 </a>
             </div>
 
-            <div class="flex-fill bd-highlight text-start">
-                <a href="/category/testList" class="text-decoration-none text-secondary">
+            <div class="col">
+                <a href="/category/testList" class="text-decoration-none text-secondary text-nowrap">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/practice.svg" alt="practice">
                     </span>
@@ -73,8 +94,8 @@
                 </a>
             </div>
 
-            <div class="flex-fill bd-highlight  text-center">
-                <a href="/examcenter/rank" class="text-decoration-none text-secondary">
+            <div class="col">
+                <a href="/examcenter/rank" class="text-decoration-none text-secondary text-nowrap">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/rank-black.svg" alt="rank">
                     </span>
@@ -82,29 +103,8 @@
                 </a>
             </div>
 
-            <?php if (!isset($_SESSION['authenticated']) ){ ?>
-
-            <div class="flex-fill bd-highlight text-center">
-                <a href="/user/login" class="text-decoration-none text-secondary">
-                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
-                        <img src="/template/icon/login.svg" alt="login">
-                    </span>
-                    <span class="">Login</span>
-                </a>
-            </div>
-            <div class="flex-fill bd-highlight text-end">
-                <a href="/user/register" class="text-decoration-none text-secondary">
-                    <span style="vertical-align: 0.125em;" class="ps-2 pe-2">
-                        <img src="/template/icon/register.svg" alt="register">
-                    </span>
-                    <span class="">Register</span>
-                </a>
-            </div>
-
-            <?php } else { ?>
-
-            <div class="flex-fill bd-highlight text-end">
-                <a href="/examcenter/myresults" class="text-decoration-none text-secondary">
+            <div class="col">
+                <a href="/examcenter/myresults" class="text-decoration-none text-secondary text-nowrap">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/result.svg" alt="result">
                     </span>
@@ -113,8 +113,8 @@
             </div>
 
             <!-- 
-            <div class="flex-fill bd-highlight text-center">
-                <a href="/exam/subscription" class="text-decoration-none text-secondary">
+            <div class="col">
+                <a href="/exam/subscription" class="text-decoration-none text-secondary text-nowrap">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/subscribe.svg" alt="result">
                     </span>
@@ -123,8 +123,17 @@
             </div>
             -->
 
-            <div class="flex-fill bd-highlight text-end d-none d-sm-block">
-                <a href="/user/profile" class="text-decoration-none text-secondary">
+            <div class="col">
+                <a href="/tool/ageCalculator" class="text-decoration-none text-secondary text-nowrap">
+                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                        <img src="/template/icon/tool.svg" alt="setting">
+                    </span>
+                    <span class="">Tools</span>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="/user/profile" class="text-decoration-none text-secondary text-nowrap">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/setting.svg" alt="setting">
                     </span>
@@ -132,7 +141,14 @@
                 </a>
             </div>
 
-            <?php } ?>
+            <div class="col d-none d-lg-block">
+                <a href="/exam/list" class="text-decoration-none text-secondary text-nowrap">
+                    <span style="vertical-align: 0.125em;" class="pe-2">
+                        <img src="/template/icon/conduct-exam.svg" alt="conduct exam">
+                    </span>
+                    <span class="d-inline-block">Exam Creator</span>
+                </a>
+            </div>
 
         </div>
     </div>
@@ -141,6 +157,8 @@
 
 
 <script>
+    // nevbar fixed top
+    /*
     $(window).scroll(function () {
         if ($(this).scrollTop() > 80) {
             $('#topNevbar').addClass('fixedTop');
@@ -148,6 +166,7 @@
             $('#topNevbar').removeClass('fixedTop');
         }
     });
+    */
 </script>
 <script>
     // search script -----------------------------------------------------------
@@ -208,14 +227,3 @@
         return '<div class="btn-group d-block bg-hover"> <button type="button" class="btn btn-white"> <img src="/template/icon/search.svg" alt="search" width="18px"> </button> <button type="button" class="btn btn-white"> <span>#searchQuery</span> </button></div>';
     }
 </script>
-
-<!--
-<div class="btn-group d-block bg-hover">
-    <button type="button" class="btn btn-white">
-        <img src="/template/icon/search.svg" alt="search" width="18px"> 
-    </button>
-    <button type="button" class="btn btn-white">
-        <span>#searchQuery</span>
-    </button>
-</div>
--->
