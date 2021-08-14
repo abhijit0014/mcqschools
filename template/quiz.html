@@ -32,7 +32,7 @@
     <div class="container mt-4 mb-5">
 
         <div class="row ps-2 pe-2">
-            <div class="col-12 col-md-8 mb-3">
+            <div class="col-12 col-md-8 mb-4">
                 
                 <div class="d-none" id="quizWindow">
 
@@ -222,8 +222,6 @@
                         </div>
 
                     </div>
-
-
                     
                 </div>
 
@@ -250,15 +248,22 @@
             <div class="col-12 col-md-4" id="topicWindow">
 
                 <!--topic list-->
-                <div class="h5 mb-4 text-secondary">
-                    <span style="vertical-align: 0.125em;" class="pe-2">
-                        <img src="/template/icon/topic.svg" width="20px" alt="topic">
-                    </span>
-                    <span>Topics </span>
+                <div class=" mb-4 text-secondary">
+                    <div class="d-flex">
+                        <div class="flex-fill">
+                            <span style="vertical-align: 0.125em;" class="pe-2">
+                                <img src="/template/icon/topic.svg" width="20px" alt="topic">
+                            </span>
+                            <span class="h5">Topics </span>
+                        </div>
+                        <div class="flex-fill text-end">
+                            <a href="/category/browse" class="small h6 text-decoration-none text-secondary border border-secondary rounded-pill p-1 ps-3 pe-3 mt-1">All Categories</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="shadow-sm rounded bg-white p-3 mb-3">
-                    <div class="" id="topicList"></div>
+                <div class="">
+                    <div class="row row-cols-3 row-cols-md-2 row-cols-lg-2 g-2" id="topicList"></div>
                 </div>
 
             </div>
@@ -589,7 +594,14 @@
             config_categories.forEach(item => {
                 $("#topicList").append(getTopicHtml(item));
             });
-            $("#topicList").append('<a href="/category/browse" class="btn btn-sm border bg-light rounded-pill d-md-block d-lg-inline-block ps-3 pe-3">All Categories</a>');
+        }
+
+        function getTopicHtml(item) {
+            str = '<div class="col"> <a href="/category/quiz/#url" class="text-decoration-none text-dark"> <div class="card h-100 shadow-sm"> <div class="card-body"> <p class="h6 m-0 small">#title</p> </div> <div class="card-footer">  <span class="text-success h6 m-0 small">Start Quiz <img src="/template/icon/next.svg" alt=""></span> </div> </div> </a> </div>';
+            str = str.replace("#url",item.replaceAll(" ", "-"));
+            str = str.replace("#title",item);
+            //if (current_category === item)
+            return str;
         }
 
         function shuffle(array) {
@@ -748,7 +760,7 @@
 
 
         // topic template
-        function getTopicHtml(item) {
+        function getTopicHtmll(item) {
             if (current_category === item)
                 return '<a href="#" class="btn btn-primary btn-sm rounded-pill mt-1 mb-1 me-1 d-md-block d-lg-inline-block">' + item + '</a>';
             else
