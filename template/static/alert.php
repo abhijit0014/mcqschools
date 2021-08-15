@@ -24,8 +24,8 @@
 
 <!-- Important Day -->
 <?php if(!empty($today)) { ?>
-<div class="mb-2">
-    <div class="row m-1 p-2 pt-4 pb-4 bg-white border rounded shadow-sm">
+<div class="mb-2 container">
+    <div class="row p-2 pt-3 pb-3 bg-white border rounded shadow-sm">
         <div class="col-12 col-md-4">
             <span class="h4 text-success"><?php echo $today[0]['title'] ?></span>
             <div class="small mt-2 mb-1"><?php echo date("l, d F Y", strtotime($current_date)); ?></div>
@@ -36,7 +36,7 @@
                 <p class="mb-0">The Ocean: Life and Livelihoods</p>
             </blockquote>
             -->
-            <span class="small text-secondary"><?php echo $today[0]['descp'] ?></span>
+            <span class="small text-secondary lh-sm"><?php echo $today[0]['descp'] ?></span>
         </div>
     </div>
 </div>

@@ -767,7 +767,7 @@
 
         // topic template
         function getTopicHtml(item) {
-            str = '<div class="col"> <div class="card h-100"> <div class="card-body"> <p class="h6 m-0 small">#title</p> </div> <div class="card-footer"> <a href="/category/quiz/#url" class="text-decoration-none"> <span class="text-success h6 m-0 small">Start Quiz <img src="/template/icon/next.svg" alt=""></span> </a> </div> </div> </div>';
+            str = '<div class="col"> <div class="card h-100 shadow-sm"> <div class="card-body"> <p class="h6 m-0 small">#title</p> </div> <div class="card-footer"> <a href="/category/quiz/#url" class="text-decoration-none"> <span class="text-success h6 m-0 small">Start Quiz <img src="/template/icon/next.svg" alt=""></span> </a> </div> </div> </div>';
             str = str.replace("#url",item.replaceAll(" ", "-"));
             str = str.replace("#title",item);
             //if (current_category === item)
