@@ -73,7 +73,7 @@
                 <div class="d-none" id="quizWindow">
 
                     <!--quiz Title-->
-                    <div class="h5 mb-4 text-secondary">
+                    <div class="h5 mb-4">
                         <span style="vertical-align: 0.125em;" class="pe-2">
                             <img src="/template/icon/quiz.svg" width="20px" alt="quiz">
                         </span>
@@ -91,7 +91,7 @@
                     </div>
 
                     <!-- quiz -->
-                    <div class="p-4 shadow-sm rounded bg-white">
+                    <div class="p-4 border shadow-sm rounded bg-white">
 
                         <!-- quiz nev -->
                         <div class="d-flex bd-highlight">
@@ -215,13 +215,13 @@
                         <div class=" mt-4 pt-2">
                             <div class="row">
                                 <div class="col">
-                                    <span id="prev" class="btn btn-sm btn-secondary ps-3 pe-3">Prev</span>
+                                    <span id="prev" class="btn btn-sm btn-secondary ps-4 pe-4">Prev</span>
                                 </div>
                                 <div class="col text-center text-secondary">
                                     <span id="skip" class="btn btn-sm btn-light ps-3 pe-3">Skip</span>
                                 </div>
                                 <div class="col text-end">
-                                    <span class="btn btn-sm btn-primary ps-3 pe-3" id="next">Next</span>
+                                    <span class="btn btn-sm btn-primary ps-4 pe-4" id="next">Next</span>
                                 </div>
                             </div>
                         </div>
@@ -281,20 +281,20 @@
                 </div>
 
                 <!-- AD -->
-                <div class="mt-1 mb-2 text-center">
+                <div class="mt-2 mb-2 text-center">
                     <?php include __DIR__.'/ad/banner.php';?>
                 </div>
 
                 <!-- Suggested Exam Window -->
                 <div class="d-none" id="suggestedExamWindow">
-                    <div class="h5 mt-4 mb-4 text-secondary">
+                    <div class="h5 mt-4 mb-4">
                         <span style="vertical-align: 0.125em;" class="pe-2">
                             <img src="/template/icon/topic.svg" width="20px" alt="topic">
                         </span>
                         <span>Suggested Tests</span>
                     </div>
     
-                    <div class="shadow-sm rounded bg-white p-3 mb-3">
+                    <div class="shadow-sm border rounded bg-white p-3 mb-3">
                         <div class="" id="suggestedExamList">
                             <!-- 
                             <div class="bg-hover rounded p-2">
@@ -323,14 +323,14 @@
             <div class="col-12 col-md-4" id="rankWindow">
   
                  <!--Rank list-->
-                 <div class="h5 mb-4 text-secondary">
+                 <div class="h5 mb-4">
                     <span style="vertical-align: 0.125em;" class="pe-2">
                         <img src="/template/icon/rank.svg" width="20px" alt="rank">
                     </span>
-                    <span>Rank </span>
+                    <span>Rank List</span>
                 </div>
 
-                <div class="shadow-sm rounded bg-white p-3 list-group list-group-flush small">
+                <div class="shadow-sm border rounded bg-white p-3 list-group list-group-flush small">
                     <div class="list-group-item h6 mb-0 small">
                         <div class="row">
                             <div class="col-2">Rank</div>
@@ -380,14 +380,14 @@
                 </div>
 
                 <!-- Tools -->
-                <div class="h5 mb-4 mt-4 text-secondary">
+                <div class="h5 mb-4 mt-4">
                     <span style="vertical-align: 0.125em;" class="pe-2">
                         <img src="/template/icon/tool-blue.svg" width="20px" alt="rank">
                     </span>
                     <span>Tools </span>
                 </div>
 
-                <div class="shadow-sm rounded bg-white p-3 list-group list-group-flush small">
+                <div class="shadow-sm border rounded bg-white p-3 list-group list-group-flush small">
 
                     <a href="/tool/ageCalculator" class="list-group-item text-secondary fw-bold">
                         Age Calculator
@@ -459,7 +459,7 @@
         var user_id = "<?php echo isset($_SESSION['user_id'])? $_SESSION['user_id']: 0; ?>";
         var config_question_type = null;
         var config_timer_switch = true;
-        var config_question_time = 90;
+        var config_question_time = 60;
         var config_categories = [];
         var current_category = '<?php echo $category_name?>';
 
@@ -746,7 +746,7 @@
 
 
             // set question time
-            if (!Cookies.get('config_question_time')) config_question_time = 90;
+            if (!Cookies.get('config_question_time')) config_question_time = 60;
             else config_question_time = Cookies.get('config_question_time');
 
 
