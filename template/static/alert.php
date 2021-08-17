@@ -2,16 +2,17 @@
 <?php if( $liveQuiz) {
     if(date_create($liveQuiz['start_time']) < date_create() && date_create($liveQuiz['end_time']) > date_create()) { 
 ?>
-    <div class="mb-3 d-none">
-        <div class="row m-1 p-2 pt-4 pb-4 alert alert-warning shadow-sm border border-warning ">
-            <div class="col-10 col-md-7">
-                <span class="badge bg-success">Live Quiz</span>
-                <div class="h4">Independence Day Quiz 2021 <?php echo $liveQuiz['title'] ?></div>  
-                <div class="small h6 text-secondary">Daily 7PM - 10PM</div>    
+    <div class="mb-3">
+        <div class="d-flex alert alert-warning shadow-sm border border-warning ">
+            <div class="me-3">
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            </div>    
+            <div class="flex-fill">
+                <div class="h5"><?php echo $liveQuiz['title'] ?></div>    
             </div>
-            <div class="col-12 col-md-4 text-end">
+            <div class="">
                 <a href="/quiz/live" class="d-grid text-decoration-none">
-                    <button class="btn border border-secondary mt-3">Play Now</button>
+                    <button class="btn btn-sm btn-primary">Play Now</button>
                 </a>
             </div>
         </div>

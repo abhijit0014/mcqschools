@@ -79,39 +79,22 @@
                                 <?php } ?>
                             </div>
                         </td>
-                        <td>
+                        <td class="">
                             <div class="small">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm"> 
-                                        <span  style="vertical-align: 0.125em;">
-                                            <img src="/template/icon/count.svg" alt="count">
-                                        </span> 
-                                        <?php echo $exam['number_of_question'] ?> 
-                                    </button>
-                                    <button type="button" class="btn btn-sm"> 
-                                        <span  style="vertical-align: 0.125em;">
-                                            <img src="/template/icon/clock.svg" alt="clock">
-                                        </span>
-                                        <?php echo $exam['duration_mins'] ?> mins
-                                    </button>
-                                    <button type="button" class="btn btn-sm"> 
-                                        <span  style="vertical-align: 0.125em;">
-                                            <img src="/template/icon/users.svg" alt="users">
-                                        </span>
-                                        <?php echo $exam['attemped'] ?> 
-                                    </button>
-                                    <button type="button" class="btn btn-sm"> 
-                                        <span  style="vertical-align: 0.125em;">
-                                            <img src="/template/icon/plus.svg" alt="plus">
-                                        </span> 
-                                          <?php echo $exam['point'] ?> 
-                                    </button>
-                                    <button type="button" class="btn btn-sm">
-                                        <span  style="vertical-align: 0.125em;">
-                                            <img src="/template/icon/minus.svg" alt="minus">
-                                        </span> 
-                                      <?php echo $exam['negative_point'] ?> 
-                                    </button>
+                                <div class="">
+                                    <?php echo $exam['attemped'] ?> attempts 
+                                    <?php if($exam['start_time']){ ?> 
+                                          |  <span class="text-success"><?php echo date("d F, h:i A", strtotime($exam['start_time'])); ?></span>
+                                    <?php } ?>
+                                    <?php if($exam['end_time']){ ?> 
+                                        - <span class="text-danger"><?php echo date("d F, h:i A", strtotime($exam['end_time'])); ?></span>
+                                    <?php } ?>
+                                </div>
+                                <div class="text-nowrap">
+                                <?php echo $exam['number_of_question'] ?> question .
+                                <?php echo $exam['duration_mins'] ?> mins |
+                                + <?php echo $exam['point'] ?> 
+                                - <?php echo $exam['negative_point'] ?>
                                 </div>
                             </div>
                         </td>
