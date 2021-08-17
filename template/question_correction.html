@@ -36,7 +36,14 @@
                             required><?php echo $question->question ?></textarea>
                     </div>
 
+                    <?php if($question->question_img){ ?>
+                        <div class="form-group bg-light text-center" id="questionImgWindow">
+                            <img src="<?php echo '/'.$question->question_img ?>" alt="">
+                        </div>
+                    <?php } ?>
+
                     <div class="form-group mt-2" id="qstOptions">
+                        
                         <label class="small">Options</label>
 
                         <div class="input-group mb-3">
