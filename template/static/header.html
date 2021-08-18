@@ -52,7 +52,7 @@
 
 <div class="border-bottom bg-white" id="topNevbar">
     <div class="container ">
-        <div class="row flex-row flex-nowrap pt-2 pb-2 small overflow-auto">
+        <div class="row flex-row flex-nowrap pt-2 pb-2 small overflow-auto text-center">
 
             <?php if (!isset($_SESSION['authenticated']) ){ ?>
 
@@ -84,12 +84,10 @@
                 </a>
             </div>
 
-            <div class="col">
+            <div class="col d-none d-md-block">
                 <a href="/quiz/live" class="text-decoration-none text-secondary text-nowrap">
-                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
-                        <img src="/template/icon/live-quiz.svg" alt="quiz">
-                    </span>
-                    <span class="">Live Quiz</span>
+                    <span class="badge bg-secondary mt-1">LIVE</span>
+                    <span class="">Quiz</span>
                 </a>
             </div>
 

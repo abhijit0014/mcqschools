@@ -61,10 +61,8 @@
             if($live_exam_id)
             {
                 $exam =  $this->examRepository->getOne($live_exam_id);
-                $toppers = $this->examUserRepository->getRank($live_exam_id);
 
                 date_default_timezone_set('Asia/Kolkata');
-
                 $current_time = date('Y-m-d H:i:s');
                 $start_time = date("Y-m-d H:i:s",  strtotime($exam->start_time));
                 $end_time = date("Y-m-d H:i:s",  strtotime($exam->end_time));
@@ -81,8 +79,10 @@
 
                 // exam stop
                 $min_diff = round((strtotime($end_time) - strtotime($current_time)) / 60,0);
-                if($min_diff < 1 )
+                if($min_diff < 1 ){
                     $exam_stop_flag = true;
+                    $toppers = $this->examUserRepository->getRank($live_exam_id, $exam->end_time);
+                }
             }
 
             $view = new view('live');

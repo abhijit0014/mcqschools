@@ -46,7 +46,7 @@
                 // exam stop
                 if($current_time >  $end_time){
                     $exam_stop_flag = true;
-                    $toppers = $this->examUserRepository->getRank($exam->id);
+                    $toppers = $this->examUserRepository->getRank($exam->id, $exam->end_time);
                 }
                 
             }
