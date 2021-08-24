@@ -6,8 +6,8 @@
 @media(min-width: 800px) { .ad_responsive_style { width: 728px; height: 90px; } }
 </style>     
 <!-- leaderboard728x90 -->
-<ins class="adsbygoogle ad_responsive_style"
-     style="display:inline-block"
+<ins class="adsbygoogle"
+     style="display:inline-block; width:100%; height: 90px"
      data-ad-client="ca-pub-9427558486793573"
      data-ad-slot="3353137368"></ins>
 <script>

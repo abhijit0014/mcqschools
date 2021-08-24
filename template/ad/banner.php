@@ -6,11 +6,12 @@
 @media(min-width: 800px) { .bannerAd_responsive_style { width: 728px; height: 90px; } }
 </style>        
 <!-- banner -->
-<ins class="adsbygoogle bannerAd_responsive_style"
-     style="display:inline-block"
+<ins class="adsbygoogle"
+     style="display:block"
      data-ad-client="ca-pub-9427558486793573"
      data-ad-slot="3283138578"
-     data-ad-format="auto"></ins>
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
 <script>
      //(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
