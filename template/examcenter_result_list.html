@@ -17,13 +17,13 @@
     <!-- HEADER -->
     <?php include __DIR__.'/static/header.html';?>
 
-    <!-- AD -->
-    <div class="mt-2 text-center">
-        <?php include __DIR__.'/ad/leaderboard.php';?>
-    </div>
-
     <!-- BODY -->
     <div class="container mt-4 <?php echo sizeof($examlist)>0 ? '' : 'd-none' ?>">
+        
+        <!-- AD -->
+        <div class="mt-2 text-center">
+            <?php include __DIR__.'/ad/leaderboard.php';?>
+        </div>
 
         <div class="h5 ps-3 text-secondary">
             My Results
@@ -77,7 +77,7 @@
         </div>
 
         <!-- pagination -->
-        <div class="mt-3 mb-5">
+        <div class="mt-3 mb-2">
             <nav>
                 <ul class="pagination justify-content-center">
                     <li class="page-item <?php echo $currentPage==1? 'disabled':'' ?>">
@@ -112,6 +112,10 @@
             </nav>
         </div>
 
+        <!-- AD -->
+        <div class="mb-5 text-center">
+            <?php include __DIR__.'/ad/leaderboard.php';?>
+        </div>
 
     </div>
 
