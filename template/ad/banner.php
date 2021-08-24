@@ -7,11 +7,9 @@
 </style>        
 <!-- banner -->
 <ins class="adsbygoogle"
-     style="display:block"
+     style="display:inline-block;min-width:400px;max-width:970px;width:100%;height:250px"
      data-ad-client="ca-pub-9427558486793573"
-     data-ad-slot="3283138578"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
+     data-ad-slot="3283138578"></ins>
 <script>
      //(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
