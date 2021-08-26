@@ -349,7 +349,8 @@
                                 <div class="col-2">
                                     <?php 
                                         $icon = null;
-                                        if( $result['obtained_marks'] >= 1000 ){ $icon = 'star.png'; }
+                                        if( $result['obtained_marks'] >= 1500 ){ $icon = 'shield.png'; }
+                                        else if( $result['obtained_marks'] >= 1000 ){ $icon = 'star.png'; }
                                         else if ($result['obtained_marks'] >= 700 ) { $icon = 'dimond.png'; }
                                         else if ($result['obtained_marks'] >= 500 ) { $icon = 'gold.png'; }
                                         else if ($result['obtained_marks'] >= 200 ) { $icon = 'silver.png'; }
