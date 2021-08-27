@@ -14,11 +14,17 @@
             $this->examRepository = new ExamRepository();
         }
 
-        public function add()
+        public function add($param)
         {
+            $parentCategory = null;
+            if(isset($param[0])){
+                $parentCategory =  $this->repository->getOne($param[0]);
+            }
+
             $category = R::dispense( 'category' );
             $view = new view('admin/category_form');
             $view->assign('category', $category);
+            $view->assign('parentCategory', $parentCategory);
             return;
         }
 
@@ -26,8 +32,11 @@
         {
             if(isset($param[0])){
                 $category =  $this->repository->getOne($param[0]);
+                $parentCategory =  $this->repository->getOne($category->parent_id);
+
                 $view = new view('admin/category_form');
                 $view->assign('category', $category);
+                $view->assign('parentCategory', $parentCategory);
             }
             return;
         }
@@ -36,7 +45,7 @@
         {
             if(isset($_POST)){
                 $this->repository->save($_POST);
-                header("Location: /category/list/".$_POST['title']);
+                header("Location: /category/list/".$_POST['parent_id']);
                 exit;
             }
         }
@@ -105,14 +114,15 @@
         {
             $category_name = str_replace("-"," ",$param[0]);
             $category =  $this->repository->getByCategoryName($category_name);
-
-            if(empty($category)){ 
-                header("Location: /"); exit; 
-            }
+            if(empty($category)){ header("Location: /"); exit; }
+            $subCategoryList = $this->repository->getSubCategoryListByParentIdForExam($category->id); 
+            if(!$subCategoryList && $category->parent_id)
+            $subCategoryList = $this->repository->getSubCategoryListByParentIdForExam($category->parent_id); 
 
             $view = new view('category_exam_list');
             $view->assign('category_name', $category->title);
             $view->assign('category_id', $category->id);
+            $view->assign('subCategoryList', $subCategoryList);
             return;
         }
 
@@ -121,24 +131,36 @@
             $limit = 10;
             $category_id = isset($param[0]) ? $param[0] : 1;
             $currentPage = isset($param[1]) ? $param[1] : 1;
-            $list = $this->examRepository->listByCategoryId($currentPage, $limit, $category_id);
+            $list = $this->examRepository->examListByCategoryId($currentPage, $limit, $category_id);
             return json_encode($list);
         }
 
 
-        //-------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+        //------------------------------------------------ ADMIN -------------------------------------------------
         // category list page for ADMIN
         public function list($param)
         {  
-            $categorylist;          
-            if(empty($param[0]))
-                $categorylist = $this->repository->categoryList();
-            else
-                $categorylist = $this->repository->searchCategoryByTitle($param[0]);
+            $category = null;
+            $subCategorylist =array();
+                   
+            if(!empty($param[0]))
+            {
+                $category = $this->repository->getOne($param[0]); 
+                $subCategorylist = $this->repository->getSubCategoryList($category['id']); 
+            }
                 
             $view = new view('admin/category_list');
-            $view->assign('search_str', empty($param[0]) ? '' : $param[0]);
-            $view->assign('categorylist', $categorylist);
+            $view->assign('category', $category);
+            $view->assign('subCategorylist', $subCategorylist);
             return;
         }
 

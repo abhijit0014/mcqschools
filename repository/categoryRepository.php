@@ -25,6 +25,7 @@
 
             $category->title = ucfirst($obj['title']);
             $category->enabled = $obj['enabled'] == 'true' ? true : false;
+            $category->parent_id = $obj['parent_id'];
     
             if(SessionManager::get("user_role")=='admin')
                 return R::store( $category );
@@ -50,15 +51,15 @@
             return R::findOne( 'category', ' title = ? ', [ $categoryTitle ] );
         }
 
-        public function categoryList()
-        {
-            return R::getAll( " SELECT * FROM category ORDER BY id DESC LIMIT 50" );
-        }
-
         // all category list
         public function allCategoryList()
         {
             return R::getAll( " SELECT * FROM category where exam_avl=true or question_avl=true ORDER BY title" );
+        }
+
+        public function categoryList()
+        {
+            return R::getAll( " SELECT * FROM category ORDER BY id DESC LIMIT 50" );
         }
 
         public function searchCategoryByTitle($str_search)
@@ -78,6 +79,26 @@
             return R::getAll( "SELECT * FROM category WHERE question_avl = true and TITLE LIKE '%".$str_search."%' ORDER BY hit_count DESC LIMIT ".$GLOBALS['CATEGORY_AUTOCOMPLETE_RESULT_LIMIT'] );
         }
 
+        public function getSubCategoryListByParentIdForQuiz($parent_id)
+        {
+            return R::getAll( " SELECT * FROM category where question_avl = true and parent_id=".$parent_id );
+        }
+        public function getSubCategoryListByParentIdForExam($parent_id)
+        {
+            return R::getAll( " SELECT * FROM category where exam_avl = true and parent_id=".$parent_id );
+        }
+
+
+
+
+
+
+
+        // admin ----------------------------
+        public function getSubCategoryList($parent_id)
+        {
+            return R::getAll( " SELECT * FROM category where parent_id=".$parent_id );
+        }
     }
 
 ?>

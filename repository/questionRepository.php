@@ -120,16 +120,11 @@
 
         // for quiz - based on category
 
-        public function questionCountByCategoryId($limit, $category_id)
-        {
-            $questions = R::count( 'question', 'WHERE category_id = ?', [ $category_id ] );
-            $totalPages=ceil($questions/$limit);
-            return $totalPages;
-        }
-
         public function questionListByCategoryId($page, $limit, $category_id)
         {
-            return R::getAll('SELECT id, question, question_img, option_four, option_one, option_three, option_two, ans, total_attempt, correct_attempt FROM question WHERE category_id = '.$category_id.' ORDER BY RAND() LIMIT '.(($page-1)*$limit).', '.$limit);
+            return R::getAll('SELECT id, question, question_img, option_four, option_one, option_three, option_two, ans, 
+            total_attempt, correct_attempt 
+            FROM question WHERE category_id = '.$category_id.' ORDER BY id DESC LIMIT '.(($page-1)*$limit).', '.$limit);
         }
 
     }

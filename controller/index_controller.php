@@ -31,10 +31,9 @@
             $liveExam = $this->examRepository->getOne($GLOBALS['LIVE_EXAM_ID']);
             $liveQuiz =  $this->examRepository->getLiveQuiz();
 
-            $view = new view('index');
+            $view = new view('index_new');
             $view->assign('today', $day);
             $view->assign('current_date', date('Y-m-d H:i:s'));
-            $view->assign('category_name', null);
             $view->assign('rankList', $rankList);
             $view->assign('status', $status);
             $view->assign('liveExam', $liveExam);

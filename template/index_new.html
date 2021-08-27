@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- resource -->
+    <?php include __DIR__.'/resource/resource.php';?>
+    <!-- pwa -->
+    <link rel="apple-touch-icon" href="logo/logo-152.png">
+    <meta name="theme-color" content="#0072ff" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Hello World">
+    <meta name="msapplication-TileImage" content="logo/logo-144.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <link rel="manifest" href="/manifest.json">
+    <!-- pwa -->
+    <?php if(empty($category_name)) {?>
+    <title>Mcqschools - Online exam, Mock test & Test series </title>
+    <meta name="description"
+        content="Learn and practice mcq questions with our quiz, online exam, mock test & Test series for competitive exams and interviews">
+    <?php } else { ?>
+    <title>
+        <?php echo ucfirst($category_name) ?> mcq questions
+    </title>
+    <meta name="description" content="
+    <?php echo ucfirst($category_name) ?> mcq questions and answers with solution for competitive exam, interview, mock test, 
+    entrance test and engineering students. Practice and Learn <?php echo $category_name ?> MCQ.">
+    <?php } ?>
+    <meta name="keywords" content="Mock test, online exam, Test series, MCQ questions, MCQs with answers, MCQs test, Mcq questions on computer, General Knowledge, 
+    Online Exam Maker, Online Examination System" />
+    <script data-ad-client="ca-pub-9427558486793573" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <?php include __DIR__.'/static/header.html';?>
+
+    <!-- BODY -->
+    <div class="container mt-4 mb-5">
+
+        <!-- HEADER -->
+        <?php include __DIR__.'/static/alert.php';?>
+
+
+        <div class="row" id="contentWindow">
+
+            <!-- Topic list -->
+            <div class="col-12">
+                <div class="mb-3">
+                    <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 g-2 pb-2 flex-row flex-nowrap overflow-auto" id="topicList">
+                        <!-- 
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <p class="h6 small m-0">#title</p>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="/category/quiz/#url" class="text-decoration-none">
+                                        <span class="text-success h6 small m-0">Start Quiz <img src="/template/icon/next.svg" alt=""></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8">
+                
+                <!--Rank list-->
+                 <div class="h5 mb-4">
+                    <span style="vertical-align: 0.125em;" class="pe-2">
+                        <img src="/template/icon/menu.svg" width="20px" alt="rank">
+                    </span>
+                    <span>Menu</span>
+                </div>
+
+                <div class="row row-cols-2 row-cols-md-2 row-cols-lg-2 g-3">
+                    <!-- wbp -->
+                    <div class="col">
+                        <div class="card h-100" style="color:black;background-color:#FFC0C7;">
+                            <div class="card-body text-center">
+                                <div class="h4 m-0">WBP</div>
+                                <div class="small test-secondary mt-2">West Bengal Police Examination</div>
+                            </div>
+                            <div class="card-footer text-center d-grid gap-2 border-0">
+                                <a href="/quiz/category/West-Bengal-Police-(WBP)-Examination"
+                                    class="text-decoration-none btn btn-dark ps-3 pe-3 rounded-pill">
+                                    Quiz
+                                </a>
+                                <a href="/category/exam/West-Bengal-Police-(WBP)-Examination"
+                                    class="text-decoration-none btn btn-success ps-3 pe-3 rounded-pill">
+                                    Test Series
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- WBPSC -->
+                    <div class="col">
+                        <div class="card h-100" style="color:black;background-color:#96D4D4;">
+                            <div class="card-body text-center">
+                                <div class="h4 m-0">WBPSC</div>
+                                <div class="small test-secondary mt-2">
+                                    West Bengal Public Service Commission (WBPSC)
+                                </div>
+                            </div>
+                            <div class="card-footer text-center d-grid gap-2 border-0">
+                                <a href="/quiz/category/WBPSC"
+                                    class="text-decoration-none btn btn-dark ps-3 pe-3 rounded-pill">
+                                    Quiz
+                                </a>
+                                <a href="/category/exam/WBPSC"
+                                    class="text-decoration-none btn btn-success ps-3 pe-3 rounded-pill">
+                                    Test Series
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Interview and Placement -->
+                    <div class="col">
+                        <div class="card h-100" style="color:black;background-color:#D9EEE1;">
+                            <div class="card-body text-center">
+                                <div class="h4 m-0">Interview and Placement</div>
+                                <div class="small test-secondary mt-2">
+                                    Mcq questions for Interview and Placement 
+                                </div>
+                            </div>
+                            <div class="card-footer text-center d-grid gap-2 border-0">
+                                <a href="/quiz/category/interview-and-placement"
+                                    class="text-decoration-none btn btn-dark ps-3 pe-3 rounded-pill">
+                                    Quiz
+                                </a>
+                                <a href="/category/exam/interview-and-placement"
+                                    class="text-decoration-none btn btn-success ps-3 pe-3 rounded-pill">
+                                    Test Series
+                                </a>
+                            </div>
+                        </div>
+                    </div> 
+                    
+                    <!-- General Knowledge -->
+                    <div class="col">
+                        <div class="card h-100" style="color:black;background-color:#F3ECEA;">
+                            <div class="card-body text-center">
+                                <div class="h4 m-0">General Knowledge</div>
+                                <div class="small test-secondary mt-2">General knowledge for competitive exams</div>
+                            </div>
+                            <div class="card-footer text-center d-grid gap-2 border-0">
+                                <a href="/quiz/category/general-knowledge"
+                                    class="text-decoration-none btn btn-dark ps-3 pe-3 rounded-pill">
+                                    Quiz
+                                </a>
+                                <a href="/category/exam/general-knowledge"
+                                    class="text-decoration-none btn btn-success ps-3 pe-3 rounded-pill">
+                                    Test Series
+                                </a>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <!-- Wbjee Nursing -->
+                    <div class="col">
+                        <div class="card h-100" style="color:black;background-color:#FFF4A3;">
+                            <div class="card-body text-center">
+                                <div class="h4 m-0">WBJEE Nursing (ANM, GNM)</div>
+                                <div class="small test-secondary mt-2">West bengal joint entrance examination for BSC Nursing</div>
+                            </div>
+                            <div class="card-footer text-center d-grid gap-2 border-0">
+                                <a href="/quiz/category/wbjee-nursing"
+                                    class="text-decoration-none btn btn-dark ps-3 pe-3 rounded-pill">
+                                    Quiz
+                                </a>
+                                <a href="/category/exam/wbjee-nursing"
+                                    class="text-decoration-none btn btn-success ps-3 pe-3 rounded-pill">
+                                    Test Series
+                                </a>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <!-- AD -->
+                <div class="mt-2 mb-2 text-center">
+                    <?php include __DIR__.'/ad/banner.php';?>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-md-4" id="rankWindow">
+  
+                 <!--Rank list-->
+                 <div class="h5 mb-4">
+                    <span style="vertical-align: 0.125em;" class="pe-2">
+                        <img src="/template/icon/rank.svg" width="20px" alt="rank">
+                    </span>
+                    <span>Rank List</span>
+                </div>
+
+                <div class="border rounded bg-white p-3 list-group list-group-flush small">
+                    <div class="list-group-item h6 mb-0 small">
+                        <div class="row">
+                            <div class="col-2">Rank</div>
+                            <div class="col-5 overflow-hidden">Name</div>
+                            <div class="col-2"></div>
+                            <div class="col-3">Score</div>
+                        </div>
+                    </div>
+                    <?php foreach ($rankList as $i=> $result) { ?>
+                        <div class="list-group-item bg-hover">
+                            <div class="row">
+                                <div class="col-2"><?php echo $i+1 ?></div>
+                                <div class="col-5 overflow-hidden">
+                                    <?php echo $result['username'] ?>
+                                </div>
+                                <div class="col-2">
+                                    <?php 
+                                        $icon = null;
+                                        if( $result['obtained_marks'] >= 1500 ){ $icon = 'shield.png'; }
+                                        else if( $result['obtained_marks'] >= 1000 ){ $icon = 'star.png'; }
+                                        else if ($result['obtained_marks'] >= 700 ) { $icon = 'dimond.png'; }
+                                        else if ($result['obtained_marks'] >= 500 ) { $icon = 'gold.png'; }
+                                        else if ($result['obtained_marks'] >= 200 ) { $icon = 'silver.png'; }
+                                        else if ($result['obtained_marks'] >= 50 ) { $icon = 'bronze.png'; }
+                                        else { $icon = 'new.png'; }
+                                    ?>
+                                    <img src="/template/icon/rank/<?php echo $icon ?>" width="20px" alt="rank">
+                                </div>
+                                <div class="col-3 text-success">
+                                    <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <div class="d-flex bd-highlight p-3 text-secondary">
+                        <div class="pe-2 flex-fill bd-highlight">Current month rank</div>
+                        <div class="flex-fill bd-highlight text-end">
+                            <a href="/examcenter/rank" class="text-decoration-none">full list</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- AD -->
+                <div class="mt-2 mb-2 text-center">
+                    <?php include __DIR__.'/ad/vertical.php';?>
+                </div>
+
+                <!-- Tools -->
+                <div class="h5 mb-4 mt-4">
+                    <span style="vertical-align: 0.125em;" class="pe-2">
+                        <img src="/template/icon/tool-blue.svg" width="20px" alt="rank">
+                    </span>
+                    <span>Tools </span>
+                </div>
+
+                <div class="shadow-sm border rounded bg-white p-3 list-group list-group-flush small">
+
+                    <a href="/tool/ageCalculator" class="list-group-item text-secondary fw-bold">
+                        Age Calculator
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- Status -->
+            <div class="row g-2 ps-2">
+                <div class="col-12 col-md-4">
+                    <div class="d-flex small bd-highlight bg-white shadow-sm rounded p-3">
+                        <div class="bd-highlight">
+                            <span style="vertical-align: 0.125em;" class="pe-4">
+                                <img src="/template/icon/student.png" width="45px" alt="topic">
+                            </span>
+                        </div>
+                        <div class="flex-fill bd-highlight">
+                            <div class="h5"><?php echo $status->user ?> +</div>
+                            <div class="text-secondary small">Happy Students</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="d-flex small bd-highlight bg-white shadow-sm rounded p-3">
+                        <div class="bd-highlight">
+                            <span style="vertical-align: 0.125em;" class="pe-4">
+                                <img src="/template/icon/test.png" width="45px" alt="topic">
+                            </span>
+                        </div>
+                        <div class="flex-fill bd-highlight">
+                            <div class="h5"><?php echo $status->atmp_test ?> +</div>
+                            <div class="text-secondary small">Tests Taken</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="d-flex small bd-highlight bg-white shadow-sm rounded p-3">
+                        <div class="bd-highlight">
+                            <span style="vertical-align: 0.125em;" class="pe-4">
+                                <img src="/template/icon/question.png" width="45px" alt="topic">
+                            </span>
+                        </div>
+                        <div class="flex-fill bd-highlight">
+                            <div class="h5"><?php echo $status->atmp_question ?> +</div>
+                            <div class="text-secondary small">Questions Practiced</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+    <?php include __DIR__.'/static/footer.html';?>
+
+    <!-- Report -->
+    <?php include __DIR__.'/static/reportCode.html';?>
+
+
+
+    <script src="/app.js?v=1.1"></script>
+    <script>
+        //var user_id = "<?php echo isset($_SESSION['user_id'])? $_SESSION['user_id']: 0; ?>";
+        $(document).ready(function () {
+        });
+    </script>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
+    <script>
+        //window.dataLayer = window.dataLayer || [];
+        //function gtag() { dataLayer.push(arguments); }
+        //gtag('js', new Date());
+
+        //gtag('config', 'G-KPXYFG7WZV');
+    </script>
+
+</body>
+
+</html>

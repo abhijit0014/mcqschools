@@ -163,8 +163,7 @@
 
             if(empty($post_data)) return;
 
-            $limit = 20;
-            $pages = 0;
+            $limit = 50;
             $currentPage = 0;
             $category_id = 0;
             $question_list = [];
@@ -182,19 +181,12 @@
                 if($cat) $category_id = $cat->id;
             }
 
-            if(!empty($category_id )){
-                // get number of pages    
-                $pages = $post_data->pages;
-                if(empty($pages))
-                    $pages = $this->repository->questionCountByCategoryId($limit, $category_id);
-
-                if($pages>0)
-                    $question_list = $this->repository->questionListByCategoryId($currentPage,$limit,$category_id);
-            }
+            if(!empty($category_id ))
+                $question_list = $this->repository->questionListByCategoryId($currentPage,$limit,$category_id);
 
 
             //return response objet
-            return json_encode(new QuestionResponseModel($pages, $currentPage, $category_id, $question_list));
+            return json_encode(new QuestionResponseModel($currentPage, $category_id, $question_list));
         }
 
 

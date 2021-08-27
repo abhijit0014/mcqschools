@@ -35,13 +35,19 @@
                     Mock Test & Test Series
                 </div>
             </div>
-            <?php if(!in_array( $category_name,  $GLOBALS['BLOCKED_CATEGORIES'])) { ?>
+
+            <?php if($subCategoryList){ ?>
             <div class="col text-end">
-                <a href="/category/quiz/<?php echo str_replace(" ","-",$category_name); ?>">
-                    <button class="btn btn-sm btn-success">
-                        <?php echo $category_name?> quiz
+                <div class="btn-group">
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        All Categories
                     </button>
-                </a>
+                    <ul class="dropdown-menu">
+                        <?php foreach ($subCategoryList as $cat) { ?>
+                        <li><a class="dropdown-item" href="/category/exam/<?php echo str_replace(' ','-',$cat['title'] ); ?>"><?php echo $cat['title'] ?></a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
             <?php } ?>
         </div>

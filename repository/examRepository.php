@@ -136,16 +136,25 @@
         }
 
         // list by category id -------------------------------------------------------
-        public function listByCategoryId($page, $limit, $categoryId)
+        public function examListByCategoryId($page, $limit, $categoryId)
         {
             $user_id = SessionManager::get("user_id");
             if(!$user_id) $user_id = 0;
 
-            $list=R::getAll('select exam.id, title, number_of_question, duration_mins, attemped, created_date,
+            $list=R::getAll('select exam.id, title, number_of_question, duration_mins, attemped, exam.created_date,
             exam_user.user_id, exam_user.submitted from exam 
             Left JOIN exam_user on exam_user.exam_id = exam.id and exam_user.user_id = '.$user_id.'
-            WHERE  exam.category_id = '.$categoryId.' AND exam.published = true and exam.enabled = true 
-            ORDER BY created_date DESC LIMIT '.(($page-1)*$limit).', '.$limit);
+            WHERE  exam.category_id in (select id from category where parent_id = '.$categoryId.') 
+            AND exam.published = true and exam.enabled = true 
+            ORDER BY exam.created_date DESC LIMIT '.(($page-1)*$limit).', '.$limit);
+
+            if(!$list)
+            $list=R::getAll('select exam.id, title, number_of_question, duration_mins, attemped, exam.created_date,
+            exam_user.user_id, exam_user.submitted from exam 
+            Left JOIN exam_user on exam_user.exam_id = exam.id and exam_user.user_id = '.$user_id.'
+            WHERE  exam.category_id = '.$categoryId.'  
+            AND exam.published = true and exam.enabled = true 
+            ORDER BY exam.created_date DESC LIMIT '.(($page-1)*$limit).', '.$limit);
 
             return $list;
         }

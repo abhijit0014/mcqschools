@@ -2,14 +2,17 @@
 
     include 'repository/examRepository.php';
     include 'repository/examUserRepository.php';
+    include 'repository/categoryRepository.php';
 
     class QuizController
     {
+        private $categoryRepository; 
         private $examRepository;
         private $examUserRepository;       
 
         function __construct()
         {
+            $this->categoryRepository = new CategoryRepository();
             $this->examRepository = new ExamRepository();
             $this->examUserRepository = new ExamUserRepository();
         }
@@ -58,6 +61,25 @@
             $view->assign('start_time',   $start_time);
             $view->assign('exam_stop_flag',   $exam_stop_flag);
             $view->assign('quiz_id',   $quiz_id);
+            return;
+        }
+
+        public function category($param)
+        {
+            $categoryName = str_replace("-"," ",$param[0]);
+            $subCategoryList = null;
+
+            $category = $this->categoryRepository->getByCategoryName($categoryName);
+            if($category){
+                $this->categoryRepository->updateHitCount($param[0]);
+                $subCategoryList = $this->categoryRepository->getSubCategoryListByParentIdForQuiz($category->id); 
+                if(!$subCategoryList && $category->parent_id)
+                $subCategoryList = $this->categoryRepository->getSubCategoryListByParentIdForQuiz($category->parent_id); 
+            }
+
+            $view = new view('quiz_new');
+            $view->assign('category_name', $categoryName);
+            $view->assign('subCategoryList', json_encode($subCategoryList));
             return;
         }
 
