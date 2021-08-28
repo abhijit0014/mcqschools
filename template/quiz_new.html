@@ -26,15 +26,17 @@
                 <!--quiz Title-->
                 <div class="mb-4 d-flex">
                         <div>
-                            <span class="p-2">
-                                <img src="/template/icon/back.svg" width="20px" alt="quiz">
-                            </span>
+                            <a href="/" class="text-decoration-none">
+                                <span class="bg-light text-secondary ps-3 pe-3 pb-2 pt-1 rounded small">
+                                    <img src="/template/icon/back.svg" width="20px" alt="quiz">
+                                </span>
+                            </a>
                         </div>
-                        <div class="flex-fill h5 text-center">
+                        <div class="flex-fill h5 ps-3">
                             <?php echo $category_name?>
                         </div>
-                        <div id="questionCountDisplay">
-                            5
+                        <div>
+                            <span class="bg-light text-secondary ps-3 pe-3 pb-2 pt-2 rounded small" id="questionCountDisplay"></span>
                         </div>
                 </div>
 
@@ -160,13 +162,13 @@
                     No more questions in <span class="fw-bold"><?php echo $category_name?></span> category
                 </div>
 
-                <!-- category list -->
-                <div id="categoryList" class="row row-cols-3 row-cols-md-2 row-cols-lg-2 g-2">
+                <!-- AD -->
+                <div class="mt-2 text-center">
+                    <?php include __DIR__.'/ad/leaderboard.php';?>
                 </div>
 
-                <!-- AD -->
-                <div class="mt-1 text-center">
-                    <?php include __DIR__.'/ad/leaderboard.php';?>
+                <!-- category list -->
+                <div id="categoryList" class="row row-cols-2 row-cols-md-3 row-cols-lg-3 g-2 mt-2">
                 </div>
 
 
@@ -227,6 +229,7 @@
 
             setup();
             loadQuestion();
+            printCategoryList();
 
 
             // nevbar-------------------------------------------------------
@@ -268,11 +271,9 @@
                 current_question_index--;
 
             if (current_question_index == total_question) { // final limit
-                current_question_index--;
-                if (!total_question) { selectCategory(); }
-                else { loadQuestion(); }
-
-            } else {
+                loadQuestion();
+            } 
+            else {
                 mcqQuestionType = undefined;
 
                 if (question_list[current_question_index].total_attempt < 15)
@@ -365,7 +366,7 @@
         }
 
         // select new category
-        function selectCategory(){
+        function printCategoryList(){
             config_categories = JSON.parse('<?php echo $subCategoryList ?>');
 
             if(!config_categories.length){
@@ -382,7 +383,7 @@
             }
         }
         function getCategoryHtml(item) {
-            str = '<div class="col"> <a href="/quiz/category/#url" class="text-decoration-none text-dark"> <div class="card h-100 shadow-sm"> <div class="card-body"> <p class="h5 m-0 small">#title</p> </div> <div class="card-footer">  <span class="text-success h6 m-0 small">Start Quiz <img src="/template/icon/next.svg" alt=""></span> </div> </div> </a> </div>';
+            str = '<div class="col"> <a href="/quiz/category/#url" class="text-decoration-none text-dark"> <div class="card h-100"> <div class="card-body"> <p class="h6 m-0">#title</p> </div> <div class="card-footer">  <span class="text-success h6 m-0 small">Start Quiz <img src="/template/icon/next.svg" alt=""></span> </div> </div> </a> </div>';
             str = str.replace("#url",item.replaceAll(" ", "-"));
             str = str.replace("#title",item);
             //if (current_category === item)
@@ -407,7 +408,6 @@
                     if (!result.question_list.length) {
                         $("#quizWindow").addClass("d-none");
                         $("#noMoreQuestions").removeClass("d-none");
-                        selectCategory();
                     }
                     else {
                         $("#quizWindow").removeClass("d-none");
@@ -506,11 +506,11 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
     <script>
-        //window.dataLayer = window.dataLayer || [];
-        //function gtag() { dataLayer.push(arguments); }
-        //gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-        //gtag('config', 'G-KPXYFG7WZV');
+        gtag('config', 'G-KPXYFG7WZV');
     </script>
 
 </body>

@@ -78,7 +78,7 @@
             }
 
             $view = new view('quiz_new');
-            $view->assign('category_name', $categoryName);
+            $view->assign('category_name', ucwords($categoryName));
             $view->assign('subCategoryList', json_encode($subCategoryList));
             return;
         }
