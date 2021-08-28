@@ -28,7 +28,7 @@
                         <div>
                             <a href="/" class="text-decoration-none">
                                 <span class="bg-light text-secondary ps-3 pe-3 pb-2 pt-1 rounded small">
-                                    <img src="/template/icon/back.svg" width="20px" alt="quiz">
+                                    <img src="/template/icon/back.svg" width="25px" alt="back">
                                 </span>
                             </a>
                         </div>
@@ -391,6 +391,7 @@
         }
 
         // load question set
+        var firstLoad = true;
         function loadQuestion() {
             var questionRequestObj = {
                 category: current_category,
@@ -407,6 +408,7 @@
                     $("#loadingWindow").addClass("d-none");
                     if (!result.question_list.length) {
                         $("#quizWindow").addClass("d-none");
+                        if(!firstLoad)
                         $("#noMoreQuestions").removeClass("d-none");
                     }
                     else {
@@ -419,6 +421,7 @@
                         setQuestion();
                         //setUserChoice(category_id);
                     }
+                    firstLoad = false;
                 }
             });
         }
