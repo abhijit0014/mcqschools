@@ -30,6 +30,7 @@
             $status = $this->webstatusRepository->get_status();
             $liveExam = $this->examRepository->getOne($GLOBALS['LIVE_EXAM_ID']);
             $liveQuiz =  $this->examRepository->getLiveQuiz();
+            $suggestedExams =  $this->examRepository->listOfSuggestedExams();
 
             $view = new view('index_new');
             $view->assign('today', $day);
@@ -38,6 +39,7 @@
             $view->assign('status', $status);
             $view->assign('liveExam', $liveExam);
             $view->assign('liveQuiz', $liveQuiz);
+            $view->assign('suggestedExams', $suggestedExams);
             return;
         }
 

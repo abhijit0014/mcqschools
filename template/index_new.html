@@ -45,31 +45,40 @@
 
         <div class="row" id="contentWindow">
 
-            <!-- Topic list -->
+            <!-- AD -->
             <div class="col-12">
-                <div class="mb-3">
-                    <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 g-2 pb-2 flex-row flex-nowrap overflow-auto" id="topicList">
-                        <!-- 
-                        <div class="col">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <p class="h6 small m-0">#title</p>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="/category/quiz/#url" class="text-decoration-none">
-                                        <span class="text-success h6 small m-0">Start Quiz <img src="/template/icon/next.svg" alt=""></span>
-                                    </a>
+                <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 g-2 pb-2 flex-row flex-nowrap overflow-auto" id="topicList">
+                    <?php foreach ($suggestedExams as $i => $exam){ ?>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <p class="h6 small m-0"><?php echo $exam['title'] ?></p>
+                                <div class="small">
+                                    <div></div>
+                                    <?php echo $exam['number_of_question'] ?> questions . <?php echo $exam['duration_mins'] ?> mins
                                 </div>
                             </div>
+                            <div class="card-footer">
+                                <a href="/examcenter/start/<?php echo $exam['id'] ?>" class="text-decoration-none">
+                                    <span class="text-success h6 small m-0">Attempt <img src="/template/icon/next.svg" alt=""></span>
+                                </a>
+                            </div>
                         </div>
-                        -->
                     </div>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <!-- AD -->
+                <div class="mb-2 text-center">
+                    <?php include __DIR__.'/ad/leaderboard.php';?>
                 </div>
             </div>
 
             <div class="col-12 col-md-8">
                 
-                <!--Rank list-->
+                <!--Menu Title-->
                 <div class="mb-3 d-flex">
                     <div class="h5 flex-fill">
                         <span style="vertical-align: 0.125em;" class="pe-2">
@@ -210,6 +219,7 @@
                     </div> 
 
                 </div>
+
                 <!-- AD -->
                 <div class="mt-2 mb-2 text-center">
                     <?php include __DIR__.'/ad/banner.php';?>
@@ -270,11 +280,6 @@
                         </div>
                     </div>
 
-                </div>
-
-                <!-- AD -->
-                <div class="mt-2 mb-2 text-center">
-                    <?php include __DIR__.'/ad/vertical.php';?>
                 </div>
 
                 <!-- Tools -->
@@ -339,6 +344,15 @@
                     </div>
                 </div>
             </div>
+
+            <!-- AD -->
+            <div class="col-12">
+                <!-- AD -->
+                <div class="mt-2 mb-2 text-center">
+                    <?php include __DIR__.'/ad/horizontal.php';?>
+                </div>
+            </div>
+
         </div>
 
     </div>

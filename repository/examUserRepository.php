@@ -100,7 +100,8 @@
         {
             $list = R::getAll("SELECT users.username, exam_user.obtained_marks
             FROM exam_user left join users on exam_user.user_id = users.id
-            WHERE exam_user.submitted = true and exam_user.end_time <= '".$exam_end_time."' and exam_user.exam_id = ".$exam_id." 
+            WHERE exam_user.obtained_marks > 0 and exam_user.submitted = true 
+            and exam_user.end_time <= '".$exam_end_time."' and exam_user.exam_id = ".$exam_id." 
             ORDER BY exam_user.obtained_marks DESC, exam_user.wrong_answered ASC,  exam_user.duration ASC LIMIT 100" );
             return $list;
         }

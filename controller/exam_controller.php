@@ -158,7 +158,8 @@
         {
             $json = file_get_contents('php://input');
             $arr = json_decode($json);
-            $list = $this->repository->listOfSuggestedExams($arr);
+            $list = [];
+            //$list = $this->repository->listOfSuggestedExams($arr);
             return json_encode($list);
         }
 
