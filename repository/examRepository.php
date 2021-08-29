@@ -118,7 +118,7 @@
             $user_id = SessionManager::get("user_id");
             if($user_id){
                 $list = R::getAll("SELECT exam.id, exam.title, exam.attemped, exam.number_of_question, exam.duration_mins, 
-                category.title as category FROM exam
+                exam.created_date, category.title as category FROM exam
                 left join category on category.id = exam.category_id
                 Left JOIN exam_user on exam.id = exam_user.exam_id and exam_user.user_id = ".$user_id."
                 where category_id in ( select  distinct category_id from exam

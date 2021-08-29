@@ -28,7 +28,8 @@
     <?php } ?>
     <meta name="keywords" content="Mock test, online exam, Test series, MCQ questions, MCQs with answers, MCQs test, Mcq questions on computer, General Knowledge, 
     Online Exam Maker, Online Examination System" />
-    <script data-ad-client="ca-pub-9427558486793573" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script data-ad-client="ca-pub-9427558486793573" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body>
@@ -47,20 +48,35 @@
 
             <!-- AD -->
             <div class="col-12">
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-2 pb-2 flex-row flex-nowrap overflow-auto" id="topicList">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-2 pb-2 flex-row flex-nowrap overflow-auto"
+                    id="topicList">
                     <?php foreach ($suggestedExams as $i => $exam){ ?>
                     <div class="col">
                         <div class="card h-100">
                             <div class="card-body">
-                                <p class="h6 small m-0"><?php echo $exam['title'] ?></p>
                                 <div class="small">
-                                    <div></div>
-                                    <?php echo $exam['number_of_question'] ?> questions . <?php echo $exam['duration_mins'] ?> mins
+                                    <div class="small">
+                                        <span class="text-secondary">
+                                            <?php echo $exam['category'] ?>
+                                        </span>
+                                        <span class="text-danger">
+                                            <?php echo date("Y-m-d", strtotime($exam['created_date'])) == date("Y-m-d") ? 'New' : '' ?>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <p class="h6 small m-0">
+                                    <?php echo $exam['title'] ?>
+                                </p>
+                                <div class="small">
+                                    <?php echo $exam['number_of_question'] ?> questions .
+                                    <?php echo $exam['duration_mins'] ?> mins
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <a href="/examcenter/start/<?php echo $exam['id'] ?>" class="text-decoration-none">
-                                    <span class="text-success h6 small m-0">Attempt <img src="/template/icon/next.svg" alt=""></span>
+                                    <span class="text-success h6 small m-0">Attempt <img src="/template/icon/next.svg"
+                                            alt=""></span>
                                 </a>
                             </div>
                         </div>
@@ -77,7 +93,7 @@
             </div>
 
             <div class="col-12 col-md-8">
-                
+
                 <!--Menu Title-->
                 <div class="mb-3 d-flex">
                     <div class="h5 flex-fill">
@@ -87,7 +103,8 @@
                         <span>Menu</span>
                     </div>
                     <div class="small">
-                        <a href="/category/browse" class="p-1 ps-3 pe-3 mb-0 text-decoration-none text-dark border border-secondary rounded-pill">
+                        <a href="/category/browse"
+                            class="p-1 ps-3 pe-3 mb-0 text-decoration-none text-dark border border-secondary rounded-pill">
                             <span class="">All Categories</span>
                         </a>
                     </div>
@@ -135,14 +152,14 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Interview and Placement -->
                     <div class="col">
                         <div class="card h-100" style="color:black;background-color:#D9EEE1;">
                             <div class="card-body text-center">
                                 <div class="h4 m-0">Interview and Placement</div>
                                 <div class="small test-secondary mt-2">
-                                    Mcq questions for Interview and Placement 
+                                    Mcq questions for Interview and Placement
                                 </div>
                             </div>
                             <div class="card-footer text-center d-grid gap-2 border-0">
@@ -156,8 +173,8 @@
                                 </a>
                             </div>
                         </div>
-                    </div> 
-                    
+                    </div>
+
                     <!-- General Knowledge -->
                     <div class="col">
                         <div class="card h-100" style="color:black;background-color:#F3ECEA;">
@@ -176,14 +193,15 @@
                                 </a>
                             </div>
                         </div>
-                    </div> 
+                    </div>
 
                     <!-- Wbjee Nursing -->
                     <div class="col">
                         <div class="card h-100" style="color:black;background-color:#FFF4A3;">
                             <div class="card-body text-center">
                                 <div class="h4 m-0">WBJEE Nursing (ANM, GNM)</div>
-                                <div class="small test-secondary mt-2">West bengal joint entrance examination for BSC Nursing</div>
+                                <div class="small test-secondary mt-2">West bengal joint entrance examination for BSC
+                                    Nursing</div>
                             </div>
                             <div class="card-footer text-center d-grid gap-2 border-0">
                                 <a href="/quiz/category/wbjee-nursing"
@@ -196,7 +214,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>   
+                    </div>
 
                     <!-- Railways -->
                     <div class="col">
@@ -216,7 +234,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div> 
+                    </div>
 
                 </div>
 
@@ -228,9 +246,9 @@
             </div>
 
             <div class="col-12 col-md-4" id="rankWindow">
-  
-                 <!--Rank list-->
-                 <div class="h5 mb-4">
+
+                <!--Rank list-->
+                <div class="h5 mb-4">
                     <span style="vertical-align: 0.125em;" class="pe-2">
                         <img src="/template/icon/rank.svg" width="20px" alt="rank">
                     </span>
@@ -247,14 +265,16 @@
                         </div>
                     </div>
                     <?php foreach ($rankList as $i=> $result) { ?>
-                        <div class="list-group-item bg-hover">
-                            <div class="row">
-                                <div class="col-2"><?php echo $i+1 ?></div>
-                                <div class="col-5 overflow-hidden">
-                                    <?php echo $result['username'] ?>
-                                </div>
-                                <div class="col-2">
-                                    <?php 
+                    <div class="list-group-item bg-hover">
+                        <div class="row">
+                            <div class="col-2">
+                                <?php echo $i+1 ?>
+                            </div>
+                            <div class="col-5 overflow-hidden">
+                                <?php echo $result['username'] ?>
+                            </div>
+                            <div class="col-2">
+                                <?php 
                                         $icon = null;
                                         if( $result['obtained_marks'] >= 1500 ){ $icon = 'shield.png'; }
                                         else if( $result['obtained_marks'] >= 1000 ){ $icon = 'star.png'; }
@@ -264,13 +284,13 @@
                                         else if ($result['obtained_marks'] >= 50 ) { $icon = 'bronze.png'; }
                                         else { $icon = 'new.png'; }
                                     ?>
-                                    <img src="/template/icon/rank/<?php echo $icon ?>" width="20px" alt="rank">
-                                </div>
-                                <div class="col-3 text-success">
-                                    <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
-                                </div>
+                                <img src="/template/icon/rank/<?php echo $icon ?>" width="20px" alt="rank">
+                            </div>
+                            <div class="col-3 text-success">
+                                <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
                             </div>
                         </div>
+                    </div>
                     <?php } ?>
 
                     <div class="d-flex bd-highlight p-3 text-secondary">
@@ -311,7 +331,9 @@
                                 </span>
                             </div>
                             <div class="flex-fill bd-highlight">
-                                <div class="h5"><?php echo $status->user ?> +</div>
+                                <div class="h5">
+                                    <?php echo $status->user ?> +
+                                </div>
                                 <div class="text-secondary small">Happy Students</div>
                             </div>
                         </div>
@@ -324,7 +346,9 @@
                                 </span>
                             </div>
                             <div class="flex-fill bd-highlight">
-                                <div class="h5"><?php echo $status->atmp_test ?> +</div>
+                                <div class="h5">
+                                    <?php echo $status->atmp_test ?> +
+                                </div>
                                 <div class="text-secondary small">Tests Taken</div>
                             </div>
                         </div>
@@ -337,7 +361,9 @@
                                 </span>
                             </div>
                             <div class="flex-fill bd-highlight">
-                                <div class="h5"><?php echo $status->atmp_question ?> +</div>
+                                <div class="h5">
+                                    <?php echo $status->atmp_question ?> +
+                                </div>
                                 <div class="text-secondary small">Questions Practiced</div>
                             </div>
                         </div>
