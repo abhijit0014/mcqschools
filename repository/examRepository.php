@@ -129,8 +129,10 @@
             }
 
             if(!$list){
-                $list = R::getAll("SELECT id,title,attemped,number_of_question, duration_mins FROM exam 
-                WHERE enabled = true and published = true order by rand() limit 10");
+                $list = R::getAll("SELECT exam.id, exam.title, exam.attemped,number_of_question, exam.duration_mins, 
+                exam.created_date, category.title as category FROM exam 
+                left join category on category.id = exam.category_id
+                where exam.enabled = true and exam.published = true order by exam.created_date desc limit 10");
             }
 
             return $list;
