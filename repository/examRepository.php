@@ -123,7 +123,7 @@
                 Left JOIN exam_user on exam.id = exam_user.exam_id and exam_user.user_id = ".$user_id."
                 where category_id in ( select  distinct category_id from exam
                 left join exam_user on exam.id = exam_user.exam_id
-                where exam_user.user_id = ".$user_id.") and 
+                where exam_user.user_id = ".$user_id." order by exam_user.id desc) and 
                 exam_user.submitted Is NULL and exam.enabled = true 
                 and exam.published = true order by exam.created_date desc limit 10");             
             }
