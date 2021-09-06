@@ -575,8 +575,8 @@
                     duration_mins: examDuration,
                 };
 
-                index = i * 10;
-                qList = questionObjList.slice(index, index + 10);
+                index = i * questionPerSlot;
+                qList = questionObjList.slice(index, index + questionPerSlot);
 
                 examSlot = {
                     exam: exam,
