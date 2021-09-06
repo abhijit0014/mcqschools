@@ -46,33 +46,28 @@
 
 <!-- upcoming live exam -->
 <?php if( $GLOBALS["LIVE_EXAM_ID"]) { ?>
-<div class="mb-3 container">
-
-    <div class="row p-2 pt-3 pb-3 shadow-sm border rounded bg-white ">
-        <div class="col-12">
-            <span class="badge bg-success <?php echo date_create($liveExam['start_time']) < date_create() && date_create($liveExam['end_time']) > date_create()? ' ': 'd-none' ?>">Live</span>
-            <div class="h5"><?php echo $liveExam['title'] ?></div>
-        </div>
-        <div class="col-12">
-            <div class="d-flex align-content-end bd-highlight text-secondary">
-                <div class="flex-fill bd-highlight">
-                    <div class="small mb-0 text-secondary"><?php echo date_format(date_create($liveExam['start_time']),"l, dS F Y"); ?> </div>
-                    <span class="small m-0  me-2 text-nowrap">
+<div class="mb-3">
+        <div class="d-flex alert alert-info border border-info ">  
+            <div class="flex-fill">
+                <span class="badge bg-success <?php echo date_create($liveExam['start_time']) < date_create() && date_create($liveExam['end_time']) > date_create()? ' ': 'd-none' ?>">Live</span>
+                <div class="h6"><?php echo $liveExam['title'] ?></div> 
+                <div class="small mb-0"><?php echo date_format(date_create($liveExam['start_time']),"l, dS F Y"); ?> </div>
+                <span class="small m-0  me-2 text-nowrap">
                         Starts on: <?php echo date_format(date_create($liveExam['start_time']),"h:i A"); ?>
                     </span>
                     <span class="small m-0  text-nowrap">
                         Ends on: <?php echo date_format(date_create($liveExam['end_time']),"h:i A"); ?>
-                    </span>
+                    </span> 
+                <div class="mt-2">
+
                 </div>
-                <div class="bd-highlight">
-                    <a href="/examcenter/live" class="text-decoration-none">
+            </div>
+            <div class="text-center">
+                <a href="/examcenter/live" class="text-decoration-none">
                         <button class="btn btn-sm btn-primary ps-3 pe-3">Open</button>
-                    </a>
-                </div>
-            </div>            
+                </a>
+            </div>
         </div>
     </div>
-    
-</div>
 <?php } ?>
 
