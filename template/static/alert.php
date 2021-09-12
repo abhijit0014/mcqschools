@@ -49,23 +49,29 @@
 <div class="mb-3">
         <div class="d-flex alert alert-info border border-info ">  
             <div class="flex-fill">
-                <span class="badge bg-success <?php echo date_create($liveExam['start_time']) < date_create() && date_create($liveExam['end_time']) > date_create()? ' ': 'd-none' ?>">Live</span>
-                <div class="h6"><?php echo $liveExam['title'] ?></div> 
+                <span class="badge bg-danger <?php echo date_create($liveExam['start_time']) < date_create() && date_create($liveExam['end_time']) > date_create()? ' ': 'd-none' ?>">Live</span>
+                <div class="h5"><?php echo $liveExam['title'] ?></div> 
                 <div class="small mb-0"><?php echo date_format(date_create($liveExam['start_time']),"l, dS F Y"); ?> </div>
-                <span class="small m-0  me-2 text-nowrap">
-                        Starts on: <?php echo date_format(date_create($liveExam['start_time']),"h:i A"); ?>
-                    </span>
-                    <span class="small m-0  text-nowrap">
-                        Ends on: <?php echo date_format(date_create($liveExam['end_time']),"h:i A"); ?>
-                    </span> 
-                <div class="mt-2">
 
+                <div class="small">
+                    <span class="me-2 text-nowrap">
+                            <span class="fw-bold"> Starts on: </span>
+                            <?php echo date_format(date_create($liveExam['start_time']),"h:i A"); ?>
+                    </span>
+                    <span class="text-nowrap">
+                            <span class="fw-bold"> Ends on: </span>
+                            <?php echo date_format(date_create($liveExam['end_time']),"h:i A"); ?>
+                    </span> 
                 </div>
-            </div>
-            <div class="text-center">
-                <a href="/examcenter/live" class="text-decoration-none">
-                        <button class="btn btn-sm btn-primary ps-3 pe-3">Open</button>
+
+                <a href="/examcenter/live" class="text-decoration-none d-block mt-3">
+                    <div class="d-grid d-block d-md-inline">
+                        <button class="btn btn-primary ps-3 pe-3 fw-bold">Exam Details</button>
+                    </div>
                 </a>
+            </div>
+            <div class="text-center d-none d-md-block flex-fill pt-2">
+                <img src="/template/icon/online-test.png" alt="online exam" width="100px">
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <?php
 
-// maximum exam user can add per day
-$LIVE_EXAM_ID = 771;
+// maximum exam user can add per day 792
+$LIVE_EXAM_ID = 377;
 
 // maximum exam user can add per day
 $EXAM_ADITION_LIMIT_PER_DAY = 100;
@@ -16,7 +16,7 @@ $UNSOLVED_REPORT_LIMIT = 5;
 $CATEGORY_AUTOCOMPLETE_RESULT_LIMIT = 8;
 
 // blocked categories
-$BLOCKED_CATEGORIES = array("Others");
+$BLOCKED_CATEGORIES = array("Others", "Online Mock Test");
 
 
 ?>
