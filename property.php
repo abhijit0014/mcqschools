@@ -1,6 +1,6 @@
 <?php
 
-// maximum exam user can add per day 792
+// maximum exam user can add per day
 $LIVE_EXAM_ID = 377;
 
 // maximum exam user can add per day

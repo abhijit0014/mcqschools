@@ -18,32 +18,6 @@
 
     <div class="container">
 
-        <!-- new ad-->
-        <div class="mt-2 d-none">
-            <div class="border rounded">
-                <div class="border-bottom p-3">
-                    <div class="d-flex">
-                        <div class="pe-3">
-                            <img src="/template/icon/user.svg" width="50px" class="rounded-circle p-2 bg-light" alt="profile">
-                        </div>
-                        <div class="flex-fill">
-                            <div class="h5 mb-1">Animesh Banerjee</div>
-                            <div class="small">Educator & Question Setter</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-3">
-                    <div class="h6 mb-1">Competitive Coaching Center</div>
-                    <div class="small">Kamalpur, Bankura</div>
-                    <div class="pt-3 h6 small">
-                        WBP, EXCISE MAINS, NURSING (ANM, GNM), RAILWAY GROUP-D, NTPC, MTS (All Subjects)
-                    </div>
-                </div>
-                <div class="p-3 bg-light h6 mb-0">
-                    Contact : 8910867768, 7595948212
-                </div>
-            </div>
-        </div>
         <!-- AD -->
         <div class="row mt-3 ps-3 pe-3">
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 m-auto">
@@ -114,12 +88,16 @@
 
         <!-- EXAM-->
         <div class="row ps-3 pe-3">
-            <div class="col-12 col-md-6 col-lg-6 col-xl-6 m-auto border rounded shadow-sm mt-3 p-0">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6 m-auto border border-success rounded mt-3 p-0">
                 <div class="p-3">
                     <span class="badge bg-success <?php echo date_create($exam->start_time) < date_create() && date_create($exam->end_time) > date_create() ? ' '
                             : 'd-none' ?>">Live</span>
-                    <div class="h5"><?php echo $exam->title ?></div>
-                    <div class="text-secondary small"><?php echo $exam->descp ?></div>
+                    <div class="h5">
+                        <?php echo $exam->title ?>
+                    </div>
+                    <div class="text-secondary small">
+                        <?php echo $exam->descp ?>
+                    </div>
 
                     <div class="border-top mb-1 mt-4"></div>
                     <div class="text-center p-2 text-secondary">
@@ -140,9 +118,10 @@
                     </div>
                 </div>
                 <div class="d-grid <?php echo $exam_stop_flag ? 'd-none' : '' ?>">
-                    <button id="startButton" class="btn btn-success" style="border-radius: 0 0 3px 3px;" disabled></button>
+                    <button id="startButton" class="btn btn-success" style="border-radius: 0 0 3px 3px;"
+                        disabled></button>
                 </div>
-                
+
             </div>
         </div>
 
@@ -159,7 +138,7 @@
                     <div class="pe-2 flex-fill bd-highlight h5">Rank List</div>
                     <div class="flex bd-highlight">
                         <a href="/examcenter/result/<?php echo $exam->id ?>"
-                                class="text-decoration-none btn btn-sm btn-primary">My Result</a>
+                            class="text-decoration-none btn btn-sm btn-primary">My Result</a>
                     </div>
                 </div>
 
@@ -194,6 +173,36 @@
 
             </div>
         </div>
+
+        <!-- Animesh -->
+        <div class="row mt-3 ps-3 pe-3 d-none">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6 m-auto p-0">
+                <div class="border rounded">
+                    <div class="border-bottom p-3">
+                        <div class="d-flex">
+                            <div class="pe-3">
+                                <img src="/template/icon/user.svg" width="50px" class="rounded-circle p-2 bg-light"
+                                    alt="profile">
+                            </div>
+                            <div class="flex-fill">
+                                <div class="h5 mb-1">Animesh Banerjee</div>
+                                <div class="small">Educator & Question Setter</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="h5 mb-1">Competitive Coaching Center</div>
+                        <div class="small">Kamalpur, Bankura</div>
+                        <div class="pt-3 h6 small">
+                            WBP, EXCISE MAINS, NURSING (ANM, GNM), RAILWAY GROUP-D, NTPC, MTS (All Subjects)
+                        </div>
+                    </div>
+                    <div class="p-3 bg-light h6 mb-0">
+                        Contact : 8910867768, 7595948212
+                    </div>
+                </div>
+            </div>
+        </div>        
 
     </div>
 
