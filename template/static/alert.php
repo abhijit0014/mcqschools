@@ -1,3 +1,18 @@
+<!-- WBP Result -->
+<div class="mb-3">
+        <div class="d-flex alert alert-warning shadow-sm border border-warning ">  
+            <div class="flex-fill">
+                <div class="h5">WBP 2021 - Solved Paper</div>    
+            </div>
+            <div class="">
+                <a href="/downloads/WBP-ANSWER-KEY-2021.pdf" class="d-grid text-decoration-none">
+                    <button class="btn btn-sm btn-primary">Download</button>
+                </a>
+            </div>
+        </div>
+</div>
+
+
 <!-- live quiz -->
 <?php if( $liveQuiz) {
     if(date_create($liveQuiz['start_time']) < date_create() && date_create($liveQuiz['end_time']) > date_create()) { 
