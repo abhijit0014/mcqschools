@@ -50,6 +50,9 @@
         public function live($param)
         {
             $live_exam_id = $GLOBALS['LIVE_EXAM_ID'];
+            if(!empty($param[0]))
+                $live_exam_id = $param[0];
+                
             //$exam_start_time=mktime(10, 00, 00, 7, 11, 2021);
             $exam = null;
             $toppers = [];

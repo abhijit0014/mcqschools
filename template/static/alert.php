@@ -1,5 +1,5 @@
 <!-- WBP Result -->
-<div class="mb-3">
+<div class="mb-3 d-none">
         <div class="d-flex alert alert-warning shadow-sm border border-warning ">  
             <div class="flex-fill">
                 <div class="h5">WBP 2021 - Solved Paper</div>    
