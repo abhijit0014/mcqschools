@@ -170,6 +170,14 @@
             return R::findOne( 'exam', "created_by = ? and start_time BETWEEN '".$start_time."' AND '".$end_time."' ", [ 417 ] );
         }
 
+        public function nextExam($exam_id, $cat_id){
+            //exit("SELECT id FROM exam where id = (select min(id) from exam where id > ".$exam_id." and category_id = ".$cat_id.")");
+            return R::getCol("SELECT id FROM exam where id = (select min(id) from exam where id > ".$exam_id." and category_id = ".$cat_id.")");
+        }
+        public function prevExam($exam_id, $cat_id){
+            return R::getCol('SELECT id FROM exam where id = (select min(id) from exam where id < '.$exam_id.' and category_id = '.$cat_id.')');
+        }
+
 
         // delete exam ------------------------------------------------------------
         public function delete($exam_id)

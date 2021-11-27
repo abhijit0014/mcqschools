@@ -277,6 +277,12 @@
                 if($current_time < $end_time)
                     $result_publish_flag = false;
             }
+
+            // next and prev exam id
+            $next_examId = $this->examRepository-> nextExam($exam->id, $exam->category_id);
+            $prev_examId = $this->examRepository-> prevExam($exam->id, $exam->category_id);
+            $next_examId = empty($next_examId) ? 0 : $next_examId[0];
+            $prev_examId = empty($prev_examId) ? 0 : $prev_examId[0];
             
 
             $view = new view('examcenter_result');
@@ -286,6 +292,8 @@
             $view->assign('creator_username', $creator->username);
             $view->assign('toppers',  $toppers);
             $view->assign('result_publish_flag',  $result_publish_flag);
+            $view->assign('next_examId',  $next_examId);
+            $view->assign('prev_examId',  $prev_examId);
             return;
         }
 

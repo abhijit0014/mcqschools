@@ -93,14 +93,14 @@
                             <div class="col-8">
                                 <div class="mb-2 text-start">
                                     <span class="h4">
-                                        <?php echo $exam->number_of_question ?>
+                                        <?php echo $exam->number_of_question  ?>
                                     </span>
                                     <div class="small">Total Question</div>
                                 </div>
                                 <div class="progress h6">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo ($examUser->correct_answered /  $exam->number_of_question)*100?>%" aria-valuemin="0" aria-valuemax="100"><?php echo $examUser->correct_answered ?></div>
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo ($examUser->wrong_answered /  $exam->number_of_question)*100?>%" aria-valuemin="0" aria-valuemax="100"><?php echo $examUser->wrong_answered ?></div>
-                                    <div class="progress-bar bg-light text-dark" role="progressbar" style="width: <?php echo ($examUser->not_answered /  $exam->number_of_question)*100?>%" aria-valuemin="0" aria-valuemax="100"><?php echo $examUser->not_answered ?></div>
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo empty($examUser->correct_answered) ? 0 : ($examUser->correct_answered /  $exam->number_of_question)*100?>%" aria-valuemin="0" aria-valuemax="100"><?php echo $examUser->correct_answered ?></div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo empty($examUser->wrong_answered) ? 0 : ($examUser->wrong_answered /  $exam->number_of_question)*100 ?>%" aria-valuemin="0" aria-valuemax="100"><?php echo $examUser->wrong_answered ?></div>
+                                    <div class="progress-bar bg-light text-dark" role="progressbar" style="width: <?php echo empty($examUser->not_answered) ? 0 : ($examUser->not_answered /  $exam->number_of_question)*100 ?>%" aria-valuemin="0" aria-valuemax="100"><?php echo $examUser->not_answered ?></div>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -254,6 +254,11 @@
             <div class="small mt-3 text-secondary">
                 Do you want to change your name ? <a href="/user/username">Change Username</a>
             </div>
+        </div>
+
+        <div class="mt-2 mb-2">
+            <a href="/examcenter/start/<?php echo $prev_examId ?>" class="btn btn-outline-primary float-start">Prev</a>
+            <a href="/examcenter/start/<?php echo $next_examId ?>" class="btn btn-outline-primary float-end">Next</a>
         </div>
 
     </div>
