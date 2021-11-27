@@ -172,10 +172,10 @@
 
         public function nextExam($exam_id, $cat_id){
             //exit("SELECT id FROM exam where id = (select min(id) from exam where id > ".$exam_id." and category_id = ".$cat_id.")");
-            return R::getCol("SELECT id FROM exam where id = (select min(id) from exam where id > ".$exam_id." and category_id = ".$cat_id.")");
+            return R::getCol("SELECT id FROM exam where id = (select min(id) from exam where id > ".$exam_id." and category_id = ".$cat_id." and published = true)");
         }
         public function prevExam($exam_id, $cat_id){
-            return R::getCol('SELECT id FROM exam where id = (select min(id) from exam where id < '.$exam_id.' and category_id = '.$cat_id.')');
+            return R::getCol("SELECT id FROM exam where id = (select min(id) from exam where id < ".$exam_id." and category_id = ".$cat_id." and published = true)");
         }
 
 
