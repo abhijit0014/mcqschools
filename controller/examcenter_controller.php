@@ -7,6 +7,7 @@
     include 'repository/examResultRepository.php';
     include 'repository/userRepository.php';
     include 'repository/subscriptionRepository.php';
+    include 'repository/propertyRepository.php';
     //include 'model/questionResponseModel.php';
 
 
@@ -19,6 +20,7 @@
         private $examResultRepository;
         private $userRepository;
         private $subscriptionRepository;
+        private $propertyRepository;
 
         function __construct()
         {
@@ -29,6 +31,7 @@
             $this->examResultRepository = new ExamResultRepository();
             $this->userRepository = new UserRepository();
             $this->subscriptionRepository = new SubscriptionRepository();
+            $this->propertyRepository = new PropertyRepository();
         }
 
         public function rank($param)
@@ -49,11 +52,6 @@
 
         public function live($param)
         {
-            $live_exam_id = $GLOBALS['LIVE_EXAM_ID'];
-            if(!empty($param[0]))
-                $live_exam_id = $param[0];
-                
-            //$exam_start_time=mktime(10, 00, 00, 7, 11, 2021);
             $exam = null;
             $toppers = [];
             $current_time = 0;
@@ -61,9 +59,12 @@
             //$min_diff = 0;
             $exam_stop_flag = false;
 
-            if($live_exam_id)
+            $property = $this->propertyRepository->get();
+            $live_exam_id = empty($property->live_exam_id) ? 0 : $property->live_exam_id;
+
+            if($property->live_exam_id)
             {
-                $exam =  $this->examRepository->getOne($live_exam_id);
+                $exam =  $this->examRepository->getOne($property->live_exam_id);
 
                 date_default_timezone_set('Asia/Kolkata');
                 $current_time = date('Y-m-d H:i:s');
@@ -84,7 +85,7 @@
                 $min_diff = round((strtotime($end_time) - strtotime($current_time)) / 60,0);
                 if($min_diff < 1 ){
                     $exam_stop_flag = true;
-                    $toppers = $this->examUserRepository->getRank($live_exam_id, $exam->end_time);
+                    $toppers = $this->examUserRepository->getRank($property->live_exam_id, $exam->end_time);
                 }
             }
 
@@ -94,6 +95,7 @@
             $view->assign('current_time',  $current_time);
             $view->assign('start_time',   $start_time);
             $view->assign('exam_stop_flag',   $exam_stop_flag);
+            $view->assign('live_exam_id',  $property->live_exam_id);
             return;
         }
 

@@ -5,6 +5,7 @@
     //include 'repository/categoryRepository.php';
    // include 'repository/userRepository.php';
     include 'repository/reportRepository.php';
+    include 'repository/propertyRepository.php';
 
 
     class AdminController
@@ -14,6 +15,7 @@
         //private $categoryRepository;
         //private $userRepository;
         private $reportRepository;
+        private $propertyRepository;
 
         function __construct()
         {
@@ -22,6 +24,7 @@
             //$this->categoryRepository = new CategoryRepository();
             //$this->userRepository = new UserRepository();
             $this->reportRepository = new ReportRepository();
+            $this->propertyRepository = new PropertyRepository();
         }
 
         public function admin($param)
@@ -82,4 +85,18 @@
             return true;
         }
 
+        // property update ----------------------------------------------------
+        public function property()
+        {
+            $view = new view('admin/property_form');
+            $view->assign('property', $this->propertyRepository->get());
+            return;
+        }
+        public function property_update()
+        {
+            if(isset($_POST))
+                $this->propertyRepository->save($_POST);
+                
+            header("Location: /admin/property".$creator_id); exit;
+        }
     }

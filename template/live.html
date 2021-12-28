@@ -14,7 +14,7 @@
     <?php include __DIR__.'/static/header.html';?>
 
     <!-- BODY -->
-    <?php if( $GLOBALS["LIVE_EXAM_ID"] ){ ?>
+    <?php if( $live_exam_id ){ ?>
 
     <div class="container">
 
@@ -232,7 +232,7 @@
 </html>
 
 <script>
-    url = '/examcenter/exam/<?php echo $GLOBALS["LIVE_EXAM_ID"] ?>';
+    url = '/examcenter/exam/<?php echo $live_exam_id ?>';
     $("#startButton").click(function () {
         window.location.href = url;
     });

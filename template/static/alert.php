@@ -60,7 +60,7 @@
 <?php } ?>
 
 <!-- upcoming live exam -->
-<?php if( $GLOBALS["LIVE_EXAM_ID"]) { ?>
+<?php if( $property->live_exam_id ) { ?>
 <div class="mb-3">
         <div class="d-flex alert alert-info border border-info ">  
             <div class="flex-fill">

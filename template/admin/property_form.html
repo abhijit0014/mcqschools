@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/template/resource/app.css" rel="stylesheet">
+    <script src="/template/resource/jquery.min.js"></script>
+    <link href="/template/resource/bootstrap.min.css" rel="stylesheet">
+    <script src="/template/resource/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
+    <title>Property</title>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <?php include __DIR__.'/admin_header.html';?>
+    
+    <!-- BODY -->
+    <div class="container">
+        <div class="row">
+            <div class="col-10 col-sm-8 col-md-6 col-lg-4 m-auto">
+                <div class="mt-5 mb-3">
+                    <span class="h4">Properties</span>
+                </div>
+                <form action="/admin/property_update" method="post">
+                    <div>
+                        <input name="id" type="hidden" value="<?php echo $property->id ?>">
+                    </div>
+                    <div class="row form-group">
+                        <div class="col">
+                            <label>Live Exam Id</label>
+                            <input name="live_exam_id" value="<?php echo $property->live_exam_id ?>" type="number" class="form-control" placeholder="Category name"  required>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-sm btn-primary float-end">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
