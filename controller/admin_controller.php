@@ -97,6 +97,6 @@
             if(isset($_POST))
                 $this->propertyRepository->save($_POST);
                 
-            header("Location: /admin/property".$creator_id); exit;
+            header("Location: /admin/property"); exit;
         }
     }
