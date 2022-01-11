@@ -131,10 +131,10 @@
                         <div class="h6"><pre id="question">Question</pre></div>
                         <div><img src="" id="questionImg"></div>
                         <div id="optionTable">
-                            <div id="option1" class="border bg-hover rounded p-2 ps-3  mt-5">option 1</div>
-                            <div id="option2" class="border bg-hover rounded p-2 ps-3  mt-2">option 2</div>
-                            <div id="option3" class="border bg-hover rounded p-2 ps-3  mt-2">option 3</div>
-                            <div id="option4" class="border bg-hover rounded p-2 ps-3  mt-2">option 4</div>
+                            <div id="option1" class="border bg-hover rounded p-2 ps-3  mt-4 mb-2">option 1</div>
+                            <div id="option2" class="border bg-hover rounded p-2 ps-3  mt-3 mb-3">option 2</div>
+                            <div id="option3" class="border bg-hover rounded p-2 ps-3  mt-3 mb-3">option 3</div>
+                            <div id="option4" class="border bg-hover rounded p-2 ps-3  mt-3 mb-3">option 4</div>
                         </div>
 
                         <div class="row mt-4">
@@ -383,7 +383,7 @@
                     // review question
                     $.each(reviewList, function (i, q_id) {
                         if (q_id == value.id) {
-                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-1 me-1 pl-2 pr-2 btn bg-pink btn-sm">' + (++key) + '</button>');
+                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 pl-3 pr-3 btn bg-pink btn-sm">' + (++key) + '</button>');
                             flag = false;
                         }
                     });
@@ -391,13 +391,13 @@
                     if (flag)
                     $.each(examResult, function (i, qs) {
                         if (qs.question_id == value.id) {
-                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-1 me-1 pl-2 pr-2 btn btn-success btn-sm">' + (++key) + '</button>');
+                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 pl-3 pr-3 btn btn-success btn-sm">' + (++key) + '</button>');
                             flag = false;
                         }
                     });
                     // unchecked question
                     if (flag) {
-                        $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-1 me-1 pl-2 pr-2 btn btn-light btn-sm">' + (++key) + '</button>');
+                        $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 pl-3 pr-3 btn btn-light btn-sm">' + (++key) + '</button>');
                     }
                 });
             }
@@ -461,20 +461,23 @@
                             $("#submit").removeAttr('disabled');
                         }
                     });
-                }, 3000);
+                }, 2000);
             }
 
             // save option
             var saveAnswer = function (ansOption) {
-                ans = activeQuestionAns == ansOption ? true : false;
+                //ans = activeQuestionAns == ansOption ? true : false;
                 url = "/examcenter/saveResult/" + examUserId + "/" + activeQuestionId + "/" + ansOption;
                 //ajaxCall(url, "POST", 3, '');
                 updateExamResult(ansOption);
                 // alertToast.show(); 
                 $.ajax({
-                    url: url, type: "POST", qId: activeQuestionId,
+                    url: url, 
+                    type: "POST", 
+                    qId: activeQuestionId,
                     success: function (result) {
-                    },error: function (xhr, textStatus, errorThrown) {
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
                         undoAnswer(this.qId);
                         alertToast.show(); 
                     }
@@ -538,14 +541,16 @@
             // run on load ---------------------------------------------- //
 
         });
+
         // disable copy past
         $('html').bind('copy paste cut', function (e) {
             e.preventDefault(); return false;
         });
+
         // disable right click
-        $("html").on("contextmenu", function (e) {
-            return false;
-        });
+        //$("html").on("contextmenu", function (e) {
+            //return false;
+        //});
 
         /*]]>*/
     </script>
