@@ -121,7 +121,7 @@
 
         <div class="container">
             <div class="row g-2">
-                <div class="col-12 col-md-9">
+                <div class="col-12 col-md-8">
                     <div class="bg-white shadow-sm rounded p-4">
 
                         <div class="">
@@ -142,8 +142,8 @@
                                 <button id="prev" type="button" class="btn btn-sm btn-info">Previous</button>
                             </div>
                             <div class="col-6 text-center">
-                                <button id="review" type="button" class="btn btn-sm btn-info float-center">Mark Review</button>
-                                <button id="clear" type="button" class="btn btn-sm btn-info float-center">Clear</button>
+                                <button id="review" type="button" class="btn btn-sm  btn-info float-center">Mark Review</button>
+                                <button id="clear" type="button" class="btn btn-sm  btn-info float-center">Clear</button>
                             </div>
                             <div class="col-3">
                                 <button id="next" type="button" class="btn btn-sm btn-info float-end">Next</button>
@@ -152,13 +152,13 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-md-4">
                     <div class="bg-white p-4 rounded shadow-sm">
 
                         <div class="mb-2">
                             <strong class="text-secondary h6">Question Overview</strong>
                         </div>
-                        <div style="height: 185px;">
+                        <div style="height: 250px;">
                             <div class="overflow-auto h-100" id="questionOverviewList"></div>
                         </div>
 
@@ -177,7 +177,7 @@
                         </div>
 
                         <div class="pt-3 clearfix d-grid">
-                            <button id="submit" class="btn btn-sm btn-light float-end border">Submit Exam</button>
+                            <button id="submit" class="btn btn-light float-end border">Submit Exam</button>
                         </div>
 
                     </div>
@@ -336,22 +336,26 @@
             }
 
             // track option click - update option css on click
-            $("#option1").click(function () {
+            //$("#option1").click(function () {
+            $('body').on('click','#option1', function(e) {
                 saveAnswer(1);
                 $("#optionTable div").removeClass("border-success bg-success text-white");
                 $("#option1").addClass("border-success bg-success text-white");
             });
-            $("#option2").click(function () {
+            //$("#option2").click(function () {
+            $('body').on('click','#option2', function(e) {
                 saveAnswer(2);
                 $("#optionTable div").removeClass("border-success bg-success text-white");
                 $("#option2").addClass("border-success bg-success text-white");
             });
-            $("#option3").click(function () {
+            //$("#option3").click(function () {
+            $('body').on('click','#option3', function(e) {
                 saveAnswer(3);
                 $("#optionTable div").removeClass("border-success bg-success text-white");
                 $("#option3").addClass("border-success bg-success text-white");
             });
-            $("#option4").click(function () {
+            //$("#option4").click(function () {
+            $('body').on('click','#option4', function(e) {
                 saveAnswer(4);
                 $("#optionTable div").removeClass("border-success bg-success text-white");
                 $("#option4").addClass("border-success bg-success text-white");
