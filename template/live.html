@@ -92,9 +92,21 @@
                                 </div>
                                 <div class="col-7">
                                     <?php echo $result['username'] ?>
+                                    <?php 
+                                        $imgLink = "";
+                                        if($i+1 < 4) {
+                                            if($i+1 == 1)  $imgLink = "medalFirst.png";
+                                            if($i+1 == 2)  $imgLink = "medalSecond.png";
+                                            if($i+1 == 3)  $imgLink = "medalThird.png";
+                                        }
+                                    ?>
+
+                                    <?php if($i+1 < 4) { ?>
+                                        <img src="/template/icon/rank/<?php echo $imgLink ?>" width="20px" alt="rank">
+                                    <?php } ?>
                                 </div>
                                 <div class="col-3 text-success">
-                                    <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
+                                    <?php echo !empty($result['obtained_marks']) ? number_format((float)$result['obtained_marks'], 2, '.', '') : 0; ?>
                                 </div>
                             </div>
                         </div>
