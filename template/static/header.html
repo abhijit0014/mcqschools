@@ -52,12 +52,12 @@
 
 <div class="border-bottom bg-white" id="topNevbar">
     <div class="container ">
-        <div class="row flex-row flex-nowrap pt-2 pb-2 small overflow-auto text-center">
+        <div class="row flex-row flex-nowrap pt-2 pb-2 small overflow-auto fw-bold">
 
             <?php if (!isset($_SESSION['authenticated']) ){ ?>
 
             <div class="col">
-                    <a href="/user/login" class="text-decoration-none text-secondary text-nowrap">
+                    <a href="/user/login" class="text-decoration-none text-dark text-nowrap">
                         <span style=" vertical-align: 0.125em;" class="pe-2">
                             <img src="/template/icon/login.svg" alt="login">
                         </span>
@@ -65,7 +65,7 @@
                     </a>
             </div>
             <div class="col">
-                    <a href="/user/register" class="text-decoration-none text-secondary text-nowrap">
+                    <a href="/user/register" class="text-decoration-none text-dark text-nowrap">
                         <span style="vertical-align: 0.125em;" class="ps-2 pe-2">
                             <img src="/template/icon/register.svg" alt="register">
                         </span>
@@ -77,15 +77,15 @@
 
 
             <div class="col d-none">
-                <a href="/quiz/live" class="text-decoration-none text-secondary text-nowrap">
+                <a href="/quiz/live" class="text-decoration-none text-dark text-nowrap">
                     <span class="badge bg-secondary mt-1">LIVE</span>
                     <span class="">Quiz</span>
                 </a>
             </div>
 
             <div class="col">
-                <a href="/category/testList" class="text-decoration-none text-secondary text-nowrap">
-                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                <a href="/category/testList" class="text-decoration-none text-dark text-nowrap">
+                    <span style=" vertical-align: 0.125em;" class="ps-0 pe-2">
                         <img src="/template/icon/practice.svg" alt="practice">
                     </span>
                     <span class="">Practice</span>
@@ -93,7 +93,7 @@
             </div>
 
             <div class="col">
-                <a href="/examcenter/rank" class="text-decoration-none text-secondary text-nowrap">
+                <a href="/examcenter/rank" class="text-decoration-none text-dark text-nowrap">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/rank-black.svg" alt="rank">
                     </span>
@@ -102,7 +102,7 @@
             </div>
 
             <div class="col">
-                <a href="/examcenter/myresults" class="text-decoration-none text-secondary text-nowrap">
+                <a href="/examcenter/myresults" class="text-decoration-none text-dark text-nowrap">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/result.svg" alt="result">
                     </span>
@@ -112,7 +112,7 @@
 
             <!-- 
             <div class="col">
-                <a href="/exam/subscription" class="text-decoration-none text-secondary text-nowrap">
+                <a href="/exam/subscription" class="text-decoration-none text-dark text-nowrap">
                     <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
                         <img src="/template/icon/subscribe.svg" alt="result">
                     </span>
@@ -121,32 +121,6 @@
             </div>
             -->
 
-            <div class="col">
-                <a href="/tool/ageCalculator" class="text-decoration-none text-secondary text-nowrap">
-                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
-                        <img src="/template/icon/tool.svg" alt="setting">
-                    </span>
-                    <span class="">Tools</span>
-                </a>
-            </div>
-
-            <div class="col">
-                <a href="/user/profile" class="text-decoration-none text-secondary text-nowrap">
-                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
-                        <img src="/template/icon/setting.svg" alt="setting">
-                    </span>
-                    <span class="">Settings</span>
-                </a>
-            </div>
-
-            <div class="col d-none d-md-block">
-                <a href="/exam/list" class="text-decoration-none text-secondary text-nowrap">
-                    <span style="vertical-align: 0.125em;" class="pe-2">
-                        <img src="/template/icon/conduct-exam.svg" alt="conduct exam">
-                    </span>
-                    <span class="d-inline-block">Exam Creator</span>
-                </a>
-            </div>
 
         </div>
     </div>
