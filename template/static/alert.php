@@ -81,8 +81,8 @@
 
                 <a href="/examcenter/live" class="text-decoration-none d-block mt-3">
                     <div class="d-grid d-block d-md-inline">
-                        <button class="btn btn-primary ps-3 pe-3 fw-bold">
-                            <?php echo date_create($liveExam['end_time']) > date_create()? 'Exam Details': 'Exam Result' ?>
+                        <button class="btn ps-3 pe-3 fw-bold <?php echo date_create($liveExam['end_time']) > date_create()? 'btn-primary': 'btn-success' ?>">
+                            <?php echo date_create($liveExam['end_time']) > date_create()? 'Attempt exam': 'Check exam result' ?>
                         </button>
                     </div>
                 </a>
