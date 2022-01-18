@@ -42,9 +42,9 @@
                     <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         All Categories
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu border-success">
                         <?php foreach ($subCategoryList as $cat) { ?>
-                        <li><a class="dropdown-item" href="/category/exam/<?php echo str_replace(' ','-',$cat['title'] ); ?>"><?php echo $cat['title'] ?></a></li>
+                        <li><a class="dropdown-item ps-3 pe-3 pt-2 pb-2" href="/category/exam/<?php echo str_replace(' ','-',$cat['title'] ); ?>"><?php echo $cat['title'] ?></a></li>
                         <?php } ?>
                     </ul>
                 </div>

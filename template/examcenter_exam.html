@@ -92,7 +92,7 @@
 
     <!--- alert toast -->
     <div aria-live="polite" aria-atomic="true" class="bg-dark bd-example-toasts">
-        <div class="toast-container position-absolute p-3 top-10 start-50 translate-middle-x" id="toastPlacement">
+        <div class="toast-container position-absolute p-3 top-10 start-50 translate-middle-x" id="toastPlacement" style="z-index: 11">
             <div id="alertToast" class="toast align-items-center text-white bg-dark border-0 " role="alert"
                 aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
@@ -236,7 +236,7 @@
             var pauseDuration = parseInt('<?php echo $examUser->duration ?>');
             var duration = parseInt('<?php echo $exam->duration_mins ?>');
             //var questionList = JSON.parse('');
-            var questionList = <? php echo $questionlist ?>;
+            var questionList = <?php echo $questionlist ?>;
             var examResult = JSON.parse('<?php echo $examResult ?>');
             var reviewList = [];
 
@@ -397,7 +397,7 @@
                     // review question
                     $.each(reviewList, function (i, q_id) {
                         if (q_id == value.id) {
-                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 pl-3 pr-3 btn bg-pink btn-sm">' + (++key) + '</button>');
+                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 ps-2 pe-2 btn bg-pink btn-sm">' + (++key) + '</button>');
                             flag = false;
                         }
                     });
@@ -405,13 +405,13 @@
                     if (flag)
                         $.each(examResult, function (i, qs) {
                             if (qs.question_id == value.id) {
-                                $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 pl-3 pr-3 btn btn-success btn-sm">' + (++key) + '</button>');
+                                $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 ps-2 pe-2 btn btn-success btn-sm">' + (++key) + '</button>');
                                 flag = false;
                             }
                         });
                     // unchecked question
                     if (flag) {
-                        $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 pl-3 pr-3 btn btn-light btn-sm">' + (++key) + '</button>');
+                        $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 ps-2 pe-2 btn btn-light btn-sm">' + (++key) + '</button>');
                     }
                 });
             }
