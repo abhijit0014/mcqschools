@@ -11,7 +11,9 @@
     <script src="/template/resource/highlight.min.js"></script>
     <link href="/template/resource/app.css" rel="stylesheet">
     <link rel="icon" href="/favicon.png" type="image/png" sizes="16x16">
-    <title><?php echo $exam->title ?></title>
+    <title>
+        <?php echo $exam->title ?>
+    </title>
     <style>
         .dot {
             height: 15px;
@@ -31,7 +33,7 @@
             overflow: hidden;
         }
 
-        .bg-pink{
+        .bg-pink {
             background-color: #e6007a;
             color: white;
         }
@@ -88,6 +90,30 @@
     </div>
 
 
+    <!--- alert toast -->
+    <div aria-live="polite" aria-atomic="true" class="bg-dark bd-example-toasts">
+        <div class="toast-container position-absolute p-3 top-10 start-50 translate-middle-x" id="toastPlacement">
+            <div id="alertToast" class="toast align-items-center text-white bg-dark border-0 " role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Answer not saved. Please wait a few minutes before trying again.
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var alertToast = new bootstrap.Toast(document.querySelector('#alertToast'), {
+            autohide: true
+        });
+            // alertToast.show();
+    </script>
+    <!--- alert toast end -->
+
+
     <!-- exam center -->
     <div id="examcenter" class="unselectable mt-4">
         <div class="">
@@ -125,10 +151,12 @@
                     <div class="bg-white shadow-sm rounded p-4">
 
                         <div class="">
-                            <strong class="badge bg-info h6">Question: <span id="activeQuestion">0</span></strong>
+                            <strong class="badge bg-secondary h6">Question: <span id="activeQuestion">0</span></strong>
                         </div>
 
-                        <div class="h6"><pre id="question">Question</pre></div>
+                        <div class="h6">
+                            <pre id="question">Question</pre>
+                        </div>
                         <div><img src="" id="questionImg"></div>
                         <div id="optionTable">
                             <div id="option1" class="border bg-hover rounded p-2 ps-3  mt-4 mb-2">option 1</div>
@@ -137,13 +165,15 @@
                             <div id="option4" class="border bg-hover rounded p-2 ps-3  mt-3 mb-3">option 4</div>
                         </div>
 
-                        <div class="row mt-4">
+                        <div class="row mt-5 mb-1">
                             <div class="col-3">
-                                <button id="prev" type="button" class="btn btn-sm btn-info">Previous</button>
+                                <button id="prev" type="button" class="btn btn-sm btn-info">Prev</button>
                             </div>
                             <div class="col-6 text-center">
-                                <button id="review" type="button" class="btn btn-sm  btn-info float-center">Mark Review</button>
-                                <button id="clear" type="button" class="btn btn-sm  btn-info float-center">Clear</button>
+                                <button id="review" type="button" class="btn btn-sm  btn-info float-center">Mark
+                                    review</button>
+                                <button id="clear" type="button"
+                                    class="btn btn-sm  btn-info float-center">Clear</button>
                             </div>
                             <div class="col-3">
                                 <button id="next" type="button" class="btn btn-sm btn-info float-end">Next</button>
@@ -158,8 +188,8 @@
                         <div class="mb-2">
                             <strong class="text-secondary h6">Question Overview</strong>
                         </div>
-                        <div style="height: 250px;">
-                            <div class="overflow-auto h-100" id="questionOverviewList"></div>
+                        <div>
+                            <div class="" id="questionOverviewList"></div>
                         </div>
 
                         <div class="mt-5 small text-secondary">
@@ -193,26 +223,6 @@
 
 
 
-    <!--- alert toast -->
-    <div aria-live="polite" aria-atomic="true" class="bg-dark bd-example-toasts">
-        <div class="toast-container position-absolute p-3 bottom-0 start-50 translate-middle-x" id="toastPlacement">
-            <div id = "alertToast" class="toast align-items-center text-white bg-dark border-0 " role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="d-flex">
-                  <div class="toast-body">
-                        Answer not saved. Please wait a few minutes before trying again.
-                  </div>
-                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        var alertToast = new bootstrap.Toast(document.querySelector('#alertToast'), {
-            autohide: true
-        });
-        // alertToast.show();
-    </script>
-     <!--- alert toast end -->
 
 
 
@@ -226,7 +236,7 @@
             var pauseDuration = parseInt('<?php echo $examUser->duration ?>');
             var duration = parseInt('<?php echo $exam->duration_mins ?>');
             //var questionList = JSON.parse('');
-            var questionList = <?php echo $questionlist ?>;
+            var questionList = <? php echo $questionlist ?>;
             var examResult = JSON.parse('<?php echo $examResult ?>');
             var reviewList = [];
 
@@ -294,10 +304,10 @@
             // set question
             var updateQuestion = function (questionObj) {
                 $("#question").html(convert_special_html_characters(questionObj.question));
-                if(questionObj.question_img){
+                if (questionObj.question_img) {
                     $("#questionImg").show();
-                    $('#questionImg').attr('src', '/'+questionObj.question_img);
-                }else{
+                    $('#questionImg').attr('src', '/' + questionObj.question_img);
+                } else {
                     $('#questionImg').hide();
                     $('#questionImg').attr('src', '');
                 }
@@ -309,17 +319,17 @@
                 activeQuestionId = questionObj.id;
                 activeQuestionAns = questionObj.ans;
 
-                $("pre code").each(function(){ $(this).text($(this).text().trim()); });
+                $("pre code").each(function () { $(this).text($(this).text().trim()); });
                 $("pre code").each(function (i, block) { hljs.highlightElement(block); });
             };
 
             // convert special html characters
-            var convert_special_html_characters = function (str){
-                str = str.replace("<code>","codeStart");
-                str = str.replace("</code>","codeEnd");
+            var convert_special_html_characters = function (str) {
+                str = str.replace("<code>", "codeStart");
+                str = str.replace("</code>", "codeEnd");
                 str = $("<div/>").text(str.trim()).html();
-                str = str.replace("codeStart","<code>");
-                str = str.replace("codeEnd","</code>");
+                str = str.replace("codeStart", "<code>");
+                str = str.replace("codeEnd", "</code>");
                 //console.log(str);
                 return str;
             }
@@ -337,25 +347,25 @@
 
             // track option click - update option css on click
             //$("#option1").click(function () {
-            $('body').on('click','#option1', function(e) {
+            $('body').on('click', '#option1', function (e) {
                 saveAnswer(1);
                 $("#optionTable div").removeClass("border-success bg-success text-white");
                 $("#option1").addClass("border-success bg-success text-white");
             });
             //$("#option2").click(function () {
-            $('body').on('click','#option2', function(e) {
+            $('body').on('click', '#option2', function (e) {
                 saveAnswer(2);
                 $("#optionTable div").removeClass("border-success bg-success text-white");
                 $("#option2").addClass("border-success bg-success text-white");
             });
             //$("#option3").click(function () {
-            $('body').on('click','#option3', function(e) {
+            $('body').on('click', '#option3', function (e) {
                 saveAnswer(3);
                 $("#optionTable div").removeClass("border-success bg-success text-white");
                 $("#option3").addClass("border-success bg-success text-white");
             });
             //$("#option4").click(function () {
-            $('body').on('click','#option4', function(e) {
+            $('body').on('click', '#option4', function (e) {
                 saveAnswer(4);
                 $("#optionTable div").removeClass("border-success bg-success text-white");
                 $("#option4").addClass("border-success bg-success text-white");
@@ -393,12 +403,12 @@
                     });
                     // checked question
                     if (flag)
-                    $.each(examResult, function (i, qs) {
-                        if (qs.question_id == value.id) {
-                            $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 pl-3 pr-3 btn btn-success btn-sm">' + (++key) + '</button>');
-                            flag = false;
-                        }
-                    });
+                        $.each(examResult, function (i, qs) {
+                            if (qs.question_id == value.id) {
+                                $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 pl-3 pr-3 btn btn-success btn-sm">' + (++key) + '</button>');
+                                flag = false;
+                            }
+                        });
                     // unchecked question
                     if (flag) {
                         $("#questionOverviewList").append('<button onclick="goToQ(' + key + ')" type="button" class="mt-2 me-2 pl-3 pr-3 btn btn-light btn-sm">' + (++key) + '</button>');
@@ -407,8 +417,8 @@
             }
 
             // duration clock
-            $("#timer").text(Math.floor(duration / 60) + " : " + duration % 60 + " : "+ 0);
-            countDownSec = duration*60;
+            $("#timer").text(Math.floor(duration / 60) + " : " + duration % 60 + " : " + 0);
+            countDownSec = duration * 60;
             var x = setInterval(function () {
                 d = Number(countDownSec);
                 h = Math.floor(d / 3600);
@@ -418,13 +428,13 @@
                 $("#timer").text(h + " : " + m + " : " + s);
 
                 // time up warning
-                if (m == 5 && h==0){
+                if (m == 5 && h == 0) {
                     $("#timer").removeClass("btn-secondary");
                     $("#timer").addClass("btn-danger");
                 }
 
                 // update duration
-                if(duration!= Math.floor(countDownSec / 60)){
+                if (duration != Math.floor(countDownSec / 60)) {
                     duration--;
                     saveDuration();
                 }
@@ -436,31 +446,30 @@
                 }
 
                 countDownSec--;
-            },1000);
+            }, 1000);
 
 
             // submit exam
-            $("#submit").click(function () { 
-                if(confirm("Do you want to submit ?")){
-                    submitExam(); 
+            $("#submit").click(function () {
+                if (confirm("Do you want to submit ?")) {
+                    submitExam();
                 }
             });
             var submitExam = function () {
-                if(duration<0) duration = 0;
+                if (duration < 0) duration = 0;
                 url = "/examcenter/submit/" + examUserId + "/" + duration;
                 redirectUrl = "/examcenter/result/" + examId;
                 clearInterval(x);
                 $("#submit").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting exam');
-                $("#submit").attr('disabled','disabled');
+                $("#submit").attr('disabled', 'disabled');
                 // submit will call after 3sec
-                setTimeout(function() 
-                {
+                setTimeout(function () {
                     //ajaxCall(url, "POST", 3, redirectUrl); 
                     $.ajax({
                         url: url, type: "POST",
                         success: function (result) {
                             $(location).attr('href', redirectUrl);
-                        },error: function (xhr, textStatus, errorThrown) {
+                        }, error: function (xhr, textStatus, errorThrown) {
                             $("#submit").html('Submit Exam');
                             $("#submit").removeAttr('disabled');
                         }
@@ -476,14 +485,14 @@
                 updateExamResult(ansOption);
                 // alertToast.show(); 
                 $.ajax({
-                    url: url, 
-                    type: "POST", 
+                    url: url,
+                    type: "POST",
                     qId: activeQuestionId,
                     success: function (result) {
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         undoAnswer(this.qId);
-                        alertToast.show(); 
+                        alertToast.show();
                     }
                 });
             }
@@ -497,16 +506,16 @@
             // save duration
             var saveDuration = function () {
                 url = "/examcenter/updateDuration/" + examUserId + "/" + duration;
-                if(duration>0)
-                ajaxCall(url, "POST", 1, '');
+                if (duration > 0)
+                    ajaxCall(url, "POST", 1, '');
             }
 
             // pause exam
             $("#pause").click(function () {
                 url = "/examcenter/updateDuration/" + examUserId + "/" + duration + "/pause";
                 redirectUrl = '/examcenter/start/' + examId;
-                if(duration>0)
-                ajaxCall(url, "POST", 3, redirectUrl);
+                if (duration > 0)
+                    ajaxCall(url, "POST", 3, redirectUrl);
             });
 
             // ajax call ------------------------------
@@ -558,6 +567,8 @@
 
         /*]]>*/
     </script>
+
+
 </body>
 
 </html>

@@ -2,10 +2,10 @@
     <div class="border-0">
         <div class="container">
 
-            <div class="row">
+            <div class="row" id="topNavBar">
 
                 <!-- Logo -->
-                <div class="col-9 col-sm-4 col-md-3 h4 mb-0 pt-2 pb-2">
+                <div class="col-6 h4 mb-0 pt-2 pb-2">
                     <a href="/" class="text-decoration-none">
                         <div class="text-white">
                             <span class="fw-bold h2">mcQ</span><span class="fs-6">Schools</span>
@@ -13,44 +13,58 @@
                     </a>
                 </div>
 
-                <!-- User -->
-                <div class="col-3 d-block d-sm-none pt-2 pb-2 pe-3 text-end">
-                        <a href="/user/profile" class="text-decoration-none text-white">
-                            <span style=" vertical-align: 0.125em;" class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                                  </svg>
-                            </span>
-                        </a>
-                </div>
 
-                <!-- search -->
-                <div class="col-12 col-sm-8 col-md-9 pt-2 pb-2">
-                    <form id="searchForm">
-                        <div class="input-group bg-white rounded pe-1" style="position: relative">
-                            <button type="submit" class="btn btn-white me-1">
+                <div class="col-6  pt-2 pb-2 pe-3 text-end">
+                    <div class="d-flex flex-row flex-nowrap">
+                        <!-- Search icon -->
+                        <div class="flex-fill">
+                            <div class="ps-2 pe-2 btn text-white" id="topSearchIcon">
                                 <span style="vertical-align: 0.125em;">
-                                    <img src="/template/icon/search.svg" alt="search" width="18px">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                        class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                    </svg>
                                 </span>
-                            </button>
-                            <input id="searchQuery" type="text" class="form-control border-0" placeholder="Search"
-                                autocomplete="off">
-                            <div class="bg-white border shadow-sm rounded" id="querySuggationResultDisplay"
-                                style="position: absolute; width: 100%; top: 100%; z-index: 100; left: 0px; right: auto; display: none;">
-                                <div id="searchQueryList"></div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                        <!-- User Icon -->
+                        <div class="ps-2 pe-2">
+                            <a href="/user/profile" class="text-decoration-none text-white">
+                                <span style=" vertical-align: 0.125em;" class="btn text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                      </svg>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>  
 
+            </div>
+
+            <div class="pt-2 pb-2 d-none" id="topSearchBar">
+                <form id="searchForm">
+                    <div class="input-group bg-white rounded pe-1" style="position: relative">
+                        <button class="btn btn-white me-1">
+                            <span style="vertical-align: 0.125em;">
+                                <img src="/template/icon/search.svg" alt="search" width="18px">
+                            </span>
+                        </button>
+                        <input id="searchQuery" type="text" class="form-control border-0" placeholder="Search" autocomplete="off">
+                        <div class="bg-white border shadow-sm rounded" id="querySuggationResultDisplay"
+                            style="position: absolute; width: 100%; top: 100%; z-index: 100; left: 0px; right: auto; display: none;">
+                            <div id="searchQueryList"></div>
+                        </div>
+                    </div>
+                </form>
             </div>
 
         </div>
     </div>
 </div>
 
-<div class="border-bottom bg-white" id="topNevbar">
+<div class="border-bottom bg-white" id="topNevLinkbar">
     <div class="container ">
         <div class="row flex-row flex-nowrap pt-2 pb-2 small overflow-auto fw-bold text-center">
 
@@ -133,12 +147,22 @@
     /*
     $(window).scroll(function () {
         if ($(this).scrollTop() > 80) {
-            $('#topNevbar').addClass('fixedTop');
+            $('#topNevLinkbar').addClass('fixedTop');
         } else {
-            $('#topNevbar').removeClass('fixedTop');
+            $('#topNevLinkbar').removeClass('fixedTop');
         }
     });
     */
+
+    $(document).ready(function(){
+        $("#topSearchIcon").click(function(){
+            $("#topNavBar").hide();
+            $("#topSearchBar").removeClass("d-none");
+        });
+        $("#show").click(function(){
+            
+        });
+    });
 </script>
 <script>
     // search script -----------------------------------------------------------
