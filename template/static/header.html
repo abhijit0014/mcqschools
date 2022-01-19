@@ -22,7 +22,8 @@
                                 <span style="vertical-align: 0.125em;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                         class="bi bi-search" viewBox="0 0 16 16">
-                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                        <path
+                                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                     </svg>
                                 </span>
                             </div>
@@ -31,15 +32,17 @@
                         <div class="ps-2 pe-2">
                             <a href="/user/profile" class="text-decoration-none text-white">
                                 <span style=" vertical-align: 0.125em;" class="btn text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                                      </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                        class="bi bi-person-circle" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                    </svg>
                                 </span>
                             </a>
                         </div>
                     </div>
-                </div>  
+                </div>
 
             </div>
 
@@ -51,7 +54,8 @@
                                 <img src="/template/icon/search.svg" alt="search" width="18px">
                             </span>
                         </button>
-                        <input id="searchQuery" type="text" class="form-control border-0" placeholder="Search" autocomplete="off">
+                        <input id="searchQuery" type="text" class="form-control border-0" placeholder="Search"
+                            autocomplete="off">
                         <div class="bg-white border shadow-sm rounded" id="querySuggationResultDisplay"
                             style="position: absolute; width: 100%; top: 100%; z-index: 100; left: 0px; right: auto; display: none;">
                             <div id="searchQueryList"></div>
@@ -64,79 +68,89 @@
     </div>
 </div>
 
-<div class="border-bottom bg-white" id="topNevLinkbar">
-    <div class="container ">
-        <div class="row flex-row flex-nowrap pt-2 pb-2 small overflow-auto fw-bold text-center">
-
-            <?php if (!isset($_SESSION['authenticated']) ){ ?>
-
-            <div class="col">
-                    <a href="/user/login" class="text-decoration-none text-dark text-nowrap badge bg-warning pe-2">
-                        <span style=" vertical-align: 0.125em;" class="pe-2">
-                            <img src="/template/icon/login.svg" alt="login">
-                        </span>
-                        <span class="text-dark">Login</span>
-                    </a>
-            </div>
-            <div class="col">
-                    <a href="/user/register" class="text-decoration-none text-dark text-nowrap badge bg-warning pe-2">
-                        <span style="vertical-align: 0.125em;" class="pe-2">
-                            <img src="/template/icon/register.svg" alt="register">
-                        </span>
-                        <span class="text-dark">Register</span>
-                    </a>
-            </div>
+<div class="bg-white" id="topNevLinkbar">
     
-            <?php } ?>
 
 
-            <div class="col d-none">
-                <a href="/quiz/live" class="text-decoration-none text-dark text-nowrap">
-                    <span class="badge bg-secondary mt-1">LIVE</span>
-                    <span class="">Quiz</span>
-                </a>
+        <?php if (!isset($_SESSION['authenticated']) ){ ?>
+            <div class=" border-bottom">
+                <div class=" container">
+                    <div class="row flex-row pt-2 pb-2 fw-bold text-center">
+                        <div class="col text-end">
+                            <a href="/user/login" class="text-decoration-none text-dark text-nowrap badge bg-warning ps-3 pe-3">
+                                <span style=" vertical-align: 0.125em;" class="pe-2">
+                                    <img src="/template/icon/login.svg" alt="login">
+                                </span>
+                                <span class="text-dark">Login</span>
+                            </a>
+                        </div>
+                        <div class="col text-start">
+                            <a href="/user/register" class="text-decoration-none text-dark text-nowrap badge bg-warning ps-3 pe-3">
+                                <span style="vertical-align: 0.125em;" class="pe-2">
+                                    <img src="/template/icon/register.svg" alt="register">
+                                </span>
+                                <span class="text-dark">Register</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="col">
-                <a href="/category/testList" class="text-decoration-none text-dark text-nowrap">
-                    <span style=" vertical-align: 0.125em;" class="ps-0 pe-2">
-                        <img src="/template/icon/practice.svg" alt="practice">
-                    </span>
-                    <span class="">Practice</span>
-                </a>
+        <?php } else { ?>
+            <div class=" border-bottom d-none d-md-block">
+                <div class=" container">
+                    <div class="row flex-row flex-nowrap pt-2 pb-2 small overflow-auto fw-bold text-center">
+            
+                        <div class="col d-none">
+                            <a href="/quiz/live" class="text-decoration-none text-dark text-nowrap">
+                                <span class="badge bg-secondary mt-1">LIVE</span>
+                                <span class="">Quiz</span>
+                            </a>
+                        </div>
+            
+                        <div class="col">
+                            <a href="/category/testList" class="text-decoration-none text-dark text-nowrap">
+                                <span style=" vertical-align: 0.125em;" class="ps-0 pe-2">
+                                    <img src="/template/icon/practice.svg" alt="practice">
+                                </span>
+                                <span class="">Practice</span>
+                            </a>
+                        </div>
+            
+                        <div class="col">
+                            <a href="/examcenter/rank" class="text-decoration-none text-dark text-nowrap">
+                                <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                                    <img src="/template/icon/rank-black.svg" alt="rank">
+                                </span>
+                                <span class="">Rank</span>
+                            </a>
+                        </div>
+            
+                        <div class="col">
+                            <a href="/examcenter/myresults" class="text-decoration-none text-dark text-nowrap">
+                                <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                                    <img src="/template/icon/result.svg" alt="result">
+                                </span>
+                                <span class="">Results</span>
+                            </a>
+                        </div>
+            
+                        <!-- 
+                                <div class="col">
+                                    <a href="/exam/subscription" class="text-decoration-none text-dark text-nowrap">
+                                        <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
+                                            <img src="/template/icon/subscribe.svg" alt="result">
+                                        </span>
+                                        Subscriptions
+                                    </a>
+                                </div>
+                                -->
+            
+                    </div>
+                </div>
             </div>
-
-            <div class="col">
-                <a href="/examcenter/rank" class="text-decoration-none text-dark text-nowrap">
-                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
-                        <img src="/template/icon/rank-black.svg" alt="rank">
-                    </span>
-                    <span class="">Rank</span>
-                </a>
-            </div>
-
-            <div class="col">
-                <a href="/examcenter/myresults" class="text-decoration-none text-dark text-nowrap">
-                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
-                        <img src="/template/icon/result.svg" alt="result">
-                    </span>
-                    <span class="">Results</span>
-                </a>
-            </div>
-
-            <!-- 
-            <div class="col">
-                <a href="/exam/subscription" class="text-decoration-none text-dark text-nowrap">
-                    <span style=" vertical-align: 0.125em;" class="ps-2 pe-2">
-                        <img src="/template/icon/subscribe.svg" alt="result">
-                    </span>
-                    Subscriptions
-                </a>
-            </div>
-            -->
+        <?php } ?>
 
 
-        </div>
     </div>
 </div>
 
@@ -154,13 +168,13 @@
     });
     */
 
-    $(document).ready(function(){
-        $("#topSearchIcon").click(function(){
+    $(document).ready(function () {
+        $("#topSearchIcon").click(function () {
             $("#topNavBar").hide();
             $("#topSearchBar").removeClass("d-none");
         });
-        $("#show").click(function(){
-            
+        $("#show").click(function () {
+
         });
     });
 </script>
@@ -219,7 +233,7 @@
         }
     }
 
-    function getSearchResultElementHtml(){
+    function getSearchResultElementHtml() {
         return '<div class="btn-group d-block bg-hover"> <button type="button" class="btn btn-white"> <img src="/template/icon/search.svg" alt="search" width="18px"> </button> <button type="button" class="btn btn-white"> <span>#searchQuery</span> </button></div>';
     }
 </script>
