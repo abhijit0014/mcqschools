@@ -49,7 +49,7 @@
     <!--- alert toast -->
     <div aria-live="polite" aria-atomic="true" class="bg-dark bd-example-toasts">
         <div class="toast-container position-absolute p-3 bottom-0 start-50 translate-middle-x" id="toastPlacement">
-            <div id = "reportAlertToast" class="toast align-items-center text-white bg-dark border-0 " role="alert" aria-live="assertive" aria-atomic="true">
+            <div id = "reportAlertToast" class="toast hide align-items-center text-white bg-dark border-0 " role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                   <div class="toast-body">
                     Report successfully sent
@@ -69,6 +69,7 @@
     var reportModal = new bootstrap.Modal(document.getElementById('reportModal'), {
         keyboard: false
     });
+
     function setReportExamId(examId){
         $('#reportForm input[name="exam_id"]').val(examId);
     }
