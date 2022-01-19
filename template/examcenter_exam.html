@@ -561,13 +561,23 @@
         });
 
         // disable right click
-        //$("html").on("contextmenu", function (e) {
-            //return false;
-        //});
+        $("html").on("contextmenu", function (e) {
+            return false;
+        });
 
         /*]]>*/
     </script>
 
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KPXYFG7WZV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-KPXYFG7WZV');
+    </script>
 
 </body>
 
