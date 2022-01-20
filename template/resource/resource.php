@@ -7,5 +7,5 @@
 <script src="/template/resource/js.cookie.min.js"></script>
 <link href="/template/resource/highlight.css" rel="stylesheet">
 <script src="/template/resource/highlight.min.js"></script>
-<link href="/template/resource/app.css?v=1.2" rel="stylesheet">
+<link href="/template/resource/app.css?v=1.3" rel="stylesheet">
 <script src="/template/resource/mcqschools.js?v=1.2"></script>

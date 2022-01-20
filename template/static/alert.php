@@ -13,32 +13,6 @@
 </div>
 
 
-<!-- live quiz -->
-<?php if( $liveQuiz) {
-    if(date_create($liveQuiz['start_time']) < date_create() && date_create($liveQuiz['end_time']) > date_create()) { 
-?>
-    <div class="mb-3">
-        <div class="d-flex alert alert-warning shadow-sm border border-warning ">
-            <div class="me-3">
-                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-            </div>    
-            <div class="flex-fill">
-                <span class="small"><span class="small text-secondary d-block">LIVE Quiz</span></span>
-                <div class="h6"><?php echo $liveQuiz['title'] ?></div>    
-            </div>
-            <div class="">
-                <a href="/quiz/live" class="d-grid text-decoration-none">
-                    <button class="btn btn-sm btn-primary">Play Now</button>
-                </a>
-            </div>
-        </div>
-    </div>
-
-<?php 
-    }
-} 
-?>
-
 <!-- Important Day -->
 <?php if(!empty($today)) { ?>
 <div class="mb-2 container">
@@ -58,6 +32,34 @@
     </div>
 </div>
 <?php } ?>
+
+
+<!-- live quiz -->
+<?php if( $liveQuiz) { {
+    // active live time
+    //if(date_create($liveQuiz['start_time']) < date_create() && date_create($liveQuiz['end_time']) > date_create()) { 
+?>
+    <div class="mb-3">
+        <div class="d-flex liveQuizNotificationBg shadow-sm p-3 rounded ">    
+            <div class="flex-fill text-white">
+                <span class="small"><span class="small d-block">LIVE Quiz</span></span>
+                <div class="h6 mb-0"><?php echo $liveQuiz['title'] ?></div>    
+            </div>
+            <div class="mt-1">
+                <a href="/quiz/live" class="d-grid text-decoration-none">
+                    <button class="btn btn-sm bg-white">
+                        <?php echo date_create($liveQuiz['end_time']) > date_create() ? "Play now" : "Quiz result" ?>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+<?php 
+    }
+} 
+?>
+
 
 <!-- upcoming live exam -->
 <?php if( $property->live_exam_id ) { ?>

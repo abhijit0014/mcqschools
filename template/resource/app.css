@@ -49,3 +49,13 @@ code{
     box-shadow: none;
 }
 .fixedTop {position:fixed; top:0; left:0; width: 100%; z-index: 2;}
+
+.liveQuizBg{
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+    min-height: 100vh;
+}
+.liveQuizNotificationBg{
+    background-color: #4158D0;
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+}
