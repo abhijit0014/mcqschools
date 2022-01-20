@@ -21,7 +21,9 @@
         if(!$_GET['error']){ ?>
     <div class="bg-light text-white">
         <div class="container">
-            <div class="pt-3 pb-3 text-danger"> <?php echo $_GET['msg'] ?></div>
+            <div class="pt-3 pb-3 text-danger">
+                <?php echo $_GET['msg'] ?>
+            </div>
         </div>
     </div>
     <?php }} ?>
@@ -30,13 +32,15 @@
         if($_GET['error']){ ?>
     <div class="bg-light text-white">
         <div class="container">
-            <div class="pt-3 pb-3 text-success"> <?php echo $_GET['msg'] ?></div>
+            <div class="pt-3 pb-3 text-success">
+                <?php echo $_GET['msg'] ?>
+            </div>
         </div>
     </div>
     <?php }} ?>
     <!-- error message end -->
 
-    
+
     <div class="container">
 
         <div class="row mt-4 mb-3">
@@ -46,31 +50,33 @@
             </div>
             <!-- Edit Profile -->
             <div class="col-12 col-md-9">
-                <div class="border-bottom pb-3 h5">
-                    Change username
-                </div>
-                <form action="/user/update_username" method="post">
-                    <div class="form-group">
-                        <div class="h6 mb-2">Enter a new username</div>
-                        <input id="usernameInput" name="username" type="text" class="form-control" placeholder="Username"
-                            autocomplete="off" value="<?php echo $username ?>" minlength="3">
-                        <div class="invalid-feedback">Username already exists.</div>
-                        <div class="form-text text-muted small">
-                            Minimum username length is 3 characters <br /><br />
-                            
-                            You can change your username to another username that is not currently in use.
-                            If the username you want is not available, you can choose another username
-                            or keep your current username. <br /><br />
+                <div class="pe-3 ps-3">
+                    <div class="border-bottom pb-3 h5">
+                        Change username
+                    </div>
+                    <form action="/user/update_username" method="post">
+                        <div class="form-group">
+                            <div class="h6 mb-2">Enter a new username</div>
+                            <input id="usernameInput" name="username" type="text" class="form-control"
+                                placeholder="Username" autocomplete="off" value="<?php echo $username ?>" minlength="3">
+                            <div class="invalid-feedback">Username already exists.</div>
+                            <div class="form-text text-muted small">
+                                Minimum username length is 3 characters <br /><br />
 
-                            After changing your username, your old username becomes available for anyone else to
-                            claim.
+                                You can change your username to another username that is not currently in use.
+                                If the username you want is not available, you can choose another username
+                                or keep your current username. <br /><br />
 
+                                After changing your username, your old username becomes available for anyone else to
+                                claim.
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-3">
-                        <button type="submit" class="btn btn-success">Change Username</button>
-                    </div>
-                </form>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-success">Change Username</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -99,31 +105,31 @@
                 //dataType: 'JSON',
                 url: "/user/check_username/" + usernameStr,
                 success: function (result) {
-                    if (result){
+                    if (result) {
                         $("#usernameInput").removeClass("is-invalid");
                         $("#usernameInput").addClass("is-valid");
                         username_flag = true;
                     }
-                    else{
+                    else {
                         $("#usernameInput").removeClass("is-valid");
                         $("#usernameInput").addClass("is-invalid");
                         username_flag = false;
                     }
                 }
             });
-        }else{
+        } else {
             $("#usernameInput").removeClass("is-valid");
             $("#usernameInput").removeClass("is-invalid");
         }
     }
 
-    $("#usernameInput").keyup( function(){
+    $("#usernameInput").keyup(function () {
         usernameStr = $("#usernameInput").val();
         $("#usernameInput").val(usernameStr.replace(/[^\w\s]/gi, ''));
     });
 
-    $("form").submit(function(e){
-        if(username_flag) return true;
+    $("form").submit(function (e) {
+        if (username_flag) return true;
         return false;
     });
 
