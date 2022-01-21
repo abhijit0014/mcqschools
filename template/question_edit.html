@@ -139,8 +139,7 @@
 
 
             <!-- auto detect -->
-            <?php if ($_SESSION['email']=='quiz@admin.com' || $_SESSION['email']=='computer@admin.com' || 
-                    $_SESSION['email']=='quiz2@admin.com' || $_SESSION['email']=='live@admin.com' ) { ?>
+            <?php if ($_SESSION['user_role']=='admin' ) { ?>
                 <?php include __DIR__.'/static/autoDetect.php';?>
             <?php } ?>
             <!-- auto detect -->

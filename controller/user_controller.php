@@ -165,6 +165,7 @@
         {
             $result = $this->repository->updateEmail($_POST);
             if($result){
+                SessionManager::set("email", $_POST['email']);
                 header("Location: /user/email?error=false&msg=Email updated successfully"); exit;
             }else{
                 header("Location: /user/email?error=true&msg=Enter a valid password"); exit;
