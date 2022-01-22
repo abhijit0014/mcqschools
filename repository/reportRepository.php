@@ -102,7 +102,8 @@
             $report =  R::load( 'report', $id );
             if(!empty($report)){
                 $report->solved = true;
-                return R::store( $report );
+                R::store( $report );
+                return $report;
             }
             return;
         }

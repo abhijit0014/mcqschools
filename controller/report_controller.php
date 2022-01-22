@@ -3,6 +3,8 @@
     include 'repository/reportRepository.php';
     include 'repository/examRepository.php';
     include 'repository/questionRepository.php';
+    include 'service/emailService.php';
+    include 'repository/userRepository.php';
 
 
     class ReportController
@@ -10,12 +12,16 @@
         private $reportRepository;
         private $questionRepository;
         private $examRepository;
+        private $emailService;
+        private $userRepository;
 
         function __construct()
         {
             $this->reportRepository = new ReportRepository();
             $this->questionRepository = new QuestionRepository();
             $this->examRepository = new ExamRepository();
+            $this->emailService = new EmailService();
+            $this->userRepository = new UserRepository();
         }
 
         public function save()
@@ -44,7 +50,17 @@
         public function solved($param) 
         {
             $id = $param[0];
-            $this->reportRepository->solved($id);
+            $report = $this->reportRepository->solved($id);
+            if(!empty($report->question_id)){
+                $question = $this->questionRepository->getOne($report->question_id);
+                $student =  $this->userRepository->getById($report->created_by); 
+                
+                if(!empty($question->updated_date)){
+                    $diff=date_diff(date_create($question->updated_date),date_create())->format("%a");
+                    if($diff==0)
+                        $this->emailService->question_correction_mail($student->email, $question);
+                }
+            }
             return true;
         }
 

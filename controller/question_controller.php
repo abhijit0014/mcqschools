@@ -71,7 +71,7 @@
             return null;
         }
 
-        // question correction 
+        // question correction edit ------------------------------------------
         public function correction($param)
         {
             if(isset($param[0]))
@@ -84,6 +84,7 @@
             return;
         }
 
+        // question correction save
         public function correction_save()
         {
             if(isset($_POST)){
