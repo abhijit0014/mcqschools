@@ -166,8 +166,16 @@
         public function getLiveQuiz(){
             $start_time = date("Y-m-d");
             $end_time = $start_time." 23:59:59";
+            $prev_date = date('Y-m-d', strtotime($end_time .' -1 day'));
+
+            $quiz = null;
             //return R::findOne( 'exam', 'date(start_time) >= CURRENT_DATE() AND date(start_time) < DATE_ADD(CURDATE(), INTERVAL +1 DAY) AND created_by = ? ', [ 417 ] );
-            return R::findOne( 'exam', "created_by = ? and start_time BETWEEN '".$start_time."' AND '".$end_time."' ", [ 417 ] );
+            $quiz = R::findOne( 'exam', "created_by = ? and start_time BETWEEN '".$start_time."' AND '".$end_time."' ", [ 417 ] );
+            
+            if(empty($quiz))
+            $quiz = R::findOne( 'exam', "created_by = ? and start_time BETWEEN '".$prev_date."' AND '".$start_time."' ", [ 417 ] );
+
+            return $quiz;
         }
 
         public function nextExam($exam_id, $cat_id){

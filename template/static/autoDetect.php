@@ -30,22 +30,44 @@
 
     <script>
 
-        // autoDetectQuestionList
+        // catch question list
         newQuestionList = localStorage.getItem('newQuestionList') ? JSON.parse(localStorage.getItem('newQuestionList')) : [];
         if (newQuestionList.length) {
             $("#autoDetectQuestion").val(newQuestionList[0]);
+            alert(newQuestionList.length);
             newQuestionList.shift();
             if (newQuestionList.length) {
                 localStorage.setItem('newQuestionList', JSON.stringify(newQuestionList));
             }else
                 localStorage.removeItem('newQuestionList');
 
-            $("#newQuestionCount").text(newQuestionList.length + " question in list");
+            $("#newQuestionCount").text(newQuestionList.length + " questions on queue");
             $("#clearList").removeClass('d-none');
         }
 
+        // autoDetect Question list
         $("#autoDetectQuestionList").change(function () {
-            newQuestionList = $("#autoDetectQuestionList").val().split("\n\n");
+
+            // filter list
+            ansWords = ["answer: option", "answer", "Answer", "ans key", "option", "ans", "Ans", "ANS"];
+            list = $("#autoDetectQuestionList").val().trim().split("\n");
+            newList = '';
+            list.forEach(line => {
+                line = line.trim();
+                if(line){
+                    ans_flag = false;
+                    ansWords.forEach(element => {
+                        if (line.indexOf(element) == 0)
+                            ans_flag = true;
+                    });
+
+                    if(ans_flag) newList = newList + line + "\n\n";
+                    else newList = newList + line + "\n";
+                }
+            });
+
+            // get question array
+            newQuestionList = newList.split("\n\n");
 
             if ($('input[name=shuffle]:checked')){
                 newQuestionList = shuffle(newQuestionList);
@@ -77,11 +99,17 @@
 
 
         // autoDetectQuestion
-        option1Match = ["(A)", "(a)", "A)", "a)", "A.", "a.", "A -", "a -", "1.", "১.", "(ক)"];
-        option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2.", "২.", "(খ)"];
-        option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3.", "৩.", "(গ)"];
-        option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4.", "৪.", "(ঘ)"];
-        optionAnsMatch = ["answer: option", "answer", "ans key", "option", "ans"];
+        //option1Match = ["(A)", "(a)", "A)", "a)", "A.", "a.", "A -", "a -", "1.", "১.", "(ক)"];
+        //option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2.", "২.", "(খ)"];
+        //option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3.", "৩.", "(গ)"];
+        //option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4.", "৪.", "(ঘ)"];
+        //optionAnsMatch = ["answer: option", "answer", "ans key", "option", "ans"];
+
+        var option1Match = ["(A)", "(a)", "A)", "a)", "A.", "a.", "A -", "a -", "1.", "1)", "(1)", "১.", "(ক)"];
+        var option2Match = ["(B)", "(b)", "B)", "b)", "B.", "b.", "B -", "b -", "2.", "2)", "(2)", "২.", "(খ)"];
+        var option3Match = ["(C)", "(c)", "C)", "c)", "C.", "c.", "C -", "c -", "3.", "3)", "(3)", "৩.", "(গ)"];
+        var option4Match = ["(D)", "(d)", "D)", "d)", "D.", "d.", "D -", "d -", "4.", "4)", "(4)", "৪.", "(ঘ)"];
+        var optionAnsMatch = ["answer: option", "answer", "ans key", "option", "ans"];
 
         // on change
         $("#autoDetectQuestion").change(function () { setQuestion(); });

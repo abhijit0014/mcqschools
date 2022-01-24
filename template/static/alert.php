@@ -18,8 +18,8 @@
 <div class="mb-2 container">
     <div class="row p-2 pt-3 pb-3 bg-white border rounded shadow-sm">
         <div class="col-12 col-md-4">
-            <span class="h5 text-success"><?php echo $today[0]['title'] ?></span>
-            <div class="small mt-2 mb-1"><?php echo date("l, d F Y", strtotime($current_date)); ?></div>
+            <span class="h5 mb-0 text-success"><?php echo $today[0]['title'] ?></span>
+            <div class="small mt-0 mb-2"><?php echo date("l, d F Y", strtotime($current_date)); ?></div>
         </div>
         <div class="col-12 col-md-8">
             <!--

@@ -77,6 +77,7 @@
                     if($min_diff > -10){
                         $exam->published = true;
                         $exam->created_date = date('Y-m-d H:i:s');
+                        $exam->number_of_question = $this->questionRepository->questionCountByExamId($exam->id);
                         R::store( $exam );
                     }
                 }

@@ -3,18 +3,21 @@
     include 'repository/examRepository.php';
     include 'repository/examUserRepository.php';
     include 'repository/categoryRepository.php';
+    include 'repository/questionRepository.php';
 
     class QuizController
     {
         private $categoryRepository; 
         private $examRepository;
-        private $examUserRepository;       
+        private $examUserRepository;
+        private $questionRepository;       
 
         function __construct()
         {
             $this->categoryRepository = new CategoryRepository();
             $this->examRepository = new ExamRepository();
             $this->examUserRepository = new ExamUserRepository();
+            $this->questionRepository = new QuestionRepository();
         }
 
         public function live($param)
@@ -42,6 +45,7 @@
                     if($min_diff > -10){
                         $exam->published = true;
                         $exam->created_date = date('Y-m-d H:i:s');
+                        $exam->number_of_question = $this->questionRepository->questionCountByExamId($exam->id);
                         R::store( $exam );
                     }
                 }
