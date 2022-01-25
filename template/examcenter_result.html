@@ -52,6 +52,7 @@
         </div>
 
 
+        <!-- score card -->
         <div class="mt-4">
             <div class="row g-2">
 
@@ -262,13 +263,21 @@
         </div>
 
     </div>
-    <div class="container mt-4 <?php echo $result_publish_flag? 'd-none':''?> text-center">
-        <div class="mb-3">
+
+
+    <!--- Thank you for exam submit -->
+    <div class="container mb-5 <?php echo $result_publish_flag? 'd-none':''?> text-center">
+        <div class="pt-5 mt-5 mb-1">
             <img src="/template/icon/publish.svg" alt="publish" width="60px">
         </div>
-        <div class="h6">Thank You, Your response has been submitted. </div>
-        <div class="h6">Result will be published at </div>
-        <div class="h6"><?php echo date_format(date_create($exam->end_time),"d F Y, h:i A"); ?></div>
+        <div class="h4">Congratulations!</div>
+        <div class="h6">You submitted the test</div>
+        <div class="h6 mt-4">Result will be published at</div>
+        <div class="h6"><?php echo date_format(date_create($exam->end_time),"d F Y - h:i A"); ?></div>
+        <div class="pt-5 pb-5">
+            <a href="/"><button class="btn btn-primary">Back to home</button></a>
+        </div>
+        <div class="pt-5 pb-5"></div>
     </div>
 
 
