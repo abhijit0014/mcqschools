@@ -88,7 +88,12 @@
 
         public function registration_process()
         {
-            if(isset($_POST)){
+            if(isset($_POST))
+            {
+                if(empty($_POST['email']) || empty($_POST['pass'])){
+                    header("Location: /user/register/error"); exit;
+                }
+
                 $result = $this->repository->register($_POST);
                 if($result){
                     header("Location: /user/login"); exit;
