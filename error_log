@@ -1,0 +1,13 @@
+[22-May-2022 12:45:07 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/j3oczexe1lte/public_html/controller/category_controller.php on line 106
+[22-May-2022 12:45:07 Asia/Kolkata] PHP Notice:  Undefined offset: 0 in /home/j3oczexe1lte/public_html/controller/category_controller.php on line 108
+[14-Aug-2022 10:46:19 Asia/Kolkata] PHP Notice:  Undefined index: type in /home/j3oczexe1lte/public_html/repository/reportRepository.php on line 54
+[26-Aug-2022 08:23:13 Asia/Kolkata] PHP Fatal error:  Uncaught [42000] - SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') 
+            AND exam.published = true and exam.enabled = true 
+            OR' at line 4
+trace: #0 /home/j3oczexe1lte/public_html/rb-mysql.php(1171): RedBeanPHP\Driver\RPDO->runQuery('select exam.id,...', Array)
+#1 /home/j3oczexe1lte/public_html/rb-mysql.php(4296): RedBeanPHP\Driver\RPDO->GetAll('select exam.id,...', Array)
+#2 /home/j3oczexe1lte/public_html/rb-mysql.php(11915): RedBeanPHP\Adapter\DBAdapter->get('select exam.id,...', Array)
+#3 /home/j3oczexe1lte/public_html/rb-mysql.php(12963): RedBeanPHP\Facade::query('get', 'select exam.id,...', Array)
+#4 /home/j3oczexe1lte/public_html/repository/examRepository.php(152): RedBeanPHP\Facade::getAll('select exam.id,...')
+#5 /home/j3oczexe1lte/public_html/controller/category_controller.php(134): ExamRepository->examListByCategoryId(1, 10, '')
+#6 /home/j in /home/j3oczexe1lte/public_html/rb-mysql.php on line 834
