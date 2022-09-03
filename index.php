@@ -14,8 +14,7 @@
 
 
     // set database
-    //R::setup( 'mysql:host=localhost; dbname=mcqschoolsdb', 'mcqschoolsdbuser', 'kmp#2323@DB' );
-    R::setup( 'mysql:host=localhost:3306; dbname=projectdb', 'root', 'master' );
+    R::setup( 'mysql:host='.$GLOBALS['G_DB_HOST'].'; dbname='.$GLOBALS['G_DB_NAME'], $GLOBALS['G_DB_USER'], $GLOBALS['G_DB_PASS'] );
     R::useFeatureSet( 'novice/latest' );
     R::ext('xdispense', function($type){
         return R::getRedBean()->dispense($type);
