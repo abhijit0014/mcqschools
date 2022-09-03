@@ -47,6 +47,42 @@
                         <input id="confirmPassword" name="confirmPassword" type="password" class="form-control"
                             placeholder="Password" required>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">District</label>
+                        <select name="address" class="form-control" required>
+                            <option value="">Select district</option>
+                            <option value="Alipurduar">Alipurduar</option>
+                            <option value="Bankura">Bankura</option>
+                            <option value="Bishnupur">Bishnupur</option>
+                            <option value="Berhampore">Berhampore</option>
+                            <option value="Birbhum">Birbhum</option>
+                            <option value="Cooch Behar">Cooch Behar</option>
+                            <option value="Dakshin Dinajpur">Dakshin Dinajpur</option>
+                            <option value="Darjeeling">Darjeeling</option>
+                            <option value="Hooghly">Hooghly</option>
+                            <option value="Howrah">Howrah</option>
+                            <option value="Ichamati">Ichamati</option>
+                            <option value="Jalpaiguri">Jalpaiguri</option>
+                            <option value="Jangipur">Jangipur</option>
+                            <option value="Jhargram">Jhargram</option>
+                            <option value="Kalimpong">Kalimpong</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Malda">Malda</option>
+                            <option value="Murshidabad">Murshidabad</option>
+                            <option value="Nadia">Nadia</option>
+                            <option value="North 24 Parganas">North 24 Parganas</option>
+                            <option value="Paschim Bardhaman">Paschim Bardhaman</option>
+                            <option value="Paschim Medinipur">Paschim Medinipur</option>
+                            <option value="Purba Bardhaman">Purba Bardhaman</option>
+                            <option value="Purba Medinipur">Purba Medinipur</option>
+                            <option value="Purulia">Purulia</option>
+                            <option value="Ranaghat">Ranaghat</option>
+                            <option value="South 24 Parganas">South 24 Parganas</option>
+                            <option value="Sundarban">Sundarban</option>
+                            <option value="Uttar Dinajpur">Uttar Dinajpur</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-block btn-primary">Submit</button>
                     </div>
@@ -71,6 +107,9 @@
                     email: {
                         required: true,
                     },
+                    address: {
+                        required: true,
+                    },
                     pass: {
                         required: true,
                         minlength: 5
@@ -82,6 +121,7 @@
                 },
                 messages: {
                     email: { required: "Enter your email" },
+                    address: { required: "Select your district" },
                     pass: { required: "Enter your password" },
                     confirmPassword: { required: "Confirm your password" }
                 }

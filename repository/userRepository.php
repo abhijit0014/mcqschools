@@ -53,6 +53,7 @@
                 // user_info table
                 $user_info = R::xdispense( 'users_info' );
                 $user_info->user_id = $id;
+                $user_info->location = $obj['address'];
                 R::store( $user_info );
                 return true;
             }
