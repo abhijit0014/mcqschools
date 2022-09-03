@@ -45,8 +45,9 @@
                                 <div class="col-1 col-lg-2"></div>
                                 <div class="col-2">Score</div>
                                 <div class="col-1">Test</div>
-                                <div class="col-2 overflow-hidden">Question</div>
-                                <div class="col-2 overflow-hidden text-nowrap">Correct Ans</div>
+                                <div class="col-1 overflow-hidden">Question</div>
+                                <div class="col-1 overflow-hidden text-nowrap">Correct Ans</div>
+                                <div class="col-2 overflow-hidden text-nowrap">Location</div>
                             </div>
                         </div>
         
@@ -76,14 +77,17 @@
                                 <div class="col-2 text-success">
                                     <?php echo !empty($result['obtained_marks']) ? $result['obtained_marks'] : 0; ?>
                                 </div>
-                                <div class="col-1">
+                                <div class="col-1 text-muted">
                                     <?php echo $result['test_count'] ?>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-1 text-muted">
                                     <?php echo $result['question_count'] ?>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-1">
                                     <?php echo $result['correct_ans_count'] ?>
+                                </div>
+                                <div class="col-2 small overflow-hidden"> 
+                                    <?php echo $result['location'] ?> 
                                 </div>
                             </div>
                         </div>
