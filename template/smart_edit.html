@@ -181,8 +181,12 @@
 
                     <!-- list edit -->
                     <div id="questionListInputWindow">
-                        <div class="small text-secondary mt-2 mb-3">
-                            Input Question List 
+                        <div class="d-flex small text-secondary mt-2 mb-3">
+                            <div class="flex-fill">Input Question List </div>
+                            <div class="">
+                                Question numbering separator 
+                                <input type="text" class="form-control" id="qNumberingSeparator">
+                            </div>
                         </div>
                         <div class="mb-2">
                             <textarea class="form-control" id="autoDetectQuestionList" rows="14"></textarea>
@@ -403,6 +407,10 @@
 
             questionTitle = questionTitle.trim()
             if(!questionTitle) return false;
+
+            // remove numbering
+            var qNumberingSeparator = $("#qNumberingSeparator").val();
+            questionTitle = questionTitle.substr(questionTitle.indexOf(qNumberingSeparator)+1, questionTitle.length); 
 
             // get option
             option1 = validateOption(text[i], "option1");

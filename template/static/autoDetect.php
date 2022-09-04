@@ -112,14 +112,25 @@
         var optionAnsMatch = ["answer: option", "answer", "ans key", "option", "ans"];
 
         // on change
-        $("#autoDetectQuestion").change(function () { setQuestion(); });
+        $("#autoDetectQuestion").change(function () { 
+
+            var qstText = '';
+            var qstArr = $("#autoDetectQuestion").val().split("\n");
+            qstArr = jQuery.grep(qstArr, function(value) {
+                return $.trim(value).length!=0;
+            });
+            for (i = 0; i < qstArr.length; i++) { qstText += qstArr[i] + '\n' ; }
+            $("#autoDetectQuestion").val(qstText);
+
+            setQuestion(); 
+        });
 
         // on reload
         qst = $("#autoDetectQuestion").val();
         if(qst.length>0) { setQuestion (); }
 
         function setQuestion () {
-            var text = $("#autoDetectQuestion").val().split("\n");
+            var text = $("#autoDetectQuestion").val().split("\n");            
             var questionText = '';
             var i = 0;
             for (i = 0; i < text.length; i++) {
