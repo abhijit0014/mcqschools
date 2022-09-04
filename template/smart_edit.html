@@ -288,12 +288,12 @@
 
         // slot update-----------------------------------------------------------------
         $('#question_per_slot').on("keyup",function(e) {
-            questionPerSlot = $(this).val();
+            questionPerSlot = parseInt($(this).val());
             if(totalQuestion){
                 slot = Math.floor(totalQuestion / questionPerSlot);
                 $("#slot").val(slot);
             }
-            console.log(totalQuestion+"---"+questionPerSlot+"---"+slot);
+            //console.log(totalQuestion+"---"+questionPerSlot+"---"+slot);
         });
 
         // ## QUESTION ##
@@ -552,6 +552,12 @@
             return false;
         }
 
+
+
+
+
+
+
         // ## exam and question add---------------------------------------------------------------
 
         // start submit process --------------------
@@ -563,11 +569,15 @@
             }else if(questionObjList.length<10){
                 alert("Please add questions"); return false;
             }else{
-                if(!finalSubmitFlag)
-                    addExamSlots();
-                else
+                if(!finalSubmitFlag){
+                    let text = "Slot : "+slot+"\nQuestionPerSlot : "+questionPerSlot+"\nTotal Q :"+totalQuestion;
+                    if (confirm(text) == true) {
+                        finalSubmitFlag = true;
+                        addExamSlots();
+                    } 
+                }else{
                     alert("Exam slots submitted");
-                finalSubmitFlag = true;
+                }
             }
         });
 
@@ -584,8 +594,10 @@
                     duration_mins: examDuration,
                 };
 
-                index = i * questionPerSlot;
-                qList = questionObjList.slice(index, index + questionPerSlot);
+                indexStart = i * questionPerSlot;
+                indexStop = indexStart + questionPerSlot;
+                qList = questionObjList.slice(indexStart, indexStop);
+
 
                 examSlot = {
                     exam: exam,
