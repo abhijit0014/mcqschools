@@ -85,7 +85,7 @@
                         header("Location: /"); exit;
                     }
 
-                    if( strpos( $_SERVER['HTTP_REFERER'], 'localhost' ) == false ){
+                    if( strpos( $_SERVER['HTTP_REFERER'], $GLOBALS['G_HOST'] ) == false ){
                         header("Location: /"); exit;
                     }
                 }

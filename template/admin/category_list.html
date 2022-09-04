@@ -20,62 +20,73 @@
     <div class="container">
         <div class="row mt-5">
 
-            <!-- NAV -->
-            <div class="col-12 col-md-12 m-auto pb-2 mb-2">
-                <div class="row ">
 
-                    <!-- TITLE -->
-                    <div class="col">
+
+
+            <!-- Parent Category List-->
+            <div class="col-3">
+                <!-- Title -->
+                <div class="d-flex bd-highlight">
+                    <div class="flex-fill bd-highlight">
                         <div class="h5">
                             <a class="text-decoration-none text-dark" href="/category/list">
                                 Categories
                             </a>
                         </div>
                     </div>
-
-                    <!-- Search -->
-                    <div class="col">
-
+                    <div class="text-end bd-highlight">
+                        <a href="/category/add" class="btn btn-sm btn-primary">Add Parent Category</a>
                     </div>
+                </div>
 
-                    <!-- Add Button -->
-                    <div class="col text-end ">
-                        <a href="/category/add" class="btn btn-sm btn-primary">Add Category</a>
-                    </div>
 
+                <div class="mt-1">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-light fw-bold">Title</li>
+                        <?php foreach ($parentCategoryList as $parentCat) { ?>
+                        <li class="list-group-item">
+                            <div class="d-flex bd-highlight">
+                                <div class="flex-fill bd-highlight">
+                                    <a href="/category/list/<?php echo $parentCat['id'] ?>"
+                                        class="text-decoration-none">
+                                        <?php echo $parentCat['title'] ?>
+                                    </a>
+                                </div>
+                                <div class="bd-highlight">
+                                    <a href="/category/edit/<?php echo $parentCat['id'] ?>"
+                                        class="text-decoration-none btn btn-secondary btn-sm">
+                                        <div>Edit</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <?php } ?>
+                    </ul>
                 </div>
             </div>
-
-
 
             <!-- Sub Category List-->
-            <div class="col-4">
-                <div class="mb-2">
-                    <form class=" my-2 my-lg-0" style="position: relative">
-                        <input id="categorySearchQuery" class="form-control mr-sm-2" type="search" value=""
-                            placeholder="Search" aria-label="Search">
-                        <ul class="list-group list-group-flush p-2 bg-white border border-primary shadow-sm rounded"
-                            id="autocompleteResult"
-                            style="position: absolute; top: 45px; bottom:auto; left:0px; right: auto; z-index: 100; width: 100%; display: none;">
-                        </ul>
-                    </form>
-                </div>
-                <div class="border rounded p-3">
-                    <div class="h5"><?php echo $category ? $category['title'] : ''; ?></div>
-                    <div class="small text-secondary">
-                        <?php echo $subCategorylist==null ? 0 : count($subCategorylist); ?> sub categories
+            <div class="col-9">
+                <!-- Title -->
+                <div class="d-flex bd-highlight mb-1">
+                    <div class="flex-fill bd-highlight">
+                        <div class="h5">
+                            <?php echo empty($category)? 'Select Parent Category' : $category['title'] ?>
+                        </div>
                     </div>
-                    <div class="mt-5">
-                        <a href="/category/edit/<?php echo $category['id'] ?>" class="text-decoration-none btn btn-sm btn-primary ps-3 pe-3">Edit</a>
-                        <a href="/category/add/<?php echo $category['id'] ?>" class="text-decoration-none btn btn-sm btn-light border ps-3 pe-3 float-end">Add Sub Category</a>
+                    <div class="text-end bd-highlight">
+                        <?php if( !empty($category) ) { ?>
+                        <a href="/category/add/<?php echo $category['id'] ?>" class="btn btn-sm btn-primary">Add Sub
+                            Category</a>
+                        <?php } ?>
                     </div>
                 </div>
-            </div>
-            <div class="col-8">
+
+                <!-- List -->
                 <table class="table table-bordered rounded">
                     <thead class="bg-light text-secondary">
                         <tr>
-                            <th scope="col">Sub Categories</th>
+                            <th scope="col">Title</th>
                             <th scope="col">Hit Count</th>
                             <th scope="col">Status</th>
                         </tr>
@@ -110,54 +121,6 @@
     </div>
 
 
-    <script>
-
-        $(document).ready(function () {
-            autocompleteList = [];
-            // auto complete
-            $("#categorySearchQuery").keyup(function () {
-                searchStr = $("#categorySearchQuery").val();
-                if (searchStr.length > 0)
-                    $.ajax({
-                        type: 'GET',
-                        //dataType: 'JSON',
-                        url: "/category/autocomplete/" + searchStr,
-                        success: function (result) {
-                            result = JSON.parse(result);
-                            $("#autocompleteResult").show();
-                            $("#autocompleteResult").empty();
-                            autocompleteList = result;
-                            $.each(result, function (key, obj) {
-                                $("#autocompleteResult").append('<li class="list-group-item grayHover"><a class="text-decoration-none text-dark d-block" href="/category/list/' + obj.id + '">' + obj.title + '</a></li>');
-                            });
-                        }
-                    });
-
-                if (searchStr.length < 1)
-                    $("#autocompleteResult").hide();
-            });
-
-            $("body").on("click", "ul#autocompleteResult li", function () {
-                catStr = $(this).text().trim();
-                $.each(autocompleteList, function (key, value) {
-                    if (catStr == value.title) {
-                        $("#categorySearchQuery").val(catStr);
-                        $("#categoryId").val(value.id);
-                    }
-                });
-            });
-
-            $("body").on("click", function () {
-                $("#autocompleteResult").hide();
-            })
-
-            /*
-            $('#delete').click(function () {
-                return confirm('Are you sure you want to delete');
-            });
-            */
-        });
-    </script>
 </body>
 
 </html>

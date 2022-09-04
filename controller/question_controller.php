@@ -23,6 +23,7 @@
         {
             $question = R::dispense( 'question' );
             $question->exam_id = $param[0];
+            $question->category_id = $param[1];
             $view = new view('question_edit');
             $view->assign('question',  $question);
             $view->assign('category', R::dispense( 'category' ));

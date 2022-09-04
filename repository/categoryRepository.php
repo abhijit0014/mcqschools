@@ -9,7 +9,7 @@
 
         public function save($obj)
         {
-            $category;
+            $category = null;
             if(empty($obj['id'])){
                 $category = $this->getByCategoryName($obj['title']);
                 if(empty($category)){
@@ -98,6 +98,10 @@
         public function getSubCategoryList($parent_id)
         {
             return R::getAll( " SELECT * FROM category where parent_id=".$parent_id );
+        }
+        public function getParentCategoryList()
+        {
+            return R::getAll( " SELECT * FROM category where parent_id is null or parent_id = 0 order by title" );
         }
     }
 

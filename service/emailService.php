@@ -18,7 +18,8 @@
             // To send HTML mail, the Content-type header must be set
             $headers[] = 'MIME-Version: 1.0';
             $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-            $headers[] = 'From: mcqschools <noreply@mcqschools.com>';
+            $headers[] = 'From: mcqschools <'.$GLOBALS['G_EMAIL_NOREPLY'].'>';
+            //$headers[] = 'From: mcqschools <noreply@mcqschools.com>';
             //$headers[] = 'From: mcqschools <info@mcqschools.com>';
         
             $result =  mail($to, $subject, $message, implode("\r\n", $headers));
@@ -41,7 +42,7 @@
             $message = str_replace("#option4", $question->option_four, $message);
             $message = str_replace("#ans", $question->ans, $message);
             if(!empty($question->question_img)){
-                $message = str_replace("#qImg", '<img src="https://mcqschools.com/'.$question->question_img.'" style="max-width: 300px;" alt="">', $message);
+                $message = str_replace("#qImg", '<img src="https://'.$GLOBALS['G_HOST'].'/'.$question->question_img.'" style="max-width: 300px;" alt="">', $message);
             }else{
                 $message = str_replace("#qImg", " ", $message );
             }
@@ -49,7 +50,8 @@
             // To send HTML mail, the Content-type header must be set
             $headers[] = 'MIME-Version: 1.0';
             $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-            $headers[] = 'From: mcqschools <noreply@mcqschools.com>';
+            $headers[] = 'From: mcqschools <'.$GLOBALS['G_EMAIL_NOREPLY'].'>';
+            //$headers[] = 'From: mcqschools <noreply@mcqschools.com>';
             //$headers[] = 'From: mcqschools <info@mcqschools.com>';
         
             $result =  mail($to, $subject, $message, implode("\r\n", $headers));

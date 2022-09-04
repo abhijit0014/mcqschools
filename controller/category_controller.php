@@ -45,7 +45,8 @@
         {
             if(isset($_POST)){
                 $this->repository->save($_POST);
-                header("Location: /category/list/".$_POST['parent_id']);
+                $parent_id = empty($_POST['parent_id']) ? '' : $_POST['parent_id'];
+                header("Location: /category/list/".$parent_id);
                 exit;
             }
         }
@@ -144,13 +145,13 @@
 
 
 
-
         //------------------------------------------------ ADMIN -------------------------------------------------
         // category list page for ADMIN
         public function list($param)
         {  
             $category = null;
             $subCategorylist =array();
+            $parentCategoryList = $this->repository->getParentCategoryList(); 
                    
             if(!empty($param[0]))
             {
@@ -161,6 +162,7 @@
             $view = new view('admin/category_list');
             $view->assign('category', $category);
             $view->assign('subCategorylist', $subCategorylist);
+            $view->assign('parentCategoryList', $parentCategoryList);
             return;
         }
 
