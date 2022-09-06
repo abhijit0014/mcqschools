@@ -46,10 +46,47 @@
 
         <div class="row mt-4 mb-3">
 
+            <!-- Status -->
+            
+            <div class="col-12 col-md-9">
+                <div class="pe-3 ps-3 mb-3">
+                    <div class="pb-3 h5">
+                        Activity
+                    </div>
+                <div class="row gx-2 text-center mb-5">
+                    <div class="col">
+                        <div class="bg-light rounded card">
+                            <div class="fw-bold card-body"><?php echo $user_status["obtained_marks"] ?></div>
+                            <div class="small card-footer">Score</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="bg-light rounded card">
+                            <div class="fw-bold card-body"><?php echo $user_status["test_count"] ?></div>
+                            <div class="small card-footer">Test</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="bg-light rounded card">
+                            <div class="fw-bold card-body"><?php echo $user_status["correct_ans_count"] ?></div>
+                            <div class="small card-footer text-nowrap">Correct ans</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="bg-light rounded card">
+                            <div class="fw-bold card-body"><?php echo $user_status["question_count"] ?></div>
+                            <div class="small card-footer">Question</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
             <!-- Edit Profile -->
             <div class="col-12 col-md-9">
                 <div class="pe-3 ps-3 mb-3">
-                    <div class="border-bottom pb-3 h5">
+                    <div class=" pb-3 h5">
                         Public profile
                     </div>
                     <form action="/user/update_profile" method="post">

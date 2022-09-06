@@ -132,6 +132,21 @@
             return false;
         }
 
+
+        // user status ---------------------------------------------------
+        public function status($userId)
+        {
+            $status = R::getRow("SELECT username, exam_user.user_id, location, count(exam_id) as test_count, 
+            sum(correct_answered) as correct_ans_count, 
+            sum(correct_answered+wrong_answered) as question_count,
+            round(sum(obtained_marks)) as obtained_marks
+            FROM exam_user  
+            left join users on users.id = exam_user.user_id 
+            left join users_info on users.id = users_info.user_id 
+            WHERE exam_user.user_id = :userId", array(':userId'=>$userId) );
+            return $status;
+        } 
+
     }
 
 ?>

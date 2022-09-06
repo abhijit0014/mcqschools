@@ -111,8 +111,10 @@
         {
             $user_id = SessionManager::get("user_id");
             $user_info =  $this->repository->getProfileById($user_id);
+            $user_status =  $this->repository->status($user_id);
             $view = new view('user_edit_profile');
             $view->assign('user', $user_info);
+            $view->assign('user_status', $user_status);
             return;
         }
 
