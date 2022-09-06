@@ -195,6 +195,15 @@
             R::trash( 'exam', $exam_id );
         }
 
+        // list By Subscription --------------------------------------------------
+        public function getOnlineExam()
+        {
+            $list = R::getAll("SELECT * FROM exam 
+            WHERE end_time >= ( CURDATE() - INTERVAL 3 DAY ) 
+            and start_time is not null");
+            return $list;
+        }
+
     }
 
 ?>

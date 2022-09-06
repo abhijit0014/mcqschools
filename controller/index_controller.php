@@ -5,25 +5,20 @@
     include 'repository/historyRepository.php';
     include 'repository/examUserRepository.php';
     include 'repository/webstatusRepository.php';
-    include 'repository/propertyRepository.php';
 
     class IndexController
     {
-        private $repository;
         private $examRepository;
         private $historyRepository;
         private $examUserRepository;
         private $webstatusRepository;
-        private $propertyRepository;
 
         function __construct()
         {
-            $this->repository = new QuestionRepository();
             $this->historyRepository = new HistoryRepository();
             $this->examUserRepository = new ExamUserRepository();
             $this->webstatusRepository = new WebStatusRepository();
             $this->examRepository = new ExamRepository();
-            $this->propertyRepository = new PropertyRepository();
         }
 
         public function index()
@@ -33,18 +28,16 @@
             $status = $this->webstatusRepository->get_status();
             $liveQuiz =  $this->examRepository->getLiveQuiz();
             $suggestedExams =  $this->examRepository->listOfSuggestedExams();
-            $property = $this->propertyRepository->get();
-            $liveExam = $this->examRepository->getOne($property->live_exam_id);
+            $liveExamList = $this->examRepository->getOnlineExam();
 
             $view = new view('index_new');
             $view->assign('today', $day);
             $view->assign('current_date', date('Y-m-d H:i:s'));
             $view->assign('rankList', $rankList);
             $view->assign('status', $status);
-            $view->assign('liveExam', $liveExam);
+            $view->assign('liveExamList', $liveExamList);
             $view->assign('liveQuiz', $liveQuiz);
             $view->assign('suggestedExams', $suggestedExams);
-            $view->assign('property', $property);
             return;
         }
 

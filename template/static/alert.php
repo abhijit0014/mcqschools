@@ -1,18 +1,3 @@
-<!-- WBP Result -->
-<div class="mb-3 d-none">
-        <div class="d-flex alert alert-warning shadow-sm border border-warning ">  
-            <div class="flex-fill">
-                <div class="h5">WBP 2021 - Solved Paper</div>    
-            </div>
-            <div class="">
-                <a href="/downloads/WBP-ANSWER-KEY-2021.pdf" class="d-grid text-decoration-none">
-                    <button class="btn btn-sm btn-primary">Download</button>
-                </a>
-            </div>
-        </div>
-</div>
-
-
 <!-- Important Day -->
 <?php if(!empty($today)) { ?>
 <div class="mb-2 container">
@@ -35,7 +20,8 @@
 
 
 <!-- live quiz -->
-<?php if( $liveQuiz) { {
+<?php if( false ) {
+    //if( $liveQuiz) { 
     // active live time
     //if(date_create($liveQuiz['start_time']) < date_create() && date_create($liveQuiz['end_time']) > date_create()) { 
 ?>
@@ -56,13 +42,14 @@
     </div>
 
 <?php 
-    }
 } 
 ?>
 
 
 <!-- upcoming live exam -->
-<?php if( $property->live_exam_id ) { ?>
+<?php 
+if($liveExamList)
+foreach ($liveExamList as $liveExam) { ?>
 <div class="mb-3">
         <div class="d-flex alert alert-info border border-info ">  
             <div class="flex-fill">
@@ -80,11 +67,11 @@
                             <?php echo date_format(date_create($liveExam['end_time']),"h:i A"); ?>
                     </span> 
                 </div>
-
-                <a href="/examcenter/live" class="text-decoration-none d-block mt-3">
+                
+                <a href="/examcenter/live/<?php echo $liveExam['id'] ?>" class="text-decoration-none d-block mt-3">
                     <div class="d-grid d-block d-md-inline">
                         <button class="btn ps-3 pe-3 fw-bold <?php echo date_create($liveExam['end_time']) > date_create()? 'btn-primary': 'btn-success' ?>">
-                            <?php echo date_create($liveExam['end_time']) > date_create()? 'Attempt exam': 'Check exam result' ?>
+                            <?php echo date_create($liveExam['end_time']) > date_create()? 'Attempt exam': 'Check exam result'; ?>
                         </button>
                     </div>
                 </a>
