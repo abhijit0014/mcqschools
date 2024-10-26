@@ -10,8 +10,8 @@ $G_DB_PASS = "master";
 /*
 $G_DB_HOST = "localhost";
 $G_DB_NAME = "mcqschoolsdb";
-$G_DB_USER = "mcqschoolsdbuser";
-$G_DB_PASS = "kmp#2323@DB";
+$G_DB_USER = "****";
+$G_DB_PASS = "****";
 */
 
 
